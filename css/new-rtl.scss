@@ -1,0 +1,24 @@
+
+
+@import './scss/main-ar.scss';
+@font-face {
+    font-family: Gilroy;
+    src: url(../fonts/Gilroy.woff);
+  }
+  @font-face {
+    font-family: Gilroy-bold;
+    src: url(../fonts/Gilroy-ExtraBold.woff);
+  }
+  @font-face {
+    font-family: SFProText;
+    src: url(../fonts/SF-Pro-Text-Medium.woff);
+  }
+
+  *{
+      // font-family: Gilroy;
+      direction: $direction;
+  }
+
+// a{
+//   font-family: SFProText !important;
+// }

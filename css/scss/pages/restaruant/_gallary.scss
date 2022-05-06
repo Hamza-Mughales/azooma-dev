@@ -1,0 +1,274 @@
+//Restaurant Images Gallary
+.restaruant-images-gallary{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .big-trans-btn{
+        width: 100%;
+    }
+    .column{
+        flex: calc(100% / 3);
+        max-width:  calc(100% / 3);
+        @include x-small{
+            flex: calc(100% / 2);
+            max-width:  calc(100% / 2);
+        }
+        .image-block{
+            margin: 5px;
+            display: block;
+        }
+    }
+    li{
+     width: calc(100%/3);
+     padding: 10px;
+     @include x-small{
+         width: 50%;
+     }
+     
+     
+    }
+   
+    .gallary-image-box{
+        margin:5px;
+    }
+ }
+ .gallary-image-box{
+    border: 1px solid #eee;
+    // box-shadow: 0px 0px 4px 1px #eee;
+    border-radius: $button_border-radius;
+    margin-bottom: 2rem;
+    width: calc(98% / 3);
+    height: 100%;
+
+    @include x-small {
+        width: 50%;
+    }
+
+    .box-head {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        
+        .head-logo {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            img {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                border: 1px solid $mainColor
+            }
+        }
+
+        .head-title {
+            margin-#{$start-direction}: 10px;
+            font-family: $main-font;
+            font-weight: 600;
+            color: $text-color;
+            width: 55%;
+
+
+            a {
+                display: block;
+                font-weight: 600;
+                font-family: $main-font;
+                color: #000;
+            }
+        }
+
+        .head-date {
+          
+            a {
+                color: #6d6d6d;
+                font-size: 12px;
+            }
+        }
+
+    }
+
+    .box-content {
+        padding: 1rem 0;
+        overflow: hidden;
+        position: relative;
+        .review{
+            padding: 1rem;
+            background: #fbfbfb;
+            border-radius: $button_border-radius;
+            min-height: 40%;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        a {
+            display: block;
+        }
+
+        img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .menu-item {
+            border: 1px solid #eee;
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 20px;
+            text-align: center;
+            color: $mainColor;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 18px;
+            color: $text-color;
+            margin-bottom: 10px;
+
+        }
+    }
+
+    .d-flex {
+        justify-content: center;
+    }
+
+    .box-footer {
+        border-top: 1px solid #eee;
+        padding: 1rem;
+
+        .heart-btn {
+            i {
+                margin-#{$end-direction}: 5px;
+            }
+        }
+
+        .liked {
+            color: $mainColor;
+
+            i {
+                color: $mainColor;
+            }
+        }
+
+        .big-trans-btn {
+            width: auto;
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 14px;
+            margin: 0 0 0 auto;
+            float: #{$end-direction};
+            margin-bottom: 10px;
+        }
+
+        .total-likes {
+            color: $text-color;
+            font-size: 12px;
+
+            .red {
+                color: $mainColor;
+            }
+        }
+    }
+ }
+
+ .modal{
+     .modal-dialog{
+         @include x-small{
+             width: 100% !important;
+         }
+     }
+    img{
+      height: 350px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .heart-btn{
+      position: absolute;
+      right: 9%;
+      top: 24%;
+      background-color: transparent;
+      color: #fff;
+      background:$mainColor;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 5px 1rem;
+        border:none;
+  }
+  .bransh-info{
+      display: block;
+      align-items: center;
+      .phone{
+          display: block;
+      }
+      strong{
+        font-family: $main-font;
+        color:$mainColor;
+        @include trans;
+      }
+      .bransh{
+        border: 1px solid #eeee;
+        padding: 1rem;
+        border-radius: $button_border-radius;
+        margin-bottom: 1rem;
+        @include trans;
+        &:hover{
+            background-color: $mainColor;
+            color:#fff;
+            @include trans;
+            strong{
+                color:#fff;
+                @include trans;
+            }
+        }
+      }
+  }
+  .map{
+      height:400px;
+      width: 100%;
+      border-radius: $button_border-radius;
+      margin:2rem 0;
+      border:2px solid #000;
+  }
+    .modal-start-gallary{
+        .owner-avatar{
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+          padding-bottom: 5px;
+          border-bottom: 1px solid #eeee;
+          a{
+              color: #414A56;
+              text-decoration: none;
+              @include trans;
+              &:hover{
+                  color: $mainColor;
+                  @include trans;
+              }
+          }
+          time{
+              font-size: 12px;
+              color: #414A56;
+          }
+          img{
+              height: 60px;
+              width: 60px;
+              object-fit: cover;
+              border-radius: 50%;
+          }
+
+        }
+        
+    }
+}

@@ -1,0 +1,187 @@
+/*
+  ----------------------
+ | Login Style File
+ | Built By Adham Mahmoud.
+ | Portfolio : https://adhamz.me 
+  ----------------------
+ */
+.modal.show{
+    -webkit-animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+#connect-google-btn{
+svg{
+    height: 20px;
+    margin-#{$end-direction}:10px;
+}
+}
+.login-model{
+    .hide{
+        display: none !important;
+    }
+    .show{
+        display: block;
+    }
+    .iti{
+        width: 100%;
+        .form-control{
+            padding: 15px 4rem !important;
+        }
+    }
+    .alert{
+        margin-bottom: 0 !important;
+    }
+}
+ .modal{
+    -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+     .modal-body{
+        padding: 1rem 2rem; 
+     }
+
+     .head{
+          text-align: $start-direction;
+         margin-bottom:1rem;
+         display: block;
+         h2{
+            font-family: $main-font;
+            color:$text-bold-color;
+            font-size: 28px;
+         }
+     }
+     form{
+         margin:1rem 0;
+         .form-check-input:checked{
+            background-color:$mainColor;
+            border-color:$mainColor;
+            outline: none;
+            box-shadow: none;
+         }
+         .form-group{
+             margin: 1rem 0;
+             color:$text-bold-color;
+             .form-control{
+                border-radius: 20px;
+                padding: 10px 1rem;
+                outline: none;
+                box-shadow: none;
+             }
+             &:last-of-type{
+                 margin:2rem 0;
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: center;
+             }
+         }
+         .big-main-btn{
+             width:150px;
+             padding: 12px;
+             margin: 0;
+         }
+     }
+     .image-placeholder{
+         margin-bottom:2rem;
+         img{
+             height: 100px;
+            object-fit: cover;
+            width: auto;
+         }
+     }
+     .form-hr-or{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        span{
+            background-color: #fff;
+            display: block;
+            width: auto;
+            padding: 0 1rem;
+        }
+        &::before{
+            content:"";
+            height: 2px;
+            width: 50%;
+            background-color: #eee;
+        }
+        &::after{
+           content:"";
+           height: 2px;
+           width: 50%;
+           background-color: #eee;
+       }
+    }
+     .form-login-options{
+         display: block;
+         text-align: center;
+        //  button{
+        //      display: block;
+        //      margin: 1rem auto;
+        //      color:#fff;
+        //      text-decoration: none;
+        //      border: 1px solid #DB4437;
+        //      background-color: #DB4437;
+        //      @include trans;
+        //      i{
+        //          color: #fff;
+        //      }
+        //      &:hover{
+        //          background-color: transparent;
+        //          color: #000 !important;
+        //          border: 1px solid #cccccc;
+        //          @include trans;
+        //      }
+        //      &:hover i {
+        //         color: #4285F4;
+        //         @include trans;
+        //      }
+        //  }
+         a{
+            display: block;
+            margin: 1rem auto;
+            color: #000;
+            text-decoration: none;
+         }
+         a:last-of-type{
+             color:#000;
+             @include trans;
+             &:hover{
+                 color:$mainColor;
+                 @include trans;
+             }
+         }
+         .big-trans-btn{
+             width: 100%;
+             &:hover{
+                 color:#fff;
+                 @include trans;
+             }
+         }
+     }
+ }
+
+//  Claim Modal
+#claim-pop{
+    .big-main-btn{
+        width:100%;
+        padding: 15px;
+        margin: 0;
+    }
+    h4{
+        color:#4e5762;
+    }
+    p{
+        border-bottom: 1px solid #eeee;
+        padding-bottom: 1rem;
+        color: #757575;
+        font-size: 14px;
+    }
+}   
+
+ @media (min-width: 576px){
+     #claim-pop{
+        .modal-dialog {
+            width: 100%;
+            max-width: 1000px;
+        }
+     }
+}

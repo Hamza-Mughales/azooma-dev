@@ -1,0 +1,107 @@
+body{
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+}
+
+.row{
+     text-align: right !important;
+}
+.left {
+    float:right !important;
+}
+.right-float,.pull-right {
+    float: left !important;
+}
+
+.icon-chevron-left{
+    float: left !important;
+    opacity: .3;
+}
+.row-fluid [class*="span"]{
+    margin-left: 0px !important;
+    margin-right: 2.564102564102564% !important;
+} 
+.row-fluid [class*="span"]:first-child{
+    margin-left: 0px !important;
+    margin-right: 0 !important;
+}
+.table th, .table td{
+border-right:  1px solid #DDD  !important;
+border-left: 0px !important;
+}
+.breadcrumb{
+    float: right;
+}
+.form-horizontal .control-label{
+    float: right !important;
+}
+.restaurant-form .controls{
+    margin-left:0px;
+    margin-right: 80px;
+    float: right;
+}
+.restaurant-form .control-label{
+    text-align: right;
+}
+
+.table th, .table td {
+text-align: right;
+}
+
+.sufrati-close {
+    float: left !important;
+    margin-right: 20px;
+}
+
+.sufrati-close {
+    float: left !important;
+    margin-right: 20px;
+}
+
+.dropdown-menu{
+   margin: 2px 0px 0 !important;
+}
+
+ul.threeslides li a{
+    padding-left: 0px !important;
+    padding-right: 10px !important;
+    
+}
+
+.accordion{
+    text-align: right !important;
+}
+
+#top-banner-rest{
+    margin-left: 0px;
+    margin-right:  70px;
+ 
+}
+.success-header{
+    text-align: right;
+ 
+}
+
+.input-spacer input{
+    margin-right: 0px;
+    margin-left: 10px;
+}
+
+.auto-width{
+    margin-right: 0px;
+    margin-left: 10px;
+}
+
+.customer{
+    float: right;
+    margin-right: 11px;
+    margin-left: 0px;
+}
+
+.right-padding{
+    padding-left: 10px;
+    padding-right: 0px;
+}
+
+.nav-list>li>a, .nav-list .nav-header{
+    font-size: 19px;
+}

@@ -1,0 +1,36 @@
+{
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "require": {
+        "laravel/framework": "4.0.*",
+        "barryvdh/laravel-debugbar": "1.*",
+        "scalia/sphinxsearch": "dev-master",
+        "artdarek/oauth-4-laravel": "dev-master",
+        "facebook/php-sdk": "dev-master",
+        "sybio/image-workshop": "dev-master",
+        "kenmoini/akismet": "dev-master",
+        "phpoffice/phpexcel": "dev-master",
+        "jenssegers/agent":"dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "app/commands",
+            "app/controllers",
+            "app/controllers/Hungryn137",
+            "app/models",
+            "app/database/migrations",
+            "app/database/seeds",
+            "app/tests/TestCase.php",
+            "app/helpers",
+            "Yajra/DataTables"
+        ],
+        "files": ["app/helpers/Tools.php"]
+
+    },
+
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable"
+}

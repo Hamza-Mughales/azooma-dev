@@ -1,0 +1,108 @@
+/*
+  ----------------------
+ | Categories Style File
+ | Built By Adham Mahmoud.
+ | Portfolio : https://adhamz.me 
+  ----------------------
+ */
+ .categories-list{
+    padding:2rem 0;
+     h2{
+         font-family: $main-font;
+         color:$text-color;
+        //  margin-bottom: 1.5rem;
+     }
+     .big-main-btn{
+        width: 200px;
+        margin: 10px auto;
+        display: block;
+     }
+     .cat-list{
+         display: flex;
+         justify-content: space-between;
+         flex-wrap: wrap;
+         list-style: none;
+         overflow: hidden;
+         &::after {
+            content: "";
+            flex: auto;
+          }
+         li{
+             width: 18%;
+             margin-bottom: 1.2rem;
+             @include x-small{
+                width: 45%;
+            }
+             &:last-of-type{
+                 margin-#{$start-direction}:2%;
+             }
+             img{
+                 height: 180px;
+                 object-fit: cover;
+                 margin-bottom: 10px;
+                 border-radius: $button_border-radius;
+                 width: 100%;
+                 display: block;
+             }
+             .title{
+                 font-weight: bold;
+                
+             }
+             .total{
+                 color:$text-color
+             }
+         }
+     }
+     .accordion{
+         margin-bottom: 1.5rem;
+        .accordion-button{
+            background-color: transparent;
+            border:none;
+            outline: none;
+            padding-left: 0;
+            box-shadow: 0px 0px 10px 2px #a9a9a91f;
+            padding: 10px 1rem;
+            border-radius: $button_border-radius;
+            &:focus{
+                box-shadow: 0px 0px 10px 2px #a9a9a91f;
+                padding: 10px 1rem;
+                border-radius: $button_border-radius;
+                outline: none;
+            }
+            a{
+                position: absolute;
+                right: 4rem;
+                background-color: $mainColor;
+                border-radius: 20px;
+                color: #fff;
+                margin: 0;
+                padding: 5px 10px;
+                font-size: 14px;
+                border:1px solid $mainColor;
+            }
+        }
+        .accordion-collapse{
+            border:none;
+            .accordion-body{
+                padding-left: 0;
+            }
+        }
+        }
+ }
+ .list-cuisine{
+     .list-head{
+         display: flex;
+         justify-content: space-between;
+         border-bottom: 1px solid #d2d2d2;
+         padding-bottom: 5px;
+         margin-bottom: 2rem;
+         .title{
+            font-family: $main-font;
+            font-size:30px;
+            color:#000;
+         }
+         a{
+             color:$mainColor;
+         }
+     }
+ }

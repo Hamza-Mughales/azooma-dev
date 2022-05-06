@@ -1,0 +1,24 @@
+<?php
+if($totalactivities>0){	
+	if(count($useractivities)>0){
+		for($i=0;$i<count($useractivities);$i++){
+			$useractivity=$useractivities[$i];
+			$tdata=array(
+				'user'=>$user,
+				'username'=>$username,
+				'userimage'=>$userimage,
+				'useractivity'=>$useractivity,
+				'news'=>$useractivities,
+				'i'=>$i
+			);
+			?>
+			@include('user.helpers._useractivity',$tdata)
+			<?php
+			if(Session::has('newi')){
+				$i=Session::get('newi');
+				Session::forget('newi');
+			}
+		}
+	}
+}
+?>

@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
+*{
+    font-family: 'Cairo', sans-serif;
+}
+@import './dir_ar';
+@import './_vars';
+@import './_mixins';
+@import './_comp';
+@import './animate';
+@import './rtl.scss';
+a{
+    color:#000;
+    text-decoration: none;
+    @include trans;
+    &:hover{
+        color:$mainColor;
+        @include trans;
+    }
+}
+@import './tabs';
+@import './pages/header';
+@import './pages/modal';
+@import './pages/footer';
+@import './pages/coming';
+@import './pages/home';
+@import './pages/city';
+@import './pages/list-res';
+@import './pages/restaurantProfile';
+@import './pages/restaruant/gallary';
+@import './pages/restaruant/menu';
+@import './pages/login';
+@import './pages/register';
+@import './pages/categories';
+@import './pages/user/settings';
+@import './pages/user/profile';
+@import './pages/search';
+@import './pages/contact';
+@import './pages/pages';
+ul{
+    padding: 0;
+    margin: 0;
+}
+// @include x-small{
+//     .row>* {
+//         width: auto;
+//     }
+// }
+button{
+    outline: none;
+    box-shadow: none;
+}

@@ -1,0 +1,105 @@
+/*
+  ----------------------
+ | Azooma Tabs Style File
+ | Built By Adham Mahmoud.
+ | Portfolio : https://adhamz.me 
+  ----------------------
+ */
+.azooma-tabs-nav ul,.azooma-tabs-nav-static ul{
+    list-style: none;   
+    display: flex;
+    // justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 1rem;
+
+    li {
+        @include x-small{
+            padding: 10px 5px;
+        }
+        margin-#{$end-direction}:3rem;
+        a {
+            color: $text-color
+        }
+    }
+
+    .active {
+        a {
+            color: #000;
+            font-weight: bold;
+        }
+
+        position: relative;
+
+        &::after {
+            content: "";
+            height: 2px;
+            width: 100%;
+            position: absolute;
+            bottom: -17px;
+            @include x-small{
+                bottom: -5px;
+            }
+            left: 0;
+            background-color: $mainColor;
+        }
+    }
+}
+.azooma-tabs-nav-round ul{
+    list-style: none;   
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+
+    li {
+        background-color: transparent;
+        border:1px solid #eee;
+        border-radius: 50px;
+        padding: 5px 15px;
+        margin-#{$end-direction}:3rem;
+        a {
+            color: $text-color
+        }
+    }
+
+    .active {
+        background-color: $mainColor;
+        border:1px solid $mainColor;
+        a {
+            color: #fff;
+        }
+    }
+}
+ .azooma-tabs-dev {
+    .azooma-tab {
+        display: none !important;
+        padding:1rem 0;
+        .tab-head{
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            align-items: center;
+           h2{
+            font-family: $main-font;
+           }
+           a{
+               color: $mainColor;
+               @include trans;
+               &:hover{
+                   color: #000;
+                   @include trans;
+               }
+
+           }
+        }
+    }
+
+    .show {
+        display: initial !important;
+    }
+
+    .d-flex {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

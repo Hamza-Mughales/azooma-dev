@@ -1,0 +1,28 @@
+<?php
+return array(
+	'catering_para1'=>'Thank you for considering Azooma Occasions for your dining needs. Listed below are some policies you should be aware of before placing your order. Your menu, rentals, and wait staff should be placed at least two weeks prior to the event, and final head counts given one week prior to the event. If you have any questions, please do not hesitate to call. Please find attached the proposed options for your event dining requirements. I hope you find the options provided satisfactory, please select the appropriate one to suit your budget and needs.',
+	'catering_para2'=>'We will do our best to provide the best value and ensure the best service for you in any of the chosen options. Do not hesitate to contact us at any time with any questions you may have.',
+	'catering_note1'=>'* note additional SR3500 for sound system setup is required',
+	'title1'=>'Payment terms',
+	'pay_list1'=>'100% deposit 7 business days preceding the event.',
+	'pay_list2'=>'Cancellation 72hrs before event. Penalty 25% of total catering bill.',
+	'pay_list3'=>'Cancellations 24 hours before event. Penalty 50% of the total catering bill.',
+	'valued_customer'=>'Dear Valued Customer,',
+	'catering_para3'=>'Thank you for considering Azooma Occasions for your dining needs. Listed below are some policies you should be aware of before placing your order. Your menu, rentals, and wait staff should be placed at least two weeks prior to the event, and final headcounts given one week prior to the event. If you have any questions, please do not hesitate to call.',
+	'terms_conditions_of_service'=>'Terms & Conditions of the service',
+	'payments_by_bank_transfer'=>'All Payments made by bank transfer or cash.',
+	'for_event_budget_below'=>'For Budgets below SR 10,000.',
+	'below_list1'=>'100% deposit payment (5) BUSINESS DAYS preceding the event.',
+	'below_list2'=>'Cancellation 72hrs before event. Penalty 25% of total catering bill.',
+	'below_list3'=>'Cancellations 24 hours before event. Penalty 50% of the total catering bill.',
+	'below_list4'=>'And additional rental equipment ordered billed separately.',
+	'for_event_budget_above'=>'For budgets above SR 10,000',
+	'above_list1'=>'50% deposit payment within (5 business days) of receiving invoice and 50% (5) BUSINESS DAYS preceding the event.',
+	'above_list2'=>'Cancellation Penalty 5 business days before event 25% of total catering bill.',
+	'above_list3'=>'Cancellations 72hrs before event. Penalty 50% of total catering bill.',
+	'above_list4'=>'And additional rental equipment ordered billed separately.',
+	'title2'=>'Force majeure',
+	'force_para'=>'Azooma shall not be liable for the losses resulting from non fulfillment of any terms or provisions of this Contract, if Caterer shall be prevented or delayed from performing in whole or in part because unforeseen acts of god or by any other act or occurrence not within the control of Caterer, which it could not prevent. ',
+	'title3'=>'Liability',
+	'liability_para'=>'The Customer agrees to be responsible for any damage done to the function rooms or any other off-site premises at which the function may be held, by the Customer, his guests, invitees, employees, independent contractors, or other agents under the Customer’s control. Sufrati will not assume or accept any responsibility for damage to or loss of any merchandise or articles left in the venue prior to, during, or following the Customer’s function.'
+);

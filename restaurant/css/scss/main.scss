@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+a,p,h1,h2,h4,h5,span,button{
+    font-family: 'Montserrat', sans-serif;
+}
+@import './vars';
+@import './mixins';
+@import './comp';
+@import './bread';
+@import './grid';

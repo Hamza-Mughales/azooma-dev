@@ -1,0 +1,21 @@
+<?php
+return array(
+	'home-delivery'=>'Home Delivery Restaurants in :name',
+	'fine-dining'=>'Fine Dining Restaurants in :name',
+	'sheesha'=>'Sheesha spots and hookah in :name',
+	'catering'=>'Catering Services and restaurants in :name',
+	'menu'=>'Restaurant Menus in :name, e-menus and PDF menus in :name',
+	'landing_page'=>'Restaurant Directory &amp; Hotel Dining guide',
+	'hotels'=>'Hotels in :name',
+	'tell_us_about_you'=>'Tell Us About You',
+	'choose_favorite'=>'Choose your Favorites',
+	'lets_like'=>'Let\'s Like',
+	'lets_follow'=>'Let\'s Follow',
+	'blog'=>'Restaurant News &amp; Editorials',
+	'latest'=>'New and Latest Restaurants in :name.',
+	'popular'=>'Popular and famous restaurants of :name',
+	'recent'=>'Recently Reviewed Restaurants of :name',
+	'recommended'=>'Azooma recommended restaurants, Azooma favorite restaurants of :name',
+	'site_map_city'=>'List of all restaurants in Azooma :name',
+	'site_map_restaurants'=>'List of all restaurants starting with :alphabet in Azooma :name',
+);

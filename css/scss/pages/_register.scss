@@ -1,0 +1,573 @@
+/* 
+ | Register Style File
+ | Built By Adham Mahmoud.
+ | Portfolio : https://adhamz.me 
+ */
+
+#userdrobdown {
+    background: #fff;
+    color: $text-color;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0px 0px 2px 0px #eeee;
+    padding: 8px 15px;
+
+    i {
+        margin-#{$start-direction}: 5px;
+    }
+}
+
+.register-section {
+    padding: 4rem 0;
+
+    h2 {
+        font-family: $main-font;
+        color: $text-color;
+    }
+    .iti{
+        width: 100%;
+        .form-control{
+            padding: 15px 4rem !important;
+        }
+    }
+
+    .register-subtitle {
+        a {
+            color: $mainColor;
+
+            &:hover {
+                color: #000;
+            }
+        }
+
+    }
+
+    h2 {
+        @include x-small {
+            text-align: center;
+        }
+    }
+    .container{
+        text-align: center;
+        width: 30%;
+        margin: 0 auto;
+        box-shadow: 0px 0px 2px 0px #d2d2d2;
+        margin: 2rem auto;
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .register-subtitle {
+        margin: 10px 0;
+        display: block;
+
+        @include x-small {
+            text-align: center;
+        }
+    }
+
+    .register-form {
+        margin: 2rem auto;
+        // width: 70%;
+
+        @include x-small {
+            width: 100%;
+        }
+
+        .form-group {
+            margin: 1rem 0;
+            color: $text-color;
+
+            .form-control,
+            .form-select {
+                border-radius: $button_border-radius;
+                padding: 15px 1rem;
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        label {
+            color: $text-color;
+            padding: 0 10px;
+        }
+
+        .form-select {
+            margin: 0 5px;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+
+        .small {
+            text-align: center;
+            display: block;
+            padding-top: 1rem;
+        }
+
+        .big-main-btn {
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+
+            @include x-small {
+                float: initial;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+}
+.register-res-section {
+    padding: 2rem 0;
+
+    h2 {
+        font-family: $main-font;
+        color: $text-color;
+    }
+    .iti{
+        width: 100%;
+        .form-control{
+            padding: 15px 4rem !important;
+        }
+    }
+
+    .register-subtitle {
+        a {
+            color: $mainColor;
+
+            &:hover {
+                color: #000;
+            }
+        }
+
+    }
+
+    h2 {
+        @include x-small {
+            text-align: center;
+        }
+    }
+    .container{
+        text-align: center;
+        width: 60%;
+        margin: 0 auto;
+        // box-shadow: 0px 0px 2px 0px #d2d2d2;
+        margin: 2rem auto;
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .register-subtitle {
+        margin: 10px 0;
+        display: block;
+
+        @include x-small {
+            text-align: center;
+        }
+    }
+
+    .register-res-form {
+        margin: 2rem auto;
+        // width: 70%;
+
+        @include x-small {
+            width: 100%;
+        }
+
+        .form-group {
+            margin: 1rem 0;
+            color: $text-color;
+
+            .form-control,
+            .form-select {
+                border-radius: $button_border-radius;
+                padding: 15px 1rem;
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        label {
+            color: $text-color;
+            padding: 0 10px;
+        }
+
+        .form-select {
+            margin: 0 5px;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+
+        .small {
+            text-align: center;
+            display: block;
+            padding-top: 1rem;
+        }
+
+        .big-main-btn {
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+
+            @include x-small {
+                float: initial;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+}
+
+.steps-header {
+    h2 {
+        font-family: $main-font;
+        color: $text-color;
+    }
+
+    button {
+        width: 120px;
+        margin: 0 0 0 auto;
+        padding: 10px;
+    }
+}
+
+.register-banner {
+    display: inline-flex;
+    float:#{$end-direction};
+    margin-top: -1rem;
+    position: relative;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    min-width: 270px;
+
+    @include x-small {
+        float: inherit;
+        margin-top: 2rem;
+    }
+
+    .content {
+        color: #fff;
+        position: absolute;
+        background: rgba(201, 144, 151, 0.85);
+        border-radius: 20px;
+        width: 75%;
+        margin: 0 auto;
+        margin-top: 45%;
+        padding: 1rem;
+
+        @include x-small {
+            width: 60%;
+        }
+
+        h2 {
+            font-family: $main-font;
+            color: #fff !important;
+        }
+
+        .big-white-btn {
+            margin: 0 auto;
+            width: 70%;
+
+            @include x-small {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.register-nav-box {
+    padding: 4rem 0;
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        padding: 0 2rem;
+        padding-bottom: 1rem;
+        list-style: none;
+        @include x-small{
+            padding: 0;
+            font-size: 12px;
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        li {
+            font-weight: bold;
+            color: $text-color;
+            @include x-small{
+                width: 50%;
+                text-align: center;
+                padding-bottom: 1rem;
+            }
+
+            i {
+                margin-#{$end-direction}: 5px;
+            }
+        }
+
+        .active {
+            position: relative;
+            color: #000;
+
+            &::before {
+                height: 1px;
+                content: "";
+                width: 100%;
+                display: block;
+                background: $mainColor;
+                position: absolute;
+                bottom: -17px;
+            }
+
+            &::after {
+                content: "";
+                background-color: #fff;
+                border: 4px solid $mainColor;
+                height: 12px;
+                width: 12px;
+                border-radius: 50%;
+                position: absolute;
+                bottom: -22px;
+            }
+        }
+    }
+}
+
+.register-step-1 {
+    border: 1px solid #eeee;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px -1px #eeeeee;
+
+    .form-group {
+        width: 45%;
+        margin-bottom: 1rem;
+    }
+
+    label {
+        color: $text-color;
+        padding: 1rem 0;
+        position: relative;
+
+        svg {
+            display: block;
+        }
+
+    }
+
+    .sex-choose {
+        label {
+            text-align: center;
+            border: 1px solid #eeee;
+            padding: 1.3rem 3rem;
+            box-shadow: 0px 0px 2px 0px #d2d2d2;
+            margin-#{$end-direction}: 1rem;
+            border-radius: 20px;
+            @include trans;
+
+            svg {
+                display: block;
+                fill: #F38672;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .active {
+            border: 1px solid $mainColor;
+            @include trans;
+
+            svg {
+                fill: $mainColor;
+            }
+        }
+
+        input {
+            cursor: pointer;
+        }
+    }
+
+    .d-flex {
+        justify-content: space-between;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 20px;
+        padding: 10px 1rem;
+        outline: none;
+        box-shadow: none;
+    }
+
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+    }
+
+    /* IMAGE STYLES */
+    [type=radio]+label {
+        cursor: pointer;
+    }
+
+    .btn-right {
+        width: 100%;
+
+        .big-main-btn {
+            width: 150px;
+            margin: 0 0 0 auto;
+        }
+    }
+}
+
+.register-step-2 {
+    ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+        justify-content: space-between;
+
+        li {
+            width: 22%;
+
+            @include x-small {
+                width: 48%;
+            }
+
+            margin-bottom: 1.2rem;
+
+            a {
+                position: relative;
+                display: block;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: $button_border-radius;
+                    height: 150px;
+                    margin-bottom: 10px;
+                }
+
+                .title {
+                    color: $text-color;
+                    font-weight: bold;
+                }
+
+                .selected {
+                    position: absolute;
+                    top: 10px;
+                    color: #fff;
+                    right: 1rem;
+                }
+            }
+
+        }
+    }
+
+    .big-main-btn {
+        width: 150px;
+        margin: 0 0 0 auto;
+    }
+}
+
+.register-step-3 {
+    .col-md-4 {
+        margin-bottom: 1rem;
+        @include x-small{    
+            width: 49%;
+        }
+    }
+    .row>*{
+       @include x-small{
+        width: auto;
+       }
+    }
+    .steps-header{
+        @include x-small{
+            .col-md-6{
+                width: 48%;
+            }
+        }
+    }
+    .rest-logo {
+        height: 130px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        box-shadow: 0px 0px 2px 0px #f2f2f2;
+        border-radius: $button_border-radius;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            height: auto;
+            margin-top: -1rem;
+        }
+
+        .rest-like-btn {
+            position: absolute;
+            bottom: 10px;
+            #{$start-direction}: 10px;
+            background-color: #f4f4f4;
+            color: #000;
+            padding: 2px 1rem;
+            font-size: 12px;
+            border: 1px solid #dadada;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .liked {
+            background-color: $mainColor;
+            color: #fff;
+            border: none;
+
+            i {
+                color: #fff;
+            }
+        }
+    }
+
+    .rest-info {
+        margin: 1rem 0;
+
+        .info-title {
+            font-weight: bold;
+            display: block;
+        }
+
+        .info-likes {
+            color: $text-color;
+        }
+    }
+
+    .btn-right {
+        width: 100%;
+
+        .big-main-btn {
+            width: 150px;
+            margin: 0 0 0 auto;
+        }
+    }
+}
+.captcha{
+    margin:2rem 0;
+    h4{
+        font-size: 18px;
+        margin-bottom: 1rem !important;
+    }
+    .recaptcha-container{
+        display: flex;
+        justify-content: center;
+    }
+}

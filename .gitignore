@@ -1,0 +1,7 @@
+
+app/config/database.php
+restaurant/application/config/config.php
+restaurant/application/config/database.php
+app/config/app.php
+app/storage/logs
+vendor/

@@ -1,0 +1,67 @@
+.contact-section{
+    padding: 2rem 0;
+    h2 {
+        font-family: $main-font;
+        color: $text-color;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    .country-block{
+        border:1px solid #eee;
+        padding: 1rem;
+        border-radius: $button_border-radius;
+        margin-bottom: 1rem;
+    }
+    .contact-form {
+        // margin: 2rem auto;
+        // width: 70%;
+
+        @include x-small {
+            width: 100%;
+        }
+
+        .form-group {
+            margin: 1rem 0;
+            color: $text-color;
+
+            .form-control,
+            .form-select {
+                border-radius: $button_border-radius;
+                padding: 15px 1rem;
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        label {
+            color: $text-color;
+            padding: 0 10px;
+        }
+
+        .form-select {
+            margin: 0 5px;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+
+        .small {
+            text-align: center;
+            display: block;
+            padding-top: 1rem;
+        }
+
+        .big-main-btn {
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+
+            @include x-small {
+                float: initial;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+@mixin trans {
+    -o-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+/* Media Queris 
+================ */
+
+
+/* Extra small devices (phones, 600px and down) */
+
+@mixin x-small {
+    @media only screen and (max-width: 600px) {
+        @content;
+    }
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@mixin small {
+    @media only screen and (min-width: 600px) {
+        @content;
+    }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@mixin medium {
+    @media only screen and (max-width: 768px) {
+        @content;   
+    }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@mixin large {
+    @media only screen and (max-width: 992px) {
+        @content;
+    }
+}
+
+@mixin x-large-1 {
+    @media only screen and (max-width: 1200px) {
+        @content;
+    }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@mixin x-large {
+    @media only screen and (min-width: 1200px) {
+        @content;
+    }
+}

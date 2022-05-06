@@ -1,0 +1,28 @@
+
+
+@import './scss/main.scss';
+@font-face {
+    font-family: Gilroy;
+    src: url(../fonts/Gilroy.woff);
+  }
+  @font-face {
+    font-family: Gilroy-bold;
+    src: url(../fonts/Gilroy-ExtraBold.woff);
+  }
+  @font-face {
+    font-family: SFProText;
+    src: url(../fonts/FontsFree-Net-SFProText-Regular.ttf);
+  }
+  @font-face {
+    font-family: Gilroy-black;
+    src: url(../fonts/Gilroy-Black_0.ttf);
+  }
+  *{
+      direction: $direction;
+  }
+a{
+  font-family: SFProText !important;
+}
+// a{
+//   font-family: SFProText !important;
+// }

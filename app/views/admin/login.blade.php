@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html >
+    <head>
+<html lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title> <?php echo $sitename; ?> - Login</title>
+        
+        <style>
+            #particles-js {
+                background-image: url(<?= asset('img/login02.jpg') ?>);
+                background-position: bottom;
+                background-size: cover;
+            }
+            .alert-error {
+                font-size: 12px;
+                color: #c83b35;
+                max-width: 80%;
+                margin: auto;
+                margin-top: -54px;
+            }
+        </style>
+        <link href="<?= asset(css_path() . 'font-awesome.min.css' )?>"  rel="stylesheet">
+        <link href="<?= asset(css_path() . 'login.css' )?>"  rel="stylesheet">
+        <script src="<?= asset(js_path() . 'login.js' )?>"></script>
+
+    </head>
+    
+    <body id="particles-js"></body>
+    <div class="animated bounceInDown">
+        <div class="container">
+            <span class="error animated tada" id="msg"></span>
+            <?php
+                echo $errors->all() ? '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>
+			    <strong>Oh snap!</strong> please add all fields.</div>' : '';
+            ?> 
+            <form name="loginform" id="loginform" class="box" action="" method="post">
+                
+                <h4>
+                    <img width="160" src="<?= asset('img\logo.png' )?>" alt="">
+                </h4>
+                <h5><?= __('Login to your account') ?>.</h5>
+                <?php
+                    $message = Session::get('message');
+                    if ($message) {
+                        echo '<div class="alert alert-error"><a class="close" data-dismiss="alert">x</a><strong>' . $message . '</strong></div>';
+                    }
+                ?>
+                <input type="text" name="User" placeholder="<?= __('Username')?>" value="<?php echo Input::old('User'); ?>" required>
+                <i class="typcn typcn-eye" id="eye"></i>
+                <input type="password" name="Password" placeholder="Passsword" id="Password" required>
+                <select name="country_ID" id="country_ID" class="select_country" style="width: 335px;" tabindex="30" >
+                    <option value=""><?= __('Select Country')?></option>
+                    <?php
+                    if (is_object($countries)) {
+                        foreach ($countries as $country) {
+                            $selected = "";
+                            if (isset($usercountry) && $usercountry->id == $country->id) {
+                                $selected = 'selected="selected="';
+                            }
+                            if (Input::old('country_ID') == $country->id) {
+                                $selected = 'selected="selected="';
+                            }
+                            ?>
+                            <option value="<?php echo $country->id; ?>" <?php echo $selected; ?> >
+                                <?php echo $country->name; ?>
+                            </option>
+                            <?php
+                        }
+                    }
+                    ?>                
+                </select>
+                {{-- <label>
+                    <input type="checkbox">
+                    <span></span>
+                    <small class="rmb"><?= __('Remember me')?></small>
+                </label> --}}
+                {{-- <a href="#" class="forgetpass"><?= __('Forget Password?')?></a> --}}
+                <input type="submit" value="Sign in" class="btn1" style="margin-top: 34px">
+            </form>
+        </div> 
+        <div class="footer">
+        <span>Made with <i class="fa fa-heart pulse"></i> By Azooma</a></span>
+        </div>
+    </div>
+
+</html>

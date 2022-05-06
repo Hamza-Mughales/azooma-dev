@@ -1,0 +1,166 @@
+/* 
+ | Menu Style File
+ | Built By Adham Mahmoud.
+ | Portfolio : https://adhamz.me 
+ */
+ .menu-tabs{
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    background-color: #f9f9f9;
+    padding: 10px 1rem;
+    border-radius: $button_border-radius;
+    li{
+        margin-#{$end-direction}:1rem;
+        button{
+            background-color: transparent;
+            padding:5px 1rem;
+            color:#000;
+            border:none;
+            border-radius: $button_border-radius;
+            @include trans;
+        }
+        .active{
+            background-color:$mainColor;
+            padding:10px 1rem;
+            color:#fff;
+            border:none;
+            border-radius: $button_border-radius;
+            @include trans;
+    }
+    }
+
+ }
+ .menus-content{
+     .menu-tab{
+         display: none;
+         @include trans;
+     }
+     .active{
+         display: block;
+         @include trans;
+     }
+ }
+.menu-category{
+    h3{
+        font-family: $main-font;
+        font-size: 20px;
+        margin: 2rem 0;
+        color: #414A56;
+        text-align: center;
+        i{
+            color: $mainColor;
+            margin-#{$end-direction}:5px;
+        }
+    }
+    .category-items{
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+        box-shadow: 0px 0px 2px 0px #eeeeee;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background-color: #f9f9f9;
+       li{
+            display:flex;
+            width: 48%;
+            padding: 1rem;
+            border-bottom: 1px solid #c5c5c5;
+            margin:0 5px;
+            @include x-small{
+                width: 100%;
+                padding: 0;
+                margin-bottom: 1rem;
+            }
+            &:last-of-type{
+                border:none;
+            }
+            .item-img{
+                img{
+                    height: 100px;
+                    width: 100px;
+                    border-radius: $button_border-radius;
+                    object-fit: cover;
+                }
+            }
+            .item-info{
+                width: 100%;
+                .item-head{
+                    display: flex;
+                    justify-content: space-between;
+                    .title{
+                        font-family: $main-font;
+                        font-size: 18px;
+                        color: #414A56;
+                    }
+                    .price{
+                        color:$mainColor;
+                    }
+                    margin-bottom: 10px;
+                }
+                .item-description{
+                    color: #909090;
+                    margin: 1rem 0;
+                    font-size: 14px;
+                }
+            }
+            .item-footer{
+                display: flex;
+                justify-content: space-between;
+                align-items:center;
+                .recommends{
+                    font-family: $main-font;
+                    color: #626262;
+                    i{
+                        color: $mainColor;
+                    }
+                }
+            }
+       }
+    }
+}
+.menu-pdf{
+    .big-main-btn{
+        width: 50%;
+        margin:0 auto;
+        @include x-small{
+            width: 100%;
+        }
+    }
+}
+#can-you-believe-it{
+    font-size:3rem;
+}
+.lead{
+    font-size: 16px;
+    color:#414A56;
+}
+.pink{
+    color:$mainColor;
+}
+#menu-request-form{
+    label{
+        margin: 1rem 10px;
+    }
+    input:checked {
+        background-color: $mainColor;
+        border-color: $mainColor;
+        outline: none;
+        box-shadow: none;
+    }
+    .form-control{
+        border-radius: 20px;
+        padding: 10px 1rem;
+        outline: none;
+        box-shadow: none;
+     }
+     .form-check-label{
+         margin: 0;
+         padding:0 5px;
+     }
+     .form-check{
+         margin:1rem 0;
+     }
+}

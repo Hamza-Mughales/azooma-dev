@@ -1,0 +1,27 @@
+[01-Mar-2015 13:11:24 Asia/Riyadh] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/diner/public_html/restaurant/application/models/mgeneral.php on line 18
+[01-Mar-2015 15:27:33 Asia/Riyadh] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/diner/public_html/restaurant/application/models/mgeneral.php on line 18
+[01-Mar-2015 15:27:34 Asia/Riyadh] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/diner/public_html/restaurant/application/models/mgeneral.php on line 18
+[01-Mar-2015 15:27:38 Asia/Riyadh] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/diner/public_html/restaurant/application/models/mgeneral.php on line 18
+[10-Mar-2015 16:11:24 Asia/Riyadh] PHP Parse error:  syntax error, unexpected 'width' (T_STRING), expecting ',' or ';' in /home/diner/public_html/restaurant/application/views/login.php on line 30
+[10-Mar-2015 16:15:05 Asia/Riyadh] PHP Fatal error:  Call to a member function row_array() on a non-object in /home/diner/public_html/restaurant/application/models/mrestbranch.php on line 51
+[10-Mar-2015 16:16:30 Asia/Riyadh] PHP Fatal error:  Call to a member function row_array() on a non-object in /home/diner/public_html/restaurant/application/models/mrestbranch.php on line 51
+[10-Mar-2015 16:17:17 Asia/Riyadh] PHP Fatal error:  Call to a member function row_array() on a non-object in /home/diner/public_html/restaurant/application/models/mrestbranch.php on line 51
+[10-Mar-2015 16:22:36 Asia/Riyadh] PHP Fatal error:  Call to a member function row_array() on a non-object in /home/diner/public_html/restaurant/application/models/mrestbranch.php on line 51
+[10-Mar-2015 16:24:47 Asia/Riyadh] PHP Fatal error:  Call to a member function row_array() on a non-object in /home/diner/public_html/restaurant/application/models/mrestbranch.php on line 51
+[12-Apr-2015 10:24:35 UTC] PHP Warning:  POST Content-Length of 9209543 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[12-Apr-2015 10:26:34 UTC] PHP Warning:  POST Content-Length of 9209543 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[21-Apr-2015 08:27:18 UTC] PHP Warning:  POST Content-Length of 16606775 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[21-Apr-2015 09:05:48 UTC] PHP Warning:  POST Content-Length of 13839944 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[02-May-2015 07:31:38 UTC] PHP Warning:  POST Content-Length of 28275471 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[16-Oct-2021 09:33:21 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[17-Oct-2021 18:56:30 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[17-Oct-2021 18:59:02 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[17-Oct-2021 18:59:06 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[17-Oct-2021 20:10:03 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[19-Oct-2021 14:07:46 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[19-Oct-2021 14:10:19 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[19-Oct-2021 14:26:09 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[19-Oct-2021 14:27:23 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[19-Oct-2021 14:34:00 UTC] PHP Warning:  mkdir(): Permission denied in /home/azooma/public_html/stage/restaurant/system/core/Log.php on line 131
+[29-Oct-2021 19:12:08 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/azooma/public_html/stage/restaurant/application/controllers/Success.php on line 39
+[04-Nov-2021 18:56:23 UTC] PHP Fatal error:  Call to undefined method CI_Image_lib::image_process_() in /home/azooma/public_html/stage/restaurant/system/libraries/Image_lib.php on line 678

@@ -1,0 +1,17 @@
+.coming-soon{
+  text-align:center;
+  padding:4rem 0;
+  height: 100vh;
+  h4{
+      font-family:$main-font;
+      font-size:40px;
+      padding:2rem;
+      color: #374957;
+  }
+  .back-btns{
+      a{
+          width:auto;
+          margin:0 10px
+      }
+  }
+}

@@ -1,0 +1,104 @@
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    padding: 2px 19px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    padding: 0px 3px;
+    margin-right: 1px;
+    margin-left: 1px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin: 5px !important;
+}
+
+.text-start {
+    text-align: start !important;
+}
+
+.text-end {
+    text-align: end !important;
+}
+
+.pull-start {
+    float: left;
+}
+
+.pull-end {
+    float: right;
+}
+
+.simplebar-wrapper {
+    width: 85px;
+}
+
+element.style {}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #625959 !important;
+    border: 1px solid #bd7b7b;
+    background-color: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+    background: linear-gradient(to bottom, #dc35451f 0%, #dc3545 100%);
+    border-radius: 50%;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.breadcrumb-div {
+    padding-top: 10px;
+}
+
+.page-wrapper .page-header .header-wrapper .nav-right .profile-dropdown {
+    width: 198px;
+    left: -55px;
+}
+
+text.highcharts-credits {
+    display: none !important;
+}
+
+.widget-joins:after {
+    content: unset;
+    position: unset;
+}
+
+
+/********* HM **********/
+
+.custom-card .card-footer>div {
+    padding: 15px 10px;
+}
+
+.custom-card .card-footer>div h6 {
+    font-size: 12px;
+}
+
+.dark-only .text-dark {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.rtl {
+    direction: rtl;
+}
+
+.translate_wrapper.active .more_lang .lang {
+    width: 130px;
+}
+
+.lang .flag-icon,
+.lang-txt {
+    font-size: 13px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.rtl .pull-start {
+    float: right !important;
+}

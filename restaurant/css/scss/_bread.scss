@@ -1,0 +1,27 @@
+// breadcrumb
+
+.breadcrumb{
+    margin:1rem 0;
+    a{
+        color: $textColor;
+        text-decoration: none;
+        
+    }
+    .bread-list{
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+        li{
+            .divider{
+                margin: 0 8px;
+            }
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+        }
+        .active{
+            color:$mainColor;
+        }
+    }
+}

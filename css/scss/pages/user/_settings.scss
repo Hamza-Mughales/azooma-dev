@@ -1,0 +1,169 @@
+/*
+  ----------------------
+ | User Settings Style File
+ | Built By Adham Mahmoud.
+ | Portfolio : https://adhamz.me 
+  ----------------------
+ */
+ .user-setting{
+     padding:2rem 0;
+     .setting-top-border{
+         border-bottom: 1px solid #b9b9b9;
+         padding-bottom: 20px;
+         margin-bottom: 2rem;
+     }
+     .btn-back{
+         margin: 0 auto 0 0;
+         color:#000;
+         font-weight: bold;
+         i{
+             margin-#{$end-direction}:5px;
+         }
+         @include x-small{
+            margin-bottom: 2rem;
+            display: block;
+         }
+     }
+     .setting-nav{
+         list-style: none;
+         display: flex;
+         justify-content: space-between;
+         li{
+            color:$text-color;
+            cursor: pointer;
+            font-weight: bold;
+         }
+         .active{
+             color:$mainColor;
+             position: relative;
+             &::after{
+                 content: "";
+                 height: 2px;
+                 width: 100%;
+                 position: absolute;
+                 bottom:-21px;
+                 left:0;
+                 background-color: $mainColor;
+             }
+         }
+     }
+     .setting-tabs{
+         .tab-setting{
+             display: none;
+             .form-group{
+         
+              
+            }
+            .alert-success{
+                color: #009852;
+                background-color: #00ff8b24;
+                border-color: none; 
+                border-radius: 50px;
+             }
+            // .focus{
+            //     border:1px solid $mainColor !important;
+            //     @include trans;
+            // }
+            .birth-group{
+                select{
+                    margin-#{$end-direction}:5px;
+                    @include x-small{
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+            .group-check{
+                border-radius: $button_border-radius;
+                padding:1rem;
+                cursor: pointer;
+                .form-check-input:checked{
+                    background-color:$mainColor;
+                    border-color:$mainColor;
+                    outline: none;
+                    box-shadow: none;
+                 }
+                 label{
+                     cursor: pointer;
+                 }
+            }   
+            label{
+                color: $text-color;
+                font-weight: bold;
+                padding: 0;
+                display: block;
+                margin-bottom: 10px;
+            }
+   
+            .big-main-btn{
+                width: 150px;
+                margin: 0 0 0 auto;
+                @include x-small{
+                    margin-#{$end-direction}: 1rem;
+                }
+            }
+            .d-flex{
+                @include x-small{
+                    display: block !important;
+                    text-align: center;
+                }
+            }
+            .user-img{
+                box-shadow: 0px 0px 2px 0px #aaaaaa;
+                display: inline-block;
+                padding: 10px;
+                border-radius: $button_border-radius;
+                height: 200px;
+                width: 200px;
+                overflow: hidden;
+                img{
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: $button_border-radius;
+                    width: 100%;
+                }
+            }
+            .upload-btn{
+                @include x-small{
+                    width: 250px;
+                    margin: 1rem auto;
+                }
+                input{
+                    opacity: 0;
+                    position: absolute;
+                    left: 0;
+                    height: 100%;
+                    top:0;
+                }
+                .big-trans-btn{
+                    position: relative;
+                    margin: 0 1rem;
+                    font-size: 14px;
+                    width: auto;
+                }
+            }
+            .big-trans-btn{
+                width: 150px;
+                margin: 0;
+            }
+            .right-btns{
+                display: flex;
+                margin: 0;
+                justify-content: flex-end;
+                margin-top: -3rem;
+                @include x-small{
+                    justify-content: center;
+                    margin-top: 3rem;
+                }
+                button{
+                    margin:0;
+                    &:first-of-type{
+                        margin-#{$end-direction}:10px;
+                    }
+                }
+            }
+         }
+         .show{
+             display: block;
+         }
+     }
+ }

@@ -1,0 +1,215 @@
+/*
+| Main grid 
+*/
+.admin-grid{
+    display: flex;
+    background-color: #EEF0F8;
+    min-height: 100vh;
+    overflow: hidden;
+
+    .side-menu{
+        width: 20%;
+        @include x-small{
+            width: 30%;
+        }
+    }
+    .center-content{
+        width: 80%;
+        margin-left: auto;
+        @include x-small{
+            width: 100%;
+        }
+    }
+}
+.pink-bar{
+    background-color: $mainColor !important;
+    color: #fff !important;
+    font-size: 20px;
+    i{
+        color: #fff !important; 
+    }
+}
+
+/*
+| Header Menu
+*/
+.side-nav{
+    height: 100vh;
+    background-color: #fff;
+    width: 20%;
+    display: block;
+    position: fixed;
+    @include x-small{
+      position: fixed;
+      left: -30%;
+    }
+    #mobile-menu{
+        display: none;
+        @include x-small{
+            position: absolute;
+            top: 40%;
+            right: -38px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 0 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i{
+                color: $mainColor;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .header-logo{
+        a{
+            display: block;
+            border-bottom: 1px solid #eee;
+            padding:10px;
+            margin-bottom: 5px;
+            img{
+                height: 60px;
+                width: auto;
+                display: block;
+                margin: 0 auto;
+                padding:1rem;
+            }
+        }
+    }
+    .nav-menu-list{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow-y: scroll;
+        height: 90vh;
+        &::-webkit-scrollbar {
+            width: 0.1em;
+           
+          }
+           
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(120, 120, 120, 0.3);
+            border-radius: 5px;
+          }
+           
+          &::-webkit-scrollbar-thumb {
+            background-color:#393939ad;
+          }
+        li{
+            width: 100%;
+            margin-bottom: 5px;
+            @include trans;
+            a{
+                display: block;
+                width: 100%;
+                color: $textColor;
+                padding: 15px 0;
+                padding-left: 20px;
+                font-size: 16px;
+                text-decoration: none;
+                i{
+                    color: $textColorGray;
+                    margin-right: 5px;
+                    font-size: 18px;
+                    &:nth-of-type(2){
+                        float: right;
+                        margin-right: 2rem
+                    }
+                }
+            }
+            &:hover{
+                background-color: #F5F7F9;
+                // border-left:4px solid $mainColor;
+                @include trans;
+            }
+        }
+        .active{
+            background-color: #F5F7F9;
+            border-left:4px solid $mainColor;
+        }
+        .have-sub{
+            background-color: transparent;
+            &:hover{
+                background-color: transparent;
+            }
+            // border-left:none;
+        }
+        .sub-menu{
+            ul{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                a{
+                    padding-left: 3rem;
+                }
+            }
+            .active{
+                border-left:none;
+            }
+        }
+    }
+}
+/*
+| Header Top
+*/
+.fixed-header{
+    background-color: #fff;
+    width: 100%;
+    display: block;
+    padding: 1.2rem 1rem;
+    box-shadow: 0px 5px 10px 6px #c1c1c136;
+    margin-left: 1px;
+    margin-bottom: 1rem;
+
+    .header-right{
+        .dropdown{
+            border-left: 1px solid #eee;
+            margin-left: 1rem;
+            button{
+                background-color: transparent;
+                border:none;
+                color: $textColor;
+                &:focus{
+                    outline: none;
+                    box-shadow: none;
+                }
+                img{
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+    a{
+        text-decoration: none;
+        margin: 0 10px;
+        i{
+            color: $textColorGray;
+            font-size: 20px;
+        }
+    }
+    // position: fixed;
+}
+/*
+| Center Content
+*/
+.center-content{
+    background-color: #EEF0F8;
+ 
+}
+.restaurant-admin{
+    width: 90%;
+    margin: 0 auto;
+    legend{
+        font-weight: bold;
+    }
+}
+#top-banner{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+
