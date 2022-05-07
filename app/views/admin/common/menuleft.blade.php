@@ -63,7 +63,7 @@ if(!isset($side_menu)){
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Gallery") ? "active":""?>" href="#"><i data-feather="image"></i> <span><?=__('Gallery')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Gallery") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Food Gallery'") ? "active":""?>" href="<?= URL::route('admingallery').'?type=All'; ?>"><?=__('Food Gallery')?></a></li>
+              <li><a class="<?=menu($side_menu,"Food Gallery") ? "active":""?>" href="<?= URL::route('admingallery').'?type=All'; ?>"><?=__('Food Gallery')?></a></li>
               <li><a class="<?=menu($side_menu,"Uploads") ? "active":""?>" href="<?= URL::route('admingallery').'?type=Sufrati'; ?>"><?=__('Uploads')?></a></li>
               <li><a class="<?=menu($side_menu,"User Uploads") ? "active":""?>" href="<?= URL::route('admingallery').'?type=Users'; ?>"><?=__('User Uploads')?></a></li>
               <li><a class="<?=menu($side_menu,"Video Uploads") ? "active":""?>" href="<?= URL::route('admingallery/videos'); ?>"><?=__('Video Uploads')?></a></li>

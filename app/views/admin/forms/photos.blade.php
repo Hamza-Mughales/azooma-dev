@@ -65,7 +65,7 @@
             <div class="form-group row">
                 <label for="image_full" class="col-md-2 control-label">Image</label>
                 <div class="col-md-6">
-                    <input type="file" name="image_full" id="image_full" />
+                    <input type="file" name="image_full" id="image_full" <?= isset($page) && $page->image_full ? "":"required"; ?>  />
                     <?php
                     if (isset($page)) {
                         ?>

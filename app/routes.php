@@ -674,6 +674,8 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminlocations/delete/{id}', array('as' => 'adminlocations/delete/', 'uses' => 'Locations@delete'));
 
     Route::get('admingallery/', array('as' => 'admingallery', 'uses' => 'Gallery@index'));
+    Route::get('admingallerydata', array('as' => 'getgallerydata', 'uses' => 'Gallery@getGalleryData'));
+    
     Route::get('admingallery/form', array('as' => 'admingallery/form', 'uses' => 'Gallery@form'));
     Route::get('admingallery/form/{id}', array('as' => 'admingallery/form/', 'uses' => 'Gallery@form'));
     Route::get('admingallery/status/{id}', array('as' => 'admingallery/status/', 'uses' => 'Gallery@status'));
