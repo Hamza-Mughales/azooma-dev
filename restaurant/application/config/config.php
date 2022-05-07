@@ -14,12 +14,11 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/Azooma/restaurant/';
-$config['sa_url']	= 'http://localhost/Azooma/restaurant/';
-$config['app_files_url'] = 'http://localhost/Azooma/uploads/';
-$config['sa_url']='http://localhost/Azooma/';
-
-$config['upload_url']	= '../uploads/';
+$config['base_url']	= RESTBASEURL;
+$config['sa_url']	= RESTBASEURL;
+$config['app_files_url'] =UPLOADURL;
+$config['sa_url']=BASEURL;
+$config['upload_url']	= RESTUPLOADPATH;
 
 /*
 |--------------------------------------------------------------------------

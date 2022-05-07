@@ -9,8 +9,8 @@ if (is_object($raw_countries)) {
 }
 //#for online uploadpath => /home/diner/public_html/uploads,
 return array(
-    'uploadpath' => './uploads', 
-    'uploadurl' => 'http://localhost/azooma-dev/uploads/', 
+    'uploadpath' => UPLOADPATH, 
+    'uploadurl' => UPLOADURL, 
     'sitename' => 'Azooma',
     'default' => array(
         'name' => 'Azooma',

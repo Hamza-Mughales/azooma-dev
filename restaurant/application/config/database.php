@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'azooma';
+$db['default']['hostname'] = DATABASEHOST;
+$db['default']['username'] = DATABASEUSER;
+$db['default']['password'] =DATABASEPASS;
+$db['default']['database'] = DATABASENAME;
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -63,10 +63,10 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 
 
-$db['user']['hostname'] = "localhost";
-$db['user']['username'] = "root";
-$db['user']['password'] = "";
-$db['user']['database'] = "azooma";
+$db['user']['hostname'] = DATABASEHOST;
+$db['user']['username'] = DATABASEUSER;
+$db['user']['password'] = DATABASEPASS;
+$db['user']['database'] = DATABASENAME;
 $db['user']['dbdriver'] = "mysqli";
 $db['user']['dbprefix'] = "";
 $db['user']['pconnect'] = FALSE;

@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => DEBUG,
 	
 	'ramadan' => false,
 	/*
@@ -28,7 +28,7 @@ return array(
 	*/
 
  //'url' => 'http://localhost/azooma/',
-  'url' => 'http://localhost/Azooma/',
+  'url' => BASEURL,
 
 
 	/*
@@ -131,10 +131,7 @@ return array(
 		'Artdarek\OAuth\OAuthServiceProvider',
 		'Kenmoini\Akismet\AkismetServiceProvider',
 		'Yajra\DataTables\DataTablesServiceProvider',
-	
-
-
-		// 'Jenssegers\Agent\AgentServiceProvider',
+	      'Jenssegers\Agent\AgentServiceProvider',
 	),
 
 	/*

@@ -9,3 +9,4 @@ vendor
 uploads
 restaurant/application/config/config.php
 restaurant/application/config/database.php
+env.php
