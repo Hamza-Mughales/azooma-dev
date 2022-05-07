@@ -3,7 +3,7 @@ app/config/database.php
 restaurant/application/config/config.php
 restaurant/application/config/database.php
 app/config/app.php
-app/config/settings
+app/config/settings.php
 app/storage/logs
 vendor
 uploads
