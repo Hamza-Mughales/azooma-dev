@@ -103,7 +103,7 @@ class Rest extends AdminController {
         return  DataTables::of($query)
             ->addColumn('action', function ($rest) {
                 $btns =
-                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/form/',$rest->rest_ID).' title="Edit Content"><i class="fa fa-edit"></i></a>';
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/form/',$rest->rest_ID).'" title="Edit Content"><i class="fa fa-edit"></i></a>';
                     
 
                 if ($rest->rest_Status == 0) {
@@ -192,6 +192,7 @@ class Rest extends AdminController {
     }
 
     public function form($id = 0) {
+        $id=intval($id);
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
