@@ -99,7 +99,7 @@
                     cancelButton: 'btn btn-danger'
                 },
                 buttonsStyling: false
-            })
+            });
             var  url = $(this).attr('link');
             swalWithBootstrapButtons.fire({
                 title: '<?= __('You really want to delete?') ?>',
