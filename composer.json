@@ -11,7 +11,8 @@
         "sybio/image-workshop": "dev-master",
         "kenmoini/akismet": "dev-master",
         "phpoffice/phpexcel": "dev-master",
-        "jenssegers/agent":"dev-master"
+        "jenssegers/agent":"dev-master",
+        "guzzlehttp/guzzle": "4.2.3"
     },
     "autoload": {
         "classmap": [
