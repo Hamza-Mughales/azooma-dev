@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class Article extends AdminController {
 
     protected $MAdmins;
@@ -41,7 +43,7 @@ class Article extends AdminController {
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Title', 'Title Arabic', 'Total Articles', 'Position', 'Last Update on', 'Actions'),
+            'headings' => array('Title', 'Title Arabic', 'Total Articles', 'Last Update on', 'Actions'),
             'resultheads' => array('name', 'nameAr', 'totalarticles', 'sortposition', 'createdAt/lastupdatedArticle'),
             'actions' => array('sub', 'edit', 'status', 'delete'),
             'pagetitle' => 'List of All Categories  ',
@@ -56,6 +58,52 @@ class Article extends AdminController {
         );
 
         return view('admin.partials.maincommonpage', $data);
+    }
+
+    public function data_table()
+    {
+        $query = DB::table('categories')->select('*', DB::Raw('(SELECT count(*) FROM article WHERE article.category=categories.id AND article.status=1) as totalarticles'));
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        if (Input::has('status')) {
+            $query->where("status", '=', intval(get('status')));
+        }
+        return  DataTables::of($query)
+            ->addColumn('action', function ($list) {
+                $addURL = "";
+                $btns = '';
+                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminarticles/articles/',$list->id). '" title="View Sub Articles"><i class="fa fa-eye"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminarticles/form/', $list->id) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+
+                if ($list->status == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route("adminarticles/status/",  $list->id) . '" title="Activate "><i  class="fa fa-minus"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route("adminarticles/status/", $list->id) . '" title="Deactivate"><i  class="fa fa-plus"></i></a>';
+                }
+
+                $btns .= '<a onclick="return confirm(Do You Want to Delete?)" class="btn btn-xs btn-danger mytooltip m-1" href="' . route('adminarticles/delete/', $list->id) . '" title="Delete"><i  class="fa fa-trash"></i></a>';
+                return $btns;
+            })
+            ->editColumn('name', function ($list) {
+                return  stripslashes($list->name);
+            })
+            ->editColumn('nameAr', function ($list) {
+                return  stripslashes($list->nameAr);
+            })
+            ->editColumn('totalarticles', function ($list) {
+                return  stripslashes($list->totalarticles);
+            })
+            ->editColumn('lastupdatedArticle', function ($list) {
+                if ($list->lastupdatedArticle == "" || $list->lastupdatedArticle == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($list->createdAt));
+                } else {
+                    return date('d/m/Y', strtotime($list->lastupdatedArticle));
+                }
+            })
+            
+            ->make(true);
     }
 
     public function form($id = 0) {
@@ -91,14 +139,17 @@ class Article extends AdminController {
             $this->MBlog->updateCategory();
             $obj = $this->MBlog->getCategory($id);
             $this->MAdmins->addActivity('Category updated Succesfully - ' . $obj->name);
-            return Redirect::route('adminarticles')->with('message', "Category updated Succesfully.");
+            
+            return returnMsg('success','adminarticles',"Category updated Succesfully.");
         } else {
             $id = $this->MBlog->addCategory();
             $obj = $this->MBlog->getCategory($id);
             $this->MAdmins->addActivity('Article Added Succesfully - ' . $obj->name);
-            return Redirect::route('adminarticles')->with('message', "Category Added Succesfully.");
+            
+            return returnMsg('success','adminarticles',"Category Added Succesfully.");
         }
-        return Redirect::route('adminarticles')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles',"Something went wrong, Please try again.");
     }
 
     public function status($id = 0) {
@@ -112,13 +163,15 @@ class Article extends AdminController {
             }
             $data = array(
                 'status' => $status,
-                'updatedAt' => date('Y-m-d H:i:s')
+                'lastupdatedArticle' => date('Y-m-d H:i:s')
             );
             DB::table('categories')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Category Status changed successfully.' . $page->name);
-            return Redirect::route('adminarticles')->with('message', "Category Status changed successfully.");
+            
+            return returnMsg('success','adminarticles',"Category Status changed successfully.");
         }
-        return Redirect::route('adminarticles')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles',"Something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -127,9 +180,11 @@ class Article extends AdminController {
         if (count($page) > 0) {
             DB::table('categories')->where('id', $id)->delete();
             $this->MAdmins->addActivity('Category Deleted successfully.' . $page->name);
-            return Redirect::route('adminarticles')->with('message', "Category Deleted successfully.");
+            
+            return returnMsg('success','adminarticles',"Category Deleted successfully.");
         }
-        return Redirect::route('adminarticles')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles',"something went wrong, Please try again.");
     }
 
     public function articles($pid = 0) {
@@ -253,7 +308,8 @@ class Article extends AdminController {
             $actualHeight = $largeLayer->getHeight();
             $ratio = $actualWidth / $actualHeight;
             if ($actualWidth < 200 && $actualHeight < 200) {
-                return Redirect::route('adminrestaurants')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
+                
+                return returnMsg('error','adminrestaurants',"Image is very small. Please upload image which must be bigger than 200*200 width and height.");
             }
             $text_font = Input::get('name') . ' - azooma.co';
             $textLayer = PHPImageWorkshop\ImageWorkshop::initTextLayer($text_font, public_path() . '/fonts/text.ttf', 13, 'ffffff', 0);
@@ -308,15 +364,18 @@ class Article extends AdminController {
             $this->MBlog->updateArticle($filename, $broughtbyImage);
             $obj = $this->MBlog->getArticle($id);
             $this->MAdmins->addActivity('Article updated Succesfully ' . $obj->name);
-            return Redirect::route('adminarticles/articles/', $pid)->with('message', "Article updated Succesfully.");
+            
+            return returnMsg('success','adminarticles/articles/',"Article updated Succesfully.", $pid);
         } else {
             // dd($filename, $broughtbyImage, $this->MBlog->addArticle($filename, $broughtbyImage));
             $id = $this->MBlog->addArticle($filename, $broughtbyImage);
             $obj = $this->MBlog->getArticle($id);
             $this->MAdmins->addActivity('Article added Succesfully ' . $obj->name);
-            return Redirect::route('adminarticles/articles/', $pid)->with('message', "Article added Succesfully.");
+            
+            return returnMsg('success','adminarticles/articles/',"Article added Succesfully.", $pid);
         }
-        return Redirect::route('adminarticles/articles/', $pid)->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles/articles/',"something went wrong, Please try again.", $pid);
     }
 
     public function articlestatus($id = 0) {
@@ -325,7 +384,8 @@ class Article extends AdminController {
         if (isset($_GET['category']) && !empty($_GET['category'])) {
             $pid = $_GET['category'];
         } else {
-            return Redirect::route('adminarticles')->with('error', "something went wrong, Please try again.");
+            
+            return returnMsg('error','adminarticles',"something went wrong, Please try again.");
         }
         $page = $this->MBlog->getArticle($id);
         if (count($page) > 0) {
@@ -339,9 +399,11 @@ class Article extends AdminController {
             );
             DB::table('article')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Article Status changed successfully.' . $page->name);
-            return Redirect::route('adminarticles/articles/', $pid)->with('message', "Article Status changed successfully.");
+            
+            return returnMsg('success','adminarticles/articles/',"Article Status changed successfully.", $pid);
         }
-        return Redirect::route('adminarticles/articles/', $pid)->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles/articles/',"something went wrong, Please try again.", $pid);
     }
 
     public function articledelete($id = 0) {
@@ -350,15 +412,18 @@ class Article extends AdminController {
         if (isset($_GET['category']) && !empty($_GET['category'])) {
             $pid = $_GET['category'];
         } else {
-            return Redirect::route('adminarticles')->with('error', "something went wrong, Please try again.");
+            
+            return returnMsg('error','adminarticles',"Something went wrong, Please try again.");
         }
         $page = $this->MBlog->getArticle($id);
         if (count($page) > 0) {
             $this->MBlog->deleteArticle($id);
             $this->MAdmins->addActivity('Article deleted successfully.' . $page->name);
-            return Redirect::route('adminarticles/articles/', $pid)->with('message', "Article deleted successfully.");
+            
+            return returnMsg('success','adminarticles/articles/',"Article deleted successfully.", $pid);
         }
-        return Redirect::route('adminarticles/articles/', $pid)->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles/articles/',"something went wrong, Please try again.", $pid);
     }
 
     public function updateposition() {
@@ -587,7 +652,8 @@ class Article extends AdminController {
                 }
             }
             $this->MAdmins->addActivity('Added/updated Slide Article ' . stripslashes((Input::get('name'))));
-            return Redirect::route('adminarticles/articles/', Input::get('category'))->with('message', "Added/updated Slide Article.");
+            
+            return returnMsg('success','adminarticles/articles/',"Added/updated Slide Article.", Input::get('category'));
         } else {
             show_404();
         }
@@ -617,9 +683,11 @@ class Article extends AdminController {
             $article = $this->MBlog->getArticle($articleID);
             $this->MBlog->makeFeatureArticle($articleID, $categoryID);
             $this->MAdmins->addActivity('Article Added in Feature ' . stripslashes(($article->name)));
-            return Redirect::route('adminarticles/articles/', $categoryID)->with('message', "Article Added in Featured succesfully");
+            
+            return returnMsg('success','adminarticles/articles/',"Article Added in Featured succesfully", $categoryID);
         }
-        return Redirect::route('adminarticles')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminarticles',"something went wrong, Please try again.");
     }
 
     function removefeature() {
@@ -629,7 +697,8 @@ class Article extends AdminController {
             $article = $this->MBlog->getArticle($articleID);
             $this->MBlog->removeFeatureArticle($articleID, $categoryID);
             $this->MAdmins->addActivity('Article Removed From Feature ' . stripslashes(($article->name)));
-            return Redirect::route('adminarticles/articles/', $categoryID)->with('message', "Article Removed From Featured succesfully");
+            
+            return returnMsg('success','adminarticles/articles/',"Article Removed From Featured succesfully", $categoryID);
         }
         $this->session->set_flashdata('message', 'something went wrong, please try again.');
         redirect('hungryn137/article');

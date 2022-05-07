@@ -689,6 +689,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::post('admingallery/videosave', array('as' => 'admingallery/videosave', 'uses' => 'Gallery@videosave'));
 
     Route::get('adminarticles/', array('as' => 'adminarticles', 'uses' => 'Article@index'));
+    Route::get('adminarticlesDT/', array('as' => 'adminarticlesDT', 'uses' => 'Article@data_table'));
 
     Route::get('adminarticles/articles/{id}', array('as' => 'adminarticles/articles/', 'uses' => 'Article@articles'));
     
@@ -761,6 +762,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminajax/getCitiesList/{id}', array('as' => 'adminajax/getCitiesList/', 'uses' => 'Ajax@getCitiesList'));
 
     Route::get('adminrecipe/', array('as' => 'adminrecipe', 'uses' => 'Recipe@index'));
+    Route::get('adminrecipeDT/', array('as' => 'adminrecipeDT', 'uses' => 'Recipe@data_table'));
     Route::get('adminrecipe/form', array('as' => 'adminrecipe/form', 'uses' => 'Recipe@form'));
     Route::get('adminrecipe/form/{id}', array('as' => 'adminrecipe/form/', 'uses' => 'Recipe@form'));
     Route::get('adminrecipe/status/{id}', array('as' => 'adminrecipe/status/', 'uses' => 'Recipe@status'));

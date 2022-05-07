@@ -97,15 +97,15 @@
                     cancelButton: 'btn btn-danger'
                 },
                 buttonsStyling: false
-            })
+            });
             var  url = $(this).attr('link');
             swalWithBootstrapButtons.fire({
-                title: '<?= __('You really want to delete?') ?>',
-                text: "<?= __("You can't undo it?") ?>",
+                title: 'You really want to delete',
+                text: 'You can\'t undo it?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: ' <a class="btn btn-primary text-white" href="' + url + '"><?= __('Yes') ?>!</a> ',
-                cancelButtonText: ' <?= __('Cancel') ?>! ',
+                confirmButtonText: ' <a class="btn btn-primary text-white" href="' + url + '">Yes</a> ',
+                cancelButtonText: 'Cancel',
                 reverseButtons: true
             }).then((result) => {
                 if (result.value != true)

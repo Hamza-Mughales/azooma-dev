@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class Recipe extends AdminController {
 
     protected $MAdmins;
@@ -42,7 +44,6 @@ class Recipe extends AdminController {
         if (empty($country)) {
             $country = 1;
         }
-        $lists = $this->MBlog->getAllRecipe($country, $status, $sort, $limit, 0, $name, $views);
 
         $data = array(
             'sitename' => $settings['name'],
@@ -55,11 +56,54 @@ class Recipe extends AdminController {
             'statuslink' => 'adminrecipe/status',
             'deletelink' => 'adminrecipe/delete',
             'addlink' => 'adminrecipe/form',
-            'lists' => $lists,
             'side_menu' => array('Blog','Recipes'),
         );
 
-        return view('admin.partials.maincommonpage', $data);
+        return view('admin.partials.recipe', $data);
+    }
+
+    public function data_table()
+    {
+        $query = DB::table('recipe');
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        if (Input::has('status')) {
+            $query->where("status", '=', intval(get('status')));
+        }
+        return  DataTables::of($query)
+            ->addColumn('action', function ($list) {
+                $btns =
+                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminrecipe/form/',$list->id) .'" title="Edit Content"><i class="fa fa-edit"edit"></i></a>';
+
+                if ($list->status == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminrecipe/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminrecipe/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                }
+
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="'. route('adminrecipe/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
+                return $btns;
+            })
+            ->editColumn('name', function ($list) {
+                return  stripslashes($list->name);
+            })
+            ->editColumn('nameAr', function ($list) {
+                return  stripslashes($list->nameAr);
+            })
+            ->editColumn('views', function ($list) {
+                return  stripslashes($list->nameAr);
+            })
+            
+            ->editColumn('createdAt', function ($list) {
+                if ($list->updatedAt == "") {
+                    return date('d/m/Y', strtotime($list->createdAt));
+                } else {
+                    return date('d/m/Y', strtotime($list->updatedAt));
+                }
+            })
+            ->make(true);
     }
 
     public function form($id = 0) {
@@ -141,7 +185,8 @@ class Recipe extends AdminController {
             }
             $obj = $this->MBlog->getRecipe($id);
             $this->MAdmins->addActivity('Recipe updated Succesfully - ' . $obj->name);
-            return Redirect::route('adminrecipe')->with('message', "Recipe updated Succesfully.");
+            
+            return returnMsg('success','adminrecipe',"Recipe updated Succesfully.");
         } else {
             $id = $this->MBlog->addRecipe($filename);
             $this->MBlog->deleteIngredients($id);
@@ -162,9 +207,11 @@ class Recipe extends AdminController {
             }
             $obj = $this->MBlog->getRecipe($id);
             $this->MAdmins->addActivity('Article Added Succesfully - ' . $obj->name);
-            return Redirect::route('adminrecipe')->with('message', "Recipe Added Succesfully.");
+            
+            return returnMsg('success','adminrecipe',"Recipe Added Succesfully.");
         }
-        return Redirect::route('adminrecipe')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminrecipe',"something went wrong, Please try again.");
     }
 
     public function status($id = 0) {
@@ -182,9 +229,11 @@ class Recipe extends AdminController {
             );
             DB::table('recipe')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Recipe Status changed successfully.' . $page->name);
-            return Redirect::route('adminrecipe')->with('message', "Recipe Status changed successfully.");
+            
+            return returnMsg('success','adminrecipe',"Recipe Status changed successfully.");
         }
-        return Redirect::route('adminrecipe')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminrecipe',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -193,9 +242,11 @@ class Recipe extends AdminController {
         if (count($page) > 0) {
             DB::table('recipe')->where('id', $id)->delete();
             $this->MAdmins->addActivity('Recipe Deleted successfully.' . $page->name);
-            return Redirect::route('adminrecipe')->with('message', "Recipe Deleted successfully.");
+            
+            return returnMsg('success','adminrecipe',"Recipe Deleted successfully.");
         }
-        return Redirect::route('adminrecipe')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminrecipe',"Something went wrong, Please try again.");
     }
 
     public function missingMethod($parameters) {
