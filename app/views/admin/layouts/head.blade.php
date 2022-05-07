@@ -1,7 +1,7 @@
 <head>
     <title>{{ $pagetitle }} | {{ $sitename }} </title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="shortcut icon" href="<?php echo URL::to('favicon.ico'); ?>" />        
+    <link rel="shortcut icon" href="{{url('favicon_en.png')}}" type="image/png"/>      
     <script type="text/javascript">
         var base = '<?php echo route("home"); ?>';
         var adminbase = '<?php echo route("adminhome"); ?>';
