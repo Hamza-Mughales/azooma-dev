@@ -2,11 +2,15 @@
 Class Azooma{
 	public static function CDN($filename="",$cdn=1){
 		if($cdn==1){
+            return UPLOADURL.$filename;    
+        }else{
+            return UPLOADURL.$filename;
+        }
+        if($cdn==1){
             return 'http://uploads.azooma.co/'.$filename;    
         }else{
             return 'http://uploads.azooma.co/'.$filename;
         }
-        
 	}
 
 	public static function URL($url=""){
