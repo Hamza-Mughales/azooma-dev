@@ -120,7 +120,7 @@
     };
     $(document).ready(function(){
     startDataTable("admin-video-table","<?=route('getVideodata')?>",tab_config);
-})
+});
     function reloadTable(table_id){
    
         reloadDataTable(table_id);

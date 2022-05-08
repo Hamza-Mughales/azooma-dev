@@ -69,7 +69,7 @@
     };
     $(document).ready(function(){
     startDataTable("events-table","<?=route('admineventscalendardata')?>",tab_config);
-})
+});
 
     </script>
 @endsection

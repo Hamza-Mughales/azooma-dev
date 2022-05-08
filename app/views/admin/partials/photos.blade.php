@@ -115,7 +115,7 @@
     };
     $(document).ready(function(){
     startDataTable("admin-gallery-table","<?=route('getgallerydata')?>",tab_config);
-})
+});
     function reloadTable(table_id){
    
         reloadDataTable(table_id);

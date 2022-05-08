@@ -67,7 +67,7 @@
     };
     $(document).ready(function(){
     startDataTable("newsletter-table","<?=route('adminnewsletterdata')?>",tab_config);
-})
+});
     function reloadTable(table_id){
    
         reloadDataTable(table_id);
