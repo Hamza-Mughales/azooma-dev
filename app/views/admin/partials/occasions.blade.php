@@ -20,24 +20,6 @@
 
 <div id="filter-main" class="collapse well-white">
     <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="" method="get" >
-        <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Name</label>
-            <div class="col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Name" >
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="sort" class="col-md-2 control-label">Sort By</label>
-            <div class="col-md-6">
-                <select name="sort" id="sort" class="form-control">
-                    <option value="">please select </option>
-                    <option value="latest">Latest</option>
-                    <option value="name">Name</option>
-                    <option value="budget">Budget</option>
-                </select>
-            </div>
-        </div>
         <div class="form-group row">
             <label for="status" class="col-md-2 control-label">Status</label>
             <div class="col-md-6">
@@ -51,10 +33,9 @@
 
         <div class="form-group row">
             <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
+                <button type="submit" class="btn btn-primary-gradien" onclick="reloadTable('rest-occasions')">Filter</button>          
             </div>
         </div>
-    </form>
 </div>
 
 
@@ -66,15 +47,8 @@
             </legend>        
         </fieldset>
 
-        <div class="panel">
-            <div class="panel-heading">
-                <?php if (count($lists) > 0) { ?> Results {{ $lists->getFrom() }} to {{ $lists->getTo() }} out of <span class="label label-info">{{ $lists->getTotal() }}</span> <?php
-                } else {
-                    echo 'No Result Found';
-                }
-                ?>
-            </div>
-            <table class="table table-hover">
+        <div class="panel table-responsive">
+            <table class="table table-hover" id="rest-occasions">
                 <thead>
                     <tr>
                         <?php
@@ -92,102 +66,45 @@
                         ?>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    if (count($lists) > 0) {
-                        $j = 0;
-                        foreach ($lists as $list) {
-                            $user = "";
-                            if (!empty($list->user_ID)) {
-                                $user = MOccasions::getUserInfo($list->user_ID);
-                            }
-                            ?>
-                            <tr class="rows <?php
-                            if (isset($list->status) && $list->status == 0) {
-                                echo 'line-through ';
-                            }
-                            if ($list->is_read == 0) {
-                                echo 'new-row';
-                            }
-                            ?>" data-id="<?php echo $list->id; ?>"  id="row-<?php echo $j; ?>" 
-                                <?php
-                                if ($list->is_read == 0) {
-                                    echo 'onclick="readoccasions(' . $list->id . ')"';
-                                }
-                                ?>
-                                >
-                                <td><?php echo stripslashes($list->name); ?></td>
-                                <td><?php echo stripslashes($user->user_FullName); ?></td>
-                                <td><?php echo stripslashes($user->user_Mobile); ?></td>
-                                <td><?php echo date('d/m/Y', strtotime($list->date)); ?></td>
-                                <td><?php echo stripslashes($list->budget); ?></td>
-                                <td><?php echo stripslashes($list->guests); ?></td>
-                                <td>
-                                    <?php
-                                    if (!empty($list->updatedAt)) {
-                                        echo date('d/m/Y', strtotime($list->updatedAt));
-                                    } else {
-                                        echo date('d/m/Y', strtotime($list->createdAt));
-                                    }
-                                    ?>
-                                </td>                                
-                                <td class="sufrati-action">
-                                    <a class="btn btn-xs btn-primary mytooltip" href="{{ route('adminoccasions/view/',$list->id) }}" title="View All Details for <?php echo $list->name; ?>"><i data-feather="info"></i></a>
-                                    <?php
-                                    if ($list->status == 0) {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminoccasions/status/',$list->id) }}" title="Activate "><i data-feather="minus-circle"></i></a>
-                                        <?php
-                                    } elseif ($list->status == 1) {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminoccasions/status/',$list->id) }}" title="Deactivate"><i data-feather="plus-circle"></i></a>
-                                        <?php
-                                    } elseif ($list->status == 2) {
-                                        echo '<span class="btn btn-xs btn-info"><i data-feather="minus-circle"></i> Cancelled</span>';
-                                    } elseif ($list->status == 3) {
-                                        echo '<span class="btn btn-xs btn-success"><i data-feather="plus-circle"></i> Approved</span>';
-                                    }
-                                    if ($list->status == 0 || $list->status == 1) {
-                                        ?>
-                                        <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('adminoccasions/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
-                                            <?php
-                                        }
-                                        ?>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <tr>
-                            <td colspan="100%">No record found.</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </tbody>
+                <tbody></tbody>
             </table>
-            <?php
-            if (count($lists) > 0) {
-                $get = array();
-                if (count($_GET) > 0) {
-                    foreach ($_GET as $key => $val) {
-                        if ($key == "page") {
-                            continue;
-                        } else {
-                            $get[$key] = $val;
-                        }
-                    }
-                }
-                if (count($get) > 0) {
-                    echo $lists->appends($get)->links();
-                } else {
-                    echo $lists->links();
-                }
-            }
-            ?>
         </div>
     </article>
 </div>
+
+<script type="text/javascript">
+    var style_table; 
+    var tab_config= {
+        columns:[
+            {data:"name"},
+            {data:"user_FullName"},
+            {data:"user_Mobile"},
+            {data:"date"},
+            {data:"budget"},
+            {data:"guests"},
+            {data:"updatedAt"},
+            {data:"action", sortable:false, searchable:false}
+        ],
+        data:function(d){
+            return $.extend({},d,{
+                "status":$('#status').val()
+            })
+        },
+        order:[[3,'desc']]
+    };
+
+    $(document).ready(function(){
+        
+        style_table = startDataTable("rest-occasions","<?= route('adminoccasionsDT') ?>",tab_config);
+
+    });
+
+        
+    function reloadTable(table_id){
+   
+       reloadDataTable(table_id);
+    }
+
+</script>
 
 @endsection

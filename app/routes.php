@@ -506,11 +506,13 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('admininvoice/delete/{id}', array('as' => 'admininvoice/delete/', 'uses' => 'Invoice@delete'));
 
     Route::get('admincompetitions/', array('as' => 'admincompetitions', 'uses' => 'Competition@index'));
+    Route::get('admincompetitionsDT/', array('as' => 'admincompetitionsDT', 'uses' => 'Competition@data_table'));
     Route::get('admincompetitions/form', array('as' => 'admincompetitions/form', 'uses' => 'Competition@form'));
     Route::get('admincompetitions/form/{id}', array('as' => 'admincompetitions/form/', 'uses' => 'Competition@form'));
     Route::get('admincompetitions/status/{id}', array('as' => 'admincompetitions/status/', 'uses' => 'Competition@status'));
     Route::get('admincompetitions/delete/{id}', array('as' => 'admincompetitions/delete/', 'uses' => 'Competition@delete'));
     Route::get('admincompetitions/participants/{id}', array('as' => 'admincompetitions/participants/', 'uses' => 'Competition@participants'));
+    Route::get('admincompetitions/participantsDT/{id}', array('as' => 'admincompetitions/participantsDT/', 'uses' => 'Competition@parti_data_table'));
     Route::get('admincompetitions/participantstatus/{id}', array('as' => 'admincompetitions/participantstatus/', 'uses' => 'Competition@participantstatus'));
     Route::post('admincompetitions/save', array('as' => 'admincompetitions/save', 'uses' => 'Competition@save'));
 
@@ -811,6 +813,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminmenurequest/view/{id}', array('as' => 'adminmenurequest/view/', 'uses' => 'MenuRequest@view'));
     
     Route::get('adminoccasions/', array('as' => 'adminoccasions', 'uses' => 'Occasions@index'));
+    Route::get('adminoccasionsDT/', array('as' => 'adminoccasionsDT', 'uses' => 'Occasions@data_table'));
     Route::get('adminoccasions/forwardrest/{id}', array('as' => 'adminoccasions/forwardrest/', 'uses' => 'Occasions@forwardrest'));
     Route::post('adminoccasions/sendtorest', array('as' => 'adminoccasions/sendtorest', 'uses' => 'Occasions@sendtorest'));
     Route::get('adminoccasions/view/{id}', array('as' => 'adminoccasions/view/', 'uses' => 'Occasions@view'));

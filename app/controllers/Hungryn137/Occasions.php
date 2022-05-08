@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class Occasions extends AdminController {
 
     protected $MAdmins;
@@ -47,6 +49,73 @@ class Occasions extends AdminController {
             'side_menu' => array('Competitions','Occasions Services'),
         );
         return view('admin.partials.occasions', $data);
+    }
+
+    public function data_table()
+    {
+        $query = DB::table('user_event');
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        if (Input::has('status')) {
+            $query->where("status", '=', intval(get('status')));
+        }
+        
+        return  DataTables::of($query)
+            ->addColumn('action', function ($list) {
+                $btns ='';
+                    $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="'. route('adminoccasions/view/',$list->id) .'" title="View All Details for <?php echo $list->name; ?>"><i class="fa fa-info"></i></a>';
+
+                    if ($list->status == 0) {
+                        $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminoccasions/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
+                        
+                    } elseif ($list->status == 1) {
+                        $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminoccasions/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                        
+                    } elseif ($list->status == 2) {
+                        $btns .='<span class="btn btn-xs btn-info"><i class="fa fa-minus"></i> Cancelled</span>';
+                    } elseif ($list->status == 3) {
+                        $btns .='<span class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Approved</span>';
+                    }
+                    if ($list->status == 0 || $list->status == 1) {
+                        $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="'. route('adminoccasions/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
+                        }
+                return $btns;
+            })
+            ->editColumn('name', function ($list) {
+                return  stripslashes($list->name);
+            })
+            ->editColumn('user_FullName', function ($list) {
+                $user = "";
+                if (!empty($list->user_ID)) {
+                    $user = MOccasions::getUserInfo($list->user_ID);
+                }
+                return  stripslashes($user->user_FullName);
+            })
+            ->editColumn('user_Mobile', function ($list) {
+                $user = "";
+                if (!empty($list->user_ID)) {
+                    $user = MOccasions::getUserInfo($list->user_ID);
+                }
+                return  stripslashes($user->user_Mobile);
+            })
+            ->editColumn('createdAt', function ($list) {
+               return date('d/m/Y', strtotime($list->date));
+            })
+            ->editColumn('budget', function ($list) {
+                return  stripslashes($list->budget);
+            })
+            ->editColumn('guests', function ($list) {
+                return  stripslashes($list->guests);
+            })
+            ->editColumn('updatedAt', function ($list) {
+                if (!empty($list->updatedAt)) {
+                    return date('d/m/Y', strtotime($list->updatedAt));
+                } else {
+                    return date('d/m/Y', strtotime($list->createdAt));
+                }
+            })
+            ->make(true);
     }
 
     public function view($id = 0) {
@@ -197,9 +266,11 @@ class Occasions extends AdminController {
                 }
             }
             $this->MAdmins->addActivity('Quotation sent to restaurant for event of ' . stripslashes($catering->name));
-            return Redirect::route('adminoccasions')->with('message', "Email Sent successfully.");
+            
+            return returnMsg('success','adminoccasions',"Email Sent successfully.");
         } else {
-            return Redirect::route('adminoccasions')->with('error', "something went wrong, Please try again.");
+            
+            return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
         }
     }
 
@@ -217,9 +288,11 @@ class Occasions extends AdminController {
             }
             MOccasions::changeCateringEventStatus($id, $status);
             $this->MAdmins->addActivity($dispMsg);
-            return Redirect::route('adminoccasions')->with('message', $dispMsg);
+            
+            return returnMsg('success','adminoccasions',$dispMsg);
         }
-        return Redirect::route('adminoccasions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
     }
 
     public function approved($id = 0) {
@@ -266,9 +339,11 @@ class Occasions extends AdminController {
                 });
             }
             $this->MAdmins->addActivity(stripslashes($page->name) . ' Approved successfully');
-            return Redirect::route('adminoccasions')->with('message', stripslashes($page->name) . ' Approved successfully');
+            
+            return returnMsg('success','adminoccasions',stripslashes($page->name) . ' Approved successfully');
         }
-        return Redirect::route('adminoccasions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminoccasions',"something went wrong, Please try again.");
     }
 
     public function cancel($id = 0) {
@@ -315,9 +390,11 @@ class Occasions extends AdminController {
                 });
             }
             $this->MAdmins->addActivity(stripslashes($page->name) . ' cancelled successfully');
-            return Redirect::route('adminoccasions')->with('message', stripslashes($page->name) . ' cancelled successfully');
+            
+            return returnMsg('success','adminoccasions',stripslashes($page->name) . ' cancelled successfully');
         }
-        return Redirect::route('adminoccasions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -326,9 +403,11 @@ class Occasions extends AdminController {
         if (count($page) > 0) {
             MOccasions::deleteCateringEvent($id);
             $this->MAdmins->addActivity(stripslashes($page->name) . ' deleted successfully.');
-            return Redirect::route('adminoccasions')->with('message', stripslashes($page->name) . ' deleted successfully.');
+            
+            return returnMsg('success','adminoccasions',stripslashes($page->name) . ' deleted successfully.');
         }
-        return Redirect::route('adminoccasions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
     }
 
     public function read($id = 0) {

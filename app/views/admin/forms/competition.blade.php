@@ -44,7 +44,7 @@ foreach ($cities as $city) {
                 <div class="form-group row">
                     <label class="control-label col-md-2" for="participants">No. of Participants</label>
                     <div class="col-md-6">
-                        <input class="required form-control" type="text" name="participants" id="participants" placeholder="No of Participants" <?php echo isset($competition) ? 'value="' . $competition->participants . '"' : ""; ?> />
+                        <input class="required form-control" type="number" name="participants" id="participants" placeholder="No of Participants" <?php echo isset($competition) ? 'value="' . $competition->participants . '"' : ""; ?> />
                     </div>
                 </div>
 
@@ -158,7 +158,7 @@ foreach ($cities as $city) {
                 </div>  
 
 
-                <div id="age_type" class="form-group <?php
+                <div id="age_type" class="form-group row <?php
                 if (isset($competition) && $competition->event_type == 1) {
                     echo '';
                 } else {

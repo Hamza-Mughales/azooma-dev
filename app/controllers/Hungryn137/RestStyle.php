@@ -52,7 +52,7 @@ class RestStyle extends AdminController {
         }
         return  DataTables::of($query)
             ->addColumn('action', function ($style) {
-                $btns =
+                $btns ='';
                     $btns = '<a class="btn btn-xs btn-info mytooltip mx-1" href="'. route('adminreststyle/form/', $style->id) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
                 if ($style->status == 0) {

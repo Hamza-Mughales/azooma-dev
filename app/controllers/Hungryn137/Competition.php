@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class Competition extends AdminController {
 
     protected $MAdmins;
@@ -39,17 +41,66 @@ class Competition extends AdminController {
             $country = 1;
         }
 
-        $lists = MCompetition::getAllCompetition($country, $status, $limit, $searchname);
+        // $lists = MCompetition::getAllCompetition($country, $status, $limit, $searchname);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Competition Title', 'Participants', 'Last Updated', 'Actions'),
+            'headings' => array('Title', 'Title Arabic','Participants', 'Last Updated', 'Actions'),
             'pagetitle' => 'List of All Competition',
             'title' => 'All Competition',
             'action' => 'admincompetitions',
-            'lists' => $lists,
+            // 'lists' => $lists,
             'side_menu' => array('Competitions','Events & Competitions'),
         );
         return view('admin.partials.competition', $data);
+    }
+
+    public function data_table()
+    {
+        $query = DB::table('competition');
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        
+        return  DataTables::of($query)
+            ->addColumn('action', function ($list) {
+                $btns = '';
+                    $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="'. route('admincompetitions/participants/',$list->id) .'" title="View All Participants"><i class="fa fa-info"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/form/',$list->id) .'" title="Edit Content"><i class="fa fa-edit"></i></a>';
+
+                if ($list->status == 0) {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                }
+
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="'. route('admincompetitions/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
+                return $btns;
+            })
+            ->editColumn('title', function ($list) {
+                return  stripslashes($list->title);
+            })
+            ->editColumn('titleAr', function ($list) {
+                return  stripslashes($list->titleAr);
+            })
+            ->editColumn('participants', function ($list) {
+                $btn = "Pend: " . MCompetition::getTotalParticipants($list->id, 0);
+                $btn .= '<br>';
+                $btn .= "Atten: " . MCompetition::getTotalParticipants($list->id, 1);
+                $btn .= '<br>';
+                $btn .= "Canc: " . MCompetition::getTotalParticipants($list->id, 2);
+                $btn .= '<br>';
+                $btn .= "Total: " . $list->participants;
+                return $btn;
+            })
+            
+            ->editColumn('createdAt', function ($list) {
+                if (!empty($list->updatedAt)) {
+                    return date('d/m/Y', strtotime($list->updatedAt));
+                } else {
+                    return date('d/m/Y', strtotime($list->last_Time));
+                }
+            })
+            ->make(true);
     }
 
     public function form($id = 0) {
@@ -111,7 +162,7 @@ class Competition extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
-                    return Redirect::route('admincompetitions')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
+                    return returnMsg('error','admincompetitions',"Image is very small. Please upload image which must be bigger than 200*200 width and height.");
                 }
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/competition/", $save_name, true, null, 95);
                 if (($actualWidth > 800) || ($actualHeight > 500)) {
@@ -148,7 +199,8 @@ class Competition extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
-                    return Redirect::route('adminrestaurants')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
+                    
+                    return returnMsg('error','adminrestaurants',"Image is very small. Please upload image which must be bigger than 200*200 width and height.");
                 }
 
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/competition", $save_name, true, null, 95);
@@ -180,14 +232,17 @@ class Competition extends AdminController {
                 $rest = $_POST['id'];
                 MCompetition::updateCompetition($image, $logo);
                 $this->MAdmins->addActivity('Competition Updated ' . Input::get('title'));
-                return Redirect::route('admincompetitions')->with('message', 'Competition Updated succesfully');
+                
+                return returnMsg('success','admincompetitions',"Competition Updated succesfully");
             } else {
                 $rest = MCompetition::addCompetition($image, $logo);
                 $this->MAdmins->addActivity('Competition Added ' . Input::get('title'));
-                return Redirect::route('admincompetitions')->with('message', 'Competition Added succesfully');
+                
+                return returnMsg('success','admincompetitions',"Competition Added succesfully");
             }
         } else {
-            return Redirect::route('admincompetitions')->with('error', "something went wrong, Please try again.");
+            
+            return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
         }
     }
 
@@ -205,9 +260,11 @@ class Competition extends AdminController {
             );
             DB::table('competition')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Competition Status changed successfully.' . $page->title);
-            return Redirect::route('admincompetitions')->with('message', "Competition Status changed successfully.");
+            
+            return returnMsg('success','admincompetitions',"Competition Status changed successfully.");
         }
-        return Redirect::route('admincompetitions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -216,9 +273,11 @@ class Competition extends AdminController {
         if (count($page) > 0) {
             MCompetition::deleteCompetition($id);
             $this->MAdmins->addActivity($page->title . ' deleted successfully.');
-            return Redirect::route('admincompetitions')->with('message', $page->title . ' deleted successfully.');
+            
+            return returnMsg('success','admincompetitions', $page->title . ' deleted successfully.');
         }
-        return Redirect::route('admincompetitions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('success','admincompetitions',"Something went wrong, Please try again.");
     }
 
     public function participants($id) {
@@ -241,9 +300,52 @@ class Competition extends AdminController {
             'action' => 'admincompetitions',
             'page' => $page,
             'lists' => $lists,
+            'id' => $id,
             'side_menu' => array('Competitions','Events & Competitions'),
         );
         return view('admin.partials.participants', $data);
+    }
+
+    public function parti_data_table($id)
+    {
+        $query = DB::table('participants')->where('event_id', '=', $id);;
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        
+        return  DataTables::of($query)
+            ->addColumn('action', function ($list) {
+                $btns = '';
+                    $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="'. route('admincompetitions/participantstatus/',$list->id).'?type=1&event_id='.$list->event_id .'" title="Attending"><i class="fa fa-plus"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/participantstatus/',$list->id).'?type=2&event_id='.$list->event_id .'" title="Canceled"><i class="fa fa-minus"></i></a>';
+                return $btns;
+            })
+            ->editColumn('name', function ($list) {
+                return  stripslashes($list->name).' '.  stripslashes($list->parent_name);
+            })
+            ->editColumn('birthday', function ($list) {
+                return  stripslashes($list->birthday);
+            })
+            ->editColumn('number', function ($list) {
+                return  stripslashes($list->number).'<br>'.$list->email;
+            })
+            ->editColumn('status', function ($list) {
+                if($list->status==0){
+                    return 'pending';
+                }elseif($list->status==1){
+                    return 'Attending';
+                }elseif($list->status==2){
+                    return 'Canceled';
+                }
+            })
+            ->editColumn('updatedAt', function ($list) {
+                if (!empty($list->updatedAt)) {
+                    return date('d/m/Y', strtotime($list->updatedAt));
+                } else {
+                    return date('d/m/Y', strtotime($list->createdAt));
+                }
+            })
+            ->make(true);
     }
 
     public function participantstatus($id = 0) {
@@ -257,13 +359,15 @@ class Competition extends AdminController {
         }
 
         if ($event_id === 0 || $id === 0 || $status === 0) {
-            return Redirect::route('admincompetitions')->with('error', "something went wrong, Please try again.");
+            
+            return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
         }
         $participants = MCompetition::getParticipants($id, $event_id);
         if ($status == 0) {
             MCompetition::participantsStatus($id, $event_id, $status);
             $this->MAdmins->addActivity('Participants Pending ' . $participants->name);
-            return Redirect::route('admincompetitions')->with('message', 'Participant Pending succesfully');
+            
+            return returnMsg('success','admincompetitions',"Participant Pending succesfully");
         } elseif ($status == 1) {
 
             MCompetition::participantsStatus($id, $event_id, $status);
@@ -278,13 +382,16 @@ class Competition extends AdminController {
             ##EMAIL FUNCTION
 
             $this->MAdmins->addActivity('Participants Attending ' . $participants->name);
-            return Redirect::route('admincompetitions')->with('message', 'Participant Attending succesfully');
+            
+            return returnMsg('success','admincompetitions',"Participant Attending succesfully");
         } elseif ($status == 2) {
             MCompetition::participantsStatus($id, $event_id, $status);
             $this->MAdmins->addActivity('Participants Canceled ' . $participants->name);
-            return Redirect::route('admincompetitions')->with('message', 'Participant Canceled succesfully');
+            
+            return returnMsg('success','admincompetitions',"Participant Canceled succesfully");
         }
-        return Redirect::route('admincompetitions')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
     }
 
 }
