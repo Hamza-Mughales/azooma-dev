@@ -718,6 +718,8 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::post('adminarticles/updateposition', array('as' => 'adminarticles/updateposition', 'uses' => 'Article@updateposition'));
 
     Route::get('adminnewsletter/', array('as' => 'adminnewsletter', 'uses' => 'NewsletterController@index'));
+    Route::get('adminnewsletterdata', array('as' => 'adminnewsletterdata', 'uses' => 'NewsletterController@getNewsLetterData'));
+    
     Route::get('adminnewsletter/form', array('as' => 'adminnewsletter/form', 'uses' => 'NewsletterController@form'));
     Route::get('adminnewsletter/form/{id}', array('as' => 'adminnewsletter/form/', 'uses' => 'NewsletterController@form'));
     Route::get('adminnewsletter/status/{id}', array('as' => 'adminnewsletter/status/', 'uses' => 'NewsletterController@status'));
@@ -727,6 +729,8 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminnewsletter/getAjaxCount', array('as' => 'adminnewsletter/getAjaxCount', 'uses' => 'NewsletterController@getAjaxCount'));
 
     Route::get('admineventcalendar/', array('as' => 'admineventcalendar', 'uses' => 'EventCalendarController@index'));
+    Route::get('admineventscalendardata', array('as' => 'admineventscalendardata', 'uses' => 'EventCalendarController@getEventsData'));
+    
     Route::get('admineventcalendar/form', array('as' => 'admineventcalendar/form', 'uses' => 'EventCalendarController@form'));
     Route::get('admineventcalendar/form/{id}', array('as' => 'admineventcalendar/form/', 'uses' => 'EventCalendarController@form'));
     Route::get('admineventcalendar/status/{id}', array('as' => 'admineventcalendar/status/', 'uses' => 'EventCalendarController@status'));

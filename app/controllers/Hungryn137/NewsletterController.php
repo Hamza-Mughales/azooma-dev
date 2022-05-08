@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class NewsletterController extends AdminController {
 
     protected $MAdmins;
@@ -22,33 +24,77 @@ class NewsletterController extends AdminController {
             $settings = Config::get('settings.default');
         }
 
-        $MNewsLetter = NewsLetter::orderBy('createdAt', 'DESC');
-        if (isset($_GET['name']) && !empty($_GET['name'])) {
-            $MNewsLetter = NewsLetter::where('name', 'LIKE', stripslashes($_GET['name']) . '%');
-        }
+   
         $country = Session::get('admincountry');
         if (empty($country)) {
             $country = 1;
         }
-        $MNewsLetter->where('country', '=', $country);
-        $lists = $MNewsLetter->paginate(15);
+  
         $emailListingReceivers = $this->MGeneral->getEmailListingReceivers();
         $cuisines = $this->MCuisine->getAllCuisines(0, 1);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Description', 'Total Receivers', 'Result', 'Last Update on', 'Actions'),
+            'headings' => array('Name', 'Description', 'Total Receivers', 'Result', "Status",'Last Update on', 'Actions'),
             'pagetitle' => 'List of All The Newsletters',
             'title' => 'Newsletters',
             'action' => 'adminnewsletter',
             'cuisines' => $cuisines,
             'emailListingReceivers' => $emailListingReceivers,
-            'lists' => $lists,
             'side_menu' => array('Emailing List','News Letter'),
         );
 
         return view('admin.partials.newsletter', $data);
     }
+    public function getNewsLetterData()
+    {
+        $query = DB::table('newsletter')
+            ->select(['newsletter.*']);
 
+
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("newsletter.country",  adminCountry());
+        }
+
+        return  DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                $btns =
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminnewsletter/form/',$row->id) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+
+
+                if ($row->status == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminnewsletter/status/',$row->id) . '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminnewsletter/status/',$row->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('adminnewsletter/delete/',$row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+                return $btns;
+            })
+            ->editColumn('message', function ($letter) {
+                return Str::limit(stripslashes(strip_tags(html_entity_decode($letter->message))), 100);
+            })
+            ->editColumn('receiver', function ($letter) {
+             return stripslashes($letter->receiver);
+            })
+            ->addColumn('result', function ($letter) {
+                return stripslashes($letter->receiver);
+               })
+
+
+            ->addColumn('status_html', function ($letter) {
+                return  $letter->status == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+
+            ->editColumn('updatedAt', function ($letter) {
+                if ($letter->updatedAt == "" || $letter->updatedAt == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($letter->createdAt));
+                } else {
+                    return date('d/m/Y', strtotime($letter->updatedAt));
+                }
+            })
+            ->make(true);
+    }
     public function form($id = 0) {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -131,15 +177,18 @@ class NewsletterController extends AdminController {
             $this->MNewsLetter->updateNewsLetter($filename);
             $obj = $this->MNewsLetter->getNewsLetter($id);
             $this->MAdmins->addActivity('Newsletter updated Succesfully - ' . $obj->name);
-            return Redirect::route('adminnewsletter')->with('message', "Newsletter updated Succesfully.");
+            return returnMsg('success','adminnewsletter',"Newsletter updated Succesfully.");
+
         } else {
             $id = $this->MNewsLetter->addNewsLetter($filename);
             // dd($id);
             $obj = $this->MNewsLetter->getNewsLetter($id);
             $this->MAdmins->addActivity('Newsletter Added Succesfully - ' . $obj->name);
-            return Redirect::route('adminnewsletter')->with('message', "Newsletter Added Succesfully.");
+            return returnMsg('success','adminnewsletter',"Newsletter Added Succesfully.");
+
         }
-        return Redirect::route('adminnewsletter')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','adminnewsletter',"something went wrong, Please try again.");
+
     }
 
     public function status($id = 0) {
@@ -158,9 +207,10 @@ class NewsletterController extends AdminController {
 
             DB::table('newsletter')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Newsletter Status changed successfully.' . $page->name);
-            return Redirect::route('adminnewsletter')->with('message', "Newsletter Status changed successfully.");
+            return returnMsg('success','adminnewsletter',"Newsletter Status changed successfully.");
+
         }
-        return Redirect::route('adminnewsletter')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','adminnewsletter',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -169,9 +219,10 @@ class NewsletterController extends AdminController {
         if (count($page) > 0) {
             DB::table('newsletter')->where('id', $id)->delete();
             $this->MAdmins->addActivity('Newsletter Deleted successfully.' . $page->name);
-            return Redirect::route('adminnewsletter')->with('message', "Newsletter Deleted successfully.");
+            return returnMsg('success','adminnewsletter',"Newsletter Deleted successfully.");
+
         }
-        return Redirect::route('adminnewsletter')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','adminnewsletter',"something went wrong, Please try again.");
     }
 
     public function getAjaxCount() {

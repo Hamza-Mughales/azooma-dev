@@ -6,11 +6,8 @@
     <li><a href="<?= route('admineventcalendar'); ?>">Calendar Events</a></li>  
     <li class="active">{{ $title }}</li>
 </ol>
-<?php
+<link rel="stylesheet" type="text/css" href="<?php echo asset(css_path()); ?>/date-picker.css">
 
-$error = Session::get('error');
-
-?>
 
 <div class="well-white">
     <article>    
@@ -30,7 +27,7 @@ $error = Session::get('error');
         <form name="page-form" id="jqValidate" class="form-horizontal" role="form" action="{{ route('admineventcalendar/save'); }}" method="post" >
             <div class="form-group row">
                 <label for="userType" class="col-md-2 control-label">Users:</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <select name="recipients" class="form-control required" id="recipients" placeholder="users" onchange="checktotal('recipients');">
                         <option value="" >Select recipients</option>
                         <?php
@@ -51,40 +48,40 @@ $error = Session::get('error');
             </div>
             <div class="form-group row">
                 <label for="name" class="col-md-2 control-label">Title English</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="input" name="name" class="form-control required" value="{{ isset($page) ? $page->name : Input::old('name') }}" id="name" placeholder="Title English">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="nameAr" class="col-md-2 control-label">Title Arabic</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="input" name="nameAr" class="form-control required" value="{{ isset($page) ? $page->nameAr : Input::old('nameAr') }}" id="nameAr" placeholder="Title Arabic" dir="rtl">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="date" class="col-md-2 control-label">Event Date</label>
-                <div class="col-md-6">
-                    <input type="input" name="date" class="form-control required" value="{{ isset($page) ? date('d/m/Y',strtotime($page->date)) : Input::old('date') }}" id="date" placeholder="Event Date">                    
+                <div class="col-md-7">
+                    <input type="text" autocomplete="off" name="date" class="form-control required" value="{{ isset($page) ? date('d/m/Y',strtotime($page->date)) : Input::old('date') }}" id="event-date" placeholder="Event Date">                    
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="message" class="col-md-2 control-label">Description English</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <textarea name="message" id="message" class="form-control" rows="5">{{ isset($page) ? $page->message : Input::old('message') }}</textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="messageAr" class="col-md-2 control-label">Description Arabic</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <textarea name="messageAr" id="messageAr" class="form-control" rows="5">{{ isset($page) ? $page->messageAr : Input::old('messageAr') }}</textarea>
                 </div>
             </div>    
 
             <div class="form-group row">
                 <label for="status" class="col-md-2 control-label">Publish</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="btn-group">
                         <input type="checkbox"  name="status" value="1"  {{ isset($page) ? ($page->status==1) ? 'checked': '' : 'checked' }} >            
                     </div>
@@ -92,7 +89,7 @@ $error = Session::get('error');
             </div>  
 
             <div class="form-group row">
-                <div class="offset-lg-2 col-md-6">
+                <div class="offset-lg-2 col-md-7">
                     <button type="submit" class="btn btn-primary-gradien">Save Now</button>
                     <?php
                     if (isset($page)) {
@@ -113,6 +110,19 @@ echo HTML::script('js/ckeditor/ckeditor.js');
 echo HTML::script('js/ckfinder/ckfinder.js');
 
 ?>
+<script src="<?= asset(js_path()) ?>/date-picker/datepicker.js"></script>
+<script src="<?= asset(js_path()) ?>/date-picker/datepicker.en.js"></script>
+<script src="<?= asset(js_path()) ?>/date-picker/datepicker.custom.js"></script>
+<script>
+    $(document).ready(function() {
+   
+        $('#event-date').datepicker({
+            language: 'en',
+            dateFormat: 'yyyy-mm-dd',
+        });
+
+    });
+</script>
 <script type="text/javascript">
     var totalsubs = '<?php echo $tot; ?>';
 </script>
@@ -124,13 +134,7 @@ echo HTML::script('js/ckfinder/ckfinder.js');
     var editor_details_ar = CKEDITOR.replace('messageAr');
     CKFinder.setupCKEditor(editor_details_ar, base + '/js/ckfinder/');
     //]]>
-    $(document).ready(function() {
-        
-        //$("#eventDate").datepicker({altFormat: "yy-mm-dd",altField:"#actualdate",dateFormat:"dd/mm/yy"});
-        $('#date').datepicker({
-            format: 'mm/dd/yyyy'
-        });
-    });
+
 </script>
 <?php
 echo HTML::script('js/admin/newsletter.js');

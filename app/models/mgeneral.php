@@ -750,7 +750,7 @@ class MGeneral extends Eloquent{
         }
         $logo = $logo->first();
         // dd($logo);
-        return $logoimage = ($lang == "en") ? $logo->image : $logo->image_ar;
+        return $logoimage = ($lang == "en") and isset($logo->image) ? $logo->image : (isset($logo->image_ar) ? $logo->image_ar:"");
     }
 
 

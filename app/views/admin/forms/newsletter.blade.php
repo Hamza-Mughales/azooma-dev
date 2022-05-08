@@ -6,6 +6,9 @@
     <li><a href="<?= route('adminnewsletter'); ?>">NewsLetters</a></li>  
     <li class="active">{{ $title }}</li>
 </ol>
+<style>
+    .hidden{display: none;}
+</style>
 <?php
 $obj = new MGeneral();
 
@@ -62,8 +65,8 @@ foreach ($cities as $city) {
                     </select>
                 </div>
             </div>
-
-            <div class="form-group hidden" id="cityList">
+            <div class="hidden" id="cityList">
+            <div class="form-group row hidden" id="cityList">
                 <label for="subcats" class="col-md-2 control-label">Cities:</label>
                 <div class="col-md-6" id="subcat">
                     <select class="form-control required" name="city_ID" id="city_ID" >
@@ -72,8 +75,9 @@ foreach ($cities as $city) {
                     </select>
                 </div>
             </div>
-
-            <div class="form-group hidden" id="cusineList">
+            </div>
+            <div class="hidden" id="cusineList">
+            <div class="form-group row">
                 <label for="cuisines" class="col-md-2 control-label">Cuisines</label>
                 <div class="col-md-6">
 
@@ -100,18 +104,20 @@ foreach ($cities as $city) {
                     </select>
                 </div>
             </div>
-
-            <div class="form-group <?php
+            </div>
+            <div class="<?php
             if (isset($page) && $page->receiver == 0) {
                 echo '';
             } else {
                 echo 'hidden';
             }
             ?>" id="testemails">
+            <div class="form-group row">
                 <label class="col-md-2 control-label" for="test">Add Test Recipients</label>
                 <div class="col-md-6">
                     <input class="form-control required" <?php echo isset($page) ? 'value="' . $page->recipents_test . '"' : ""; ?> type="text" name="test" id="test" placeholder="Enter multiple emails seperated by Comma" />
                 </div>
+            </div>
             </div>
 
 

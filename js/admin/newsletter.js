@@ -5,19 +5,28 @@ function checkReceiver() {
         $("#testemails").removeClass('hidden');
         $("#cusineList").addClass('hidden');
         $("#cityList").addClass('hidden');
+        $("#cityList").prop('required',false);
+        $("#cusineList").prop('required',false);
     } else if (reciever == 2 || reciever == 3 || reciever == 4 || reciever == 5) {
         $("#testemails").addClass('hidden');
         $("#cusineList").removeClass('hidden');
         $("#cuisines_chosen").css('width', '575px')
         $("#cityList").removeClass('hidden');
+        $("#cityList").prop('required',true);
+        $("#cusineList").prop('required',true);
     } else if (reciever == 1 || reciever == 6) {
         $("#testemails").addClass('hidden');
         $("#cusineList").addClass('hidden');
         $("#cityList").removeClass('hidden');
+        $("#cityList").prop('required',false);
+        $("#cusineList").prop('required',false);
     } else {
         $("#testemails").addClass('hidden');
         $("#cusineList").addClass('hidden');
         $("#cityList").addClass('hidden');
+        $("#cityList").prop('required',false);
+        $("#cusineList").prop('required',false);
+        $("#testemails").prop('required',false);
     }
 
 
