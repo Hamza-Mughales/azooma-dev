@@ -675,6 +675,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
 
     Route::get('admingallery/', array('as' => 'admingallery', 'uses' => 'Gallery@index'));
     Route::get('admingallerydata', array('as' => 'getgallerydata', 'uses' => 'Gallery@getGalleryData'));
+    Route::get('adminvideodata', array('as' => 'getVideodata', 'uses' => 'Gallery@getVideosData'));
     
     Route::get('admingallery/form', array('as' => 'admingallery/form', 'uses' => 'Gallery@form'));
     Route::get('admingallery/form/{id}', array('as' => 'admingallery/form/', 'uses' => 'Gallery@form'));

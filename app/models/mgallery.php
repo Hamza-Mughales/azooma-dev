@@ -146,6 +146,10 @@ class MGallery extends Eloquent {
         if (isset($_POST['rest_ID'])) {
             $rest_ID = Input::get('rest_ID');
         }
+        $country = Session::get('admincountry');
+        if (empty($country)) {
+            $country = 1;
+        }
         $data = array(
             'title' => (Input::get('title')),
             'title_ar' => (Input::get('title_ar')),
@@ -155,6 +159,7 @@ class MGallery extends Eloquent {
             'ratio' => $ratio,
             'width' => $width,
             'status' => $status,
+            "country"=> $country,
             'updatedAt' => date('Y-m-d H:i:s')
         );
         return DB::table('image_gallery')->insertGetId($data);

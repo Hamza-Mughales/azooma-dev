@@ -95,7 +95,7 @@
 <script type="text/javascript">
     var tab_config= {columns:[
         {data:"image_full"},
-        {data:"rest_Name",searchable:false},
+        {data:"rest_Name",name:"restaurant_info.rest_Name"},
         {data:"user_name",name:'user_FullName',searchable:false},
         {data:"status_html",name:"status",searchable:false},
         {data:"updatedAt"},

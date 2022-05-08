@@ -30,7 +30,8 @@ class Gallery extends AdminController
         if (empty($country)) {
             $country = 1;
         }
-        $type='';
+        $type = '';
+        $menu = 'Food Gallery';
         if (isset($_GET['type']) && !empty($_GET['type'])) {
             $type = $_GET['type'];
             switch ($type) {
@@ -39,96 +40,106 @@ class Gallery extends AdminController
                     break;
                 case "Sufrati":
                     $user = 0;
+                    $menu = 'Uploads';
                     break;
                 case "Users":
                     $user = 1;
+                    $menu = 'User Uploads';
                     break;
             }
         }
-       
+
         $data = array(
             'sitename' => $settings['name'],
             'type' => $type,
-            'headings' => array('Thumb', 'Restaurant', 'Upload By', "Status",'Last update', 'Actions'),
+            'headings' => array('Thumb', 'Restaurant', 'Upload By', "Status", 'Last update', 'Actions'),
             'pagetitle' => 'All Photos',
             'title' => 'Photos',
             'action' => 'admingallery',
             'country' => $country,
-            'side_menu' => array('Gallery', 'Food Gallery'),
+            'side_menu' => array('Gallery', $menu),
         );
         return view('admin.partials.photos', $data);
     }
     public function getGalleryData()
     {
-        //$obj = new MGeneral();
         $query = DB::table('image_gallery')
-            ->select(['image_gallery.*', 'restaurant_info.rest_Name','user.user_FullName','user.user_Email'])
-            ->Leftjoin("restaurant_info", "image_gallery.rest_ID", "=", "restaurant_info.rest_ID")
-            ->Leftjoin("user", "image_gallery.user_ID", "=", "user.user_ID");
-            
+            ->select(['image_gallery.*', 'restaurant_info.rest_Name', 'user.user_FullName', 'user.user_Email'])
+            ->leftJoin("restaurant_info", "image_gallery.rest_ID", "=", "restaurant_info.rest_ID")
+            ->leftJoin("user", "image_gallery.user_ID", "=", "user.user_ID");
+
 
         if (!in_array(0, adminCountry())) {
-         $query->whereIn("image_gallery.country",  adminCountry());
+            $query->whereIn("image_gallery.country",  adminCountry());
         }
-        if (get('status') or get('status')==0) {
+        if (get('status') or get('status') === '0') {
             $query->where('image_gallery.status', intval(get('status')));
         }
 
         if (get('rest')) {
             $query->where('image_gallery.rest_ID', intval(get('rest')));
         }
+        $type = get('type');
+        switch ($type) {
+            case "Sufrati":
+                $query->whereNull('image_gallery.user_ID');
+                break;
+            case "Users":
+                $query->where('image_gallery.user_ID', '>', 0);
+                break;
+        }
+        if ($type == "Sufrati") {
+            $query->whereNull('image_gallery.user_ID');
+        }
+        return  DataTables::of($query)
+            ->addColumn('action', function ($gallery) {
+                $type = get('type');
+                $btns =
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/form/', $gallery->image_ID) . '?rest_ID=' . $gallery->rest_ID . '&type=' . $type . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
-            return  DataTables::of($query)
-                ->addColumn('action', function ($gallery) {
-                    $type=get('type');
-                    $btns =
-                        $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/form/',$gallery->image_ID).'?rest_ID='.$gallery->rest_ID.'&type='.$type . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
+                if ($gallery->status == 0) {
 
-                    if ($gallery->status == 0) {
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/status/', $gallery->image_ID) . '?rest_ID=' . $gallery->rest_ID . '&type=' . $type . '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('admingallery/status/', $gallery->image_ID) . '?rest_ID=' . $gallery->rest_ID . '&type=' . $type . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('admingallery/delete/', $gallery->image_ID) . '?rest_ID=' . $gallery->rest_ID . '&type=' . $type . '" title="Delete"><i class="fa fa-trash"></i></a>';
 
-                        $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/status/',$gallery->image_ID).'?rest_ID='.$gallery->rest_ID.'&type='.$type. '" title="Activate "><i class="fa fa-check"></i></a>';
+                return $btns;
+            })
+            ->editColumn('image_full', function ($gallery) {
+                return  '<img src="' . upload_url('/Gallery/thumb/' . $gallery->image_full) . '" border="0" width="100" >';
+            })
+            ->addColumn('user_name', function ($gallery) {
+                $html = '';
+                $type = get('type');
+                if ($type == "Sufrati") {
+                    $html = 'Sufrati';
+                } else {
+                    if ($gallery->user_ID != "") {
+                        $html = $gallery->user_FullName . '<br>';
+                        $html .= '<a href="mailto:' . $gallery->user_Email . '">' . $gallery->user_Email . '</a>';
                     } else {
-                        $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('admingallery/status/',$gallery->image_ID).'?rest_ID='.$gallery->rest_ID.'&type='.$type. '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                        $html = 'Sufrati';
                     }
-                    $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('admingallery/delete/',$gallery->image_ID).'?rest_ID='.$gallery->rest_ID.'&type='.$type . '" title="Delete"><i class="fa fa-trash"></i></a>';
-                 
-                    return $btns;
-                })
-                ->editColumn('image_full', function ($gallery) {
-                  return  '<img src="'.upload_url('/Gallery/thumb/'.$gallery->image_full).'" border="0" width="100" >';
-                })
-                ->addColumn('user_name', function ($gallery) {
-                    $html='';
-                    $type=get('type');
-                    if ($type == "Sufrati") {
-                        $html= 'Sufrati';
-                    } else {
-                        if ($gallery->user_ID != "") {
-                                $html= $gallery->user_FullName . '<br>';
-                                $html.= '<a href="mailto:' . $gallery->user_Email . '">' . $gallery->user_Email . '</a>';
-                        
-                        } else {
-                            $html= 'Sufrati';
-                        }
-                    }
-                    return $html;
-                })
-       
+                }
+                return $html;
+            })
 
-                ->addColumn('status_html', function ($gallery) {
-                    return  $gallery->status == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
-                })
-    
-                ->editColumn('updatedAt', function ($gallery) {
-                    if ($gallery->updatedAt == "" || $gallery->updatedAt == "0000-00-00 00:00:00") {
-                        return date('d/m/Y', strtotime($gallery->enter_time));
-                    } else {
-                        return date('d/m/Y', strtotime($gallery->updatedAt));
-                    }
-                })
-                ->make(true);
-        
+
+            ->addColumn('status_html', function ($gallery) {
+                return  $gallery->status == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+
+            ->editColumn('updatedAt', function ($gallery) {
+                if ($gallery->updatedAt == "" || $gallery->updatedAt == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($gallery->enter_time));
+                } else {
+                    return date('d/m/Y', strtotime($gallery->updatedAt));
+                }
+            })
+            ->make(true);
     }
     public function form($id = 0)
     {
@@ -286,9 +297,9 @@ class Gallery extends AdminController
 
             DB::table('image_gallery')->where('image_ID', $id)->update($data);
             $this->MAdmins->addActivity('Photo Status changed successfully.' . $page->title);
-            return returnMsg('success','admingallery',"Photo Status changed successfully.", array('type' => get('type')));
+            return returnMsg('success', 'admingallery', "Photo Status changed successfully.", array('type' => get('type')));
         }
-        return returnMsg('error','admingallery',"something went wrong, Please try again.", array('type' => get('type')));
+        return returnMsg('error', 'admingallery', "something went wrong, Please try again.", array('type' => get('type')));
     }
 
     public function delete($id = 0)
@@ -298,10 +309,9 @@ class Gallery extends AdminController
         if (count($page) > 0) {
             DB::table('image_gallery')->where('image_ID', $id)->delete();
             $this->MAdmins->addActivity('Photo Deleted successfully.' . $page->title);
-            return returnMsg('success','admingallery',"Photo Deleted successfully.", array('type' => get('type')));
-
+            return returnMsg('success', 'admingallery', "Photo Deleted successfully.", array('type' => get('type')));
         }
-        return returnMsg('error','admingallery',"something went wrong, Please try again.", array('type' => get('type')));
+        return returnMsg('error', 'admingallery', "something went wrong, Please try again.", array('type' => get('type')));
     }
 
     public function videos()
@@ -315,41 +325,78 @@ class Gallery extends AdminController
         if (empty($country)) {
             $country = 1;
         }
-        $name = "";
-        $limit = 20;
-        $rest = "";
-        $user = "";
-        $type = "";
-        $name = "";
-        $status = "";
-        $sort = "";
-        if (isset($_GET['name']) && !empty($_GET['name'])) {
-            $name = stripslashes($_GET['name']);
-        }
-        if (isset($_GET['status'])) {
-            $status = stripslashes($_GET['status']);
-        }
-        if (isset($_GET['sort']) && !empty($_GET['sort'])) {
-            $sort = stripslashes($_GET['sort']);
-        }
-        if (isset($_GET['rest']) && !empty($_GET['rest'])) {
-            $rest = stripslashes($_GET['rest']);
-        }
-
-        $lists = $this->Gallery->getAllVideos($country, $rest, $status, $name, $limit, $sort);
+  
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Thumb', 'Restaurant', 'Last Update on', 'Actions'),
+            'headings' => array('Name', 'Thumb', 'Restaurant','Status', 'Last Update on', 'Actions'),
             'pagetitle' => 'List of All Videos',
             'title' => 'All Videos',
             'action' => 'admingallery',
-            'lists' => $lists,
             'country' => $country,
             'side_menu' => array('Gallery', 'Video Uploads'),
         );
         return view('admin.partials.videos', $data);
     }
+    public function getVideosData()
+    {
+        $query = DB::table('rest_video')
+            ->select(['rest_video.*','restaurant_info.rest_Name'])
+            ->leftJoin("restaurant_info", "rest_video.rest_ID", "=", "restaurant_info.rest_ID");
 
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("rest_video.country",  adminCountry());
+        }
+        if (get('status') or get('status') === '0') {
+            $query->where('rest_video.status', intval(get('status')));
+        }
+
+        if (get('rest')) {
+            $query->where('rest_video.rest_ID', intval(get('rest')));
+        }
+     
+        return  DataTables::of($query)
+            ->addColumn('action', function ($rest_video) {
+                $type = get('type');
+                $btns =
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/videoform/',$rest_video->id)  . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+
+
+                if ($rest_video->status == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/videostatus/',$rest_video->id) . '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' .route('admingallery/videostatus/',$rest_video->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' .route('admingallery/videodelete/',$rest_video->id) . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+                return $btns;
+            })
+            ->editColumn('youtube_en', function ($rest_video) {
+                $youtube = "";
+                parse_str(parse_url($rest_video->youtube_en, PHP_URL_QUERY), $var);
+                if (isset($var['v'])) {
+                    $youtube = $var['v'];
+                }
+                return  ' <img src="http://i.ytimg.com/vi/'.$youtube.'/default.jpg" alt="'.$rest_video->name_en.'" width="120" height="90"/>';
+            })
+    
+
+
+            ->addColumn('status_html', function ($rest_video) {
+                return  $rest_video->status == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+
+            ->editColumn('updatedAt', function ($rest_video) {
+             
+                if ($rest_video->updatedAt == "") {
+                    return date('d/m/Y', strtotime($rest_video->add_date));
+                } else {
+                    return date('d/m/Y', strtotime($rest_video->updatedAt));
+                }
+                
+            })
+            ->make(true);
+    }
     public function videoform($id = 0)
     {
         if (Session::get('admincountryName') != "") {
@@ -396,14 +443,16 @@ class Gallery extends AdminController
             $this->Gallery->updateVideo();
             $obj = $this->Gallery->getRestVideo($id);
             $this->MAdmins->addActivity('Video updated Succesfully - ' . $obj->name_en);
-            return Redirect::route('admingallery/videos')->with('message', "Video updated Succesfully.");
+            return returnMsg('success','admingallery/videos',"Video updated Succesfully.");
         } else {
             $id = $this->Gallery->addVideo();
             $obj = $this->Gallery->getRestVideo($id);
             $this->MAdmins->addActivity('Video Added Succesfully - ' . $obj->name_en);
-            return Redirect::route('admingallery/videos')->with('message', "Video Added Succesfully.");
+            return returnMsg('success','admingallery/videos',"Video Added Succesfully.");
+
         }
-        return Redirect::route('admingallery/videos')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','admingallery/videos',"something went wrong, Please try again.");
+
     }
 
     public function videostatus($id = 0)
@@ -422,9 +471,11 @@ class Gallery extends AdminController
             );
             DB::table('rest_video')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Video Status changed successfully.' . $page->name_en);
-            return Redirect::route('admingallery/videos')->with('message', "Video Status changed successfully.");
+            return returnMsg('success','admingallery/videos',"Video Status changed successfully.");
+
         }
-        return Redirect::route('admingallery/videos')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','admingallery/videos',"something went wrong, Please try again.");
+
     }
 
     public function videodelete($id = 0)
@@ -434,8 +485,11 @@ class Gallery extends AdminController
         if (count($page) > 0) {
             DB::table('rest_video')->where('id', $id)->delete();
             $this->MAdmins->addActivity('Video Deleted successfully.' . $page->name_en);
-            return Redirect::route('admingallery/videos')->with('message', "Video Deleted successfully.");
+            return returnMsg('success','admingallery/videos',"Video Deleted successfully.");
+
+
         }
-        return Redirect::route('admingallery/videos')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','admingallery/videos',"something went wrong, Please try again.");
+
     }
 }
