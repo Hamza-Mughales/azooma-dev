@@ -85,37 +85,38 @@
   </div>
 
   <script>
-    $("#restaurant-search").keyup(function(){
-      var search = $(this).val();
-      if(search == "" || search == null){
+  $("#restaurant-search").keyup(function(){
+    var search = $(this).val();
+    if(search == "" || search == null){
       $("#searchResult").empty();
-      }
-      if(search != "" && search != null){
+    }
+    if(search != "" && search != null){
         var base='<?php echo URL::to(""); ?>';
         $.ajax({
-          url: base+'/hungryn137/azoomasearchadmin/',
-          type: 'get',
-          data: {search:search},
-          dataType: 'json',
-          success:function(response){
-            $("#searchResult").show();
-            var len = response.restaurants.length;
-            $("#searchResult").empty();
-            var uploadbase='<?php echo Azooma::CDN("");?>';
-            for( var i = 0; i<len; i++){
-                var rest_ID = response.restaurants[i]['rest_ID'];
-                var name = response.restaurants[i]['name'];
-                var rest_Logo = response.restaurants[i]['rest_Logo'];
-                if(rest_Logo==""){
-                  rest_Logo="default_logo.gif";
+            url: base+'/hungryn137/azoomasearchadmin/',
+            type: 'get',
+            data: {search:search},
+            dataType: 'json',
+            success:function(response){
+              $("#searchResult").show();
+                var len = response.restaurants.length;
+                $("#searchResult").empty();
+                var uploadbase='<?php echo Azooma::CDN("");?>';
+                for( var i = 0; i<len; i++){
+                    var rest_ID = response.restaurants[i]['rest_ID'];
+                    var name = response.restaurants[i]['name'];
+                    var rest_Logo = response.restaurants[i]['rest_Logo'];
+                    if(rest_Logo==""){
+                      rest_Logo="default_logo.gif";
+                    }
+                    var the_route = "<?= url('hungryn137/adminrestaurants/form') ?>";
+                    $("#searchResult").append('<li><a href="'+the_route+'/'+rest_ID+'"><img src="'+uploadbase+'/logos/'+rest_Logo+'">'+name+'</a></li>');
+
                 }
-                $("#searchResult").append("<li><a href='https://azooma.co/hungryn137/adminrestaurants/form/"+rest_ID+"'><img src='"+uploadbase+"/logos/"+rest_Logo+"'>"+name+"</a></li>");
 
             }
-
-          }
         });
-      }
+    }
 
-    });
+});
   </script>
