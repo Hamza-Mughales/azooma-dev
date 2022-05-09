@@ -1,62 +1,103 @@
 <?php
 
-class Banners extends AdminController {
+use Yajra\DataTables\Facades\DataTables;
+
+class Banners extends AdminController
+{
 
     protected $Art_Work;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->Art_Work = new ArtWork();
         $this->MGeneral = new MGeneral();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
-        $country = Session::get('admincountry');
-        if (empty($country)) {
-            $country = 1;
-        }
-        $type = "";
-        $limit = 20;
-        $status = 0;
-        $city_ID = 0;
-        $banner_type = 0;
-        $cuisine_ID = 0;
-        $views = 0;
-        if (isset($_GET['city_ID']) && !empty($_GET['city_ID'])) {
-            $city_ID = stripslashes($_GET['city_ID']);
-        }
-        if (isset($_GET['banner_type']) && !empty($_GET['banner_type'])) {
-            $banner_type = stripslashes($_GET['banner_type']);
-        }
-        if (isset($_GET['cuisine_ID']) && !empty($_GET['cuisine_ID'])) {
-            $cuisine_ID = stripslashes($_GET['cuisine_ID']);
-        }
-        if (isset($_GET['views']) && !empty($_GET['views'])) {
-            $views = stripslashes($_GET['views']);
-        }
+    
 
-
-        $lists = Ads::getAllBanners($country, $status, $type, $limit, $city_ID, $banner_type, $cuisine_ID, $views);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Banner', 'Type', 'City', 'Clicked', 'Impressions', 'Duration', 'Actions'),
+            'headings' => array('Banner', 'Type', 'City', 'Clicked', 'Impressions', 'Start date',"End date", "Status",'Actions'),
             'pagetitle' => 'List of All Banners',
             'title' => ' All Banners',
             'action' => 'adminbanners',
             'type' => '',
-            'lists' => $lists,
-            'side_menu' => array('Art Work','Banners'),
+            'side_menu' => array('Art Work', 'Banners'),
         );
         return view('admin.partials.banner', $data);
     }
+    public function getBannerData()
+    {
+        $query = DB::table('banner')
+            ->select(['banner.*','city_list.city_Name'])
+            ->LeftJoin('city_list',"banner.city_ID","=","city_list.city_ID");	
 
-    public function form($id = 0) {
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("banner.country",  adminCountry());
+        }
+        if (get('status') or get('status') === '0') {
+            $query->where('banner.active', intval(get('status')));
+        }
+        if (get('city_ID')) {
+            $query->where('banner.city_ID', '=', get('city_ID'));
+        }
+        if (get('banner_type')) {
+            $query->where('banner.banner_type', '=', get('banner_type'));
+        }
+        if (get('cuisine_ID')) {
+            $query->where('banner.cuisine_ID', '=', get('cuisine_ID'));
+        }
+        if (get('type')) {
+            $query->where('banner.type', '=', get('type'));
+        }
+
+        return  DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                $type = get('type');
+                $btns = '';
+
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminbanners/form/', $row->id) . '" title="Edit"><i class="fa fa-edit"></i></a>';
+
+                if ($row->active == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminbanners/status/', $row->id) .  '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminbanners/status/', $row->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('adminbanners/delete/', $row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+                return $btns;
+            })
+
+
+            ->addColumn('image', function ($row) {
+                    $html = '<img src="' . upload_url('banner/' . $row->image) . '" border="0" width="100" >';
+             
+                return $html;
+            })
+            ->editColumn('banner_type', function ($row) {
+                $bannerTypes = Config::get('settings.bannertypes');
+                $banner_type=isset($bannerTypes[$row->banner_type]) ? $bannerTypes[$row->banner_type] :"";
+                return  $banner_type;
+            })
+            ->addColumn('status_html', function ($row) {
+                return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+            
+
+            ->make(true);
+    }
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -78,7 +119,7 @@ class Banners extends AdminController {
                 'banner' => $page,
                 'css' => 'chosen,admin/jquery-ui',
                 'js' => 'admin/jquery-ui,chosen.jquery',
-            'side_menu' => array('Art Work','Banners'),
+                'side_menu' => array('Art Work', 'Banners'),
             );
         } else {
             $data = array(
@@ -88,13 +129,14 @@ class Banners extends AdminController {
                 'title' => 'New Banner',
                 'css' => 'admin/jquery-ui,chosen',
                 'js' => 'admin/jquery-ui,chosen.jquery',
-            'side_menu' => array('Art Work','Banners'),
+                'side_menu' => array('Art Work', 'Banners'),
             );
         }
         return view('admin.forms.banner', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::has('banner_type')) {
             $banner_type = Input::get('banner_type');
             $filename = "";
@@ -114,10 +156,10 @@ class Banners extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 $largeLayer->save(Config::get('settings.uploadpath') . "/banner", $save_name, true, null, 95);
-                
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/banner/".$save_name);
-                $changelayer=clone $layer;
-                
+
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/banner/" . $save_name);
+                $changelayer = clone $layer;
+
                 // if ($banner_type == 1) {
                 //     $changelayer->resizeInPixel(968, 98);
                 // } elseif ($banner_type == 2) {
@@ -148,14 +190,14 @@ class Banners extends AdminController {
                 $actualWidth = $largeLayer->getWidth();
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
-//                if ($actualWidth < 200 && $actualHeight < 200) {
-//                    return Redirect::route('adminrestaurants')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
-//                }
+                //                if ($actualWidth < 200 && $actualHeight < 200) {
+                //                    return Redirect::route('adminrestaurants')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
+                //                }
                 $largeLayer->save(Config::get('settings.uploadpath') . "/banner", $save_name, true, null, 95);
-                
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/banner/".$save_name);
-                $changelayer=clone $layer;
-                
+
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/banner/" . $save_name);
+                $changelayer = clone $layer;
+
                 // if ($banner_type == 1) {
                 //     $changelayer->resizeInPixel(968, 98);
                 // } elseif ($banner_type == 2) {
@@ -214,10 +256,11 @@ class Banners extends AdminController {
                 DB::table('banner')->insert($data);
             }
         }
-        return Redirect::route('adminbanners', array('type' => Input::get('art_work_name')))->with(array('message' => 'Your data has been save successfully.'));
+        return returnMsg('success', 'adminbanners', 'Your data has been save successfully.', array('type' => get('art_work_name')));
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = Ads::getBanner($id);
         $message = "";
@@ -233,57 +276,95 @@ class Banners extends AdminController {
                 'active' => $status
             );
             DB::table('banner')->where('id', $id)->update($data);
-            return Redirect::route('adminbanners')->with(array('message' => $message));
+            return returnMsg('success', 'adminbanners', $message, array('type' => get('art_work_name')));
         }
-        return Redirect::route('adminbanners')->with(array('message' => 'something went wrong, Please try again.'));
+        return returnMsg('error', 'adminbanners', 'something went wrong, Please try again.', array('type' => get('art_work_name')));
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = Ads::getBanner($id);
         if (count($page) > 0) {
             Ads::deleteBanner($id);
-            return Redirect::route('adminbanners')->with(array('message' => 'Banner deleted successfully.'));
+            return returnMsg('success', 'adminbanners',  'Banner deleted successfully.');
         }
-        return Redirect::route('adminbanners')->with(array('message' => 'something went wrong, Please try again.'));
+        return returnMsg('error', 'adminbanners', 'something went wrong, Please try again.');
     }
 
     ###############################################################
 
-    public function category() {
+    public function category()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
-        $country = Session::get('admincountry');
-        if (empty($country)) {
-            $country = 1;
-        }
-        $limit = 20;
-        $status = 0;
-        $city_ID = 0;
+   
 
-        if (isset($_GET['city_ID']) && !empty($_GET['city_ID'])) {
-            $city_ID = stripslashes($_GET['city_ID']);
-        }
-
-
-        $lists = Ads::getAllHomePageCategories($country, $status, $limit, $city_ID);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Banner', 'Title','Title Arabic', 'City', 'Actions'),
+            'headings' => array('Banner', 'Title', 'Title Arabic', 'City', "Status",'Actions'),
             'pagetitle' => 'List of All Home Page Categories',
             'title' => ' All Home Page Categories',
             'action' => 'admincategoryartwork',
             'type' => '',
-            'lists' => $lists,
-            'side_menu' => array('Art Work','Category Artwork'),
+            'side_menu' => array('Art Work', 'Category Artwork'),
         );
         return view('admin.partials.homepagecategory', $data);
     }
+    public function getCategoryData()
+    {
+        $query = DB::table('art_work')
+            ->select(['art_work.*','city_list.city_Name'])
+            ->LeftJoin('city_list',"art_work.city_ID","=","city_list.city_ID")
+            ->where('art_work_name','=','Home Page Category');
 
-    public function categoryform($id = 0) {
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("art_work.country",  adminCountry());
+        }
+        if (get('status') or get('status') === '0') {
+            $query->where('art_work.active', intval(get('status')));
+        }
+        if (get('city_ID')) {
+            $query->where('art_work.city_ID', '=', get('city_ID'));
+        }
+     
+     
+        return  DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                $btns = '';
+
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admincategoryartwork/form/',$row->id) . '" title="Edit"><i class="fa fa-edit"></i></a>';
+
+                if ($row->active == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' .route('admincategoryartwork/status/',$row->id) .  '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' .route('admincategoryartwork/status/',$row->id). '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('admincategoryartwork/delete/',$row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+                return $btns;
+            })
+
+
+            ->addColumn('image', function ($row) {
+                    $html = '<img src="' . upload_url('images/' . $row->image) . '" border="0" width="100" >';
+             
+                return $html;
+            })
+         
+            ->addColumn('status_html', function ($row) {
+                return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+            
+
+            ->make(true);
+    }
+    public function categoryform($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -305,7 +386,7 @@ class Banners extends AdminController {
                 'banner' => $page,
                 'css' => 'chosen,admin/jquery-ui',
                 'js' => 'admin/jquery-ui,chosen.jquery',
-                'side_menu' => array('Art Work','Category Artwork'),
+                'side_menu' => array('Art Work', 'Category Artwork'),
             );
         } else {
             $data = array(
@@ -315,13 +396,14 @@ class Banners extends AdminController {
                 'title' => 'New Home Page Category',
                 'css' => 'admin/jquery-ui,chosen',
                 'js' => 'admin/jquery-ui,chosen.jquery',
-                'side_menu' => array('Art Work','Category Artwork'),
+                'side_menu' => array('Art Work', 'Category Artwork'),
             );
         }
         return view('admin.forms.homepagecategory', $data);
     }
 
-    public function categorysave() {
+    public function categorysave()
+    {
         if (Input::has('art_work_name')) {
             $filename = "";
             if (Input::hasFile('image')) {
@@ -340,9 +422,9 @@ class Banners extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/", $save_name, true, null, 80);
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/images/".$save_name);
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/images/" . $save_name);
                 $layer->cropMaximumInPixel(0, 0, "MM");
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 // $changelayer->resizeInPixel(200, 125);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/images/", $save_name, true, null, 95);
             } elseif (isset($_POST['image_old'])) {
@@ -366,10 +448,10 @@ class Banners extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/", $save_name, true, null, 80);
-                
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/images/".$save_name);
+
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/images/" . $save_name);
                 $layer->cropMaximumInPixel(0, 0, "MM");
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 // $changelayer->resizeInPixel(200, 125);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/images/", $save_name, true, null, 95);
             } elseif (isset($_POST['image_ar_old'])) {
@@ -407,10 +489,11 @@ class Banners extends AdminController {
                 DB::table('art_work')->insert($data);
             }
         }
-        return Redirect::route('admincategoryartwork', array('type' => Input::get('art_work_name')))->with(array('message' => 'Your data has been save successfully.'));
+        return returnMsg('success','admincategoryartwork', 'Your data has been save successfully.',array('type' => get('art_work_name')));
     }
 
-    public function categorystatus($id = 0) {
+    public function categorystatus($id = 0)
+    {
         $status = 0;
         $page = Ads::getHomePageCategory($id);
         $message = "";
@@ -426,19 +509,19 @@ class Banners extends AdminController {
                 'active' => $status
             );
             DB::table('art_work')->where('id', $id)->update($data);
-            return Redirect::route('admincategoryartwork')->with(array('message' => $message));
+            return returnMsg('success','admincategoryartwork', $message);
         }
-        return Redirect::route('admincategoryartwork')->with(array('message' => 'something went wrong, Please try again.'));
+        return returnMsg('error','admincategoryartwork','something went wrong, Please try again.');
     }
 
-    public function categorydelete($id = 0) {
+    public function categorydelete($id = 0)
+    {
         $status = 0;
         $page = Ads::getHomePageCategory($id);
         if (count($page) > 0) {
             Ads::deleteHomePageCategory($id);
-            return Redirect::route('admincategoryartwork')->with(array('message' => 'Home Page Category deleted successfully.'));
+            return returnMsg('success','admincategoryartwork', 'Home Page Category deleted successfully.');
         }
-        return Redirect::route('admincategoryartwork')->with(array('message' => 'something went wrong, Please try again.'));
+        return returnMsg('error','admincategoryartwork','something went wrong, Please try again.');
     }
-
 }

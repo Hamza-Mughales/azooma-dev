@@ -1,32 +1,30 @@
 <?php
 
-class ArtWorkController extends AdminController {
+use Yajra\DataTables\Facades\DataTables;
+
+class ArtWorkController extends AdminController
+{
 
     protected $Art_Work;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->Art_Work = new ArtWork();
         $this->MGeneral = new MGeneral();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
-        $country = Session::get('admincountry');
-        if (empty($country)) {
-            $country = 1;
-        }
-        $type = "";
-        $limit = 20;
-        $name = "";
-        $status = "";
-        $sort = "";
-        $city_ID = 0;
+   
+        $type = "Home Page Artwork";
+
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $name = stripslashes($_GET['name']);
         }
@@ -36,33 +34,84 @@ class ArtWorkController extends AdminController {
         if (empty($type)) {
             $type = 'Azooma Logo';
         }
-
-        if (isset($_GET['status'])) {
-            $status = stripslashes($_GET['status']);
-        }
-        if (isset($_GET['sort']) && !empty($_GET['sort'])) {
-            $sort = stripslashes($_GET['sort']);
-        }
-        if (isset($_GET['city_ID']) && !empty($_GET['city_ID'])) {
-            $city_ID = stripslashes($_GET['city_ID']);
-        }
-
-
-        $lists = $this->MGeneral->getAllArtwork($country, $type, $status, $limit, $name, $sort, $city_ID);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Title', 'Artwork', 'Last Update on', 'Actions'),
+            'headings' => array('Title', 'Artwork',"Status", 'Last Update on', 'Actions'),
             'pagetitle' => 'List of All ' . $type . ' Artworks',
             'title' => $type . ' Artworks',
             'action' => 'adminartkwork',
             'type' => $type,
-            'lists' => $lists,
-            'side_menu' => array('Art Work','Slider Artwork'),
+            'side_menu' => array('Art Work', $type),
         );
         return view('admin.partials.artwork', $data);
     }
+    public function getArtworkData()
+    {
+        $query = DB::table('art_work')
+        ->select(['art_work.*']);
+    if (!in_array(0, adminCountry())) {
+        $query->whereIn("country",  adminCountry());
+    }
+    if (get('status') or get('status')==='0') {
+        $query->where('active', intval(get('status')));
+    }
+    if (get('city_ID')) {
+        $query->where('city_ID', '=',get('city_ID'));
+    }
+    if (get('type')) {
+        $query->where('art_work_name', '=',get('type'));
+    }
+    
+    return  DataTables::of($query)
+        ->addColumn('action', function ($row) {
+            $type=get('type');
+            $btns ='';
+        
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' .route('adminartkwork/form/',$row->id).'?type='.$type
+                . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
-    public function form($id = 0) {
+            if ($row->active == 0) {
+
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminartkwork/status/',$row->id).  '" title="Activate "><i class="fa fa-check"></i></a>';
+            } else {
+                $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminartkwork/status/',$row->id). '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+            }
+            $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('adminartkwork/delete/',$row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+            return $btns;
+        })
+ 
+ 
+        ->addColumn('image', function ($row) {
+            $html='';
+            $type=get('type');
+            if ($type == "Azooma Logo") {
+
+                $html='<img src="'.upload_url('sufratilogo/' . $row->image).'" border="0" width="100" >';
+            } else {
+           
+                $html=' <img src="'.upload_url('images/' . $row->image).'" border="0" width="100" >';
+            }
+             return $html;
+        })
+
+
+        ->addColumn('status_html', function ($row) {
+            return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+        })
+
+        ->editColumn('updatedAt', function ($row) {
+            if ($row->updatedAt == "" || $row->updatedAt == "0000-00-00 00:00:00") {
+                return date('d/m/Y', strtotime($row->createdAt));
+            } else {
+                return date('d/m/Y', strtotime($row->updatedAt));
+            }
+        })
+  
+        ->make(true);
+    }
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -83,7 +132,7 @@ class ArtWorkController extends AdminController {
                 'page' => $page,
                 'js' => 'chosen.jquery',
                 'css' => 'chosen',
-                'side_menu' => array('Art Work','Slider Artwork'),
+                'side_menu' => array('Art Work',  $type ),
             );
         } else {
             $data = array(
@@ -93,13 +142,14 @@ class ArtWorkController extends AdminController {
                 'title' => 'New Artwork',
                 'js' => 'chosen.jquery',
                 'css' => 'chosen',
-                'side_menu' => array('Art Work','Slider Artwork'),
+                'side_menu' => array('Art Work',  $type ),
             );
         }
         return view('admin.forms.artwork', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $filename = "";
         $art_work_name = Input::get('art_work_name');
         if (Input::hasFile('image')) {
@@ -119,15 +169,15 @@ class ArtWorkController extends AdminController {
             $ratio = $actualWidth / $actualHeight;
             if ($art_work_name == "Azooma Logo") {
                 $largeLayer->save(Config::get('settings.uploadpath') . "/sufratilogo/", $save_name, true, null, 95);
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/sufratilogo/".$save_name);
-                $changelayer=clone $layer;
-                // $changelayer->resizeInPixel(183, 50);
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/sufratilogo/" . $save_name);
+                $changelayer = clone $layer;
+
                 $changelayer->save(Config::get('settings.uploadpath') . "/sufratilogo/", $save_name, true, null, 95);
             } else {
                 //Home Page slider
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/", $save_name, true, null, 95);
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/images/".$save_name);
-                $changelayer=clone $layer;
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/images/" . $save_name);
+                $changelayer = clone $layer;
                 // $changelayer->resizeInPixel(null, 380,true);
                 $changelayer->save(Config::get('settings.uploadpath') . "/images/", $save_name, true, null, 95);
             }
@@ -152,14 +202,14 @@ class ArtWorkController extends AdminController {
             $ratio = $actualWidth / $actualHeight;
             if ($art_work_name == "Azooma Logo") {
                 $largeLayer->save(Config::get('settings.uploadpath') . "/sufratilogo/", $save_name, true, null, 80);
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/sufratilogo/".$save_name);
-                $changelayer=clone $layer;
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/sufratilogo/" . $save_name);
+                $changelayer = clone $layer;
                 // $changelayer->resizeInPixel(183, 50);
                 $changelayer->save(Config::get('settings.uploadpath') . "/sufratilogo/", $save_name, true, null, 95);
             } else {
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/", $save_name, true, null, 80);
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/images/".$save_name);
-                $changelayer=clone $layer;
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/images/" . $save_name);
+                $changelayer = clone $layer;
                 // $changelayer->resizeInPixel(null, 380,true);
                 $changelayer->save(Config::get('settings.uploadpath') . "/images/", $save_name, true, null, 95);
             }
@@ -201,10 +251,11 @@ class ArtWorkController extends AdminController {
         } else {
             DB::table('art_work')->insert($data);
         }
-        return Redirect::route('adminartkwork', array('type' => Input::get('art_work_name')))->with(array('message' => 'Your data has been save successfully.'));
+        return returnMsg('success', 'adminartkwork', 'Your data has been save successfully.', array('type' => Input::get('art_work_name')));
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = ArtWork::find($id);
         if (count($page) > 0) {
@@ -219,19 +270,19 @@ class ArtWorkController extends AdminController {
             );
 
             DB::table('art_work')->where('id', $id)->update($data);
-            return Redirect::route('adminartkwork', array('type' => $page->art_work_name))->with(array('message' => 'Your data has been save successfully.'));
+            return returnMsg('success', 'adminartkwork', 'Status had been changed successfully.', array('type' => $page->art_work_name));
         }
-        return Redirect::route('adminartkwork', array('type' => $page->art_work_name))->with(array('message' => 'something went wrong, Please try again.'));
+        return returnMsg('error', 'adminartkwork', 'something went wrong, Please try again.', array('type' => $page->art_work_name));
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = ArtWork::find($id);
         if (count($page) > 0) {
             ArtWork::destroy($id);
-            return Redirect::route('adminartkwork', array('type' => $page->art_work_name))->with(array('message' => 'Your data has been save successfully.'));
+            return returnMsg('success', 'adminartkwork', 'Delete Proccess done successfully.', array('type' => $page->art_work_name));
         }
-        return Redirect::route('adminartkwork', array('type' => $page->art_work_name))->with(array('message' => 'something went wrong, Please try again.'));
+        return returnMsg('error', 'adminartkwork', 'something went wrong, Please try again.', array('type' => $page->art_work_name));
     }
-
 }

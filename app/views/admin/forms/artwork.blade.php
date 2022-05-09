@@ -19,7 +19,7 @@
                 ?>
                 <div class="form-group row">
                     <label for="title_ar" class="col-md-2 control-label">City</label>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <select class="form-control required chzn-select" multiple="multiple" data-placeholder="Select City" name="city_ID[]" id="city_ID"> 
                             <option value="0">All Cities</option>
                             <?php
@@ -58,25 +58,25 @@
             ?>
             <div class="form-group row">
                 <label for="title" class="col-md-2 control-label">Title English</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="input" name="title" class="form-control" value="{{ isset($page) ? $page->a_title : Input::old('title') }}" id="title" placeholder="Title English">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="title_ar" class="col-md-2 control-label">Title Arabic</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="input" name="title_ar" class="form-control"  value="{{ isset($page) ? $page->a_title_ar : Input::old('title_ar') }}" id="title_ar" placeholder="Title Arabic" dir="rtl">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="img_alt" class="col-md-2 control-label">Image Title English</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="input" name="img_alt" class="form-control" value="{{ isset($page) ? $page->img_alt : Input::old('img_alt') }}" id="img_alt" placeholder="Image Title English">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="img_alt_ar" class="col-md-2 control-label">Image Title Arabic</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="input" name="img_alt_ar" class="form-control"  value="{{ isset($page) ? $page->img_alt_ar : Input::old('img_alt_ar') }}" id="img_alt_ar" placeholder="Image Title Arabic" dir="rtl">
                 </div>
             </div>
@@ -85,13 +85,13 @@
                 ?>
                 <div class="form-group row">
                     <label for="link" class="col-md-2 control-label">Link</label>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <input type="input" name="link" class="form-control" value="{{ isset($page) ? $page->link : Input::old('link') }}" id="link" placeholder="Link">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="link_ar" class="col-md-2 control-label">Linnk Arabic</label>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <input type="input" name="link_ar" class="form-control"  value="{{ isset($page) ? $page->link_ar : Input::old('jobtitleAr') }}" id="link_ar" placeholder="Link Arabic" dir="rtl">
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                         ?>
                     </div>
                 </label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="file" name="image" id="image">
                     <?php
                     if (isset($page)) {
@@ -155,7 +155,7 @@
                         ?>
                     </div>
                 </label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <input type="file" name="image_ar" id="image_ar">
                     <?php
                     if (isset($page)) {
@@ -181,7 +181,7 @@
 
             <div class="form-group row">
                 <label for="status" class="col-md-2 control-label">Publish</label>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="btn-group">
                         <input type="checkbox"  name="status" value="1"  {{ isset($page) ? ($page->active==1) ? 'checked': '' : 'checked' }} >            
                     </div>
@@ -189,7 +189,7 @@
             </div>  
 
             <div class="form-group row">
-                <div class="offset-lg-2 col-md-6">
+                <div class="offset-lg-2 col-md-7">
                     <button type="submit" class="btn btn-primary-gradien">Save Now</button>
                     <input type="hidden" name="art_work_name"  value="{{ $art_work_name }}" id="art_work_name" >
                     <?php

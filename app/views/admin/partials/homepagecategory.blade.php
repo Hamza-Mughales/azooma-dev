@@ -16,7 +16,6 @@
 
 <div id="filter-main" class="collapse well-white">
     <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="{{ route('admincategoryartwork' ); }}" method="get" >
         <div class="form-group row">
             <label for="name" class="col-md-2 control-label">City</label>
             <div class="col-md-6">
@@ -42,63 +41,24 @@
                 </select> 
             </div>
         </div>
+       
         <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Type</label>
+            <label for="status" class="col-md-2 control-label">Status</label>
             <div class="col-md-6">
-                <select class="form-control required" data-placeholder="Select Banner Type" name="banner_type" id="banner_type"> 
-                    <option value="0">Select Type</option>
-                    <?php
-                    $RestaurantStatus = Config::get('settings.bannertypes');
-                    if (is_array($RestaurantStatus)) {
-                        foreach ($RestaurantStatus as $key => $value) {
-                            ?>
-                            <option value="{{ $key }}">
-                                {{ $value }}
-                            </option>
-                            <?php
-                        }
-                    }
-                    ?>                        
-                </select> 
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="title_ar" class="col-md-2 control-label">Cuisine</label>
-            <div class="col-md-6">
-                <select class="form-control" data-placeholder="Select Cuisine" name="cuisine_ID" id="cuisine_ID"> 
-                    <option value="0">Select Cuisine</option>
-                    <?php
-                    $cuisines = MGeneral::getAllMasterCuisine(1);
-                    if (is_array($cuisines)) {
-                        foreach ($cuisines as $value) {
-                            ?>
-                            <option value="{{ $value->id }}">
-                                {{ $value->name }}
-                            </option>
-                            <?php
-                        }
-                    }
-                    ?>                        
-                </select> 
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="views" class="col-md-2 control-label">Views</label>
-            <div class="col-md-6">
-                <select name="views" id="views" class="form-control">
-                    <option value="">please select </option>
-                    <option value="1">Most Views</option>
-                    <option value="2">Least Views</option>
+                <select name="status" id="status" class="form-control">
+                    <option value="">please select Status</option>
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
                 </select>
             </div>
         </div>
 
+
         <div class="form-group row">
             <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
+                <button type="button" onclick="reloadTable('category-table');" class="btn btn-primary-gradien">Filter</button>          
             </div>
         </div>
-    </form>
 </div>
 
 
@@ -113,13 +73,10 @@
 
         <div class="panel">
             <div class="panel-heading">
-                <?php if (count($lists) > 0) { ?> Results {{ $lists->getFrom() }} to {{ $lists->getTo() }} out of <span class="label label-info">{{ $lists->getTotal() }}</span> <?php
-                } else {
-                    echo 'No Result Found';
-                }
-                ?>
+         
             </div>
-            <table class="table table-hover">
+            <div class="table-responsive">
+            <table id="category-table" class="table table-striped">
                 <thead>
                     <tr>
                         <?php
@@ -132,89 +89,65 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    if (count($lists) > 0) {
-                        $countries = Config::get('settings.countries');
-                        foreach ($lists as $list) {
-                            ?>
-                            <tr <?php
-                            if ($list->active == 0) {
-                                echo 'class="line-through"';
-                            }
-                            ?>>
-                                <td>
-                                    <img src="<?php echo Config::get('settings.uploadurl') . '/images/' . $list->image; ?>" border="0" width="100" >
-                                </td>
-                                <td>
-                                    <?php
-                                        echo stripslashes($list->a_title);
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                        echo stripslashes($list->a_title_ar);
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if (!empty($list->city_ID)) {
-                                        $city = "";
-                                        $city = MGeneral::getCity($list->city_ID);
-                                        echo $city->city_Name;
-                                    } else {
-                                        echo $countries[$list->country];
-                                    }
-                                    ?>
-                                </td>
-                                <td class="sufrati-action">
-                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincategoryartwork/form/',$list->id)  }}" title="Edit Content"><i data-feather="edit"></i></a>
-                                    <?php
-                                    if ($list->active == 0) {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincategoryartwork/status/',$list->id) }}" title="Activate "><i data-feather="minus-circle"></i></a>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincategoryartwork/status/',$list->id) }}" title="Deactivate"><i data-feather="plus-circle"></i></a>
-                                        <?php
-                                    }
-                                    ?>
-                                    <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('admincategoryartwork/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <tr>
-                            <td colspan="100%">No record found.</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
+                   
                 </tbody>
             </table>
-            <?php
-            if (count($lists) > 0) {
-                $get = array();
-                if (count($_GET) > 0) {
-                    foreach ($_GET as $key => $val) {
-                        if ($key == "page") {
-                            continue;
-                        } else {
-                            $get[$key] = $val;
-                        }
-                    }
-                }
-                if (count($get) > 0) {
-                    echo $lists->appends($get)->links();
-                } else {
-                    echo $lists->links();
-                }
-            }
-            ?>
+            </div>
+
         </div>
     </article>
 </div>
+<script type="text/javascript">
+    var tab_config = {
+        columns: [
+            {
+                data: "image",
+                searchable: false
+            },
+            {
+                data: "a_title"
+            },
+            {
+                data: "a_title_ar"
+            },
+         
+            {
+                data: "city_Name",
+                name:"city_list.city_Name"
+            },
+     
+            {
+                data: "status_html",
+                name: "active",searchable: false
+            },
+         
+            {
+                data: "action",
+                searchable: false,
+                sortable: false
+            }
+        ],
+        order: [
+            [3, 'asc']
+        ],
+        data: function(d) {
+            return $.extend({}, d, {
+                "status": $('#status').val(),
+                "city_ID": $('#city_ID').val(),
+             
+            })
+        }
 
+
+    };
+
+    function reloadTable(table_id) {
+
+        reloadDataTable(table_id);
+    }
+    $(document).ready(function() {
+
+        startDataTable("category-table", "<?= route('admincategoryartworkdata') ?>", tab_config);
+    });
+    </script>
 @endsection

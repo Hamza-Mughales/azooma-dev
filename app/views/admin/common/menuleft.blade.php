@@ -93,8 +93,8 @@ if(!isset($side_menu)){
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Art Work") ? "active":""?>" href="#"><i data-feather="loader"></i> <span><?=__('Art Work')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Art Work") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Slider Artwork") ? "active":""?>" href="<?= URL::route('adminartkwork').'?type=Home Page Artwork'; ?>"><?=__('Slider Artwork')?></a></li>
-              <li><a class="<?=menu($side_menu,"Logo Artwork") ? "active":""?>" href="<?= URL::route('adminartkwork').'?type=Azooma Logo'; ?>"><?=__('Logo Artwork')?></a></li>
+              <li><a class="<?=menu($side_menu,"Home Page Artwork") ? "active":""?>" href="<?= URL::route('adminartkwork').'?type=Home Page Artwork'; ?>"><?=__('Slider Artwork')?></a></li>
+              <li><a class="<?=menu($side_menu,"Azooma Logo") ? "active":""?>" href="<?= URL::route('adminartkwork').'?type=Azooma Logo'; ?>"><?=__('Logo Artwork')?></a></li>
               <li><a class="<?=menu($side_menu,"Banners") ? "active":""?>" href="<?= URL::route('adminbanners'); ?>"><?=__('Banners')?></a></li>
               <li><a class="<?=menu($side_menu,"Category Artwork") ? "active":""?>" href="<?= URL::route('admincategoryartwork'); ?>"><?=__('Category Artwork')?></a></li>
             </ul>

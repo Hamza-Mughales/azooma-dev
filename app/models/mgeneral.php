@@ -75,48 +75,6 @@ class MGeneral extends Eloquent{
         return null;
     }
 
-    public function getAllArtwork($country = 0, $type = 'Logo', $status = "", $limit = 0, $name = "", $sort = "", $city_ID = "") {
-        $this->table = "art_work";
-        $Martwork = MGeneral::select('*');
-        $Martwork->where('art_work_name', '=', ucfirst($type));
-        if (!empty($country)) {
-            $Martwork->where('country', '=', $country);
-        }
-        if ($status != "") {
-            $Martwork->where('active', '=', $status);
-        }
-
-        if (!empty($sort)) {
-            switch ($sort) {
-                case "latest":
-                    $Martwork->orderBy('createdAt', 'DESC');
-                    break;
-                case "name":
-                    $Martwork->orderBy('a_title', 'DESC');
-                    break;
-            }
-        } else {
-            $Martwork->orderBy('createdAt', 'DESC');
-        }
-
-        if (!empty($city_ID)) {
-            $Martwork->where('city_ID', '=', $city_ID);
-        }
-
-        if ($name != "") {
-            $Martwork->where('a_title', 'LIKE', $name . '%');
-        }
-
-        if ($limit != "") {
-            $lists = $Martwork->paginate($limit);
-        } else {
-            $lists = $Martwork->get();
-        }
-        if (count($lists) > 0) {
-            return $lists;
-        }
-        return null;
-    }
 
     function getArtwork($id, $status = 0) {
         $this->table = "art_work";

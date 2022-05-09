@@ -741,6 +741,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::post('admineventcalendar/save', array('as' => 'admineventcalendar/save', 'uses' => 'EventCalendarController@save'));
 
     Route::get('adminartkwork', array('as' => 'adminartkwork', 'uses' => 'ArtWorkController@index'));
+    Route::get('adminartkworkdata', array('as' => 'get_artwork_data', 'uses' => 'ArtWorkController@getArtworkData'));
     Route::get('adminartkwork/form', array('as' => 'adminartkwork/form', 'uses' => 'ArtWorkController@form'));
     Route::get('adminartkwork/form/{id}', array('as' => 'adminartkwork/form/', 'uses' => 'ArtWorkController@form'));
     Route::post('adminartkwork/save', array('as' => 'adminartkwork/save', 'uses' => 'ArtWorkController@save'));
@@ -748,6 +749,8 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminartkwork/delete/{id}', array('as' => 'adminartkwork/delete/', 'uses' => 'ArtWorkController@delete'));
     
     Route::get('admincategoryartwork', array('as' => 'admincategoryartwork', 'uses' => 'Banners@category'));
+    Route::get('admincategoryartworkdata', array('as' => 'admincategoryartworkdata', 'uses' => 'Banners@getCategoryData'));
+    
     Route::get('admincategoryartwork/form', array('as' => 'admincategoryartwork/form', 'uses' => 'Banners@categoryform'));
     Route::get('admincategoryartwork/form/{id}', array('as' => 'admincategoryartwork/form/', 'uses' => 'Banners@categoryform'));
     Route::post('admincategoryartwork/save', array('as' => 'admincategoryartwork/save', 'uses' => 'Banners@categorysave'));
@@ -755,6 +758,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('admincategoryartwork/delete/{id}', array('as' => 'admincategoryartwork/delete/', 'uses' => 'Banners@categorydelete'));
     
     Route::get('adminbanners', array('as' => 'adminbanners', 'uses' => 'Banners@index'));
+    Route::get('adminbannersdata', array('as' => 'adminbannersdata', 'uses' => 'Banners@getBannerData'));
     Route::get('adminbanners/form', array('as' => 'adminbanners/form', 'uses' => 'Banners@form'));
     Route::get('adminbanners/form/{id}', array('as' => 'adminbanners/form/', 'uses' => 'Banners@form'));
     Route::post('adminbanners/save', array('as' => 'adminbanners/save', 'uses' => 'Banners@save'));

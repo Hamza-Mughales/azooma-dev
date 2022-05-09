@@ -77,44 +77,7 @@ class Ads extends Eloquent {
     }
 
 
-	public static function getAllBanners($country = 0, $status = 0, $type = 0, $limit = 0, $city_ID = 0, $banner_type = 0, $cuisine_ID = 0, $views = "") {
-        $QQ = DB::table('banner');
-        if (!empty($country)) {
-            $QQ->where('country', '=', $country);
-        }
-        if (!empty($city_ID)) {
-            $QQ->where('city_ID', '=', $city_ID);
-        }
-        if (!empty($banner_type)) {
-            $QQ->where('banner_type', '=', $banner_type);
-        }
-        if (!empty($cuisine_ID)) {
-            $QQ->where('cuisine_ID', '=', $cuisine_ID);
-        }
-        if (!empty($status)) {
-            $QQ->where('active', '=', $status);
-        }
-        if (!empty($type)) {
-            $QQ->where('type', '=', $type);
-        }
-        
-        if (!empty($views)) {
-            if ($views == 1) {
-                $QQ->orderBy('clicked', 'DESC');
-            } else {
-                $QQ->orderBy('clicked', 'ASC');
-            }
-        }
-        
-        if (!empty($limit)) {
-            $lists = $QQ->paginate($limit);
-        } else {
-            $lists = $QQ->paginate(10000);
-        }
-        if (count($lists) > 0) {
-            return $lists;
-        }
-    }
+
 
     public static function getBanner($id = 0) {
         return DB::table('banner')->where('id', '=', $id)->first();
@@ -125,28 +88,7 @@ class Ads extends Eloquent {
     }
 
 
-    public static function getAllHomePageCategories($country = 0, $status = 0, $limit = 0, $city_ID = 0) {
-        $QQ = DB::table('art_work');
-        $QQ->where('art_work_name','=','Home Page Category');
-        if (!empty($country)) {
-            $QQ->where('country', '=', $country);
-        }
-        if (!empty($city_ID)) {
-            $QQ->where('city_ID', '=', $city_ID);
-        }
-        if (!empty($status)) {
-            $QQ->where('active', '=', $status);
-        }
-        
-        if (!empty($limit)) {
-            $lists = $QQ->paginate($limit);
-        } else {
-            $lists = $QQ->get();
-        }
-        if (count($lists) > 0) {
-            return $lists;
-        }
-    }
+
 
     public static function getHomePageCategory($id = 0) {
         return DB::table('art_work')->where('art_work_name','=','Home Page Category')->where('id', '=', $id)->first();

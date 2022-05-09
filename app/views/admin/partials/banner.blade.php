@@ -16,7 +16,6 @@
 
 <div id="filter-main" class="collapse well-white">
     <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="{{ route('adminbanners' ); }}" method="get" >
         <div class="form-group row">
             <label for="name" class="col-md-2 control-label">City</label>
             <div class="col-md-6">
@@ -83,22 +82,20 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="views" class="col-md-2 control-label">Views</label>
+            <label for="status" class="col-md-2 control-label">Status</label>
             <div class="col-md-6">
-                <select name="views" id="views" class="form-control">
-                    <option value="">please select </option>
-                    <option value="1">Most Views</option>
-                    <option value="2">Least Views</option>
+                <select name="status" id="status" class="form-control">
+                    <option value="">please select Status</option>
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
                 </select>
             </div>
         </div>
-
         <div class="form-group row">
             <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
+                <button type="submit" onclick="reloadTable('banner-table');" class="btn btn-primary-gradien">Filter</button>          
             </div>
         </div>
-    </form>
 </div>
 
 
@@ -113,13 +110,10 @@
 
         <div class="panel">
             <div class="panel-heading">
-                <?php if (count($lists) > 0) { ?> Results {{ $lists->getFrom() }} to {{ $lists->getTo() }} out of <span class="label label-info">{{ $lists->getTotal() }}</span> <?php
-                } else {
-                    echo 'No Result Found';
-                }
-                ?>
+           
             </div>
-            <table class="table table-hover">
+            <div class="table-responsive">
+            <table id="banner-table" class="table table-striped">
                 <thead>
                     <tr>
                         <?php
@@ -132,107 +126,73 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    if (count($lists) > 0) {
-                        $countries = Config::get('settings.countries');
-                        $bannerTypes = Config::get('settings.bannertypes');
-                        foreach ($lists as $list) {
-                            ?>
-                            <tr <?php
-                            if ($list->active == 0) {
-                                echo 'class="line-through"';
-                            }
-                            ?>>
-                                <td>
-                                    <img src="<?php echo Config::get('settings.uploadurl') . '/banner/' . $list->image; ?>" border="0" width="100" >
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($list->banner_type != 0) {
-                                        echo $bannerTypes[$list->banner_type];
-                                    } else {
-                                        echo 'Unknown';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if (!empty($list->city_ID)) {
-                                        $city = "";
-                                        $city = MGeneral::getCity($list->city_ID);
-                                        echo $city->city_Name;
-                                    } else {
-                                        echo $countries[$list->country];
-                                    }
-                                    ?>
-                                </td>
-                                <td><?php echo $list->clicked; ?></td>
-                                <td><?php echo $list->impressions; ?></td>
-                                <td>
-                                    <?php
-                                    if ($list->start_date != "" && $list->start_date != "0000-00-00") {
-                                        echo date('d/m/Y', strtotime($list->start_date));
-                                    } else {
-                                        echo 'Unknown';
-                                    }
-                                    
-                                    if ($list->end_date != "" && $list->end_date != "0000-00-00") {
-                                        echo ' ';
-                                        echo date('d/m/Y', strtotime($list->end_date));
-                                    } else {
-                                        //echo 'Unknown';
-                                    }
-                                    ?>
-                                </td>
-                                <td class="sufrati-action">
-                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminbanners/form/',$list->id)  }}" title="Edit Content"><i data-feather="edit"></i></a>
-                                    <?php
-                                    if ($list->active == 0) {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminbanners/status/',$list->id) }}" title="Activate "><i data-feather="minus-circle"></i></a>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminbanners/status/',$list->id) }}" title="Deactivate"><i data-feather="plus-circle"></i></a>
-                                        <?php
-                                    }
-                                    ?>
-                                    <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('adminbanners/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <tr>
-                            <td colspan="100%">No record found.</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
+       
                 </tbody>
             </table>
-            <?php
-            if (count($lists) > 0) {
-                $get = array();
-                if (count($_GET) > 0) {
-                    foreach ($_GET as $key => $val) {
-                        if ($key == "page") {
-                            continue;
-                        } else {
-                            $get[$key] = $val;
-                        }
-                    }
-                }
-                if (count($get) > 0) {
-                    echo $lists->appends($get)->links();
-                } else {
-                    echo $lists->links();
-                }
-            }
-            ?>
+            </div>
         </div>
     </article>
 </div>
+<script type="text/javascript">
+    var tab_config = {
+        columns: [
+            {
+                data: "image",
+                searchable: false
+            },
+            {
+                data: "banner_type"
+            },
+            {
+                data: "city_Name",
+                name:"city_list.city_Name"
+            },
+            {
+                data: "clicked"
+            },
+            {
+                data: "impressions"
+            },
+            {
+                data: "start_date"
+            },
+            {
+                data: "end_date"
+            },
+            {
+                data: "status_html",
+                name: "active",searchable: false
+            },
+         
+            {
+                data: "action",
+                searchable: false,
+                sortable: false
+            }
+        ],
+        order: [
+            [3, 'asc']
+        ],
+        data: function(d) {
+            return $.extend({}, d, {
+                "status": $('#status').val(),
+                "city_ID": $('#city_ID').val(),
+                "cuisine_ID": $('#cuisine_ID').val(),
+                "banner_type": $('#banner_type').val(),                
 
+            })
+        }
+
+
+    };
+
+    function reloadTable(table_id) {
+
+        reloadDataTable(table_id);
+    }
+    $(document).ready(function() {
+
+        startDataTable("banner-table", "<?= route('adminbannersdata') ?>", tab_config);
+    });
+    </script>
 @endsection
