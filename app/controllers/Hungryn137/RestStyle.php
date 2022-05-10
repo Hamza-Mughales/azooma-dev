@@ -147,6 +147,7 @@ class RestStyle extends AdminController {
         if (count($page) > 0) {
             $this->MRestActions->deleteRestStyle($id);
             $this->MAdmins->addActivity('Restaurant Style deleted successfully.' . $page->short);
+            
             return returnMsg('success','adminreststyle',"Restaurant Style deleted successfully.");
         }
         

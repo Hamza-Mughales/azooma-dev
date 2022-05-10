@@ -18,15 +18,8 @@
             <legend>{{ $pagetitle }}</legend>        
         </fieldset>
 
-        <div class="panel">
-            <div class="panel-heading">
-                <?php if (count($lists) > 0) { ?> Results {{ $lists->getFrom() }} to {{ $lists->getTo() }} out of <span class="label label-info">{{ $lists->getTotal() }}</span> <?php
-                } else {
-                    echo 'No Result Found';
-                }
-                ?>
-            </div>
-            <table class="table table-hover">
+        <div class="panel table-responsive">
+            <table class="table table-hover" id="rest-artcats">
                 <thead>
                     <tr>
                         <?php
@@ -85,27 +78,39 @@
                     ?>
                 </tbody>
             </table>
-            <?php
-            if (count($lists) > 0) {
-                $get = array();
-                if (count($_GET) > 0) {
-                    foreach ($_GET as $key => $val) {
-                        if ($key == "page") {
-                            continue;
-                        } else {
-                            $get[$key] = $val;
-                        }
-                    }
-                }
-                if (count($get) > 0) {
-                    echo $lists->appends($get)->links();
-                } else {
-                    echo $lists->links();
-                }
-            }
-            ?>
         </div>
     </article>
 </div>
 
+
+<script type="text/javascript">
+    var style_table; 
+    var tab_config= {
+        columns:[
+            {data:"name"},
+            {data:"totalcomment", searchable:false},
+            {data:"lastupdatedArticle"},
+            {data:"action", sortable:false, searchable:false}
+        ],
+        data:function(d){
+            return $.extend({},d,{
+                "status":$('#status').val()
+            })
+        },
+        order:[[1,'desc']]
+    };
+
+    $(document).ready(function(){
+        
+        style_table = startDataTable("rest-artcats","<?= route('adminarticlecommentsDT') ?>",tab_config);
+    
+    });
+
+        
+    function reloadTable(table_id){
+   
+       reloadDataTable(table_id);
+    }
+
+</script>
 @endsection

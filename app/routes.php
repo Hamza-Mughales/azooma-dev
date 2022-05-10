@@ -792,7 +792,6 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     
     
     Route::get('adminpolls', array('as' => 'adminpolls', 'uses' => 'RestPoll@index'));
-    Route::get('adminpollsDT', array('as' => 'adminpollsDT', 'uses' => 'RestPoll@data_table'));
     Route::get('adminpollform', array('as' => 'adminpollform', 'uses' => 'RestPoll@form'));
     Route::get('adminpollform/{id}', array('as' => 'adminpollform/', 'uses' => 'RestPoll@form'));
     Route::get('adminpolloptions/{id}', array('as' => 'adminpolloptions/', 'uses' => 'RestPoll@options'));
@@ -807,6 +806,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     
     
     Route::get('admincomments', array('as' => 'admincomments', 'uses' => 'AdminComments@index'));
+    Route::get('admincommentsDT', array('as' => 'admincommentsDT', 'uses' => 'AdminComments@data_table'));
     Route::get('admincomments/view/{id}', array('as' => 'admincomments/view/', 'uses' => 'AdminComments@view'));
     Route::post('admincomments/save', array('as' => 'admincomments/save', 'uses' => 'AdminComments@save'));
     Route::get('admincomments/delete/{id}', array('as' => 'admincomments/delete/', 'uses' => 'AdminComments@delete'));
@@ -814,6 +814,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('admincomments/read/{id}', array('as' => 'admincomments/read/', 'uses' => 'AdminComments@read'));
     
     Route::get('adminarticlecomments', array('as' => 'adminarticlecomments', 'uses' => 'AdminComments@artcat'));
+    Route::get('adminarticlecommentsDT', array('as' => 'adminarticlecommentsDT', 'uses' => 'AdminComments@artcat_data_table'));
     Route::get('adminarticlecomments/view/{id}', array('as' => 'adminarticlecomments/view/', 'uses' => 'AdminComments@art'));
     Route::get('adminarticlecomments/delete/{id}', array('as' => 'adminarticlecomments/delete/', 'uses' => 'AdminComments@artdelete'));
     Route::get('adminarticlecomments/status/{id}', array('as' => 'adminarticlecomments/status/', 'uses' => 'AdminComments@artstatus'));

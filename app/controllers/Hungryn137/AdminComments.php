@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class AdminComments extends AdminController {
 
     protected $Art_Work;
@@ -47,18 +49,73 @@ class AdminComments extends AdminController {
             $new = stripslashes($_GET['new']);
         }
 
-        $lists = MComments::getAllRestaurantComments($country, $new, $status, $limit, $rest_ID, $user_ID, FALSE, $name, $sort);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Comment', 'Name', 'City', 'Restaurant', 'Email', 'Date', 'Actions'),
+            'headings' => array('Comment', 'Name', 'Restaurant', 'Email', 'Date', 'Actions'),
             'pagetitle' => 'List of All Restaurant Comments',
             'title' => ' All Restaurant Comments',
             'action' => 'admincomments',
-            'lists' => $lists,
             'country' => $country,
             'side_menu' => array('Miscellaneous','Restaurant Comments'),
         );
         return view('admin.partials.comment', $data);
+    }
+
+    public function data_table()
+    {
+        $query = DB::table('review')->select('review_ID AS id', 'review_Status as status', 'review_Msg', 'review_Date', 'review.is_read', 'review.user_ID',
+                DB::Raw('(SELECT restaurant_info.rest_Name FROM restaurant_info WHERE restaurant_info.rest_ID=review.rest_ID) as restaurant'),
+                DB::Raw('(SELECT user.user_FullName FROM user WHERE user.user_ID = review.user_ID) AS uname'),
+                DB::Raw('(SELECT user.user_Email FROM user WHERE user.user_ID = review.user_ID) AS email'));
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        if (Input::has('status')) {
+            $query->where("review_Status", '=', intval(get('status')));
+        }
+        if (Input::has('rest_ID')) {
+            $query->where("rest_ID", '=', intval(get('rest_ID')));
+        }
+        return  DataTables::of($query)
+            ->addColumn('action', function ($list) {
+                $btns ='';
+                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincomments/view/',$list->id)  .'" title="Edit Content"><i class="fa fa-edit"></i></a>';
+
+                if ($list->status == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincomments/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincomments/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                }
+
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="'. route('admincomments/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
+                return $btns;
+            })
+            
+            ->editColumn('review_Msg', function ($list) {
+               return stripslashes($list->review_Msg);
+            })
+            ->editColumn('uname', function ($list) {
+               return stripslashes($list->uname);
+            })
+            ->editColumn('restaurant', function ($list) {
+               return stripslashes($list->restaurant);
+            })
+            ->editColumn('email', function ($list) {
+               return stripslashes($list->email);
+            })
+            ->editColumn('review_Date', function ($list) {
+                if ($list->review_Date != "" && $list->review_Date != "0000-00-00") {
+                    $btn = date('d/m/Y', strtotime($list->review_Date));
+                    $btn .= '<br>';
+                    $btn .= date('h:i:s', strtotime($list->review_Date));
+                    return $btn;
+                } else {
+                    $btn = 'Unknown';
+                    return $btn;
+                }
+            })
+            ->make(true);
     }
 
     public function view($id = 0) {
@@ -76,11 +133,12 @@ class AdminComments extends AdminController {
                 'pagetitle' => "Edit Comment ",
                 'title' => "Edit Comment",
                 'comment' => $page,
+                'side_menu' => array('Miscellaneous','Restaurant Comments'),
             );
             if (!empty($page->user_ID)) {
                 $data['user'] = MComments::getRestaurantCommentUser($page->user_ID);
             }
-            return View::make('admin.index', $data)->nest('content', 'admin.forms.viewcomment', $data);
+            return view('admin.forms.viewcomment', $data);
         }
     }
 
@@ -123,58 +181,67 @@ class AdminComments extends AdminController {
                 }
             }
         }
-        return Redirect::route('admincomments')->with(array('message' => 'Comment modified successfully.'));
+        
+        return returnMsg('success','admincomments','Comment modified successfully.');
     }
 
     public function status($id = 0) {
-        if (!empty($id)) {
-            $status = 0;
-            $page = MComments::getRestaurantComment($id);
-            $displaymessage = "";
-            if (count($page) > 0) {
-                if ($page->review_Status == 0) {
-                    $status = 1;
-                    $displaymessage = "Comment activatied successfully.";
-                    Admin::addActivity('Comment activatied');
-                    if (!empty($page->user_ID)) {
-                        $user = MComments::getRestaurantCommentUser($page->user_ID);
-                        $rest = MRestActions::getRest($page->rest_ID);
-                        $userRank = $user->userRank + 6;
-                        $ud = array('userRank' => $userRank);
-                        DB::table('user')->where('user_ID', '=', $page->user_ID)->update($ud);
+        try {
+            if (!empty($id)) {
+                $status = 0;
+                $page = MComments::getRestaurantComment($id);
+                $displaymessage = "";
+                if (count($page) > 0) {
+                    if ($page->review_Status == 0) {
+                        $status = 1;
+                        $displaymessage = "Comment activatied successfully.";
+                        Admin::addActivity('Comment activatied');
+                        if (!empty($page->user_ID)) {
+                            $user = MComments::getRestaurantCommentUser($page->user_ID);
+                            $rest = MRestActions::getRest($page->rest_ID);
+                            $userRank = $user->userRank + 6;
+                            $ud = array('userRank' => $userRank);
+                            DB::table('user')->where('user_ID', '=', $page->user_ID)->update($ud);
 
-                        User::addActivity($page->user_ID, $page->rest_ID, "commented on", 'تم الرفع الصورة ل', $id);
-                        User::addNotification($page->user_ID, $id, 'Comment approved', 'التعليق المعتمدة');
-                        $this->commentsNotification($id, $page->user_ID, $page->rest_ID, $page->review_Msg);
+                            User::addActivity($page->user_ID, $page->rest_ID, "commented on", 'تم الرفع الصورة ل', $id);
+                            User::addNotification($page->user_ID, $id, 'Comment approved', 'التعليق المعتمدة');
+                            $this->commentsNotification($id, $page->user_ID, $page->rest_ID, $page->review_Msg);
 
-                        $msg = 'Great Job, your comment on ' . stripcslashes($rest->rest_Name) . ' is approved !';
-                        $msgar = 'مبروك، تمت الموافقة على تعليقك على ' . stripcslashes($rest->rest_Name_Ar);
-                        $pushmessage = array('message' => $msg, 'rest' => $page->rest_ID, 'comment' => $page->review_ID, 'scenario' => 'comment');
-                        //User::pushNotify($page->user_ID, $pushmessage, $msg, $msgar);
-                    }
-                } else {
-                    $status = 0;
-                    $displaymessage = "Comment deactivatied successfully.";
-                    Admin::addActivity('Comment deactivatied');
-                    if (!empty($page->user_ID)) {
-                        $user = MComments::getRestaurantCommentUser($page->user_ID);
-                        $userRank = 0;
-                        if ($user->userRank > 6) {
-                            $userRank = $user->userRank - 6;
+                            $msg = 'Great Job, your comment on ' . stripcslashes($rest->rest_Name) . ' is approved !';
+                            $msgar = 'مبروك، تمت الموافقة على تعليقك على ' . stripcslashes($rest->rest_Name_Ar);
+                            $pushmessage = array('message' => $msg, 'rest' => $page->rest_ID, 'comment' => $page->review_ID, 'scenario' => 'comment');
+                            //User::pushNotify($page->user_ID, $pushmessage, $msg, $msgar);
                         }
-                        $ud = array('userRank' => $userRank);
-                        DB::table('user')->where('user_ID', '=', $page->user_ID)->update($ud);
+                    } else {
+                        $status = 0;
+                        $displaymessage = "Comment deactivatied successfully.";
+                        Admin::addActivity('Comment deactivatied');
+                        if (!empty($page->user_ID)) {
+                            $user = MComments::getRestaurantCommentUser($page->user_ID);
+                            $userRank = 0;
+                            if ($user->userRank > 6) {
+                                $userRank = $user->userRank - 6;
+                            }
+                            $ud = array('userRank' => $userRank);
+                            DB::table('user')->where('user_ID', '=', $page->user_ID)->update($ud);
+                        }
                     }
-                }
-                $data = array(
-                    'review_Status' => $status
-                );
-                DB::table('review')->where('review_ID', $id)->update($data);
+                    $data = array(
+                        'review_Status' => $status
+                    );
+                    DB::table('review')->where('review_ID', $id)->update($data);
 
-                return Redirect::route('admincomments')->with(array('message' => $displaymessage));
+                    
+                    return returnMsg('success','admincomments',$displaymessage);
+                }
             }
+            
+            return returnMsg('error','admincomments','something went wrong, Please try again.');
+
+        } catch (Exception $ex) {
+            // return $ex->getMessage();
+            return returnMsg('error','admincomments', mb_substr($ex->getMessage(), 1,50) );
         }
-        return Redirect::route('admincomments')->with(array('message' => 'something went wrong, Please try again.'));
     }
 
     public function delete($id = 0) {
@@ -183,10 +250,12 @@ class AdminComments extends AdminController {
             if (count($page) > 0) {
                 MComments::deleteRestaurantComment($id);
                 Admin::addActivity('Comment Deleted');
-                return Redirect::route('admincomments')->with(array('message' => 'Comment deleted successfully.'));
+                
+                return returnMsg('success','admincomments','Comment deleted successfully.');
             }
         }
-        return Redirect::route('admincomments')->with(array('message' => 'something went wrong, Please try again.'));
+        
+        return returnMsg('error','admincomments','something went wrong, Please try again.');
     }
 
     public function read($id = 0) {
@@ -308,6 +377,35 @@ class AdminComments extends AdminController {
         return view('admin.partials.artcategory', $data);
     }
 
+    public function artcat_data_table()
+    {
+        $query = DB::table('categories')
+                // ->select('*', DB::Raw('(SELECT count(id) FROM articlecomment where category=categories.id) as totalcomment'));
+                ->select('*', DB::Raw('(SELECT count(id) FROM articlecomment where articlecomment.category=categories.id) AS totalcomment'));
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        return  DataTables::of($query)
+            
+            ->editColumn('name', function ($list) {
+                return  stripslashes($list->name) .'<br>' .stripslashes($list->nameAr);
+            })
+            ->addColumn('totalcomment', function ($list) {
+               return $list->totalcomment;
+            })
+            ->editColumn('lastupdatedArticle', function ($list) {
+                if ($list->lastupdatedArticle == "" || $list->lastupdatedArticle == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($list->createdAt));
+                } else {
+                    return date('d/m/Y', strtotime($list->lastupdatedArticle));
+                }
+            })
+            ->editColumn('action', function ($list) {
+               return '<a class="btn btn-xs btn-info mytooltip" href="'. route('adminarticlecomments/view/',$list->id)  .'" title="Edit Content"><i class="fa fa-eye"></i> View Comments </a>';
+            })
+            ->make(true);
+    }
+
     public function art($category = 0) {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -360,10 +458,12 @@ class AdminComments extends AdminController {
             if (count($page) > 0) {
                 MComments::deleteArticleComment($id);
                 Admin::addActivity('Comment Deleted');
-                return Redirect::route('adminarticlecomments/view/',$page->category)->with(array('message' => 'Comment deleted successfully.'));
+                
+                return returnMsg('success','adminarticlecomments/view/','Comment deleted successfully.',$page->category);
             }
         }
-        return Redirect::route('adminarticlecomments')->with(array('message' => 'something went wrong, Please try again.'));
+        
+        return returnMsg('error','adminarticlecomments','Something went wrong, Please try again.');
     }
     
     public function artstatus($id = 0) {
@@ -381,10 +481,12 @@ class AdminComments extends AdminController {
                 }
                 MComments::setStatusArticleComment($id,$status);
                 Admin::addActivity($displayMsg);
-                return Redirect::route('adminarticlecomments/view/',$page->category)->with(array('message' => $displayMsg));
+                
+                return returnMsg('success','adminarticlecomments/view/',$displayMsg, $page->category);
             }
         }
-        return Redirect::route('adminarticlecomments')->with(array('message' => 'something went wrong, Please try again.'));
+        
+        return returnMsg('error','adminarticlecomments','something went wrong, Please try again.');
     }
     
 }

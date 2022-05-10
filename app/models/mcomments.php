@@ -4,7 +4,10 @@ class MComments extends Eloquent {
 
     public static function getAllRestaurantComments($country = 0, $new = 0, $status = 0, $limit = 0, $rest_ID = 0, $user_ID = 0, $excel = false, $commentMsg = "", $sort = "") {
         $com = DB::table('review');
-        $com->select('review_ID AS id', 'review_Status as status', 'review_Msg', 'review_Date', 'review.is_read', 'review.user_ID', DB::Raw('(SELECT restaurant_info.rest_Name FROM restaurant_info WHERE restaurant_info.rest_ID=review.rest_ID) as restaurant'), DB::Raw('(SELECT user.user_FullName FROM user WHERE user.user_ID = review.user_ID) AS uname'), DB::Raw('(SELECT user.user_Email FROM user WHERE user.user_ID = review.user_ID) AS email'));
+        $com->select('review_ID AS id', 'review_Status as status', 'review_Msg', 'review_Date', 'review.is_read', 'review.user_ID',
+         DB::Raw('(SELECT restaurant_info.rest_Name FROM restaurant_info WHERE restaurant_info.rest_ID=review.rest_ID) as restaurant'),
+         DB::Raw('(SELECT user.user_FullName FROM user WHERE user.user_ID = review.user_ID) AS uname'),
+          DB::Raw('(SELECT user.user_Email FROM user WHERE user.user_ID = review.user_ID) AS email'));
         if ($excel) {
             $com->select('COUNT(review.review_ID) AS total');
             $com->join('restaurant_info', 'restaurant_info.rest_ID', '=', 'review.rest_ID');
