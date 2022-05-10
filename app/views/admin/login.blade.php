@@ -46,9 +46,9 @@
                         echo '<div class="alert alert-error"><a class="close" data-dismiss="alert">x</a><strong>' . $message . '</strong></div>';
                     }
                 ?>
-                <input type="text" name="User" placeholder="<?= __('Username')?>" value="<?php echo Input::old('User'); ?>" required>
+                <input type="text" value="<?=isset($_COOKIE['remember_me_user_name']) ? $_COOKIE['remember_me_user_name'] :""?>" name="User" placeholder="<?= __('Username')?>" value="<?php echo Input::old('User'); ?>" required>
                 <i class="typcn typcn-eye" id="eye"></i>
-                <input type="password" name="Password" placeholder="Passsword" id="Password" required>
+                <input type="password" name="Password" placeholder="Passsword" id="Password" value="<?=isset($_COOKIE['remember_me_password']) ? $_COOKIE['remember_me_password'] :""?>" required>
                 <select name="country_ID" id="country_ID" class="select_country" style="width: 335px;" tabindex="30" >
                     <option value=""><?= __('Select Country')?></option>
                     <?php
@@ -61,6 +61,7 @@
                             if (Input::old('country_ID') == $country->id) {
                                 $selected = 'selected="selected="';
                             }
+                            $selected =isset($_COOKIE['remember_me_country_id']) && $_COOKIE['remember_me_country_id']==$country->id ? "selected":"";
                             ?>
                             <option value="<?php echo $country->id; ?>" <?php echo $selected; ?> >
                                 <?php echo $country->name; ?>
@@ -70,11 +71,11 @@
                     }
                     ?>                
                 </select>
-                {{-- <label>
-                    <input type="checkbox">
+                 <label>
+                    <input name="remember_me" value="on" type="checkbox" <?=isset($_COOKIE['remember_me']) && $_COOKIE['remember_me']=='on' ? "checked":""?> >
                     <span></span>
                     <small class="rmb"><?= __('Remember me')?></small>
-                </label> --}}
+                </label> 
                 {{-- <a href="#" class="forgetpass"><?= __('Forget Password?')?></a> --}}
                 <input type="submit" value="Sign in" class="btn1" style="margin-top: 34px">
             </form>

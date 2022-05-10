@@ -43,7 +43,7 @@ class Login extends AdminController {
         $username = Input::get('User');
         $password = Input::get('Password');
         $country_ID = Input::get('country_ID');
-        $user = Admin::where('user', '=', $username)->where('pass', '=', $password)->where('status', '=', 1)->where('country', '=', $country_ID)->first();
+        $user = Admin::where('user', '=', $username)->where('pass', '=', md5($password))->where('status', '=', 1)->where('country', '=', $country_ID)->first();
         if (!empty($user)) {
             if ($user->id != "" && $user->fullname != "") {
                 $settings = Config::get('settings.default');
@@ -55,6 +55,21 @@ class Login extends AdminController {
                 Session::put('admin', $user->admin);
                 Session::put('permissions', $user->permissions);
                 Session::put('email', $user->email);
+                if (isset($_POST['remember_me']) && post('remember_me') == 'on') {
+                    setcookie('remember_me_user_name',post('User'));
+                    setcookie('remember_me_password',post('Password'));
+                    setcookie('remember_me_country_id',post('country_ID'));
+                    setcookie('remember_me','on');
+ 
+                } else {
+                    setcookie('remember_me_user_name',null);
+                    setcookie('remember_me_password',null);
+                    setcookie('remember_me_country_id',null);
+                    setcookie('remember_me',null);
+                    unset($_COOKIE['remember_me_user_name']);
+                    unset($_COOKIE['remember_me_password']);
+                    unset($_COOKIE['remember_me']);
+                }
                 return Redirect::route('adminhome');
             } else {
                 return Redirect::back()->with('message', "Some thing happen wrong, Please Try Again.")->withInput();

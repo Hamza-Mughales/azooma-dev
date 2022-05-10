@@ -1,10 +1,13 @@
 <?php
 
-class Admin extends Eloquent {
+
+class Admin extends Eloquent
+{
 
     protected $table = 'admin';
 
-    public static function addActivity($activity) {
+    public static function addActivity($activity)
+    {
         $ip = $_SERVER['REMOTE_ADDR'];
         $data = array(
             'user' => Session::get('fullname'),
@@ -14,7 +17,8 @@ class Admin extends Eloquent {
         DB::table('activity_info')->insert($data);
     }
 
-    public function updateAdmin() {
+    public function updateAdmin()
+    {
         $status = 0;
         if (isset($_POST['status'])) {
             $status = 1;
@@ -34,7 +38,8 @@ class Admin extends Eloquent {
         DB::table('admin')->where('id', Input::get('id'))->update($data);
     }
 
-    public function addAdmin() {
+    public function addAdmin()
+    {
         $status = 0;
         if (isset($_POST['status'])) {
             $status = 1;
@@ -43,6 +48,7 @@ class Admin extends Eloquent {
         if (empty($country)) {
             $country = 1;
         }
+      
         $data = array(
             'fullname' => (Input::get('fullname')),
             'country' => $country,
@@ -50,33 +56,37 @@ class Admin extends Eloquent {
             'email' => (Input::get('email')),
             'user' => (Input::get('user')),
             'admin' => (Input::get('admin')),
-            'pass' => (Input::get('pass'))
+            'pass' => md5(Input::get('pass'))
         );
         return $insertID = DB::table('admin')->insertGetId($data);
     }
 
-    function changePassword() {
+    function changePassword()
+    {
         $data = array(
-            'pass' => $_POST['pass']
+            'pass' => md5(post('pass'))
         );
         DB::table('admin')->where('id', Input::get('id'))->update($data);
     }
 
-    function getAllPermissions() {
+    function getAllPermissions()
+    {
         $return = DB::table('permission_section')->get();
         if (count($return) > 0) {
             return $return;
         }
     }
 
-    function getPermissionSectionInfo($section = 0) {
+    function getPermissionSectionInfo($section = 0)
+    {
         $return = DB::table('permission_info')->where('section', $section)->get();
         if (count($return) > 0) {
             return $return;
         }
     }
 
-    function updatePermissions() {
+    function updatePermissions()
+    {
         if (isset($_POST['permissions'])) {
             $permissions = implode(",", $_POST['permissions']);
             $data = array(
@@ -86,14 +96,16 @@ class Admin extends Eloquent {
         }
     }
 
-    function getAdminActivity($user, $limit = 15) {
+    function getAdminActivity($user, $limit = 15)
+    {
         $return = DB::table('activity_info')->where('user', $user)->orderBy('date_time', 'DESC')->paginate($limit);
         if (count($return) > 0) {
             return $return;
         }
     }
 
-    function upload_image($name, $dir, $default = 'no_image.jpg') {
+    function upload_image($name, $dir, $default = 'no_image.jpg')
+    {
         $uploadDir = $dir;
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
             $filename = $_FILES[$name]['name'];
@@ -105,23 +117,22 @@ class Admin extends Eloquent {
                 $image_name = $uploadFile_1;
             else
                 $image_name = $default;
-        }
-        else
+        } else
             $image_name = $default;
 
         return $image_name;
     }
-    
-    function addRestActivity($activity,$rest_ID=0,$activity_id=0){
-        $data=array(
-            'id_user'=>'0',
-            'rest_ID'=>$rest_ID,
-            'langid'=>'0',
-            'activity'=>$activity,
-            'activity_ID'=>$activity_id
 
-        ); 
+    function addRestActivity($activity, $rest_ID = 0, $activity_id = 0)
+    {
+        $data = array(
+            'id_user' => '0',
+            'rest_ID' => $rest_ID,
+            'langid' => '0',
+            'activity' => $activity,
+            'activity_ID' => $activity_id
+
+        );
         DB::table('rest_activity')->insert($data);
     }
-
 }

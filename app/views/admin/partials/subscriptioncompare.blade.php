@@ -1,3 +1,5 @@
+@extends('admin.index')
+@section('content')
 
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
@@ -5,13 +7,15 @@
     <li class="active">{{ $title }}</li>
 </ol>
 
+<link href="<?=asset(css_path())?>/pricing_cards.css" rel="stylesheet">
+<br>
 
-<div class="well-white">
-    <article>    
-        <fieldset>
-            <legend>{{ $pagetitle }}</legend>        
-        </fieldset>
-        <?php
+<style>
+    .head-title {
+    font-size: 15px;
+    }
+</style>
+<?php
         $permissions1 = array();
         $permissions2 = array();
         if (isset($lists1) && !empty($lists1->sub_detail)) {
@@ -21,393 +25,234 @@
             $permissions2 = explode(",", $lists2->sub_detail);
         }
         ?>
-        <form name="page-form" id="jqValidate" class="form-horizontal" role="form" action="" method="" >
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Package Features</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        //echo '<span class="label label-primary">' . $lists1->accountName . '</span>';
-                        echo '<h4>'.$lists1->accountName.'</h4>';
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        //echo '<span class="label label-info">' . $lists2->accountName . '</span>';
-                        echo '<h4>'.$lists2->accountName.'</h4>';
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Profile Page</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(1, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(1, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Branch Management</label>
-                <div class="col-lg-7">
+<!-- Start Cards -->
+<div id="generic_price_table">   
+<section>
 
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(2, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(2, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
+        <div class="container">
+            
+            <!--BLOCK ROW START-->
+            <div class="row justify-content-center">
+
+                <div class="col-md-3">
+                
+                  <!--PRICE CONTENT START-->
+                    <div class="generic_content clearfix features w-100">
+                        
+                        <!--HEAD PRICE DETAIL START-->
+                        <div class="generic_head_price clearfix">
+                        
+                            <!--HEAD CONTENT START-->
+                            <div class="generic_head_content clearfix">
+                            
+                              <!--HEAD START-->
+                                <div class="head_bg"></div>
+                                <div class="head text-left">
+                                    <span>Features</span>
+                                </div>
+                                <!--//HEAD END-->
+                                
+                            </div>
+                            <!--//HEAD CONTENT END-->
+                            
+                        </div>                            
+                        <!--//HEAD PRICE DETAIL END-->
+                        
+                        <!--FEATURE LIST START-->
+                        <div class="generic_feature_list  text-left pl-2">
+                          <ul>
+                              <li>Profile Page</li>
+                                <li>Branch Managment</li>
+                                <li>Sample Menu	</li>
+                                <li>Full Menu + PDF	</li>
+                                <li>Photo Gallery - 3 Photos</li>
+                                <li> Photo Gallery - 6 Photos</li>
+                                <li>Photo Gallery - 12 Photos</li>
+                                <li>Photo Gallery - 20 Photos</li>
+                                <li>Special Offer - 1 Offer</li>
+                                <li>Special Offer - 3 offers</li>
+                                <li>  Booking	</li>
+                                <li>  Poll	</li>
+                                <li>Comment Response	</li>
+                                <li>Video Gallery	</li>
+                                <li>News Feed	</li>
+                          
+                            </ul>
+                        </div>
+                        <!--//FEATURE LIST END-->
+                        
+                        <!--BUTTON START-->
+                        <div class="generic_price_btn clearfix">
+                          <!-- <a class="" href="">Sign up</a> -->
+                        </div>
+                        <!--//BUTTON END-->
+                        
+                    </div>
+                    <!--//PRICE CONTENT END-->
+                        
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Sample Menu</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(3, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(3, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
+
+                <div class="col-md-4">
+                
+                  <!--PRICE CONTENT START-->
+                    <div class="generic_content basic clearfix">
+                        
+                        <!--HEAD PRICE DETAIL START-->
+                        <div class="generic_head_price clearfix">
+                        
+                            <!--HEAD CONTENT START-->
+                            <div class="generic_head_content clearfix">
+                            
+                              <!--HEAD START-->
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span class="head-title"><?=mb_substr($lists1->accountName,1,7)?>..</span>
+                                </div>
+                                <!--//HEAD END-->
+                                
+                            </div>
+                            <!--//HEAD CONTENT END-->
+                            
+                        </div>                            
+                        <!--//HEAD PRICE DETAIL END-->
+                        
+                        <!--FEATURE LIST START-->
+                        <div class="generic_feature_list">
+                          <ul>
+                                <li>
+                                <?=(isset($lists1) and in_array(1, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(2, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(3, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(4, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(6, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(7, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(8, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(9, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists1) and in_array(10, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(11, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(12, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(13, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(14, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(15, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists1) and in_array(16, $permissions1)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--//FEATURE LIST END-->
+                        
+                        <!--BUTTON START-->
+                     
+                        <!--//BUTTON END-->
+                        
+                    </div>
+                    <!--//PRICE CONTENT END-->
+                        
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Full Menu + PDF</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(4, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(4, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Photo Gallery - 3 Photos</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(6, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(6, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Photo Gallery - 6 Photos</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(7, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(7, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Photo Gallery - 12 Photos</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(8, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(8, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Photo Gallery - 20 Photos</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(9, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(9, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">News Feed</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(16, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(16, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Special Offer - 1 Offer</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(10, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(10, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Special Offer - 3 offers</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(11, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(11, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Comment Response</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(14, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(14, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Fan Club</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(17, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(17, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Video Gallery</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(15, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(15, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Poll</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(13, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(13, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-lg-5 control-label" for="bestfor_Name">Booking</label>
-                <div class="col-lg-7">
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists1) and in_array(12, $permissions1)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
-                    <span class="col-lg-4">
-                        <?php
-                        if (isset($lists2) and in_array(12, $permissions2)) {
-                            echo '<span class="label label-info"><i data-feather="plus-circle"></i></span>';
-                        } else {
-                            echo '<span class="label label-danger"><i class="glyphicon glyphicon-remove"></i></span>';
-                        }
-                        ?>
-                    </span>
+                <div class="col-md-4">
+                
+                  <!--PRICE CONTENT START-->
+                    <div class="generic_content prem clearfix">
+                        
+                        <!--HEAD PRICE DETAIL START-->
+                        <div class="generic_head_price clearfix">
+                        
+                            <!--HEAD CONTENT START-->
+                            <div class="generic_head_content clearfix">
+                            
+                              <!--HEAD START-->
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span class="head-title"><?=mb_substr($lists2->accountName,1,7);?>..</span>
+                                </div>
+                                <!--//HEAD END-->
+                                
+                            </div>
+                            <!--//HEAD CONTENT END-->
+                            
+                        </div>                            
+                        <!--//HEAD PRICE DETAIL END-->
+                        
+                        <!--FEATURE LIST START-->
+                        <div class="generic_feature_list">
+                          <ul>
+                          <li>
+                                <?=(isset($lists2) and in_array(1, $permissions2)) ? '<i class="fa fa-check"></i>' :'<i class="fa fa-close"></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(2, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists2) and in_array(3, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists2) and in_array(4, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists2) and in_array(6, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists2) and in_array(7, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists2) and in_array(8, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>     <li>
+                                <?=(isset($lists2) and in_array(9, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(10, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(11, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(12, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(13, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(14, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(15, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                                <li>
+                                <?=(isset($lists2) and in_array(16, $permissions2)) ? '<i class="fa fa-check "></i>' :'<i class="fa fa-close "></i>'?>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--//FEATURE LIST END-->
+                        
+                        <!--BUTTON START-->
+                     
+                        <!--//BUTTON END-->
+                        
+                    </div>
+                    <!--//PRICE CONTENT END-->
+                        
                 </div>
             </div>  
-        </form>
-    </article>
+            <!--//BLOCK ROW END-->
+            
+        </div>
+    </section>
 </div>
+<!-- End Cards -->
+
+@endsection

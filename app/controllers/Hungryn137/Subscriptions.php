@@ -27,7 +27,7 @@ class Subscriptions extends AdminController {
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Subscription Title', 'Country', 'Last Update on', 'Actions'),
+            'headings' => array("#",'Subscription Title', 'Country', 'Last Update on', 'Actions'),
             'pagetitle' => 'List of All Subscriptions',
             'title' => 'All Subscriptions',
             'action' => 'adminsubscriptions',
@@ -89,16 +89,16 @@ class Subscriptions extends AdminController {
         } else {
             DB::table('subscriptiontypes')->insert($data);
         }
-        return Redirect::route('adminsubscriptions')->with('message', "Your data has been save successfully.");
+        return returnMsg('success','adminsubscriptions', "Your data has been save successfully.");
     }
 
     public function delete($id = 0) {
         $page = $this->MClients->getSubscriptionType($id);
         if (count($page) > 0) {
             DB::table('subscriptiontypes')->where('id', '=', $id)->delete($id);
-            return Redirect::route('adminsubscriptions')->with('message', "Your data has been save successfully.");
+            return returnMsg('success','adminsubscriptions', "Your data has been save successfully.");
         }
-        return Redirect::route('adminsubscriptions')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','adminsubscriptions',"something went wrong, Please try again.");
     }
 
     public function compare() {
@@ -126,13 +126,14 @@ class Subscriptions extends AdminController {
                     'action' => 'adminsubscriptions',
                     'lists1' => $lists1,
                     'lists2' => $lists2,
+                    'side_menu' => array('Subscriptions','Subscription Types'),
                 );
-                return View::make('admin.index', $data)->nest('content', 'admin.partials.subscriptioncompare', $data);
+                return view('admin.partials.subscriptioncompare', $data);
             } else {
-                return Redirect::route('adminsubscriptions')->with('error', "something went wrong, Please try again.");
+                return returnMsg('error','adminsubscriptions', "something went wrong, Please try again.");
             }
         } else {
-            return Redirect::route('adminsubscriptions')->with('error', "something went wrong, Please try again.");
+            return returnMsg('error','adminsubscriptions',"something went wrong, Please try again.");
         }
     }
 

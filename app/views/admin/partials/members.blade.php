@@ -16,13 +16,7 @@
 
 <div id="filter-main" class="collapse well-white container">
     <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="" method="get" >
-        <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Restaurant Name</label>
-            <div class="col-md-6">
-                <input type="text" name="restaurant" class="form-control" id="name" placeholder="Restaurant Name" >
-            </div>
-        </div>
+   
         <div class="form-group row">
             <label for="statu" class="col-md-2 control-label">Restaurant Status</label>
             <div class="col-md-6">
@@ -72,23 +66,13 @@
                 ?>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="sort" class="col-md-2 control-label">Sort By</label>
-            <div class="col-md-6">
-                <select name="sort" id="sort" class="form-control">
-                    <option value="latest">Latest</option>
-                    <option value="name">Name</option>
-                    <option value="popular">Popular</option>
-                </select>
-            </div>
-        </div>
+
 
         <div class="form-group row">
             <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
+                <button onclick="reloadTable('members-table');" type="button" class="btn btn-primary-gradien">Filter</button>          
             </div>
         </div>
-    </form>
 </div>
 
 
@@ -100,8 +84,8 @@
         </fieldset>
 
         <div class="panel">
-            
-            <table class="table table-hover table-bordered">
+            <div class="table-responsive">
+            <table id="members-table" class="table table-striped">
                 <thead>
                     <tr>
                         <?php
@@ -120,127 +104,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    if (count($lists) > 0) {
-                        $countries = Config::get('settings.countries');
-                        $MGeneral = new MGeneral();
-                        foreach ($lists as $list) {
-                            ?>
-                            <tr class="<?php
-                            if ($list->status == 0) {
-                                echo ' line-through';
-                            }
-                            ?>" >
-                                <td>
-                                    <?php
-                                    echo stripslashes($list->rest_Name) . ' ' . stripslashes($list->rest_Name_Ar);
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    echo stripslashes($list->referenceNo);
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    echo '<span class="label';
-                                    if ($list->rest_Subscription == 0) {
-                                        echo ' label-danger">Not a Member';
-                                    } else {
-                                        switch ($list->rest_Subscription) {
-                                            case 0:
-                                                echo ' label-default">Free member';
-                                                break;
-                                            case 1;
-                                                echo ' label-success">Bronze member';
-                                                break;
-                                            case 2:
-                                                echo ' label-info">Silver member';
-                                                break;
-                                            case 3:
-                                                echo ' label-warning">Gold Member';
-                                                break;
-                                        }
-                                    }
-                                    echo "</span>";
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    echo date("d/m/Y", strtotime($list->member_date));
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($list->lastUpdatedOn == "") {
-                                        echo date('d/m/Y', strtotime($list->rest_RegisDate));
-                                    } else {
-                                        echo date('d/m/Y', strtotime($list->lastUpdatedOn));
-                                    }
-                                    ?>
-                                </td>  
-                                <td>
-                                    <?php
-                                    if ($list->rest_Subscription == 0) {
-                                        echo 'Unlimited - Free Account';
-                                    } else {
-                                        $duration = $list->member_duration;
-                                        echo date('d/m/Y', strtotime(date("Y-m-d", strtotime($list->member_date)) . " +$duration month"));
-                                    }
-                                    ?>
-                                </td>
-                                <td class="sufrati-action">
-                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminmembers/contacts/',$list->rest_ID) }}" title="Update Membership Contacts "><i class="glyphicon glyphicon-book"></i></a>
-                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminmembers/details/',$list->rest_ID) }}" title="Update Membership Details"><i class="glyphicon glyphicon-briefcase"></i></a>
-                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminmembers/details/',$list->rest_ID) }}" title="Generate Invoice"><i data-feather="file-plus"></i></a>
-                                    <?php
-                                    if ($list->rest_Status == 0) {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminmembers/status/',$list->rest_ID) }}" title="Activate "><i data-feather="plus-circle"></i></a>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminmembers/status/',$list->rest_ID) }}" title="Deactivate"><i data-feather="minus-circle"></i></a>
-                                        <?php
-                                    }
-                                    ?>
-                                    <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('adminmembers/delete/',$list->rest_ID) }}" title="Delete"><i data-feather="trash-2"></i></a>
-                                    
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <tr>
-                            <td colspan="100%">No record found.</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
+                   
                 </tbody>
             </table>
-            <?php
-            if (count($lists) > 0) {
-                $get = array();
-                if (count($_GET) > 0) {
-                    foreach ($_GET as $key => $val) {
-                        if ($key == "page") {
-                            continue;
-                        } else {
-                            $get[$key] = $val;
-                        }
-                    }
-                }
-                if (count($get) > 0) {
-                    echo $lists->appends($get)->links();
-                } else {
-                    echo $lists->links();
-                }
-            }
-            ?>
+            </div>
+
         </div>
     </article>
 </div>
+<script type="text/javascript">
+    var tab_config= {columns:[
+        {data:"rest_Name"},
+        {data:"referenceNo",name:"booking_management.referenceNo"},
+        {data:"rest_Subscription"},
 
+        {data:"member_date"},
+        
+        {data:"status_html",name:"status",searchable:false},
+        {data:"lastUpdatedOn"},
+        {data:"member_duration"},
+        
+        {data:"action",searchable:false,sortable:false}],
+        order:[[3,'desc']],
+        data:function(d){
+                    return $.extend({},d,{
+                        "status":$('#status').val(),
+                        "city":$('#city').val(),
+                        "cuisine":$('#cuisine').val(),
+                        "best":$('#best').val(),
+                        "membership":$('#membership').val(),
+                        "is_paid":"<?=$is_paid?>",
+                        "sort":$('#sort').val(),
+                        
+                    })
+                }
+     
+         
+
+    };
+    $(document).ready(function(){
+    startDataTable("members-table","<?=route('adminmembersdata')?>",tab_config);
+});
+function reloadTable(table_id){
+   
+   reloadDataTable(table_id);
+}
+    </script>
 @endsection

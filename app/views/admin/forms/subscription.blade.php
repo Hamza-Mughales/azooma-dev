@@ -17,7 +17,7 @@
             <div class="form-group row">
                 <label for="title" class="col-md-2 control-label">Subscription Title </label>
                 <div class="col-md-6">
-                    <input type="input" name="accountName" class="form-control" value="{{ isset($page) ? $page->accountName : Input::old('accountName') }}" id="accountName" placeholder="Subscription Title">
+                    <input type="text" name="accountName" class="form-control" value="{{ isset($page) ? $page->accountName : Input::old('accountName') }}" id="accountName" placeholder="Subscription Title" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -46,7 +46,7 @@
             <div class="form-group row">
                 <label for="title" class="col-md-2 control-label">Price </label>
                 <div class="col-md-6">
-                    <input type="input" name="price" class="form-control" value="{{ isset($page) ? $page->price : Input::old('price') }}" id="price" placeholder="Subscription Price">
+                    <input type="number" name="price" class="form-control" value="{{ isset($page) ? $page->price : Input::old('price') }}" id="price" placeholder="Subscription Price" required>
                 </div>
             </div>
             <br />
@@ -56,105 +56,84 @@
                 $permissions = explode(",", $page->sub_detail);
             }
             ?>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Profile Page</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(1, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="1" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Profile Page</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Branch Management</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(2, $permissions)) echo "checked='checked'"; ?>   name="features[]"  value="2" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Branch Management</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Sample Menu</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(3, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="3" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Sample Menu</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Full Menu + PDF</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(4, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="4" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Full Menu + PDF</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Photo Gallery - 3 Photos</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(6, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="6" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Photo Gallery - 3 Photos</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Photo Gallery - 6 Photos</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(7, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="7" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Photo Gallery - 6 Photos</label>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Photo Gallery - 12 Photos</label>
-                <div class="col-md-6">
+            <div class="form-check">
+                
                     <input type="checkbox" <?php if (isset($permissions) and in_array(8, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="8" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Photo Gallery - 12 Photos</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Photo Gallery - 20 Photos</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(9, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="9" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Photo Gallery - 20 Photos</label>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">News Feed</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(16, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="16" />
+                    <label class="form-check-label" for="bestfor_Name">News Feed</label>
 
-                </div>
+               
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Special Offer - 1 Offer</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(10, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="10" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Special Offer - 1 Offer</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Special Offer - 3 offers</label>
-                <div class="col-md-6">
+            <div class="form-check">
+                
                     <input type="checkbox" <?php if (isset($permissions) and in_array(11, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="11" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Special Offer - 3 offers</label>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Comment Response</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(14, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="14" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Comment Response</label>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Fan Club</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(17, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="17" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Fan Club</label>
+
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Video Gallery</label>
-                <div class="col-md-6">
-                    <input type="checkbox" <?php if (isset($permissions) and in_array(15, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="15" />
-                </div>
+            <div class="form-check">
+                     <input type="checkbox" <?php if (isset($permissions) and in_array(15, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="15" />
+                     <label class="form-check-label" for="bestfor_Name">Video Gallery</label>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Poll</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(13, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="13" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Poll</label>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 control-label" for="bestfor_Name">Booking</label>
-                <div class="col-md-6">
+            <div class="form-check">
                     <input type="checkbox" <?php if (isset($permissions) and in_array(12, $permissions)) echo "checked='checked'"; ?> name="features[]"  value="12" />
-                </div>
+                    <label class="form-check-label" for="bestfor_Name">Booking</label>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row my-2">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary-gradien">Save Now</button>
                     <?php

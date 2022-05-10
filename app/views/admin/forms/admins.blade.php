@@ -23,7 +23,7 @@
             <div class="form-group row">
                 <label for="user" class="col-md-2 control-label">User Name</label>
                 <div class="col-md-6">
-                    <input type="input" name="user" class="form-control required" value="{{ isset($admin) ? $admin->user : Input::old('user') }}" id="user" placeholder="User Name">
+                    <input type="input" name="user" minlength="5" class="form-control required" value="{{ isset($admin) ? $admin->user : Input::old('user') }}" id="user" placeholder="User Name">
                 </div>
             </div>
             <div class="form-group row">
@@ -36,14 +36,14 @@
                 <div class="form-group row">
                     <label for="pass" class="col-md-2 control-label">Password</label>
                     <div class="col-md-6">
-                        <input type="password" name="pass" class="form-control required"  id="pass" placeholder="Password" >
+                        <input type="password" minlength="5" name="pass" class="form-control required"  id="pass" placeholder="Password" >
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="passconf" class="col-md-2 control-label">Confirm Password</label>
                     <div class="col-md-6">
-                        <input type="password" name="passconf" class="form-control required" equalto="#pass" id="passconf" placeholder="Confirm Password" >
+                        <input type="password" minlength="5" name="passconf" class="form-control required" equalto="#pass" id="passconf" placeholder="Confirm Password" >
                     </div>
                 </div>     
             <?php } ?>  

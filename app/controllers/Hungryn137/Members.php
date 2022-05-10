@@ -1,11 +1,15 @@
 <?php
 
-class Members extends AdminController {
+use Yajra\DataTables\Facades\DataTables;
+
+class Members extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
@@ -13,45 +17,9 @@ class Members extends AdminController {
         $this->MClients = new MClients();
     }
 
-    public function index() {
-        $sort = "latest";
-        $restname = "";
-        $excel = false;
-        $limit = 20;
-        $offset = $rest_viewed = $price = 0;
-        $to_excel = false;
-        $city = $cuisine = $best = $status = $member = $restaurant = $district = "";
-        if (isset($_GET['sort']) && ($_GET['sort'] != "")) {
-            $sort = ($_GET['sort']);
-        }
-        if (isset($_GET['price']) && ($_GET['price'] != "")) {
-            $price = ($_GET['price']);
-        }
-        if (isset($_GET['rest_viewed']) && ($_GET['rest_viewed'] != "")) {
-            $rest_viewed = ($_GET['rest_viewed']);
-        }
-        if (isset($_GET['city']) && ($_GET['city'] != "")) {
-            $city = ($_GET['city']);
-        }
-        if (isset($_GET['cuisine']) && ($_GET['cuisine'] != "")) {
-            $cuisine = ($_GET['cuisine']);
-        }
-        if (isset($_GET['best']) && ($_GET['best'] != "")) {
-            $best = ($_GET['best']);
-        }
-        if (isset($_GET['status']) && ($_GET['status'] != "")) {
-            $status = ($_GET['status']);
-        }
-        if (isset($_GET['membership']) && ($_GET['membership'] != "")) {
-            $member = ($_GET['membership']);
-        }
-        if (isset($_GET['limit']) && ($_GET['limit'] != "")) {
-            $limit = ($_GET['limit']);
-        }
-        if (isset($_GET['report']) && ($_GET['report'] != "")) {
-            $to_excel = TRUE;
-            $limit = "";
-        }
+    public function index()
+    {
+        
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -61,67 +29,136 @@ class Members extends AdminController {
         if (empty($country)) {
             $country = 1;
         }
-        if (isset($_GET['restaurant']) && !empty($_GET['restaurant'])) {
-            $restname = stripslashes($_GET['restaurant']);
-        }
-        $lists = $this->MClients->getAllClients($country, $city, $cuisine, $sort, $member, $limit, $restname, 0, $rest_viewed, $best);
-
+     
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Reference No', 'Membership', 'Joined On', 'Last Update', 'Expiry Date', 'Actions'),
+            'headings' => array('Name', 'Reference No', 'Membership', 'Joined On',"status", 'Last Update', 'Expiry Date', 'Actions'),
             'pagetitle' => 'List of All Sufrati Members',
             'title' => 'All Sufrati Members',
             'action' => 'adminmembers',
-            'lists' => $lists,
+            "is_paid"=>0,
             'country' => $country,
-            'side_menu' => array('Subscriptions','All Members'),
+            'side_menu' => array('Subscriptions', 'All Members'),
         );
 
         return view('admin.partials.members', $data);
     }
+    public function getmembersData()
+    {
+        $query = DB::table('restaurant_info')
+        ->select(["restaurant_info.*","booking_management.referenceNo","booking_management.status","subscriptiontypes.accountName"]);
+        $query->join('booking_management', 'booking_management.rest_id', '=', 'restaurant_info.rest_ID')
+        ->LeftJoin("subscriptiontypes","restaurant_info.rest_Subscription","=","subscriptiontypes.id");
 
-    public function paid() {
-        $city = 0;
-        $cuisine = 0;
-        $sort = "latest";
-        $member = 0;
-        $ispaid = 1;
-        $rest_viewed=0;
-        $limit = 20;
-        $restname = "";
-        $excel = false;
-        $city = $cuisine = $best = $status = $member = $restaurant = $district = "";
-        if (isset($_GET['sort']) && ($_GET['sort'] != "")) {
-            $sort = ($_GET['sort']);
+        if (get('city')) {
+            $query->join('rest_branches', 'rest_branches.rest_fk_id', '=', 'restaurant_info.rest_ID');
+            $query->where('rest_branches.city_ID', '=', get('city'));
         }
-        if (isset($_GET['price']) && ($_GET['price'] != "")) {
-            $price = ($_GET['price']);
+        if (get('rest_viewed') != 0) {
+            $query->where('restaurant_info.rest_Viewed > ', get('rest_viewed'));
         }
-        if (isset($_GET['rest_viewed']) && ($_GET['rest_viewed'] != "")) {
-            $rest_viewed = ($_GET['rest_viewed']);
+        if (get('cuisine')) {
+            $query->join('restaurant_cuisine', 'restaurant_cuisine.rest_ID', '=', 'restaurant_info.rest_ID');
+            $query->where('restaurant_cuisine.cuisine_ID', '=', get('cuisine'));
         }
-        if (isset($_GET['city']) && ($_GET['city'] != "")) {
-            $city = ($_GET['city']);
+        if (get('best')) {
+            $query->join('restaurant_bestfor', 'restaurant_bestfor.rest_ID', '=', 'restaurant_info.rest_ID');
+            $query->where('restaurant_bestfor.bestfor_ID', '=', get('best'));
         }
-        if (isset($_GET['cuisine']) && ($_GET['cuisine'] != "")) {
-            $cuisine = ($_GET['cuisine']);
+
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("restaurant_info.country",  adminCountry());
         }
-        if (isset($_GET['best']) && ($_GET['best'] != "")) {
-            $best = ($_GET['best']);
+
+        if (get('membership')) {
+            $query->where('restaurant_info.rest_Subscription', '=', get('membership'));
         }
-        if (isset($_GET['status']) && ($_GET['status'] != "")) {
-            $status = ($_GET['status']);
+        if (get('is_paid') == 1) {
+            $query->where('restaurant_info.rest_Subscription', '>', 0);
+        } else {
+            $query->where('restaurant_info.rest_Subscription', '>', -1);
         }
-        if (isset($_GET['membership']) && ($_GET['membership'] != "")) {
-            $member = ($_GET['membership']);
-        }
-        if (isset($_GET['limit']) && ($_GET['limit'] != "")) {
-            $limit = ($_GET['limit']);
-        }
-        if (isset($_GET['report']) && ($_GET['report'] != "")) {
-            $to_excel = TRUE;
-            $limit = "";
-        }
+
+        $query->where('restaurant_info.rest_Status', '>', 0);
+        $query->where('booking_management.status', '>', 0);
+        return  DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                $btns = '';
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminmembers/contacts/',$row->rest_ID) .  '" title="Update Membership Contacts"><i class="fa fa-info"></i></a>';
+                
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminmembers/details/',$row->rest_ID). '" title="Update Membership Details"><i class="fa fa-edit"></i></a>';
+
+
+                if ($row->rest_Status == 0) {
+
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminmembers/status/',$row->rest_ID) . '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminmembers/status/',$row->rest_ID) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('adminmembers/delete/',$row->rest_ID) . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+                return $btns;
+            })
+
+
+            ->editColumn('rest_Name', function ($row) {
+                return stripslashes($row->rest_Name) . ' ' . stripslashes($row->rest_Name_Ar);
+            })
+
+            ->editColumn('member_duration', function ($row) {
+                if ($row->rest_Subscription == 0) {
+                    return 'Unlimited - Free Account';
+                } else {
+                    $duration = $row->member_duration;
+                    return date('d/m/Y', strtotime(date("Y-m-d", strtotime($row->member_date)) . " +$duration month"));
+                }
+            })
+            ->addColumn('status_html', function ($row) {
+                return  $row->status == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+
+            ->editColumn('lastUpdatedOn', function ($row) {
+                if ($row->lastUpdatedOn == "" || $row->lastUpdatedOn == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($row->rest_RegisDate));
+                } else {
+                    return date('d/m/Y', strtotime($row->lastUpdatedOn));
+                }
+            })
+            ->editColumn('member_date', function ($row) {
+                return date('d/m/Y', strtotime($row->member_date));
+            })
+            ->editColumn('rest_Subscription', function ($row) {
+                $html = '<span class="label';
+                if ($row->rest_Subscription == 0) {
+                    $html .= ' label-danger p-1">Not a Member';
+                } else {
+                    switch ($row->rest_Subscription) {
+                        case 0:
+                            $html .=  ' label-default p-1">Free member';
+                            break;
+                        case 1;
+                            $html .=  ' label-success p-1">Bronze member';
+                            break;
+                        case 2:
+                            $html .=  ' label-info p-1">Silver member';
+                            break;
+                        case 3:
+                            $html .=  ' label-warning p-1">Gold Member';
+                            break;  
+                            default:
+                            $html .=  ' label-success p-1">'.$row->accountName;                   
+                            
+                    }
+
+                }
+                $html .=  "</span>";
+                return $html;
+            })
+            ->make(true);
+    }
+    public function paid()
+    {
+       
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -131,27 +168,24 @@ class Members extends AdminController {
         if (empty($country)) {
             $country = 1;
         }
-        if (isset($_GET['restaurant']) && !empty($_GET['restaurant'])) {
-            $restname = stripslashes($_GET['restaurant']);
-        }
 
-        $lists = $this->MClients->getAllClients($country, $city, $cuisine, $sort, $member, $limit, $restname, $ispaid, $rest_viewed, $best);
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Reference No', 'Membership', 'Joined On', 'Last Update', 'Expiry Date', 'Actions'),
+            'headings' => array('Name', 'Reference No', 'Membership', 'Joined On', "Status",'Last Update', 'Expiry Date', 'Actions'),
             'pagetitle' => 'List of All Sufrati Paid Members',
             'title' => 'All Sufrati Paid Members',
             'action' => 'adminpaidmembers',
-            'lists' => $lists,
+            "is_paid"=>1,
             'country' => $country,
-            'side_menu' => array('Subscriptions','Paid Members'),
+            'side_menu' => array('Subscriptions', 'Paid Members'),
         );
 
         return view('admin.partials.members', $data);
     }
 
-    public function contacts($rest = 0) {
+    public function contacts($rest = 0)
+    {
         if ($rest != 0) {
             if (Session::get('admincountryName') != "") {
                 $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -173,7 +207,7 @@ class Members extends AdminController {
                 'member' => $member,
                 'css' => 'chosen',
                 'js' => 'chosen.jquery',
-                'side_menu' => array('Subscriptions','All Members'),
+                'side_menu' => array('Subscriptions', 'All Members'),
             );
             return view('admin.partials.membercontact', $data);
         } else {
@@ -216,9 +250,10 @@ class Members extends AdminController {
                         $data['rest_Subscription'] = $restData->rest_Subscription;
                         $data['title'] = "Admin account";
                         $data['sitename'] = $settings['name'];
-                        $date['side_menu'] = array('Subscriptions','All Members');
+                        $date['side_menu'] = array('Subscriptions', 'All Members');
                         $subject = "Contact information Updated Successfully at Sufrati";
-                        Mail::queue('emails.restaurant.memberaccountupdate', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
+                        try{
+                        Mail::queue('emails.restaurant.memberaccountupdate', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
                             $message->to($userEmails[0], 'Sufrati')->subject($subject);
                             $counter = 0;
                             $ccemail = array();
@@ -235,18 +270,24 @@ class Members extends AdminController {
                             }
                             $message->bcc($sufratiUser, 'Sufrati')->subject($subject);
                         });
-                        return Redirect::route('adminmembers/contacts/', $restData->rest_ID)->with('message', stripslashes(($restData->rest_Name)) . ' Member Account contact details updated');
+                    }
+                    catch(Exception $e ){
+                        return returnMsg('error','adminrestaurants',$e->getMessage());
+            
+                    }
+                        return returnMsg('success','adminmembers/contacts/', stripslashes(($restData->rest_Name)) . ' Member Account contact details updated',[$restData->rest_ID]);
                     }
                 }
                 #********************END
-                return Redirect::route('adminmembers/contacts/', $restData->rest_ID)->with('message', stripslashes(($restData->rest_Name)) . ' Member Account contact details updated');
+                return returnMsg('success','adminmembers/contacts/', stripslashes(($restData->rest_Name)) . ' Member Account contact details updated',[$restData->rest_ID]);
             } else {
-                return Redirect::route('adminrestaurants')->with('error', "something went wrong, Please try again.");
+                return returnMsg('error','adminrestaurants',"something went wrong, Please try again.");
             }
         }
     }
 
-    public function getPermissions($permission = "", $type = "") {
+    public function getPermissions($permission = "", $type = "")
+    {
         $data = array();
         if ($permission != "") {
             $data['permissions'] = explode(',', $permission);
@@ -270,7 +311,9 @@ class Members extends AdminController {
         }
     }
 
-    public function details($rest = 0) {
+    public function details($rest = 0)
+    {
+        $MemberDeatilsLog =[];
         if ($rest != 0) {
             if (Session::get('admincountryName') != "") {
                 $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -294,8 +337,8 @@ class Members extends AdminController {
                 'member' => $member,
                 'permission' => $permission,
                 'js' => 'admin/jquery-ui,admin/member',
-                'css'=>'admin/jquery-ui',
-                'side_menu' => array('Subscriptions','All Members'),
+                'css' => 'admin/jquery-ui',
+                'side_menu' => array('Subscriptions', 'All Members'),
             );
             return view('admin.partials.memberdetails', $data);
         } else {
@@ -379,9 +422,9 @@ class Members extends AdminController {
                     if ($_POST['rest_Subscription'] == 0) {
                         $subject = "Account has been renewed successfully";
                     } else {
-                        if (is_array($MemberDeatilsLog) && $MemberDeatilsLog->accountType == $_POST['rest_Subscription']) {
+                        if ( isset($MemberDeatilsLog->accountType) && $MemberDeatilsLog->accountType == $_POST['rest_Subscription']) {
                             $subject = "Account has been renewed successfully";
-                        } elseif ($MemberDeatilsLog->accountType > $_POST['rest_Subscription']) {
+                        } elseif (isset($MemberDeatilsLog->accountType) && $MemberDeatilsLog->accountType > $_POST['rest_Subscription']) {
                             $subject = "Account has been downgraded successfully";
                         } else {
                             $subject = "Account has been upgraded successfully";
@@ -401,9 +444,10 @@ class Members extends AdminController {
                     $data['sevices'] = $sevices;
                     $data['rest_Subscription'] = $_POST['rest_Subscription'];
                     $data['type'] = $type;
-                    $data['side_menu'] = array('Subscriptions','All Members');
+                    $data['side_menu'] = array('Subscriptions', 'All Members');
                     $sufratiUser = $settings['teamEmails'];
-                    Mail::queue('emails.restaurant.memberaccountupdatedetails', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
+                    try{
+                    Mail::queue('emails.restaurant.memberaccountupdatedetails', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
                         $message->to($userEmails[0], 'Sufrati')->subject($subject);
                         $counter = 0;
                         $ccemail = array();
@@ -420,19 +464,25 @@ class Members extends AdminController {
                         }
                         $message->bcc($sufratiUser, 'Sufrati')->subject($subject);
                     });
-                    return Redirect::route('adminmembers')->with('message', stripslashes(($rest->rest_Name)) . ' Membership details updated');
                 }
-                return Redirect::route('adminrestaurants')->with('error', "Opss!!! Looks like this restaurant has no emails, Please try again.");
+                catch(Exception $e ){
+                    return returnMsg('error','adminmembers',$e->getMessage());
+        
+                }
+                    return returnMsg('success','adminmembers', stripslashes($rest->rest_Name) . ' Membership details updated');
+                }
+                return returnMsg('error','adminrestaurants',"Opss!!! Looks like this restaurant has no emails, Please try again.");
             } else {
-                return Redirect::route('adminrestaurants')->with('error', "something went wrong, Please try again.");
+                return returnMsg('error','adminrestaurants',"something went wrong, Please try again.");
             }
         }
     }
 
-    public function status($id) {
+    public function status($id)
+    {
         $member = $account = $this->MRestActions->getAccountDetails($id);
         $rest = $this->MRestActions->getRest($id);
-        ##****** Email Function Common***##
+       // ##****** Email Function Common***##
         $data = array();
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -452,7 +502,7 @@ class Members extends AdminController {
         if (is_array($userEmails)) {
             $sufratiUser = $settings['teamEmails'];
             $data['settings'] = $settings;
-            ##CHECK STATUS IF ACTIVE THAN DEACTIVATE AND VICE VERSA
+            //##CHECK STATUS IF ACTIVE THAN DEACTIVATE AND VICE VERSA
             $data['sitename'] = $settings['name'];
             $data['country'] = $country;
             $data['title'] = "Admin account";
@@ -473,7 +523,8 @@ class Members extends AdminController {
                 $flashmessage = stripslashes(($rest->rest_Name)) . ' membership Activated succesfully';
                 $this->MAdmins->addActivity('Activated ' . stripslashes(($rest->rest_Name)) . ' membership');
             }
-            Mail::queue('emails.restaurant.' . $filename, $data, function($message) use ($subject, $userEmails, $sufratiUser) {
+            try{
+            Mail::queue('emails.restaurant.' . $filename, $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
                 $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
                 //$message->to($userEmails[0], 'Sufrati')->subject($subject);
                 $counter = 0;
@@ -491,12 +542,18 @@ class Members extends AdminController {
                 }
                 //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
             });
-            return Redirect::route('adminmembers')->with('message', $flashmessage);
         }
-        return Redirect::route('adminmembers')->with('error', "something went wrong, Please try again.");
+        catch(Exception $e ){
+            return returnMsg('error','adminmembers',$e->getMessage());
+        }
+            return returnMsg('success','adminmembers', $flashmessage);
+        }
+        return returnMsg('error','adminmembers', "something went wrong, Please try again.");
+
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $member = $account = $this->MRestActions->getAccountDetails($id);
         $rest = $this->MRestActions->getRest($id);
         $this->MClients->addMemberDeatilsLog($id);
@@ -534,7 +591,8 @@ class Members extends AdminController {
             $subject = stripslashes($rest->rest_Name) . " admin account at Sufrati.com";
             $flashmessage = stripslashes(($rest->rest_Name)) . ' Membership removed succesfully';
             $this->MAdmins->addActivity('Deactivated ' . stripslashes(($rest->rest_Name)) . ' membership removed.');
-            Mail::queue('emails.restaurant.memberaccountterminated', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
+            try{
+            Mail::queue('emails.restaurant.memberaccountterminated', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
                 $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
                 //$message->to($userEmails[0], 'Sufrati')->subject($subject);
                 $counter = 0;
@@ -552,12 +610,17 @@ class Members extends AdminController {
                 }
                 //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
             });
-            return Redirect::route('adminmembers')->with('message', $flashmessage);
         }
-        return Redirect::route('adminrestaurants')->with('error', "Opss!!! Looks like this restaurant has no emails, Please try again.");
+            catch(Exception $e ){
+                return returnMsg('error','adminmembers',$e->getMessage());
+            }
+            return returnMsg('success','adminmembers', $flashmessage);
+        }
+        return returnMsg('error','adminrestaurants', "Opss!!! Looks like this restaurant has no emails, Please try again.");
     }
 
-    public function sendpassword($id = 0) {
+    public function sendpassword($id = 0)
+    {
         $member = $account = $this->MRestActions->getAccountDetails($id);
         $rest = $this->MRestActions->getRest($id);
         ##****** Email Function Common***##
@@ -591,7 +654,8 @@ class Members extends AdminController {
             $subject = stripslashes($rest->rest_Name) . " admin account details at Sufrati.com";
             $flashmessage = stripslashes($rest->rest_Name) . " admin account details sent successfully";
             $this->MAdmins->addActivity(stripslashes($rest->rest_Name) . " admin account details sent successfully");
-            Mail::queue('emails.restaurant.resendpassword', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
+            try{
+            Mail::queue('emails.restaurant.resendpassword', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
                 $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
                 //$message->to($userEmails[0], 'Sufrati')->subject($subject);
                 $counter = 0;
@@ -609,9 +673,12 @@ class Members extends AdminController {
                 }
                 //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
             });
-            return Redirect::route('adminrestaurants/form/', $id)->with('message', $flashmessage);
         }
-        return Redirect::route('adminrestaurants')->with('error', "Opss!!! Looks like this restaurant has no emails, Please try again.");
+            catch(Exception $e ){
+                return returnMsg('error','adminrestaurants',$e->getMessage());
+            }
+            return returnMsg('success','adminrestaurants/form/',$flashmessage,[$id]);
+        }
+        return returnMsg('error','adminrestaurants',"Opss!!! Looks like this restaurant has no emails, Please try again.");
     }
-
 }

@@ -68,17 +68,17 @@ class MClients extends Eloquent {
     }
 
     function getAllSubscriptionTypes($country = 0) {
-        //$this->table = "subscriptionTypes";
         $MSubscription = DB::table('subscriptiontypes'); //MClients::select('*');
-        if (!empty($country)) {
-            $MSubscription->where('country', '=', $country);
+  
+        if (!in_array(0, adminCountry())) {
+            $MSubscription->whereIn("country",  adminCountry());
         }
         $MSubscription->orderBy('date_add', 'DESC');
-        $lists = $MSubscription->paginate(15);
+        $lists = $MSubscription->get();
         if (count($lists) > 0) {
             return $lists;
         }
-        return null;
+        return [];
     }
 
     function getSubscriptionType($id) {
@@ -174,7 +174,8 @@ class MClients extends Eloquent {
                 'rest_ID' => $old_data->rest_ID,
                 'sub_detail' => $old_data->sub_detail,
                 'price' => $old_data->price,
-                'referenceNo' => $reference
+                'referenceNo' => $reference,
+                "date_add"=>date("Y-m-d H:i:s")
             );
             DB::table('subscription_log')->insert($logdata);
         }
@@ -197,6 +198,8 @@ class MClients extends Eloquent {
         if ($permissions == "" || empty($permissions)) {
             $permissions = "1,2,3,6";
         }
+
+     
         $data = array(
             'accountType' => (Input::get('rest_Subscription')),
             'sub_detail' => $permissions,

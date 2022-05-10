@@ -28,7 +28,7 @@
                         <label class="control-label col-md-4" for="rest_Subscription"> Account Type</label>
                         <div class="col-md-7 sufrati-backend-input-seperator">
                             <select class="form-control" name="rest_Subscription" id="rest_Subscription" class="required" onchange="selectPermissions();">
-                                <option>Select Membership Type</option>
+                                <option value="0">Select Membership Type</option>
                                 <option value="0" <?php
                                 if (isset($rest)) {
                                     if ($rest->rest_Subscription == 0) {

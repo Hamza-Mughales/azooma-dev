@@ -48,7 +48,8 @@ class Rest extends AdminController {
     public function getRestData(){
          $district = "";
         $query = DB::table('restaurant_info');
-        $query->select('restaurant_info.*', DB::Raw('(select status FROM booking_management WHERE rest_id=restaurant_info.rest_ID Limit 1 ) AS membershipstatus'), DB::Raw("( SELECT getCuisineName(restaurant_info.rest_ID,'en') ) as cuisines"), DB::Raw("( SELECT getCityName(restaurant_info.rest_ID,'en') ) as cities"));
+        $query->select('restaurant_info.*', "subscriptiontypes.accountName",DB::Raw('(select status FROM booking_management WHERE rest_id=restaurant_info.rest_ID Limit 1 ) AS membershipstatus'), DB::Raw("( SELECT getCuisineName(restaurant_info.rest_ID,'en') ) as cuisines"), DB::Raw("( SELECT getCityName(restaurant_info.rest_ID,'en') ) as cities"))
+        ->LeftJoin("subscriptiontypes","restaurant_info.rest_Subscription","=","subscriptiontypes.id");
 
       
         if (!in_array(0, adminCountry())) {
@@ -174,6 +175,9 @@ class Rest extends AdminController {
                         case 3:
                             $html.= ' label-warning">Gold Member';
                             break;
+                            default:
+                            $html .=  ' label-success p-1">'.$rest->accountName;                   
+                            
                     }
                 }
                 $html.= "</span>";
@@ -692,6 +696,7 @@ class Rest extends AdminController {
                 $data['title'] = "Admin account";
                 $data['sitename'] = $settings['name'];
                 $subject = "Your admin account at Sufrati";
+                try{
                 Mail::queue('emails.restaurant.memberaccountnew', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
                     $message->to($userEmails[0], 'Sufrati')->subject($subject);
                     $counter = 0;
@@ -708,6 +713,11 @@ class Rest extends AdminController {
                         $message->cc($ccemail, 'Sufrati')->subject($subject);
                     }
                 });
+            }
+            catch(Exception $e){
+                return returnMsg('error','adminrestaurants', $e->getMessage());
+
+            }
                 return returnMsg('success','adminrestaurants', "Congratulation! " . stripslashes($_POST['rest_Name']) . ' is now Sufrati Free Member, Email is sent to restaurant successfully');
             }
             return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");

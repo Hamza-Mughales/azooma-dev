@@ -21,13 +21,13 @@ $message = Session::get('message');
       <div class="form-group row">
         <label for="pass" class="col-md-2 control-label">Password</label>
         <div class="col-md-6">
-          <input type="password" name="pass" class="form-control required"  id="pass" placeholder="Password" >
+          <input type="password" minlength="5" name="pass" class="form-control required"  id="pass" placeholder="Password" >
         </div>
       </div>
       <div class="form-group row">
         <label for="passconf" class="col-md-2 control-label">Confirm Password</label>
         <div class="col-md-6">
-          <input type="password" name="passconf" class="form-control required" equalto="#pass" id="passconf" placeholder="Confirm Password" >
+          <input type="password" minlength="5" name="passconf" class="form-control required" equalto="#pass" id="passconf" placeholder="Confirm Password" >
         </div>
       </div> 
   

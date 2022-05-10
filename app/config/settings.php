@@ -64,7 +64,7 @@ return array(
         'tel' => '0564636425',
         'fax' => '0564636425',
         'mobile' => '0564636425',
-        'teamEmails' => array("info@azooma.co", "data@azooma.co", "aas@azooma.co", "admin@azooma.co", 'ha@azooma.co', "fasil@azooma.co"),
+        'teamEmails' => array("info@azooma.co", "data@azooma.co", "aas@azooma.co", 'ha@azooma.co', "fasil@azooma.co"),
     ),
     'lebanon' => array(
         'name' => 'Sufrati-Lebanon',

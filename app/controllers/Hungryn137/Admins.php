@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Validator;
+
 class Admins extends AdminController {
 
     protected $MAdmins;
@@ -29,7 +31,7 @@ class Admins extends AdminController {
         if (isset($_GET['email']) && !empty($_GET['email'])) {
             $MAdmins = Admin::where('email', 'LIKE', stripslashes($_GET['email']) . '%');
         }
-        $lists = $MAdmins->paginate(15);
+        $lists = $MAdmins->get();
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Email', 'Country', 'Last Login', 'Actions'),
@@ -71,21 +73,50 @@ class Admins extends AdminController {
     }
 
     public function Save() {
+        Input::flash();
         $MAdmins = New Admin();
         if (Input::get('id')) {
+            $id=intval(Input::get('id'));
+            $validator = Validator::make($_POST,
+            array(
+                'user' => 'required|min:5|unique:admin,user,'.$id,
+                'email' => 'required|email|unique:admin,email,'.$id,
+
+            )
+        );
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+             return returnMsg('error','admins/form/',$message,[$id]);
+            }
+        }
             $id = Input::get('id');
             $MAdmins->updateAdmin();
             $admin = Admin::find($id);
             $MAdmins->addActivity('Administrator updated Succesfully ' . $admin->fullname);
-            return Redirect::route('admins')->with('message', "Administrator updated Succesfully.");
+            return returnMsg('success','admins',"Administrator updated Succesfully.");
         } else {
+            $validator = Validator::make($_POST,
+            array(
+                'user' => 'required|min:5|unique:admin',
+                'email' => 'required|email|unique:admin',
+                'pass' => 'required|min:5',
+
+            )
+        );
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+             return returnMsg('error','admins/form',$message);
+            }
+        }
             $id = $MAdmins->addAdmin();
             $admin = Admin::find($id);
             $MAdmins->addActivity('Administrator added Succesfully ' . $admin->fullname);
             if (Input::get('admin') == 0) {
-                return Redirect::route('admins/permissions/' . $admin->id)->with('entry', '1')->with('message', "Admin added succesfully, please specify Permissions");
+                return returnMsg('error','admins/permissions/' . $admin->id, "Admin added succesfully, please specify Permissions");
             }
-            return Redirect::route('admins')->with('message', "Administrator added Succesfully.");
+            return returnMsg("success",'admins', "Administrator added Succesfully.");
         }
     }
 
@@ -104,9 +135,9 @@ class Admins extends AdminController {
             );
             DB::table('admin')->where('id', $id)->update($data);
             $MAdmins->addActivity('Status Changed Succesfully ' . $admin->fullname);
-            return Redirect::route('admins')->with('message', "Status Changed Succesfully.");
+            return returnMsg('success','admins', "Status Changed Succesfully.");
         }
-        return Redirect::route('admins')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','admins',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -116,9 +147,9 @@ class Admins extends AdminController {
         if (count($admin) > 0) {
             Admin::destroy($id);
             $MAdmins->addActivity('Administrator deleted Succesfully ' . $admin->fullname);
-            return Redirect::route('admins')->with('message', "Administrator deleted Succesfully.");
+            return returnMsg('success','admins',"Administrator deleted Succesfully.");
         }
-        return Redirect::route('admins')->with('error', "something went wrong, Please try again.");
+        return returnMsg('error','admins',"something went wrong, Please try again.");
     }
 
     function password($id = 0) {
@@ -144,9 +175,20 @@ class Admins extends AdminController {
         if (Input::get('id')) {
             $id = Input::get('id');
             $admin = Admin::find($id);
+            $validator = Validator::make($_POST,
+            array(
+                'pass' => 'required|min:5',
+            )
+        );
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+             return returnMsg('error','admins/password/',$message,[$id]);
+            }
+        }
             $MAdmins->changePassword();
             $MAdmins->addActivity('Password Changed Succesfully ' . $admin->fullname);
-            return Redirect::route('admins')->with('message', "Password Changed succesfully");
+            return returnMsg('success','admins', "Password Changed succesfully");
         }
     }
 
@@ -184,7 +226,7 @@ class Admins extends AdminController {
         $id = Input::get('id');
         $admin = Admin::find($id);
         $MAdmins->addActivity('Updated permissions for Administrator - ' . $admin->fullname);
-        return Redirect::route('admins')->with('message', "Administrator Permissions updated succesfully");
+        return returnMsg('success','admins',"Administrator Permissions updated succesfully");
     }
 
     function activity($id = 0) {

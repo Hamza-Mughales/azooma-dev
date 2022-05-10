@@ -486,6 +486,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
 
 
     Route::get('adminmembers/', array('as' => 'adminmembers', 'uses' => 'Members@index'));
+    Route::get('adminmembersdata', array('as' => 'adminmembersdata', 'uses' => 'Members@getmembersData'));
     Route::get('adminmembers/contacts/{id}', array('as' => 'adminmembers/contacts/', 'uses' => 'Members@contacts'));
     Route::post('adminmembers/savecontacts', array('as' => 'adminmembers/savecontacts', 'uses' => 'Members@contacts'));
     Route::get('adminmembers/details/{id}', array('as' => 'adminmembers/details/', 'uses' => 'Members@details'));

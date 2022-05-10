@@ -27,3 +27,4 @@ ALTER TABLE `rest_offer` CHANGE `termsAr` `termsAr` TEXT CHARACTER SET utf8mb3 C
 
 //-----
 ALTER TABLE `newsletter` CHANGE `cuisines` `cuisines` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL, CHANGE `cities` `cities` VARCHAR(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;
+UPDATE `admin` SET `pass`=MD5(pass);
