@@ -1,4 +1,6 @@
-
+@extends('admin.index')
+@section('content')
+    
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>    
     <li class="active">{{ $title }}</li>
@@ -158,3 +160,4 @@
     </article>
 </div>
 
+@endsection

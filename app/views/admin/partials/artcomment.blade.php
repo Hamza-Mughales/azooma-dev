@@ -19,13 +19,6 @@
     <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="" method="get" >
 
         <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Comment</label>
-            <div class="col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Comment" >
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label for="sort" class="col-md-2 control-label">Sort By</label>
             <div class="col-md-6">
                 <select name="sort" id="sort" class="form-control">
@@ -70,7 +63,7 @@
                 }
                 ?>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover" id="data-table-one">
                 <thead>
                     <tr>
                         <?php
@@ -123,15 +116,15 @@
                                     <?php
                                     if ($list->status == 0) {
                                         ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminarticlecomments/status/',$list->id) }}" title="Activate "><i data-feather="minus-circle"></i></a>
+                                        <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminarticlecomments/status/',$list->id) }}" title="Activate "><i data-feather="minus-circle"></i></a>
                                         <?php
                                     } else {
                                         ?>
-                                        <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminarticlecomments/status/',$list->id) }}" title="Deactivate"><i data-feather="plus-circle"></i></a>
+                                        <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminarticlecomments/status/',$list->id) }}" title="Deactivate"><i data-feather="plus-circle"></i></a>
                                         <?php
                                     }
                                     ?>
-                                    <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('adminarticlecomments/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
+                                    <a class="btn btn-xs btn-danger mytooltip m-1" href="#" link="{{ route('adminarticlecomments/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
                                 </td>
                             </tr>
                             <?php

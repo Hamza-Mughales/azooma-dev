@@ -28,7 +28,7 @@ class AdminSettings extends AdminController {
                 'title' => 'Website Settings',
             );
         }
-        return View::make('admin.index', $data)->nest('content', 'admin.forms.settings', $data);
+        return view('admin.forms.settings', $data);
     }
 
     public function save() {
@@ -67,7 +67,9 @@ class AdminSettings extends AdminController {
         } else {
             DB::table('settings')->insert($data);
         }
-        return Redirect::route('adminsettings')->with('message', "Your data has been save successfully.");
+        
+        return returnMsg('success','adminsettings','Your data has been save successfully.');
+
     }
 
 }

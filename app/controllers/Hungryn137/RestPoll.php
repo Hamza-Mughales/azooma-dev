@@ -248,6 +248,7 @@ class RestPoll extends AdminController {
 
     public function delete($poll = 0) {
         $pollObj = $this->MPoll->getPoll($poll);
+        // dd('ffffffff', $poll, $pollObj);
         $this->MAdmins->addActivity('Poll Deleted ' . stripslashes($pollObj->question));
         $this->MPoll->deleteQuestion($poll);
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
@@ -307,6 +308,7 @@ class RestPoll extends AdminController {
 
         $lists = $this->MPoll->getPollOptions($pollID);
         $poll = $this->MPoll->getPoll($pollID);
+        // dd($pollID, $lists, $poll);
 
         $data = array(
             'sitename' => $settings['name'],
@@ -319,7 +321,7 @@ class RestPoll extends AdminController {
             'options' => $lists,
             'poll' => $poll,
             'pollID' => $pollID,
-            'side_menu' => ['Restaurant Mgmt'],
+            'side_menu' => ['Miscellaneous','Manage Polls'],
         );
 
         if ($rest_ID != 0) {
@@ -456,14 +458,18 @@ class RestPoll extends AdminController {
 
     function optiondelete($id = 0) {
         $rest_ID = 0;
+        // dd('fffffffff' , Input::has('rest_ID'), $id,Input::get('poll'));
         if (Input::has('rest_ID')) {
             $rest_ID = Input::get('rest_ID');
+        }
+        if (Input::has('poll')) {
+            $pool_id = Input::get('poll');
         }
         $cuisine = $this->MPoll->getPollOption($id);
         $this->MPoll->deleteAnswer($id);
         $this->MAdmins->addActivity('Deleted Poll ' . stripslashes(($cuisine->field)));
-        if ($rest_ID == 0) {
-            return returnMsg('success','adminpolloptions/', "Poll option status changed succesfully",$rest_ID);
+        if (isset($pool_id) && !empty($pool_id)) {
+            return returnMsg('success','adminpolloptions/', "Poll option status changed succesfully",$pool_id);
         } else {
             
             return returnMsg('success','adminrestaurants/polls/', "Poll option deleted succesfully",$rest_ID);

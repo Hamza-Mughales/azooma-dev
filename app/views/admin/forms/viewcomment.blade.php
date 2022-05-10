@@ -1,4 +1,6 @@
-
+@extends('admin.index')
+@section('content')
+    
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
     <li><a href="<?= route('admincomments'); ?>">All Comments</a></li>  
@@ -6,7 +8,7 @@
 </ol>
 
 
-<div class="well-white">
+<div class="well-white container">
     <article>    
         <fieldset>
             <legend>{{ $pagetitle }}</legend>        
@@ -63,3 +65,4 @@
     </article>
 </div>
 
+@endsection

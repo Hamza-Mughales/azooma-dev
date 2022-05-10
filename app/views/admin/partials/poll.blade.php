@@ -21,7 +21,7 @@
             </legend>        
         </fieldset>
 
-        <div class="panel">
+        <div class="panel table-responsive">
             
             <table class="table table-hover table-bordered" id="data-table-one">
                 <thead>
@@ -114,7 +114,7 @@
                                             <i data-feather="plus-circle"></i> 
                                         <?php } ?>
                                     </a>
-                                    <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('adminpolldelete/', $value->id); }}" title="Delete">
+                                    <a class="btn btn-xs btn-danger mytooltip cofirm-delete-button" href="#" link="{{ route('adminpolldelete/', $value->id); }}" title="Delete">
                                         <i data-feather="trash-2"></i> 
                                     </a>
 
