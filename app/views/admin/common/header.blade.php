@@ -48,7 +48,8 @@
       
           
           <li>
-            <div class="mode"><i class="fa fa-moon-o"></i></div>
+            <div class="mode <?=(isset($_COOKIE['darkMode']) && $_COOKIE['darkMode']==1 ? "selected" :"")?>">
+            <?=(isset($_COOKIE['darkMode']) && $_COOKIE['darkMode']==1 ? '<i class="fa fa-lightbulb-o"></i>' :'<i class="fa fa-moon-o"></i>')?>          </div>
           </li>
           
     

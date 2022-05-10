@@ -3,7 +3,7 @@
   
   @include('admin.layouts.head')
 
-  <body id="backend-bg" class="dash-body" <?php if (isset($bodyfunction)) echo $bodyfunction; ?>> 
+  <body id="backend-bg" class="dash-body <?=(isset($_COOKIE['darkMode']) && $_COOKIE['darkMode']==1 ? "dark-only" :"")?>" <?php if (isset($bodyfunction)) echo $bodyfunction; ?>> 
 
     <div class="page-wrapper null compact-wrapper" id="pageWrapper">
 

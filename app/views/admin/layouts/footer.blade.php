@@ -24,3 +24,38 @@
   <script src="<?= asset(js_path() .'icons/feather-icon/feather-icon.js') ?>"></script>
 
   <script src="<?= asset(js_path() .'select2.min.js') ?>"></script>
+  <script>
+       $(document).ready(function() {
+           $(".mode").on("click", function(e) {
+        
+               var darkMode = true;
+               $(".mode").toggleClass("selected");
+
+
+               if ($(this).hasClass("selected")) {
+                   darkMode = false;
+
+                   console.log("selected");
+                   $(".dash-body").addClass("dark-only");
+                   setCookie('darkMode', 1);
+
+               } else {
+                   console.log("unselected");
+
+                   darkMode = false;
+                   $(".dash-body").removeClass("dark-only");
+
+
+                   setCookie('darkMode', 0);
+               }
+           });
+
+       });
+  
+       function setCookie(cname, cvalue, exdays = 1000000) {
+           var d = new Date();
+           d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+           var expires = "expires=" + d.toUTCString();
+           document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+       }
+   </script>
