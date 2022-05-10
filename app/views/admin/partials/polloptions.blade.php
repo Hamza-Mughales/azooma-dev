@@ -14,27 +14,6 @@
             <li class="active">{{ $title }}</li>
         </ol>
     </div>
-    <div class="col-md-1">
-        <button type="button" class="btn pull-right" data-bs-toggle="collapse" data-bs-target="#filter-main">  <i data-feather="filter"></i> </button>
-    </div>
-</div>
-
-
-<div id="filter-main" class="collapse well-white">
-    <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="{{ route('adminpolls') }}" method="get" >
-        <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Name</label>
-            <div class="col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Name" >
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
-            </div>
-        </div>
-    </form>
 </div>
 
 
@@ -55,7 +34,7 @@
                 }
                 ?>        
             </div>
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered"  id="data-table-one">
                 <thead>
                     <tr>
                         <?php
@@ -116,7 +95,7 @@
                                             <i data-feather="plus-circle"></i> 
                                         <?php } ?>
                                     </a>
-                                    <a onclick="return confirm('Do You Want to Delete?')" class="btn btn-xs btn-danger mytooltip" href="{{ route('adminpolloptiondelete/', $option->id).'?poll='.$pollID; }}" title="Delete">
+                                    <a class="btn btn-xs btn-danger mytooltip cofirm-delete-button" href="#" link="{{ route('adminpolloptiondelete/', $option->id).'?poll='.$pollID; }}" title="Delete">
                                         <i data-feather="trash-2"></i> 
                                     </a>
 

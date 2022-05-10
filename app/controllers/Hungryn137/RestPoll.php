@@ -38,7 +38,7 @@ class RestPoll extends AdminController {
                 'title' => 'All Polls',
                 'action' => 'adminrestgallery',
                 'lists' => $lists,
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['Miscellaneous','Manage Polls'],
             );
             return view('admin.partials.poll', $data);
         } else {
@@ -412,6 +412,7 @@ class RestPoll extends AdminController {
                     'sitename' => $settings['name'],
                     'poll' => $poll,
                     'option' => $options,
+                    'action' => 'adminpolls',
                     'js' => 'admin/poll'
                 );
             }
@@ -422,11 +423,11 @@ class RestPoll extends AdminController {
                 $data['action'] = 'adminrestaurants/polls/' . $rest_ID;
                 $data['saveurl'] = 'adminrestaurants/pollsave';
                 $data['side_menu'] =  ['Restaurant Mgmt'];
-                $data['action'] = 'adminpolls';
                 $data['saveurl'] = 'adminpollsave';
                 $data['side_menu'] = ['Restaurant Mgmt'];
             }
 
+            // dd($data);
             return view('admin.forms.polloptionform', $data);
         }
     }
@@ -462,10 +463,10 @@ class RestPoll extends AdminController {
         $this->MPoll->deleteAnswer($id);
         $this->MAdmins->addActivity('Deleted Poll ' . stripslashes(($cuisine->field)));
         if ($rest_ID == 0) {
-            return returnMsg('success','adminpolloptions/', "Poll option status changed succesfully",[  $rest_ID]);
+            return returnMsg('success','adminpolloptions/', "Poll option status changed succesfully",$rest_ID);
         } else {
             
-            return returnMsg('success','adminrestaurants/polls/', "Poll option deleted succesfully",[ $rest_ID]);
+            return returnMsg('success','adminrestaurants/polls/', "Poll option deleted succesfully",$rest_ID);
 
         }
     }

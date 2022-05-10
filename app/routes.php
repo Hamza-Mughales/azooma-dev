@@ -788,6 +788,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     
     
     Route::get('adminpolls', array('as' => 'adminpolls', 'uses' => 'RestPoll@index'));
+    Route::get('adminpollsDT', array('as' => 'adminpollsDT', 'uses' => 'RestPoll@data_table'));
     Route::get('adminpollform', array('as' => 'adminpollform', 'uses' => 'RestPoll@form'));
     Route::get('adminpollform/{id}', array('as' => 'adminpollform/', 'uses' => 'RestPoll@form'));
     Route::get('adminpolloptions/{id}', array('as' => 'adminpolloptions/', 'uses' => 'RestPoll@options'));

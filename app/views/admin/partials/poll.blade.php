@@ -2,34 +2,13 @@
 @section('content')
 
 
-<div class="overflow">
+<div class="overflow row">
     <div class="col-md-11 zero-padding">
         <ol class="breadcrumb">
             <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
             <li class="active">{{ $title }}</li>
         </ol>
     </div>
-    <div class="col-md-1">
-        <button type="button" class="btn pull-right" data-bs-toggle="collapse" data-bs-target="#filter-main">  <i data-feather="filter"></i> </button>
-    </div>
-</div>
-
-
-<div id="filter-main" class="collapse well-white">
-    <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="{{ route('adminpolls'); }}" method="get" >
-        <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Name</label>
-            <div class="col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Name" >
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
-            </div>
-        </div>
-    </form>
 </div>
 
 
@@ -44,7 +23,7 @@
 
         <div class="panel">
             
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered" id="data-table-one">
                 <thead>
                     <tr>
                         <?php

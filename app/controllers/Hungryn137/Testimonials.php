@@ -49,7 +49,7 @@ class Testimonials extends AdminController {
 
         $MTestimonials->where('country', '=', $country);
 
-        $lists = $MTestimonials->paginate(15);
+        $lists = $MTestimonials->paginate(2000);
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Country', 'Description', 'Last Update on', 'Actions'),
@@ -64,7 +64,7 @@ class Testimonials extends AdminController {
             'lists' => $lists,
             'side_menu' => array('Corporate Pages','Testimonials'),
         );
-        return view('admin.partials.maincommonpage', $data);
+        return view('admin.partials.restTeam', $data);
     }
 
     public function form($id = 0) {
@@ -100,14 +100,17 @@ class Testimonials extends AdminController {
             $this->MTestimonials->updateTestimonial();
             $obj = MTestimonials::find($id);
             $this->MAdmins->addActivity('Testimonial updated Succesfully ' . $obj->name);
-            return Redirect::route('admintestimonials')->with('message', "Testimonial updated Succesfully.");
+            
+            return returnMsg('success','admintestimonials',"Testimonial updated Succesfully.");
         } else {
             $id = $this->MTestimonials->addTestimonial();
             $obj = MTestimonials::find($id);
             $this->MAdmins->addActivity('Testimonial added Succesfully ' . $obj->name);
-            return Redirect::route('admintestimonials')->with('message', "Testimonial added Succesfully.");
+            
+            return returnMsg('success','admintestimonials',"Testimonial added Succesfully.");
         }
-        return Redirect::route('admintestimonials')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('success','admintestimonials',"something went wrong, Please try again.");
     }
 
     public function status($id = 0) {
@@ -126,9 +129,11 @@ class Testimonials extends AdminController {
 
             DB::table('testimonials')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Testimonial status Changed Succesfully ' . $obj->name);
-            return Redirect::route('admintestimonials')->with('message', "Your data has been save successfully.");
+            
+            return returnMsg('success','admintestimonials',"Your data has been save successfully.");
         }
-        return Redirect::route('admintestimonials')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','admintestimonials',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -137,9 +142,11 @@ class Testimonials extends AdminController {
         if (count($obj) > 0) {
             MTestimonials::destroy($id);
             $this->MAdmins->addActivity('Testimonial deleted Succesfully ' . $obj->name);
-            return Redirect::route('admintestimonials')->with('message', "Testimonial deleted succesfully.");
+            
+            return returnMsg('success','admintestimonials',"Testimonial deleted succesfully.");
         }
-        return Redirect::route('admintestimonials')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('success','admintestimonials',"something went wrong, Please try again.");
     }
 
 }

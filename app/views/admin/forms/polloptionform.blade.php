@@ -3,7 +3,7 @@
     
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
-    <li><a href="<?php echo route($action); ?>"> 
+    {{-- <li><a href="<?= route($action); ?>">  --}}
             <?php
             if (isset($rest)) {
                 echo stripslashes($rest->rest_Name);

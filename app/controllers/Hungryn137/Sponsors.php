@@ -52,7 +52,7 @@ class Sponsors extends AdminController {
         $MSponsor->where('country', '=', $country);
 
 
-        $lists = $MSponsor->paginate(15);
+        $lists = $MSponsor->paginate(2000);
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Name Arabic', 'Description', 'Last Update on', 'Actions'),
@@ -67,7 +67,7 @@ class Sponsors extends AdminController {
             'lists' => $lists,
             'side_menu' => array('Corporate Pages','Sponsors'),
         );
-        return view('admin.partials.maincommonpage', $data);
+        return view('admin.partials.restTeam', $data);
     }
 
     public function form($id = 0) {
@@ -145,14 +145,17 @@ class Sponsors extends AdminController {
             $this->MSponsor->updateSponsor($filename, $filename_big);
             $obj = MSponsor::find($id);
             $this->MAdmins->addActivity('Sponsor updated Succesfully ' . $obj->name);
-            return Redirect::route('adminsponsors')->with('message', "Sponsor updated Succesfully.");
+            
+            return returnMsg('success','adminsponsors','Sponsor updated Succesfully.');
         } else {
             $id = $this->MSponsor->addSponsor($filename, $filename_big);
             $obj = MSponsor::find($id);
             $this->MAdmins->addActivity('Sponsor added Succesfully ' . $obj->name);
-            return Redirect::route('adminsponsors')->with('message', "Sponsor added Succesfully.");
+            
+            return returnMsg('success','adminsponsors','Sponsor added Succesfully.');
         }
-        return Redirect::route('adminsponsors')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminsponsors','something went wrong, Please try again.');
     }
 
     public function status($id = 0) {
@@ -170,9 +173,11 @@ class Sponsors extends AdminController {
 
             DB::table('sponsor')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Sponsor status Changed Succesfully ' . $obj->name);
-            return Redirect::route('adminsponsors')->with('message', "Your data has been save successfully.");
+            
+            return returnMsg('success','adminsponsors','Your data has been save successfully.');
         }
-        return Redirect::route('adminsponsors')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminsponsors','something went wrong, Please try again.');
     }
 
     public function delete($id = 0) {
@@ -181,9 +186,11 @@ class Sponsors extends AdminController {
         if (count($obj) > 0) {
             MSponsor::destroy($id);
             $this->MAdmins->addActivity('Sponsor deleted Succesfully ' . $obj->name);
-            return Redirect::route('adminsponsors')->with('message', "Sponsor deleted succesfully.");
+            
+            return returnMsg('success','adminsponsors','Sponsor deleted succesfully.');
         }
-        return Redirect::route('adminsponsors')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminsponsors','something went wrong, Please try again.');
     }
 
 }

@@ -43,7 +43,7 @@ class Pages extends AdminController {
             $MContents->where('status', '=', $status);
         }
 
-        $lists = $MContents->paginate(15);
+        $lists = $MContents->paginate(2000);
 
         $data = array(
             'sitename' => $settings['name'],
@@ -60,7 +60,7 @@ class Pages extends AdminController {
             'side_menu' => array('Corporate Pages','Information Pages'),
         );
 
-        return view('admin.partials.maincommonpage', $data);
+        return view('admin.partials.restTeam', $data);
     }
 
     public function form($id = 0) {
@@ -121,7 +121,8 @@ class Pages extends AdminController {
         } else {
             DB::table('contents')->insert($data);
         }
-        return Redirect::route('adminpages')->with('message', "Your data has been save successfully.");
+        
+        return returnMsg('success','adminpages',"Your data has been save successfully.");
     }
 
     public function status($id = 0) {
@@ -139,9 +140,11 @@ class Pages extends AdminController {
             );
 
             DB::table('contents')->where('id', $id)->update($data);
-            return Redirect::route('adminpages')->with('message', "Your data has been save successfully.");
+            
+            return returnMsg('success','adminpages',"Your data has been save successfully.");
         }
-        return Redirect::route('adminpages')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminpages',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -149,9 +152,11 @@ class Pages extends AdminController {
         $page = Contents::find($id);
         if (count($page) > 0) {
             Contents::destroy($id);
-            return Redirect::route('adminpages')->with('message', "Your data has been save successfully.");
+            
+            return returnMsg('success','adminpages',"Your data has been save successfully.");
         }
-        return Redirect::route('adminpages')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('success','adminpages',"something went wrong, Please try again.");
     }
 
 }

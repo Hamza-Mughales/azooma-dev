@@ -1,5 +1,7 @@
 <?php
 
+use Yajra\DataTables\Facades\DataTables;
+
 class TeamAdminController extends AdminController {
 
     protected $MTeam;
@@ -48,7 +50,7 @@ class TeamAdminController extends AdminController {
             $MTeam->where('status', '=', $status);
         }
 
-        $lists = $MTeam->paginate(15);
+        $lists = $MTeam->paginate(2000);
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Title', 'Description', 'Last Update on', 'Actions'),
@@ -63,7 +65,7 @@ class TeamAdminController extends AdminController {
             'lists' => $lists,
             'side_menu' => array('Corporate Pages','Team'),
         );
-        return view('admin.partials.maincommonpage', $data);
+        return view('admin.partials.restTeam', $data);
     }
 
     public function form($id = 0) {
@@ -144,7 +146,8 @@ class TeamAdminController extends AdminController {
         } else {
             DB::table('ourteam')->insert($data);
         }
-        return Redirect::route('adminteam')->with('message', "Your data has been save successfully.");
+        
+        return returnMsg('success','adminteam',"Your data has been save successfully.");
     }
 
     public function status($id = 0) {
@@ -162,9 +165,11 @@ class TeamAdminController extends AdminController {
             );
 
             DB::table('ourteam')->where('id', $id)->update($data);
-            return Redirect::route('adminteam')->with('message', "Your data has been save successfully.");
+            
+            return returnMsg('success','adminteam',"Your data has been save successfully.");
         }
-        return Redirect::route('adminteam')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminteam',"something went wrong, Please try again.");
     }
 
     public function delete($id = 0) {
@@ -172,9 +177,11 @@ class TeamAdminController extends AdminController {
         $page = Team::find($id);
         if (count($page) > 0) {
             Team::destroy($id);
-            return Redirect::route('adminteam')->with('message', "Your data has been save successfully.");
+            
+            return returnMsg('success','adminteam',"Your data has been save successfully.");
         }
-        return Redirect::route('adminteam')->with('error', "something went wrong, Please try again.");
+        
+        return returnMsg('error','adminteam',"something went wrong, Please try again.");
     }
 
 }
