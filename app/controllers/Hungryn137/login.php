@@ -68,6 +68,7 @@ class Login extends AdminController {
                     setcookie('remember_me',null);
                     unset($_COOKIE['remember_me_user_name']);
                     unset($_COOKIE['remember_me_password']);
+                    unset($_COOKIE['remember_me_country_id']);
                     unset($_COOKIE['remember_me']);
                 }
                 return Redirect::route('adminhome');

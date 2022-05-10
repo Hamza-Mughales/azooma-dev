@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class Admins extends AdminController {
 
@@ -238,17 +239,24 @@ class Admins extends AdminController {
             $id = Session::get('adminid');
         }
         $admin = Admin::find($id);
-        $activities = $MAdmins->getAdminActivity($admin->user);
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Activity', 'Date'),
             'pagetitle' => "List of all Activities of " . $admin->fullname,
             'title' => 'Activities',
-            'lists' => $activities,
             'admin' => $admin,
+            "user_id"=>$admin->user,
             'side_menu' => array('Users','Administrators'),
         );
         return view('admin.partials.adminActivities', $data);
+    }
+    public function getAdminActivity($user){
+   
+        $query = DB::table('activity_info')
+        ->where('user', $user);
+   
+        return  DataTables::of($query)->make(true);
+
     }
 
 }

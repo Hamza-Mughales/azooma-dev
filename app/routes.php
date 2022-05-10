@@ -525,6 +525,8 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::post('adminpages/save', array('as' => 'adminpages/save', 'uses' => 'Pages@save'));
 
     Route::get('adminusers', array('as' => 'adminusers', 'uses' => 'AdminUsers@index'));
+    Route::get('adminallusersdata', array('as' => 'getusersdata', 'uses' => 'AdminUsers@getUsersData'));
+    
     Route::get('adminusers/view/{id}', array('as' => 'adminusers/view/', 'uses' => 'AdminUsers@view'));
     
     Route::get('adminrestmanagers', array('as' => 'adminrestmanagers', 'uses' => 'Rest@emails'));
@@ -540,6 +542,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('admins/permissions/{id}', array('as' => 'admins/permissions/', 'uses' => 'Admins@permissions'));
     Route::post('admins/savePermissions', array('as' => 'admins/savePermissions', 'uses' => 'Admins@savePermissions'));
     Route::get('admins/activity/{id}', array('as' => 'admins/activity/', 'uses' => 'Admins@activity'));
+    Route::get('admins/activitydata/{id}', array('as' => 'adminsactivitydata', 'uses' => 'Admins@getAdminActivity'));
 
     Route::get('adminsettings/', array('as' => 'adminsettings', 'uses' => 'AdminSettings@index'));
     Route::post('adminsettings/save', array('as' => 'adminsettings/save', 'uses' => 'AdminSettings@save'));

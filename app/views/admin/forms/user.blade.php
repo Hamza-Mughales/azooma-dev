@@ -1,4 +1,5 @@
-
+@extends('admin.index')
+@section('content')
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
     <li><a href="<?= route('adminusers'); ?>">All Sufrati Users</a></li>  
@@ -186,3 +187,4 @@
         
     </article>
 </div>
+@endsection
