@@ -1,11 +1,15 @@
 <?php
 
-class Invoice extends AdminController {
+use Yajra\DataTables\Facades\DataTables;
+
+class Invoice extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
@@ -13,7 +17,8 @@ class Invoice extends AdminController {
         $this->MClients = new MClients();
     }
 
-    public function index() {
+    public function index()
+    {
         $city = 0;
         $cuisine = 0;
         $sort = "latest";
@@ -73,20 +78,136 @@ class Invoice extends AdminController {
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Restaurant Name', 'Reference No', 'Membership', 'Joined On', 'Last Update', 'Expiry Date', 'Actions'),
+            'headings' => array('Restaurant Name', 'Reference No', 'Membership', 'Joined On', "Status", 'Last Update', 'Expiry Date', 'Actions'),
             'pagetitle' => 'List of All Sufrati Members',
             'title' => 'All Sufrati Members',
             'action' => 'admininvoice',
             'MRestActions' => $this->MRestActions,
             'lists' => $lists,
             'country' => $country,
-            'side_menu' => array('Billing','Manage Invoice'),
+            'side_menu' => array('Billing', 'Manage Invoice'),
         );
 
         return view('admin.partials.invoice', $data);
     }
+    public function getInvoiceData()
+    {
+        $query = DB::table('restaurant_info')
+            ->select([
+                "restaurant_info.*", "booking_management.referenceNo", "booking_management.status", "subscriptiontypes.accountName", DB::Raw('(select id  FROM invoice WHERE rest_ID=restaurant_info.rest_ID Limit 1 ) AS invoice_ar_id'), DB::Raw('(select is_draft  FROM invoice WHERE rest_ID=restaurant_info.rest_ID Limit 1 ) AS is_draft')
+            ]);
+        $query->join('booking_management', 'booking_management.rest_id', '=', 'restaurant_info.rest_ID')
+            ->LeftJoin("subscriptiontypes", "restaurant_info.rest_Subscription", "=", "subscriptiontypes.id");
 
-    public function invoiceform($rest = 0) {
+        if (get('city')) {
+            $query->join('rest_branches', 'rest_branches.rest_fk_id', '=', 'restaurant_info.rest_ID');
+            $query->where('rest_branches.city_ID', '=', get('city'));
+        }
+        if (get('rest_viewed') != 0) {
+            $query->where('restaurant_info.rest_Viewed > ', get('rest_viewed'));
+        }
+        if (get('cuisine')) {
+            $query->join('restaurant_cuisine', 'restaurant_cuisine.rest_ID', '=', 'restaurant_info.rest_ID');
+            $query->where('restaurant_cuisine.cuisine_ID', '=', get('cuisine'));
+        }
+        if (get('best')) {
+            $query->join('restaurant_bestfor', 'restaurant_bestfor.rest_ID', '=', 'restaurant_info.rest_ID');
+            $query->where('restaurant_bestfor.bestfor_ID', '=', get('best'));
+        }
+
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("restaurant_info.country",  adminCountry());
+        }
+
+        if (get('membership')) {
+            $query->where('restaurant_info.rest_Subscription', '=', get('membership'));
+        }
+        if (get('status') or get('status') === '0') {
+            $query->where('booking_management.status', '=', get('status'));
+        }
+        if (get('is_paid') == 1) {
+            $query->where('restaurant_info.rest_Subscription', '>', 0);
+        } else {
+            $query->where('restaurant_info.rest_Subscription', '>', -1);
+        }
+
+        $query->where('restaurant_info.rest_Status', '>', 0);
+        $query->where('booking_management.status', '>', 0);
+        return  DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                $btns = '';
+                if (isset($row->invoice_ar_id) &&  $row->invoice_ar_id > 0) {
+
+                    if (isset($row->is_draft) &&  $row->is_draft == 1) {
+
+                        $btns .= ' <a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admininvoice/invoiceform/', $row->rest_ID) . '?invoice=' . $row->invoice_ar_id . '" title="View & Generate Invoice"><i class="fa fa-list"></i></a>';
+                    } else {
+                        $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admininvoice/view/', $row->rest_ID) . '" title="View Invoice"><i class="fa  fa-search"></i></a>';
+                    }
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admininvoice/generate/', $row->rest_ID) . '" title="Generate Invoice"><i class="fa fa-file-pdf-o"></i></a>
+                    ';
+                }
+
+                return $btns;
+            })
+
+
+            ->editColumn('rest_Name', function ($row) {
+                return stripslashes($row->rest_Name) . ' ' . stripslashes($row->rest_Name_Ar);
+            })
+
+            ->editColumn('member_duration', function ($row) {
+                if ($row->rest_Subscription == 0) {
+                    return 'Unlimited - Free Account';
+                } else {
+                    $duration = $row->member_duration;
+                    return date('d/m/Y', strtotime(date("Y-m-d", strtotime($row->member_date)) . " +$duration month"));
+                }
+            })
+            ->addColumn('status_html', function ($row) {
+                return  $row->status == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+
+            ->editColumn('lastUpdatedOn', function ($row) {
+                if ($row->lastUpdatedOn == "" || $row->lastUpdatedOn == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($row->rest_RegisDate));
+                } else {
+                    return date('d/m/Y', strtotime($row->lastUpdatedOn));
+                }
+            })
+            ->editColumn('member_date', function ($row) {
+                return date('d/m/Y', strtotime($row->member_date));
+            })
+            ->editColumn('rest_Subscription', function ($row) {
+                $html = '<span class="label';
+                if ($row->rest_Subscription == 0) {
+                    $html .= ' label-danger p-1">Not a Member';
+                } else {
+                    switch ($row->rest_Subscription) {
+                        case 0:
+                            $html .=  ' label-default p-1">Free member';
+                            break;
+                        case 1;
+                            $html .=  ' label-success p-1">Bronze member';
+                            break;
+                        case 2:
+                            $html .=  ' label-info p-1">Silver member';
+                            break;
+                        case 3:
+                            $html .=  ' label-warning p-1">Gold Member';
+                            break;
+                        default:
+                            $html .=  ' label-success p-1">' . $row->accountName;
+                    }
+                }
+                $html .=  "</span>";
+                return $html;
+            })
+            ->make(true);
+    }
+    public function invoiceform($rest = 0)
+    {
         $invoiceID = 0;
         if (isset($_GET['invoice']) && !empty($_GET['invoice'])) {
             $invoiceID = stripslashes($_GET['invoice']);
@@ -116,13 +237,14 @@ class Invoice extends AdminController {
                 'member' => $member,
                 'css' => 'chosen,jquery-ui,admin/datepicker',
                 'js' => 'chosen.jquery,jquery-ui,admin/datepicker',
-                'side_menu' => array('Billing','Manage Invoice'),
+                'side_menu' => array('Billing', 'Manage Invoice'),
             );
             return view('admin.forms.invoice', $data);
         }
     }
 
-    public function generate($rest = 0) {
+    public function generate($rest = 0)
+    {
         if ($rest != 0) {
             if (Session::get('admincountryName') != "") {
                 $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -148,11 +270,11 @@ class Invoice extends AdminController {
                     'member' => $member,
                     'css' => 'chosen,admin/jquery-ui',
                     'js' => 'chosen.jquery,admin/jquery-ui',
-                    'side_menu' => array('Billing','Manage Invoice'),
+                    'side_menu' => array('Billing', 'Manage Invoice'),
                 );
                 return view('admin.forms.invoice', $data);
             } else {
-                return Redirect::route('admininvoice')->with('error', "Looks like Restaurant is not our member , Please try again.");
+                return returnMsg('error', 'admininvoice', "Looks like Restaurant is not our member , Please try again.");
             }
         } else {
             if (Input::has('rest_ID')) {
@@ -242,7 +364,7 @@ class Invoice extends AdminController {
                 $creative_price = $advertings_price = 0;
                 $creative_price = $spot_light_video + $hi_light_video + $banner_design;
                 $advertings_price = $bottom_banner_home + $top_banner + $bottom_banner + $home_page_slider + $horizon_banner + $bronze_box_banner;
-                $advertings_price+= $horizon_banner_second + $gold_box_banner + $sliver_box_banner + $sponsorship_banner + $horizon_banner_third + $logo_box;
+                $advertings_price += $horizon_banner_second + $gold_box_banner + $sliver_box_banner + $sponsorship_banner + $horizon_banner_third + $logo_box;
                 $itotal = $subscription_price + $creative_price + $advertings_price;
                 $discount_price = Input::get('discount_price');
                 $total_price = Input::get('total_price');
@@ -251,7 +373,7 @@ class Invoice extends AdminController {
                 if ($tmp_total == $total_price) {
                     //ok price   
                 } else {
-                    return Redirect::route('admininvoice/generate/', $restID)->with('error', "something happen wrong during calculation, Please try again.");
+                    return returnMsg('error', 'admininvoice/generate/', "something happen wrong during calculation, Please try again.", [$restID]);
                 }
                 $startup_price = $monthly_price = $installment_duration = 0;
                 $down_payment = $monthly_price = $installment_duration = 0;
@@ -267,12 +389,12 @@ class Invoice extends AdminController {
                         if ($option_list == "") {
                             $option_list = $key;
                         } else {
-                            $option_list.=',' . $key;
+                            $option_list .= ',' . $key;
                         }
                         if ($option_value == "") {
                             $option_value = $value;
                         } else {
-                            $option_value.=',' . $value;
+                            $option_value .= ',' . $value;
                         }
                     }
                 }
@@ -370,15 +492,19 @@ class Invoice extends AdminController {
                 $t['pdf'] = true;
                 //$msgtousers = $this->load->view('mails/invoice', $t, true);
                 if ($is_draft == 1) {
-                    Mail::queue('emails.restaurant.invoice', $t, function($message) use ($subject) {
-                        $subject = $subject . ' - DRAFT';
-                        $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                        //$message->to("info@azooma.co", 'Sufrati')->subject($subject);
-                        //$message->cc("accounts@sufrati", 'Sufrati')->subject($subject);
-                        //$message->bcc("ha@azooma.co", 'Sufrati')->subject($subject);
-                    });
+                    try {
+                        Mail::queue('emails.restaurant.invoice', $t, function ($message) use ($subject) {
+                            $subject = $subject . ' - DRAFT';
+                            $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
+                            //$message->to("info@azooma.co", 'Sufrati')->subject($subject);
+                            //$message->cc("accounts@sufrati", 'Sufrati')->subject($subject);
+                            //$message->bcc("ha@azooma.co", 'Sufrati')->subject($subject);
+                        });
+                    } catch (Exception $e) {
+                        return returnMsg('error', 'admininvoice', $e->getMessage());
+                    }
                     $this->MAdmins->addActivity('Invoice sent as Draft for ' . stripslashes($rest->rest_Name));
-                    return Redirect::route('admininvoice')->with('message', stripslashes(($restData->rest_Name)) . ' Invoice is send as draft successfully');
+                    return returnMsg('success', 'admininvoice', stripslashes(($restData->rest_Name)) . ' Invoice is send as draft successfully');
                 } else {
                     $userEmails = "";
                     if (isset($member->email)) {
@@ -386,35 +512,40 @@ class Invoice extends AdminController {
                         $userEmails = explode(",", $userEmails);
                     }
                     if (is_array($userEmails)) {
-                        Mail::queue('emails.restaurant.invoice', $t, function($message) use ($subject, $userEmails, $sufratiUser) {
-                            $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                            //$message->to($userEmails[0], 'Sufrati')->subject($subject);
-                            $counter = 0;
-                            $ccemail = array();
-                            if (count($userEmails) > 1) {
-                                foreach ($userEmails as $emaillist) {
-                                    if ($counter == 0) {
+                        try {
+                            Mail::queue('emails.restaurant.invoice', $t, function ($message) use ($subject, $userEmails, $sufratiUser) {
+                                $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
+                                //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                                $counter = 0;
+                                $ccemail = array();
+                                if (count($userEmails) > 1) {
+                                    foreach ($userEmails as $emaillist) {
+                                        if ($counter == 0) {
+                                            $counter++;
+                                            continue;
+                                        }
                                         $counter++;
-                                        continue;
+                                        $ccemail[] = $emaillist;
                                     }
-                                    $counter++;
-                                    $ccemail[] = $emaillist;
+                                    //$message->cc($ccemail, 'Sufrati')->subject($subject);
                                 }
-                                //$message->cc($ccemail, 'Sufrati')->subject($subject);
-                            }
-                            //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
-                        });
+                                //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                            });
+                        } catch (Exception $e) {
+                            return returnMsg('error', 'admininvoice', $e->getMessage());
+                        }
                         $this->MAdmins->addActivity('Invoice sent for ' . stripslashes($rest->rest_Name));
-                        return Redirect::route('admininvoice')->with('message', stripslashes(($restData->rest_Name)) . ' Invoice is sent successfully');
+                        return returnMsg('success', 'admininvoice', stripslashes(($restData->rest_Name)) . ' Invoice is sent successfully');
                     } else {
-                        return Redirect::route('admininvoice/generate/', $restData->rest_ID)->with('error', "something went wrong, Please try again.");
+                        return returnMsg('error', 'admininvoice/generate/',  "something went wrong, Please try again.", [$restData->rest_ID]);
                     }
                 }
             }
         }
     }
 
-    function view($rest = 0) {
+    function view($rest = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -439,10 +570,11 @@ class Invoice extends AdminController {
             'css' => 'chosen,jquery-ui,admin/datepicker',
             'js' => 'chosen.jquery,jquery-ui,admin/datepicker'
         );
-        return View::make('admin.index', $data)->nest('content', 'admin.partials.invoicedetails', $data);
+        return view('admin.partials.invoicedetails', $data);
     }
 
-    function status($status = 0) {
+    function status($status = 0)
+    {
         $invoiceID = 0;
         $rest_ID = 0;
         if (isset($_GET['invoiceID']) && !empty($_GET['invoiceID'])) {
@@ -473,11 +605,11 @@ class Invoice extends AdminController {
             $userEmails = explode(",", $userEmails);
         }
         if ($status == 0) {
-            return Redirect::route('admininvoice/view/', $rest_ID)->with('error', "something happen wrong with status, Please try again.");
+            return returnMsg('error', 'admininvoice/view/', "something happen wrong with status, Please try again.", [$rest_ID]);
         } else if ($status == 3) {
             $this->MRestActions->updateInvoice($invoiceID, $rest_ID, 3);
             $this->MAdmins->addActivity('Invoice is Cancelled for ' . $rest->rest_Name);
-            return Redirect::route('admininvoice')->with('message', "Invoice is Cancelled successfully");
+            return returnMsg('success', 'admininvoice', "Invoice is Cancelled successfully");
         } else if ($status == 2) {
             $this->MRestActions->updateInvoice($invoiceID, $rest_ID, 2);
             $subject = "Invoice Reminder";
@@ -557,29 +689,31 @@ class Invoice extends AdminController {
             $t['heading_title'] = $subject;
             $t['sitename'] = $settings['name'];
 
-
-            Mail::queue('emails.restaurant.' . $filename, $t, function($message) use ($subject, $userEmails, $sufratiUser) {
-                $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                //$message->to($userEmails[0], 'Sufrati')->subject($subject);
-                $counter = 0;
-                $ccemail = array();
-                if (count($userEmails) > 1) {
-                    foreach ($userEmails as $emaillist) {
-                        if ($counter == 0) {
+            try {
+                Mail::queue('emails.restaurant.' . $filename, $t, function ($message) use ($subject, $userEmails, $sufratiUser) {
+                    $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
+                    //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                    $counter = 0;
+                    $ccemail = array();
+                    if (count($userEmails) > 1) {
+                        foreach ($userEmails as $emaillist) {
+                            if ($counter == 0) {
+                                $counter++;
+                                continue;
+                            }
                             $counter++;
-                            continue;
+                            $ccemail[] = $emaillist;
                         }
-                        $counter++;
-                        $ccemail[] = $emaillist;
+                        //$message->cc($ccemail, 'Sufrati')->subject($subject);
                     }
-                    //$message->cc($ccemail, 'Sufrati')->subject($subject);
-                }
-                //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
-            });
-            return Redirect::route('admininvoice')->with('message', stripslashes(($restData->rest_Name)) . $flash_message);
+                    //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                });
+            } catch (Exception $e) {
+                return returnMsg('error', 'admininvoice', $e->getMessage());
+            }
+            return returnMsg('success', 'admininvoice', stripslashes(($restData->rest_Name)) . $flash_message);
         } else {
-            return Redirect::route('admininvoice/generate/', $restData->rest_ID)->with('error', "something went wrong, Please try again.");
+            return returnMsg('error', 'admininvoice/generate/', "something went wrong, Please try again.", [$restData->rest_ID]);
         }
     }
-
 }

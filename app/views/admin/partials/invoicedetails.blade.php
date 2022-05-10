@@ -1,3 +1,5 @@
+@extends('admin.index')
+@section('content')
 
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
@@ -295,4 +297,4 @@ echo HTML::script('js/admin/invoice.js');
         overflow: hidden;
     }
 </style>
-
+@endsection

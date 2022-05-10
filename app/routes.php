@@ -499,6 +499,7 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminpaidmembers/', array('as' => 'adminpaidmembers', 'uses' => 'Members@paid'));
 
     Route::get('admininvoice/', array('as' => 'admininvoice', 'uses' => 'Invoice@index'));
+    Route::get('admininvoicedata', array('as' => 'admininvoicedata', 'uses' => 'Invoice@getInvoiceData'));
     Route::get('admininvoice/invoiceform/{id}', array('as' => 'admininvoice/invoiceform/', 'uses' => 'Invoice@invoiceform'));
     Route::get('admininvoice/generate/{id}', array('as' => 'admininvoice/generate/', 'uses' => 'Invoice@generate'));
     Route::post('admininvoice/saveinvoice', array('as' => 'admininvoice/saveinvoice', 'uses' => 'Invoice@generate'));

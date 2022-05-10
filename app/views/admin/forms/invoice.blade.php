@@ -7,6 +7,7 @@
     <li class="active">{{ $title }}</li>
 </ol>
 
+<link rel="stylesheet" type="text/css" href="<?php echo asset(css_path()); ?>/date-picker.css">
 
 <div class="well-white">
     <article>    
@@ -114,7 +115,7 @@
                     <div class="form-group row">
                         <label class="control-label col-md-2">Invoice Date </label>
                         <div class="col-md-6">
-                            <input class="form-control required" type="text" name="invoice_date" id="invoice_date" <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->invoice_date)) . '"' : ""; ?> placeholder="Inovice Date" />
+                            <input class="form-control " required type="text" autocomplete="off" name="invoice_date" id="invoice_date" <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->invoice_date)) . '"' : ""; ?> placeholder="Inovice Date" />
                         </div>
                     </div>
 
@@ -169,7 +170,7 @@
                                     ?> />
                                     <span>Spot light Video</span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="spot_light_video_value" id="spot_light_video_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="spot_light_video_value" id="spot_light_video_value" value="<?php
                                 if (in_array("Spot-Light-Video", $option_list_arr)) {
                                     echo $gen_arr['Spot-Light-Video'];
                                 }
@@ -184,7 +185,7 @@
                                     ?> />
                                     <span>Hi light Video </span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="hi_light_video_value" id="hi_light_video_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="hi_light_video_value" id="hi_light_video_value" value="<?php
                                 if (in_array("Hi-Light-Video", $option_list_arr)) {
                                     echo $gen_arr['Hi-Light-Video'];
                                 }
@@ -199,7 +200,7 @@
                                     ?>  />
                                     <span>Banner Design</span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="banner_design_value" id="banner_design_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="banner_design_value" id="banner_design_value" value="<?php
                                 if (in_array("Banner-Design", $option_list_arr)) {
                                     echo $gen_arr['Banner-Design'];
                                 }
@@ -223,7 +224,7 @@
                                     ?>  />
                                     <span>Top Banner </span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="top_banner_value" id="top_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="top_banner_value" id="top_banner_value" value="<?php
                                 if (in_array("Top-Banner", $option_list_arr)) {
                                     echo $gen_arr['Top-Banner'];
                                 }
@@ -238,7 +239,7 @@
                                     ?>  />
                                     <span>Bottom Banner <i class="small-font">(for whole website)</i> </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="bottom_banner_value" id="bottom_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="bottom_banner_value" id="bottom_banner_value" value="<?php
                                 if (in_array("Bottom-Banner", $option_list_arr)) {
                                     echo $gen_arr['Bottom-Banner'];
                                 }
@@ -253,7 +254,7 @@
                                     ?>  />
                                     <span>Home Page Slider </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="home_page_slider_value" id="home_page_slider_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="home_page_slider_value" id="home_page_slider_value" value="<?php
                                 if (in_array("Home-Page-Slider", $option_list_arr)) {
                                     echo $gen_arr['Home-Page-Slider'];
                                 }
@@ -268,7 +269,7 @@
                                     ?> />
                                     <span>Horizon Banner One </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="horizon_banner_value" id="horizon_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="horizon_banner_value" id="horizon_banner_value" value="<?php
                                 if (in_array("Horizon-Banner", $option_list_arr)) {
                                     echo $gen_arr['Horizon-Banner'];
                                 }
@@ -283,7 +284,7 @@
                                     ?>  />
                                     <span>Bottom Banner <i class="small-font">(for Home Page)</i> </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="bottom_banner_home_value" id="bottom_banner_home_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="bottom_banner_home_value" id="bottom_banner_home_value" value="<?php
                                 if (in_array("Bottom-Bbanner-Home", $option_list_arr)) {
                                     echo $gen_arr['Bottom-Bbanner-Home'];
                                 }
@@ -298,7 +299,7 @@
                                     ?>  />
                                     <span>Horizon Banner Two </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="horizon_banner_second_value" id="horizon_banner_second_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="horizon_banner_second_value" id="horizon_banner_second_value" value="<?php
                                 if (in_array("Horizon-Banner-Second", $option_list_arr)) {
                                     echo $gen_arr['Horizon-Banner-Second'];
                                 }
@@ -313,7 +314,7 @@
                                     ?>  />
                                     <span>Gold Box Banner</span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="gold_box_banner_value" id="gold_box_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="gold_box_banner_value" id="gold_box_banner_value" value="<?php
                                 if (in_array("Gold-Box-Banner", $option_list_arr)) {
                                     echo $gen_arr['Gold-Box-Banner'];
                                 }
@@ -328,7 +329,7 @@
                                     ?>  />
                                     <span>Sliver Box Banner</span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="sliver_box_banner_value" id="sliver_box_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="sliver_box_banner_value" id="sliver_box_banner_value" value="<?php
                                 if (in_array("Sliver-Box-Banner", $option_list_arr)) {
                                     echo $gen_arr['Sliver-Box-Banner'];
                                 }
@@ -343,7 +344,7 @@
                                     ?>  />
                                     <span>Bronze Box Banner</span>
                                 </div>
-                                <input class="short-width form-control number" type="input" name="bronze_box_banner_value" id="bronze_box_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="bronze_box_banner_value" id="bronze_box_banner_value" value="<?php
                                 if (in_array("Bronze-Box-Banner", $option_list_arr)) {
                                     echo $gen_arr['Bronze-Box-Banner'];
                                 }
@@ -360,7 +361,7 @@
                                     ?>  />
                                     <span>Sponsorship Banner </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="sponsorship_banner_value" id="sponsorship_banner_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="sponsorship_banner_value" id="sponsorship_banner_value" value="<?php
                                 if (in_array("Sponsorship-Banner", $option_list_arr)) {
                                     echo $gen_arr['Sponsorship-Banner'];
                                 }
@@ -375,7 +376,7 @@
                                     ?> />
                                     <span>Horizon Banner Third </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="horizon_banner_third_value" id="horizon_banner_third_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="horizon_banner_third_value" id="horizon_banner_third_value" value="<?php
                                 if (in_array("Horizon-Banner-Third", $option_list_arr)) {
                                     echo $gen_arr['Horizon-Banner-Third'];
                                 }
@@ -390,7 +391,7 @@
                                     ?> />
                                     <span>Logo Box </span> 
                                 </div>
-                                <input class="short-width form-control number" type="input" name="logo_box_value" id="logo_box_value" value="<?php
+                                <input class="short-width form-control number" type="number" name="logo_box_value" id="logo_box_value" value="<?php
                                 if (in_array("Logo-Box", $option_list_arr)) {
                                     echo $gen_arr['Logo-Box'];
                                 }
@@ -447,19 +448,19 @@
                     <div class="form-group hidden row" id="id_startup_price">
                         <label class="control-label col-md-2">Down Payment</label>
                         <div class="col-md-6">
-                            <input class="required form-control number" type="text" name="down_payment" id="down_payment" placeholder="Down Payment" <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->down_payment)) . '"' : ""; ?> />
+                            <input class="required form-control number" type="number" name="down_payment" id="down_payment" placeholder="Down Payment" <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->down_payment)) . '"' : ""; ?> />
                         </div>
                     </div>
                     <div class="form-group hidden row" id="id_monthly_price">
                         <label class="control-label col-md-2">Monthly Payment</label>
                         <div class="col-md-6">
-                            <input class="required form-control number" type="text" name="monthly_price" id="monthly_price" placeholder="Monthly Payment" <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->monthly_price)) . '"' : ""; ?>/>
+                            <input class="required form-control number" type="number" name="monthly_price" id="monthly_price" placeholder="Monthly Payment" <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->monthly_price)) . '"' : ""; ?>/>
                         </div>
                     </div>
                     <div class="form-group hidden row" id="installment_duration_div">
                         <label class="control-label col-md-2">Installment Duration</label>
                         <div class="col-md-6">
-                            <input class="required form-control number" type="text" name="installment_duration" id="installment_duration" placeholder="Installment Duration"  <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->installment_duration)) . '"' : ""; ?>/>
+                            <input class="required form-control number" type="number" name="installment_duration" id="installment_duration" placeholder="Installment Duration"  <?php echo isset($invoice) ? 'value="' . stripslashes(($invoice->installment_duration)) . '"' : ""; ?>/>
                             <div id="inst-price-error" class="hidden error">Please calculate the Correct installment</div>
                         </div>
                     </div>
@@ -481,7 +482,7 @@
                             <input type="hidden" name="is_draft" id="is_draft" value=""/>
                             <input type="submit" name="submit" value="Generate Invoice" class="btn btn-primary" onclick="return sendDraft(1);" />
                             <input type="submit" name="draft" value="Send as Draft" class="btn btn-success" onclick="return sendDraft(0);" />
-                            <button href="#invoice-container" onclick="view_invoice();" data-bs-target="#invoice-container" data-bs-toggle="modal" class="btn btn-info mb-0" title="View Invoice">View Invoice</button>
+                            <button type="button" href="#invoice-container" onclick="view_invoice();" data-bs-target="#invoice-container" data-bs-toggle="modal" class="btn btn-info mb-0" title="View Invoice">View Invoice</button>
                             <a href="<?php
                             if (isset($_SERVER['HTTP_REFERER']))
                                 echo $_SERVER['HTTP_REFERER'];
@@ -543,7 +544,7 @@ if (isset($invoice) && $invoice->payment_option != '0') {
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myLargeModalLabel">Invoice Details</h4>
             </div>
             <div class="modal-body">
@@ -605,5 +606,17 @@ if (isset($invoice) && $invoice->payment_option != '0') {
         </div>
     </div>
 </div>
+<script src="<?= asset(js_path()) ?>/date-picker/datepicker.js"></script>
+<script src="<?= asset(js_path()) ?>/date-picker/datepicker.en.js"></script>
+<script src="<?= asset(js_path()) ?>/date-picker/datepicker.custom.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#invoice_date').datepicker({
+            language: 'en',
+            dateFormat: 'yyyy-mm-dd'
+        });
+  
+    });
+</script>
 
 @endsection

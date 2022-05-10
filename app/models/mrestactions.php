@@ -1924,7 +1924,8 @@ class MRestActions extends Eloquent {
                     'reference_number' => Input::get('reference_number'),
                     'monthly_price' => $arr['monthly_price'],
                     'installment_month' => $month,
-                    'invoice_date' => $invoice_date
+                    'invoice_date' => $invoice_date,
+                    'country' => $country,
                 );
                 DB::table('invoice_details')->insert($data);
             }
@@ -1969,6 +1970,7 @@ class MRestActions extends Eloquent {
                 $month = date("F", strtotime($invoice_date));
                 $data = array(
                     'rest_ID' => Input::get('rest_ID'),
+                    'country' => $country,
                     'invoice_id' => $lastInsertId,
                     'invoice_number' => $arr['invoice_number'],
                     'reference_number' => Input::get('reference_number'),
