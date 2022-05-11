@@ -45,7 +45,7 @@ return array(
 
 	//'port' => 465,
 
-	'port'=>587,
+	'port'=> 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'admin@azooma.co', 'name' => 'Azooma'),
+	'from' => array('address' => 'azoomamail@azooma.co', 'name' => 'Azooma'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return array(
 
 	//'username' => 'testuser@azooma.co',
 
-	'username' => 'admin@azooma.co',
+	'username' => 'azoomamail@azooma.co',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return array(
 
 	//'password' => 'testuser',
 
-	'password' => 'zZ]z[r,Yb_7h',
+	'password' => '-!8*6$eCi**w',
 
 	/*
 	|--------------------------------------------------------------------------
