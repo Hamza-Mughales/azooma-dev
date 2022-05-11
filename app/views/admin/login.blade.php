@@ -20,9 +20,9 @@
                 margin-top: -54px;
             }
         </style>
-        <link href="<?= asset(css_path() . 'font-awesome.min.css' )?>"  rel="stylesheet">
+        <link href="<?= asset(css_path() . 'css/font-awesome.min.css' )?>"  rel="stylesheet">
         <link href="<?= asset(css_path() . 'login.css' )?>"  rel="stylesheet">
-        <script src="<?= asset(js_path() . 'login.js' )?>"></script>
+        <link rel="shortcut icon" href="{{url('favicon_en.png')}}" type="image/png"/>      
 
     </head>
     
