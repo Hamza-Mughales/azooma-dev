@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+
 class Dashboard extends AdminController {
 
     public function index() {
@@ -52,6 +56,8 @@ class Dashboard extends AdminController {
 
     public function search() {
         if (Input::has('type') && Input::get('type') == 'restaurants') {
+            // dd( Input::get());
+            // dd('fffffffff', Input::get('type') );
 
             $status = $city = $cuisine = $best = $membership = $rest_style = $class_category = $price_range = '';
             $limit = "";
@@ -121,6 +127,8 @@ class Dashboard extends AdminController {
 
             //DATA
             if (is_array($reaturants) && count($reaturants) > 0) {
+            // dd('gggggggggg');
+
                 $counter = 2;
                 foreach ($reaturants as $rest) {
                     $expiryDate = "";
@@ -177,10 +185,92 @@ class Dashboard extends AdminController {
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
             $objWriter->save('php://output');
             exit;
-        } else {
-            exit('qqq');
+        } 
+        
+        if (Input::has('type') && Input::get('type') == 'users') {
+            // dd( Input::get(), Session::get('userid'), 'ggggggg');
+
+            $status = $city = '';
+            $users = DB::table('user')->select('user_Name', 
+                                        DB::Raw('(SELECT city_list.name FROM city_list WHERE user_City.name = user.user_City) AS city'),
+                                        'user_Sex', 'user_Mobile', 'user_Email', 'user_Status'
+            );
+            
+            // }
+            if (Input::has('status')) {
+                // dd('Input::has("status")');
+                $users->where('user_Status', '=', Input::get('status'));
+            }
+            if (Input::has('city')) {
+
+                // dd('Input::has("city")', Input::get('city'));
+                // $user= DB::select((DB::raw('SELECT `name` FROM city_list ON city_list.name=users.user_City WHERE city_list.id = ') AS city);
+                // $users->where('user_City', '=', Input::get('city'));
+                $users->where('user_City', '=', DB::Raw('(SELECT city_list.name FROM city_list WHERE city_list.id ='.Input::get('city').' ) AS city'));
+            }
+
+
+            // $users = $this->MUser->getAllUsers($country,$status);
+            $objPHPExcel = new PHPExcel();
+            // Set document properties
+            $objPHPExcel->getProperties()->setCreator("Haroon Akram")
+                    ->setLastModifiedBy("Haroon Akram")
+                    ->setTitle("Restaurants Report Genereated by Haroon")
+                    ->setSubject("Restaurants Report Genereated by Haroon")
+                    ->setDescription("Restaurants Report Genereated by Haroon")
+                    ->setKeywords("Restaurants")
+                    ->setCategory("Restaurants");
+            //HEADINGS
+            $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A1', ' Name')
+                    ->setCellValue('B1', ' City')
+                    ->setCellValue('C1', ' Sex')
+                    ->setCellValue('D1', ' Mobile')
+                    ->setCellValue('E1', ' Email')
+                    ->setCellValue('F1', ' Status');
+                    
+            //DATA
+            if (is_array($users) && count($users) > 0) {
+    
+                    $counter = 2;
+                    foreach ($users as $user) {
+    
+                        $objPHPExcel->setActiveSheetIndex(0)
+                                ->setCellValue('A' . $counter, stripslashes($user->user_FullName))
+                                ->setCellValue('B' . $counter, stripslashes($user->city))
+                                ->setCellValue('C' . $counter, stripslashes($user->user_Sex))
+                                ->setCellValue('D' . $counter, stripslashes($user->user_Mobile))
+                                ->setCellValue('E' . $counter, stripslashes($user->user_Email))
+                                ->setCellValue('F' . $counter, stripslashes($user->user_Status));
+    
+                        $user++;
+                    }
+                }
+    
+    
+                $objPHPExcel->getActiveSheet()->setTitle('Users report');
+                $objPHPExcel->setActiveSheetIndex(0);
+                $filename = 'users-' . date('d-m-Y H:i:s') . '.xls';
+    
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename=' . $filename);
+                header('Cache-Control: max-age=0');
+                header('Cache-Control: max-age=1');
+                header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+                header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+                header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+                header('Pragma: public'); // HTTP/1.0
+    
+                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+                $objWriter->save('php://output');
+                exit;
         }
+
+
+
         if (isset($_GET['excel']) && $_GET['excel'] == '1') {
+            // dd('aaaaaaaaaa');
+
             $objPHPExcel = new PHPExcel();
             $objPHPExcel->getProperties()->setCreator("www.azooma.co")
                     ->setLastModifiedBy("www.azooma.co")

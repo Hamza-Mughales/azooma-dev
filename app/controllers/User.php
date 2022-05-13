@@ -420,7 +420,7 @@ class User extends Eloquent{
 	}
 
 	public static function totalLikeSuggestions($user=0){
-		$user= DB::select(DB::raw('SELECT user_ID,user_City FROM user WHERE user_ID=:userid'),array('userid'=>$user));;
+		$user= DB::select(DB::raw('SELECT user_ID,user_City FROM user WHERE user_ID=:userid'),array('userid'=>$user));
 		$user=$user[0];
 		if(count($user)>0){
 			$userid=$user->user_ID;
