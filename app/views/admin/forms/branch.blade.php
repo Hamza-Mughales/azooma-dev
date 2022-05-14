@@ -479,7 +479,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                         if (isset($_SERVER['HTTP_REFERER']))
                             echo $_SERVER['HTTP_REFERER'];
                         else
-                            echo site_url('hungryn137/branch?rest=' . $rest->rest_ID);
+                            echo site_url('admin/branch?rest=' . $rest->rest_ID);
                         ?>" class="btn btn-light" title="Cancel Changes">Cancel</a>
                     </div>
                 </div>

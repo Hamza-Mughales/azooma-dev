@@ -3,7 +3,7 @@
 
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>
-    <li><a href="<?php echo URL::to('hungryn137/' . $action); ?>">
+    <li><a href="<?php echo URL::to('admin/' . $action); ?>">
             <?php
             if (isset($rest)) {
                 echo stripslashes($rest->rest_Name);
@@ -18,7 +18,7 @@
     include(app_path() . '/views/admin/common/restaurant.blade.php');
     ?>
     <article>
-        <form name="page-form" id="jqValidate" class="form-horizontal" role="form" action="{{ URL::to('hungryn137/'.$saveurl); }}" method="post" enctype="multipart/form-data">
+        <form name="page-form" id="jqValidate" class="form-horizontal" role="form" action="{{ URL::to('admin/'.$saveurl); }}" method="post" enctype="multipart/form-data">
 
             <fieldset>
                 <legend><?php echo stripslashes(($pagetitle)); ?></legend>

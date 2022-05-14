@@ -8,7 +8,7 @@
 </ul>
     <div class="right-float">
         <span class="btn-left-margin right-float">
-            <a href="<?php if(!empty($rest_ID)){ echo site_url('polls/form?restaurant='.$rest_ID); }else{ echo site_url('hungryn137/poll/form'); }?>" class="btn btn-primary" title="Add a new Poll>">Add New Poll</a>     
+            <a href="<?php if(!empty($rest_ID)){ echo site_url('polls/form?restaurant='.$rest_ID); }else{ echo site_url('admin/poll/form'); }?>" class="btn btn-primary" title="Add a new Poll>">Add New Poll</a>     
             <a target="_blank" href="<? echo $this->config->item('sa_url').'poll'; ?>" title="" class="btn btn-inverse">Preview</a>
         </span>
             

@@ -194,9 +194,9 @@ $error = Session::get('error');
                                 <?php
                                 if (isset($catering) && ($catering->status == 0 || $catering->status == 1 )) {
                                     ?>
-                                    <a class="btn btn-info" href="<?php echo URL::to('hungryn137/adminoccasions/forwardrest/' . $catering->id); ?>">Forward to Restaurant</a>
-                                    <a class="btn btn-success" href="<?php echo URL::to('hungryn137/adminoccasions/approved/' . $catering->id); ?>">Approved</a>
-                                    <a class="btn btn-danger" href="<?php echo URL::to('hungryn137/adminoccasions/cancel/' . $catering->id); ?>">Cancelled</a>
+                                    <a class="btn btn-info" href="<?php echo URL::to('admin/adminoccasions/forwardrest/' . $catering->id); ?>">Forward to Restaurant</a>
+                                    <a class="btn btn-success" href="<?php echo URL::to('admin/adminoccasions/approved/' . $catering->id); ?>">Approved</a>
+                                    <a class="btn btn-danger" href="<?php echo URL::to('admin/adminoccasions/cancel/' . $catering->id); ?>">Cancelled</a>
                                     <?php
                                 } else {
                                     ?>
@@ -221,7 +221,7 @@ $error = Session::get('error');
                                     <?php
                                 }
                                 ?>
-                                <a class="btn btn-light" href="<?php echo URL::to('hungryn137/adminoccasions'); ?>">Back</a>    
+                                <a class="btn btn-light" href="<?php echo URL::to('admin/adminoccasions'); ?>">Back</a>    
                             </div>
                         </div>
 

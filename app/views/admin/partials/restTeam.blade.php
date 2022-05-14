@@ -122,7 +122,7 @@ $sortposition = FALSE;
                                             $addURL = '?category=' . $list->category;
                                         }
                                         if ($value == 'sub') {
-                                            echo '<a class="btn btn-xs btn-info mytooltip" href="' . URL::to("hungryn137/" . $sublink . '/' . $list->id . $addURL) . '" title="View Sub Articles"><i class="glyphicon glyphicon-eye-open"></i></a>';
+                                            echo '<a class="btn btn-xs btn-info mytooltip" href="' . URL::to("admin/" . $sublink . '/' . $list->id . $addURL) . '" title="View Sub Articles"><i class="glyphicon glyphicon-eye-open"></i></a>';
                                         }
                                         if ($value == 'edit') {
                                             if (isset($articlesflag) && $articlesflag) {
@@ -132,24 +132,24 @@ $sortposition = FALSE;
                                                 } else {
                                                     $addlinkNew = "adminarticles/articleform";
                                                 }
-                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("hungryn137/" . $addlinkNew . '/' . $list->id . $addURL) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("admin/" . $addlinkNew . '/' . $list->id . $addURL) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
                                             } else {
-                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("hungryn137/" . $addlink . '/' . $list->id . $addURL) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("admin/" . $addlink . '/' . $list->id . $addURL) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
                                             }
                                         }
                                         if ($value == "status") {
                                             if ($list->status == 0) {
-                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("hungryn137/" . $statuslink . '/' . $list->id . $addURL) . '" title="Activate "><i class="fa fa-minus"></i></a>';
+                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("admin/" . $statuslink . '/' . $list->id . $addURL) . '" title="Activate "><i class="fa fa-minus"></i></a>';
                                             } else {
-                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("hungryn137/" . $statuslink . '/' . $list->id . $addURL) . '" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                                                echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("admin/" . $statuslink . '/' . $list->id . $addURL) . '" title="Deactivate"><i class="fa fa-plus"></i></a>';
                                             }
                                         }
                                         if ($value == 'delete') {
-                                            echo '<a class="btn btn-xs btn-danger mytooltip cofirm-delete-button p-1" href="#" link="' . URL::to("hungryn137/" . $deletelink . '/' . $list->id . $addURL) . '" title="Delete"><i class="fa fa-trash"></i></a>';
+                                            echo '<a class="btn btn-xs btn-danger mytooltip cofirm-delete-button p-1" href="#" link="' . URL::to("admin/" . $deletelink . '/' . $list->id . $addURL) . '" title="Delete"><i class="fa fa-trash"></i></a>';
                                         }
                                         if($value=="view"){
                                             $addURL='?'.$viewID."=".$list->$viewID;
-                                            echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("hungryn137/" . $viewlink . '/' . $list->id . $addURL) . '" title="View Content"><i class="fa fa-eye"></i> View </a>';
+                                            echo '<a class="btn btn-xs btn-info mytooltip p-1" href="' . URL::to("admin/" . $viewlink . '/' . $list->id . $addURL) . '" title="View Content"><i class="fa fa-eye"></i> View </a>';
                                         }
                                     }
                                     echo '</td>';
@@ -239,7 +239,7 @@ if ($sortposition) {
                     str += $(item).attr('data-id');
                     str += ':' + $(item).find('.move-up,.move-down').attr('data-position');
                 });
-                $.post(base + 'hungryn137/<?php echo $action; ?>/updateposition', {position: str});
+                $.post(base + 'admin/<?php echo $action; ?>/updateposition', {position: str});
             }
         });
 

@@ -17,7 +17,7 @@ $(document).ready(function() {
 });
 
 function deleterest(id) {
-    window.location = base + "hungryn137/adminrestaurants/delete/" + id;
+    window.location = base + "admin/adminrestaurants/delete/" + id;
 }
 
 function addmoreEmails() {
@@ -33,25 +33,25 @@ $(document).on("click", ".sufrati-close", function(event) {
 
 
 function readcomment(id){
-    $.get(base+'hungryn137/admincomments/read/'+id,function(data){
+    $.get(base+'admin/admincomments/read/'+id,function(data){
         $('.table tr[data-row="'+id+'"]').removeClass('new-row');
     })
 }
 
 function readartcomment(id){
-    $.get(base+'hungryn137/adminarticlecomments/read/'+id,function(data){
+    $.get(base+'admin/adminarticlecomments/read/'+id,function(data){
         $('.table tr[data-row="'+id+'"]').removeClass('new-row');
     })
 }
 
 function readMenuRequest(id){
-    $.get(base+'hungryn137/adminmenurequest/read/'+id,function(data){
+    $.get(base+'admin/adminmenurequest/read/'+id,function(data){
         $('.table tr[data-row="'+id+'"]').removeClass('new-row');
     })
 }
 
 function readoccasions(id){
-    $.get(base+'hungryn137/adminoccasions/read/'+id,function(data){
+    $.get(base+'admin/adminoccasions/read/'+id,function(data){
         $('.table tr[data-id="'+id+'"]').removeClass('new-row');
     })
 }

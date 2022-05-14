@@ -32,7 +32,7 @@ if (in_array($country, $countries)) {
             });
         }
 
-        Route::group(array('prefix' => 'hungryn137'), function() {
+        Route::group(array('prefix' => 'admin'), function() {
 
             Route::get('/', array('as' => 'adminhome', 'uses' => 'DashboardAdmin@index'));
             Route::get('adminlogin', array('as' => 'adminlogin', 'uses' => 'LoginAdmin@index'));

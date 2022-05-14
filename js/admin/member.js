@@ -5,7 +5,7 @@ function addmore() {
 }
 function selectPermissions() {
     var type = $("#rest_Subscription").val();
-    $.get(base + 'hungryn137/adminmembers/getPermissions?ajax=1&type=' + type,
+    $.get(base + 'admin/adminmembers/getPermissions?ajax=1&type=' + type,
             function(data) {
                 $("#permissions").html(data['html']);
                 $("#price").val(data['price']);

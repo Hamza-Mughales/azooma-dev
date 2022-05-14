@@ -347,7 +347,7 @@ Route::group(array('prefix' => $locale), function()  {
 	}
 });
 
-Route::group(array('prefix' => 'hungryn137'), function() {
+Route::group(array('prefix' => 'admin'), function() {
     
     Route::get('te_d', array('as' => 'te_d', 'uses' => 'Rest@te_d'));
     Route::get('get_data', array('as' => 'get_data', 'uses' => 'Rest@get_data'));

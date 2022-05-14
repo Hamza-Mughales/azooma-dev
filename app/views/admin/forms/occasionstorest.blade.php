@@ -211,7 +211,7 @@ foreach ($restaurants as $rest) {
                                     <?php
                                 }
                                 ?>
-                                <a class="btn btn-light" href="<?php echo URL::to('hungryn137/adminoccasions'); ?>">Back</a>    
+                                <a class="btn btn-light" href="<?php echo URL::to('admin/adminoccasions'); ?>">Back</a>    
                             </div>
                         </div>
                     </fieldset>

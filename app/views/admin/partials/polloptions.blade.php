@@ -5,7 +5,7 @@
     <div class="col-md-11 zero-padding">
         <ol class="breadcrumb">
             <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li> 
-            <li><a href="<?php echo URL::to('hungryn137/' . $action); ?>"> 
+            <li><a href="<?php echo URL::to('admin/' . $action); ?>"> 
                     <?php
                     if (isset($rest)) {
                         echo stripslashes($rest->rest_Name);

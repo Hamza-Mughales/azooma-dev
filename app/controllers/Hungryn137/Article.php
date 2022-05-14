@@ -701,7 +701,7 @@ class Article extends AdminController {
             return returnMsg('success','adminarticles/articles/',"Article Removed From Featured succesfully", $categoryID);
         }
         $this->session->set_flashdata('message', 'something went wrong, please try again.');
-        redirect('hungryn137/article');
+        redirect('admin/article');
     }
 
     public function missingMethod($parameters) {

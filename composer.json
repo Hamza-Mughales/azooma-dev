@@ -18,7 +18,7 @@
         "classmap": [
             "app/commands",
             "app/controllers",
-            "app/controllers/Hungryn137",
+            "app/controllers/admin",
             "app/models",
             "app/database/migrations",
             "app/database/seeds",

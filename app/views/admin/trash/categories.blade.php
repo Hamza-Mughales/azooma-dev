@@ -212,7 +212,7 @@
                 str += $(item).attr('data-id');
                 str += ':' + $(item).find('.move-up,.move-down').attr('data-position');
             });
-            $.post(base + 'hungryn137/adminarticles/updateposition', {position: str});
+            $.post(base + 'admin/adminarticles/updateposition', {position: str});
         }
     });
 </script>

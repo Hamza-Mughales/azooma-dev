@@ -44,7 +44,7 @@ echo message_box('success');
   <div class="form-group row text-end">
           <div class=" col-md-12">
               <input type="submit" name="submit" value="Save" class="btn btn-primary-gradien"/>
-              <a href="<?php if(isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER']; else echo base_url('hungryn137/rest');?>" class="btn" title="Cancel Changes">Cancel</a>
+              <a href="<?php if(isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER']; else echo base_url('admin/rest');?>" class="btn" title="Cancel Changes">Cancel</a>
           </div>
       <?php 
               if(isset($rest)){

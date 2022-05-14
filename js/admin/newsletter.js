@@ -56,7 +56,7 @@ function checktotal(rec) {
     }
 
     if (itype != "") {
-        $.get(base + "hungryn137/adminnewsletter/getAjaxCount?type=" + itype, {}, function(data) {
+        $.get(base + "admin/adminnewsletter/getAjaxCount?type=" + itype, {}, function(data) {
             if (data != "") {
                 $("#totreceiver").html(data['total']);
             } else {
@@ -69,7 +69,7 @@ function checktotal(rec) {
 function saveNewsletter() {
     $("#saveButton").addClass('loading');
     if (editor.getData() != "") {
-        $("#newsletterForm").attr("action", base + "hungryn137/newsletter/save");
+        $("#newsletterForm").attr("action", base + "admin/newsletter/save");
         $("#newsletterForm").submit();
     } else {
         alert("Please Enter Newsletter Contents");

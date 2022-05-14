@@ -20,44 +20,44 @@ if(!isset($side_menu)){
         <ul class="sidebar-links" id="simple-bar">
             <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
           
-          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"home") ? "active":""?>" href="<?=url("hungryn137")?>"><i data-feather="home"></i><span><?=__('Dashboard')?></span></a></li>
+          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"home") ? "active":""?>" href="<?=url("admin")?>"><i data-feather="home"></i><span><?=__('Dashboard')?></span></a></li>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Restaurant Mgmt") ? "active":""?>" href="#"><i data-feather="coffee"></i> <span><?=__('Restaurant Mgmt')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Restaurant Mgmt") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Add Restaurants") ? "active":""?>" href="<?=url("hungryn137/adminrestaurants/form")?>"><?=__('Add Restaurants')?></a></li>
-              <li><a class="<?=menu($side_menu,"Restaurants") ? "active":""?>" href="<?=url("hungryn137/adminrestaurants")?>"><?=__('Restaurants')?></a></li>
-              <li><a class="<?=menu($side_menu,"Restaurant Emails") ? "active":""?>" href="<?=url("hungryn137/adminrestaurants/emails")?>"><?=__('Restaurant Emails')?></a></li>
-              <li><a class="<?=menu($side_menu,"Group of Restaurants") ? "active":""?>" href="<?=url("hungryn137/adminrestaurantsgroup")?>"><?=__('Group of Restaurants')?></a></li>
-              <li><a class="<?=menu($side_menu,"Hotels") ? "active":""?>" href="<?=url("hungryn137/adminhotels")?>"><?=__('Hotels')?></a></li>
+              <li><a class="<?=menu($side_menu,"Add Restaurants") ? "active":""?>" href="<?=url("admin/adminrestaurants/form")?>"><?=__('Add Restaurants')?></a></li>
+              <li><a class="<?=menu($side_menu,"Restaurants") ? "active":""?>" href="<?=url("admin/adminrestaurants")?>"><?=__('Restaurants')?></a></li>
+              <li><a class="<?=menu($side_menu,"Restaurant Emails") ? "active":""?>" href="<?=url("admin/adminrestaurants/emails")?>"><?=__('Restaurant Emails')?></a></li>
+              <li><a class="<?=menu($side_menu,"Group of Restaurants") ? "active":""?>" href="<?=url("admin/adminrestaurantsgroup")?>"><?=__('Group of Restaurants')?></a></li>
+              <li><a class="<?=menu($side_menu,"Hotels") ? "active":""?>" href="<?=url("admin/adminhotels")?>"><?=__('Hotels')?></a></li>
             </ul>
           </li>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"DB Management") ? "active":""?>" href="#"><i data-feather="database"></i> <span><?=__('DB Management')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"DB Management") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Restaurant Style") ? "active":""?>" href="<?=url("hungryn137/adminreststyle")?>"><?=__('Restaurant Style')?></a></li>
-              <li><a class="<?=menu($side_menu,"Business Types") ? "active":""?>" href="<?=url("hungryn137/adminresttypes")?>"><?=__('Business Types')?></a></li>
-              <li><a class="<?=menu($side_menu,"Features & Services") ? "active":""?>" href="<?=url("hungryn137/adminrestservices")?>"><?=__('Features & Services')?></a></li>
-              <li><a class="<?=menu($side_menu,"Moods & Atmosphere") ? "active":""?>" href="<?=url("hungryn137/adminmoodsatmosphere")?>"><?=__('Moods & Atmosphere')?></a></li>
-              <li><a class="<?=menu($side_menu,"Offer Categories") ? "active":""?>" href="<?=url("hungryn137/adminofferscategoires")?>"><?=__('Offer Categories')?></a></li>
+              <li><a class="<?=menu($side_menu,"Restaurant Style") ? "active":""?>" href="<?=url("admin/adminreststyle")?>"><?=__('Restaurant Style')?></a></li>
+              <li><a class="<?=menu($side_menu,"Business Types") ? "active":""?>" href="<?=url("admin/adminresttypes")?>"><?=__('Business Types')?></a></li>
+              <li><a class="<?=menu($side_menu,"Features & Services") ? "active":""?>" href="<?=url("admin/adminrestservices")?>"><?=__('Features & Services')?></a></li>
+              <li><a class="<?=menu($side_menu,"Moods & Atmosphere") ? "active":""?>" href="<?=url("admin/adminmoodsatmosphere")?>"><?=__('Moods & Atmosphere')?></a></li>
+              <li><a class="<?=menu($side_menu,"Offer Categories") ? "active":""?>" href="<?=url("admin/adminofferscategoires")?>"><?=__('Offer Categories')?></a></li>
             </ul>
           </li>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Categories / Lists") ? "active":""?>" href="#"><i data-feather="grid"></i> <span><?=__('Categories / Lists')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Categories / Lists") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Favorites") ? "active":""?>" href="<?=url("hungryn137/adminfavorites")?>"><?=__('Favorites')?></a></li>
-              <li><a class="<?=menu($side_menu,"Cuisine List") ? "active":""?>" href="<?=url("hungryn137/admincuisine")?>"><?=__('Cuisine List')?></a></li>
-              <li><a class="<?=menu($side_menu,"Known For") ? "active":""?>" href="<?=url("hungryn137/adminknownfor")?>"><?=__('Known For')?></a></li>
-              <li><a class="<?=menu($side_menu,"Suggested") ? "active":""?>" href="<?=url("hungryn137/adminsuggested")?>"><?=__('Suggested')?></a></li>
-              <li><a class="<?=menu($side_menu,"Most Viewed") ? "active":""?>" href="<?=url("hungryn137/adminrestaurants/mostview")?>"><?=__('Most Viewed')?></a></li>
+              <li><a class="<?=menu($side_menu,"Favorites") ? "active":""?>" href="<?=url("admin/adminfavorites")?>"><?=__('Favorites')?></a></li>
+              <li><a class="<?=menu($side_menu,"Cuisine List") ? "active":""?>" href="<?=url("admin/admincuisine")?>"><?=__('Cuisine List')?></a></li>
+              <li><a class="<?=menu($side_menu,"Known For") ? "active":""?>" href="<?=url("admin/adminknownfor")?>"><?=__('Known For')?></a></li>
+              <li><a class="<?=menu($side_menu,"Suggested") ? "active":""?>" href="<?=url("admin/adminsuggested")?>"><?=__('Suggested')?></a></li>
+              <li><a class="<?=menu($side_menu,"Most Viewed") ? "active":""?>" href="<?=url("admin/adminrestaurants/mostview")?>"><?=__('Most Viewed')?></a></li>
             </ul>
           </li>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Locations") ? "active":""?>" href="#"><i data-feather="map"></i> <span><?=__('Locations')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Locations") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Country List") ? "active":""?>" href="<?=url("hungryn137/admincountry")?>"><?=__('Country List')?></a></li>
-              <li><a class="<?=menu($side_menu,"City List") ? "active":""?>" href="<?=url("hungryn137/admincity")?>"><?=__('City List')?></a></li>
-              <li><a class="<?=menu($side_menu,"District List") ? "active":""?>" href="<?=url("hungryn137/admindistrict")?>"><?=__('District List')?></a></li>
-              <li><a class="<?=menu($side_menu,"Locations List") ? "active":""?>" href="<?=url("hungryn137/adminlocations")?>"><?=__('Locations List')?></a></li>
+              <li><a class="<?=menu($side_menu,"Country List") ? "active":""?>" href="<?=url("admin/admincountry")?>"><?=__('Country List')?></a></li>
+              <li><a class="<?=menu($side_menu,"City List") ? "active":""?>" href="<?=url("admin/admincity")?>"><?=__('City List')?></a></li>
+              <li><a class="<?=menu($side_menu,"District List") ? "active":""?>" href="<?=url("admin/admindistrict")?>"><?=__('District List')?></a></li>
+              <li><a class="<?=menu($side_menu,"Locations List") ? "active":""?>" href="<?=url("admin/adminlocations")?>"><?=__('Locations List')?></a></li>
             </ul>
           </li>
           
@@ -72,22 +72,22 @@ if(!isset($side_menu)){
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Blog") ? "active":""?>" href="#"><i data-feather="film"></i> <span><?=__('Blog')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Blog") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Articles") ? "active":""?>" href="<?= url('hungryn137/adminarticles'); ?>"><?=__('Articles')?></a></li>
-              <li><a class="<?=menu($side_menu,"Recipes") ? "active":""?>" href="<?= url('hungryn137/adminrecipe'); ?>"><?=__('Recipes')?></a></li>
+              <li><a class="<?=menu($side_menu,"Articles") ? "active":""?>" href="<?= url('admin/adminarticles'); ?>"><?=__('Articles')?></a></li>
+              <li><a class="<?=menu($side_menu,"Recipes") ? "active":""?>" href="<?= url('admin/adminrecipe'); ?>"><?=__('Recipes')?></a></li>
             </ul>
           </li>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Competitions") ? "active":""?>" href="#"><i data-feather="globe"></i> <span><?=__('Competitions')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Competitions") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Events & Competitions") ? "active":""?>" href="<?= url('hungryn137/admincompetitions'); ?>"><?=__('Events & Competitions')?></a></li>
-              <li><a class="<?=menu($side_menu,"Occasions Services") ? "active":""?>" href="<?= url('hungryn137/adminoccasions'); ?>"><?=__('Occasions Services')?></a></li>
+              <li><a class="<?=menu($side_menu,"Events & Competitions") ? "active":""?>" href="<?= url('admin/admincompetitions'); ?>"><?=__('Events & Competitions')?></a></li>
+              <li><a class="<?=menu($side_menu,"Occasions Services") ? "active":""?>" href="<?= url('admin/adminoccasions'); ?>"><?=__('Occasions Services')?></a></li>
             </ul>
           </li>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Emailing List") ? "active":""?>" href="#"><i data-feather="mail"></i> <span><?=__('Emailing List')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Emailing List") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"News Letter") ? "active":""?>" href="<?= url('hungryn137/adminnewsletter'); ?>"><?=__('News Letter')?></a></li>
-              <li><a class="<?=menu($side_menu,"Event Calendar") ? "active":""?>" href="<?= url('hungryn137/admineventcalendar'); ?>"><?=__('Event Calendar')?></a></li>
+              <li><a class="<?=menu($side_menu,"News Letter") ? "active":""?>" href="<?= url('admin/adminnewsletter'); ?>"><?=__('News Letter')?></a></li>
+              <li><a class="<?=menu($side_menu,"Event Calendar") ? "active":""?>" href="<?= url('admin/admineventcalendar'); ?>"><?=__('Event Calendar')?></a></li>
             </ul>
           </li>
           
@@ -120,24 +120,24 @@ if(!isset($side_menu)){
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Billing") ? "active":""?>" href="#"><i data-feather="file-text"></i> <span><?=__('Billing')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Billing") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Manage Invoice") ? "active":""?>" href="<?= url('hungryn137/admininvoice'); ?>"><?=__('Manage Invoice')?></a></li>
+              <li><a class="<?=menu($side_menu,"Manage Invoice") ? "active":""?>" href="<?= url('admin/admininvoice'); ?>"><?=__('Manage Invoice')?></a></li>
             </ul>
           </li>
 
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Users") ? "active":""?>" href="#"><i data-feather="users"></i> <span><?=__('Users')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Users") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Administrators") ? "active":""?>" href="<?= url('hungryn137/admins'); ?>"><?=__('Administrators')?></a></li>
-              <li><a class="<?=menu($side_menu,"General Users") ? "active":""?>" href="<?= url('hungryn137/adminusers'); ?>"><?=__('General Users')?></a></li>
-              <li><a class="<?=menu($side_menu,"Restaurant managers") ? "active":""?>" href="<?= url('hungryn137/adminrestmanagers'); ?>"><?=__('Restaurant managers')?></a></li>
+              <li><a class="<?=menu($side_menu,"Administrators") ? "active":""?>" href="<?= url('admin/admins'); ?>"><?=__('Administrators')?></a></li>
+              <li><a class="<?=menu($side_menu,"General Users") ? "active":""?>" href="<?= url('admin/adminusers'); ?>"><?=__('General Users')?></a></li>
+              <li><a class="<?=menu($side_menu,"Restaurant managers") ? "active":""?>" href="<?= url('admin/adminrestmanagers'); ?>"><?=__('Restaurant managers')?></a></li>
             </ul>
           </li>
 
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Miscellaneous") ? "active":""?>" href="#"><i data-feather="sliders"></i> <span><?=__('Miscellaneous')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Miscellaneous") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Manage Polls") ? "active":""?>" href="<?= url('hungryn137/adminpolls'); ?>"><?=__('Manage Polls')?></a></li>
-              <li><a class="<?=menu($side_menu,"Restaurant Comments") ? "active":""?>" href="<?= url('hungryn137/admincomments'); ?>"><?=__('Restaurant Comments')?></a></li>
-              <li><a class="<?=menu($side_menu,"Article Comments") ? "active":""?>" href="<?= url('hungryn137/adminarticlecomments'); ?>"><?=__('Article Comments')?></a></li>
-              <li><a class="<?=menu($side_menu,"All Menu Request") ? "active":""?>" href="<?= url('hungryn137/adminmenurequest'); ?>"><?=__('All Menu Request')?></a></li>
+              <li><a class="<?=menu($side_menu,"Manage Polls") ? "active":""?>" href="<?= url('admin/adminpolls'); ?>"><?=__('Manage Polls')?></a></li>
+              <li><a class="<?=menu($side_menu,"Restaurant Comments") ? "active":""?>" href="<?= url('admin/admincomments'); ?>"><?=__('Restaurant Comments')?></a></li>
+              <li><a class="<?=menu($side_menu,"Article Comments") ? "active":""?>" href="<?= url('admin/adminarticlecomments'); ?>"><?=__('Article Comments')?></a></li>
+              <li><a class="<?=menu($side_menu,"All Menu Request") ? "active":""?>" href="<?= url('admin/adminmenurequest'); ?>"><?=__('All Menu Request')?></a></li>
             </ul>
           </li>
 

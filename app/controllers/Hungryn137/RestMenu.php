@@ -314,7 +314,7 @@ class RestMenu extends AdminController {
             return returnMsg('success','adminrestmenu/', "Menu item deleted successfully",array('id' => $rest, 'item' => get('cat'), 'cat_id' =>get('cat'), 'menu_id' => get('menu_id')));
 
         } else {
-            redirect('hungryn137/menu?rest=' . $rest);
+            redirect('admin/menu?rest=' . $rest);
         }
     }
 
@@ -484,15 +484,15 @@ class RestMenu extends AdminController {
                 }
                 $this->MRestActions->updateNewMenuRequest($rest);
                 $this->session->set_flashdata('message', 'Notification send successfully');
-                redirect('hungryn137/menu?rest=' . $rest);
+                redirect('admin/menu?rest=' . $rest);
 
             } else {
                 $this->session->set_flashdata('message', 'Some error happen please try again');
-                redirect('hungryn137/menu?rest=' . $rest);
+                redirect('admin/menu?rest=' . $rest);
             }
         } else {
             $this->session->set_flashdata('message', 'Some error happen please try again');
-            redirect('hungryn137/menu?rest=' . $rest);
+            redirect('admin/menu?rest=' . $rest);
         }
     }
 

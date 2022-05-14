@@ -320,7 +320,7 @@ echo message_box('success');
                         ?>
                         <input type="submit" name="submit" value="<?=lang('save_upload')?>" class="btn btn-danger" />
                         <a href="<?php if (isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER'];
-                                    else echo base_url('hungryn137/menu'); ?>" class="btn btn-light" title="Cancel Changes"><?=lang('cancel')?></a>
+                                    else echo base_url('admin/menu'); ?>" class="btn btn-light" title="Cancel Changes"><?=lang('cancel')?></a>
                     </div>
                 </div>
             </form>

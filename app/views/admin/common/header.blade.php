@@ -94,7 +94,7 @@
     if(search != "" && search != null){
         var base='<?php echo URL::to(""); ?>';
         $.ajax({
-            url: base+'/hungryn137/azoomasearchadmin/',
+            url: base+'/admin/azoomasearchadmin/',
             type: 'get',
             data: {search:search},
             dataType: 'json',
@@ -110,7 +110,7 @@
                     if(rest_Logo==""){
                       rest_Logo="default_logo.gif";
                     }
-                    var the_route = "<?= url('hungryn137/adminrestaurants/form') ?>";
+                    var the_route = "<?= url('admin/adminrestaurants/form') ?>";
                     $("#searchResult").append('<li><a href="'+the_route+'/'+rest_ID+'"><img src="'+uploadbase+'/logos/'+rest_Logo+'">'+name+'</a></li>');
 
                 }

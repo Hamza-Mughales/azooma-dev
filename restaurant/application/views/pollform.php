@@ -157,7 +157,7 @@ if($this->session->flashdata('message')){
                 ?>
                 <input type="hidden" name="rest_ID" value="<?php echo isset($rest)?$rest['rest_ID']:0;?>"/>
                 <input type="submit" name="submit" value="Save" class="btn btn-primary-gradien"/>
-                <a href="<?php if(isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER']; else echo site_url('hungryn137/poll');?>" class="btn" title="Cancel Changes">Cancel</a>
+                <a href="<?php if(isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER']; else echo site_url('admin/poll');?>" class="btn" title="Cancel Changes">Cancel</a>
             </div>
         </div>
     </fieldset>

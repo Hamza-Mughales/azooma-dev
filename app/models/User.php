@@ -864,7 +864,7 @@ class User extends Eloquent{
                         if ($device->device_platform == "iOS") {
                             $deviceToken = $device->device_ID;
                             // Put your private key's passphrase here:
-                            $passphrase = 'Hungryn137';
+                            $passphrase = 'admin';
                             // Put your alert message here:
                             $ctx = stream_context_create();
                             if ($device->paid == 1) {

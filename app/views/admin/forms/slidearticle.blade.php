@@ -403,7 +403,7 @@ echo HTML::script('js/ckfinder/ckfinder.js');
         counter = parseInt(counter) + 1;
         $('#counter').val(counter);
         $.ajax({
-            url: base + 'hungryn137/adminarticles/slideformtab?counter=' + $('#counter').val(),
+            url: base + 'admin/adminarticles/slideformtab?counter=' + $('#counter').val(),
             cache: false,
             success: function(data) {
                 if (typeof (data) != "undefined") {
@@ -437,7 +437,7 @@ echo HTML::script('js/ckfinder/ckfinder.js');
     });
     function goSlideForm() {
         console.log('aaa');
-        var url = base + 'hungryn137/adminarticles/slideform/?1=1';
+        var url = base + 'admin/adminarticles/slideform/?1=1';
 <?php if (isset($page)) { ?>
             url = url + '&article=' + $('#articleID').val();
 <?php } ?>
@@ -455,7 +455,7 @@ echo HTML::script('js/ckfinder/ckfinder.js');
             var t = $(this);
             if (dismissid != 0) {
                 $.ajax({
-                    url: base + 'hungryn137/adminarticles/slidedelete/' + dismissid,
+                    url: base + 'admin/adminarticles/slidedelete/' + dismissid,
                     cache: false,
                     success: function(data) {
                         if (typeof (data['html']) != "undefined") {

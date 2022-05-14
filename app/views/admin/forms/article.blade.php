@@ -270,7 +270,7 @@ echo HTML::script('js/ckfinder/ckfinder.js');
     });
 
     function goSlideForm() {
-        var url = base + 'hungryn137/adminarticles/slideform/?1=1';
+        var url = base + 'admin/adminarticles/slideform/?1=1';
 <?php if (isset($page)) { ?>
             url = url + '&article=' + $('#articleID').val();
 <?php } ?>

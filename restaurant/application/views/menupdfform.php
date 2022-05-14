@@ -78,7 +78,7 @@ echo message_box('success');
                                 ?>
                                 <input type="submit" name="submit" value="<?=lang('save')?>" class="btn btn-primary" />
                                 <a href="<?php if (isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER'];
-                                            else echo base_url('hungryn137/menu'); ?>" class="btn" title="btn btn-light Changes"><?=lang('cancel')?></a>
+                                            else echo base_url('admin/menu'); ?>" class="btn" title="btn btn-light Changes"><?=lang('cancel')?></a>
                             </div>
                         </div>
                     </fieldset>
