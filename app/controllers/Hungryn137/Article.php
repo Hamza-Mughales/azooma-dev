@@ -224,7 +224,7 @@ class Article extends AdminController {
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Title', 'Total Comments', 'Views', 'Last Update', 'Actions'),
+            'headings' => array('Title', 'Title Arabic', 'Total Comments', 'Views', 'Last Update', 'Actions'),
             'resultheads' => array('name', 'nameAr', 'totalcomment', 'views', 'createdAt/updatedAt'),
             'actions' => array('edit', 'status', 'delete'),
             'pagetitle' => 'All Articles for ' . $bcat->name,
@@ -236,10 +236,10 @@ class Article extends AdminController {
             'articlesflag' => TRUE,
             'pid' => $pid,
             'lists' => $lists,
-            'side_menu' => array('Blog','Articles'),
+            'side_menu' => array('Miscellaneous','All Menu Request'),
         );
 
-        return view('admin.partials.maincommonpage', $data);
+        return view('admin.partials.maincommonpage_sub', $data);
     }
 
     public function articleform($id = 0) {

@@ -16,29 +16,6 @@
     include(app_path() . '/views/admin/common/restaurant.blade.php');
 ?>
 
-
-<<<<<<< Updated upstream
-<div id="filter-main" class="collapse well-white">
-    <legend>   Filter Results </legend>  
-    <form name="admin-form" id="jqValidate" class="form-horizontal" role="form" action="{{ route('adminrestaurants'); }}" method="get" >
-        <div class="form-group row">
-            <label for="name" class="col-md-2 control-label">Name</label>
-            <div class="col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Name" >
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="offset-lg-2 col-md-6">
-                <button type="submit" class="btn btn-primary-gradien">Filter</button>          
-            </div>
-        </div>
-    </form>
-</div>
-=======
-
->>>>>>> Stashed changes
-
-
 <div class="well-white">
     <article>    
         <fieldset>

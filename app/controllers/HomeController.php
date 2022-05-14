@@ -30,10 +30,10 @@ class HomeController extends BaseController {
 		
 		$data['landing']=true;
 		$data['featured']=array(
-				array('city_Name'=>'Jeddah','image'=>'jeddah.png','desc'=>'Discover & Book Best Restaurants in','url'=>'jeddah','city_Name_ar'=>'جده','id'=> '1'),
-				array('city_Name'=>'Cairo','image'=>'cairo.png','desc'=>'Discover & Book Best Restaurants in','url'=>'cairo','city_Name_ar'=>'القاهره','id'=> '34'),
-				array('city_Name'=>'London','image'=>'london.png','desc'=>'Discover & Book Best Restaurants in','url'=>'london','city_Name_ar'=>'لندن','id'=> '33')
-				);
+			array('city_Name'=>'Jeddah','image'=>'jeddah.png','desc'=>'Discover & Book Best Restaurants in','url'=>'jeddah','city_Name_ar'=>'جده','id'=> '1'),
+			array('city_Name'=>'Cairo','image'=>'cairo.png','desc'=>'Discover & Book Best Restaurants in','url'=>'cairo','city_Name_ar'=>'القاهره','id'=> '34'),
+			array('city_Name'=>'London','image'=>'london.png','desc'=>'Discover & Book Best Restaurants in','url'=>'london','city_Name_ar'=>'لندن','id'=> '33')
+		);
 		$countries=DB::table('aaa_country')->select('id','flag','name','nameAr')->get();
 		$countriesname="";
 		$i=0;
@@ -93,7 +93,9 @@ class HomeController extends BaseController {
 			'metakey'=>Lang::get('metakey.landing_page'),
 			
 		);
-		return View::make('home',$data);
+		// dd('home', $lang, $data );
+
+		return view('home',$data);
 	}
 
 }

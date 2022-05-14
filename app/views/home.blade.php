@@ -162,7 +162,7 @@
 											{{-- 04 Meduim Box --}}
 											<div class="col-lg-12 wow fadeInUp" data-wow-duration="3s">
 												<?php 
-												if(count($countries) > 0){
+												if(count($countries) > 0 && isset($countries[key($countries) + 1]) ){
 													// Get First Country
 													reset($countries);
 													$firstKey = key($countries);
@@ -285,7 +285,7 @@
 											{{-- 02 Small Box --}}
 											<div class="col-lg-6 col-sm-12 wow fadeInUp" data-wow-duration="2s">
 												<?php 
-												if(count($countries) > 0){
+												if(count($countries) > 0 && isset($countries[key($countries) + 2]) ){
 													// Get First Country
 													reset($countries);
 													$firstKey = key($countries);
@@ -320,7 +320,7 @@
 											{{-- 03 Small Box --}}
 											<div class="col-lg-6 col-sm-12 mb-4 wow fadeInUp" data-wow-duration="2s">
 												<?php 
-												if(count($countries) > 0){
+												if(count($countries) > 0 && isset($countries[key($countries) + 3]) ){
 													// Get First Country
 													reset($countries);
 													$firstKey = key($countries);
@@ -354,13 +354,15 @@
 											</div>
 										</div>
 										<div class="row" style="height: 62%">
-											{{-- 04 Meduim Box --}}
+											{{-- 04 Meduim Box --}}4
 											<div class="col-lg-12 wow fadeInUp" data-wow-duration="3s">
 												<?php 
-												if(count($countries) > 0){
+												if(count($countries) > 0 && isset($countries[key($countries) + 4]) ){
 													// Get First Country
 													reset($countries);
 													$firstKey = key($countries);
+													dd( key($countries));
+
 													$country = $countries[$firstKey + 4]; {
 														?>
 												<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#country-<?php echo $country->id; ?>" class="country-box" title="<?php echo ($lang=="en")?stripcslashes($country->name):stripcslashes($country->nameAr);?>">
