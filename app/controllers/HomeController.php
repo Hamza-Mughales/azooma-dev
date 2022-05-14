@@ -29,11 +29,10 @@ class HomeController extends BaseController {
 		$data['langhelperstring']=$langhelperstring;
 		
 		$data['landing']=true;
-		$data['featured']=array(
-			array('city_Name'=>'Jeddah','image'=>'jeddah.png','desc'=>'Discover & Book Best Restaurants in','url'=>'jeddah','city_Name_ar'=>'جده','id'=> '1'),
-			array('city_Name'=>'Cairo','image'=>'cairo.png','desc'=>'Discover & Book Best Restaurants in','url'=>'cairo','city_Name_ar'=>'القاهره','id'=> '34'),
-			array('city_Name'=>'London','image'=>'london.png','desc'=>'Discover & Book Best Restaurants in','url'=>'london','city_Name_ar'=>'لندن','id'=> '33')
-		);
+		
+		$data['featured'] = ArtWork::where('art_work_name', 'Home Page Artwork')->where('active', 1)->whereIn('country', adminCountry())->get()->toArray();
+		// dd($data['featured']);
+
 		$countries=DB::table('aaa_country')->select('id','flag','name','nameAr')->get();
 		$countriesname="";
 		$i=0;

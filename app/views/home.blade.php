@@ -15,28 +15,33 @@
     <meta property="og:site_name" content="Azooma">
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
-    <?php $nonav=array('nonav'=>true); ?>
-    @include('inc.header',$nonav)
+    <?php 
+		$nonav=array('nonav'=>true);
+		// dd($featured); 
+	?>
+    
+	@include('inc.header',$nonav)
 
 	{{-- Home Section Start --}}
 	<section class="international-home">
 		<div class="international-slider owl-carousel owl-theme <?php if($lang == 'ar'){ echo 'owl-rtl'; } ?>">
 			<?php
 			$i=0;
-			foreach ($featured as $city) {
+			foreach ($featured as $feat) {
 			?>
 			<div class="home-slider">
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
 							<div class="home-image">
-								<img src="<?php echo URL::asset('img/featured/'.$city['image']);?>" alt="<?php echo ($lang=="en")?stripcslashes($city['city_Name']):stripcslashes($city['city_Name_ar']);?></a>">
+								<img src="<?php echo upload_url('images/' . $feat['image']) ?>" alt="<?php echo ($lang=="en")?stripcslashes($feat['img_alt']):stripcslashes($feat['img_alt_ar']);?></a>">
 							</div>
 							<div class="home-content">
 								<div class="center international">
-									<h1 style="color:#fff" class="wow bounceInUp" data-wow-duration="1s"><?php echo Lang::get('messages.home_banner_title1'); ?> <br>
-										<?php echo Lang::get('messages.home_banner_title2'); ?> <span class="countryname"><?php echo ($lang=="en")?stripcslashes($city['city_Name']):stripcslashes($city['city_Name_ar']);?></span></h1>
-									
+									<h1 style="color:#fff" class="wow bounceInUp" data-wow-duration="1s"><?php echo ($lang=="en")?stripcslashes($feat['a_title']):stripcslashes($feat['a_title_ar']); ?> <br>
+										<?php // echo Lang::get('messages.home_banner_title2'); ?> 
+										<span class="countryname"><?php echo ($lang=="en")?stripcslashes($feat['city_ID']):stripcslashes($feat['city_ID']);?></span>
+									</h1>
 								</div>
 							</div>
 						</div>
