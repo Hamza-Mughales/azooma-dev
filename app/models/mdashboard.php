@@ -250,20 +250,40 @@ class MDashboard extends Eloquent {
         return $mRest->count();
     }
 
-    public static function getVisitNew($country = 0, $lang = "") {
+    public static function getVisitNew($country = 0, $lang = "", $y = '', $rest_id = null) {
         $ana = DB::table('analytics');
-        $ana->select(DB::Raw('COUNT(*) AS total'), DB::Raw('DATE(created_at) AS currdate'));
-        $date = date('Y-m-d');
-        $date2 = date('Y-m-d', strtotime($date . '-7 day'));
-        $ana->whereBetween("created_at", array($date2, $date));
-        //$ana->where(DB::Raw('DATE(created_at) BETWEEN DATE( DATE_ADD( DATE( DATE_ADD( CURRENT_DATE , INTERVAL -1 DAY)) , INTERVAL  -7 DAY)) AND DATE( DATE_ADD( CURRENT_DATE , INTERVAL -1 DAY))'));
+        $ana->select(DB::raw('COUNT(id) total'),  DB::raw('MONTH(created_at) month'));
+        
+        if (!empty($y)) {
+            $year = $y;
+        } else {
+            $year =  date("Y");
+        }
+        
+        $date_from = date("$year-01-01");
+        $date_to = date("$year-21-31");
+        
+        $ana->where("created_at",'>=' , $date_from);
+        $ana->where("created_at", '<=', $date_to);
+
         if (!empty($lang)) {
             $ana->where('lang', '=', $lang);
         }
         if (!empty($country)) {
             $ana->where('country', '=', $country);
         }
-        $ana->groupBy(DB::Raw('DATE(created_at)'));
+        
+        if (!empty($rest_id)) {
+            $ana->where('rest_ID', '=', $rest_id);
+        }
+        $ana->groupby('month');
+        // dd();
+
+        // $model->select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+        //     ->groupby('year','month')
+        //     ->get();
+
+        // dd($ana->get(), $date_from, $date_to, $country,$lang, $rest_id);
         return $ana->get();
     }
 

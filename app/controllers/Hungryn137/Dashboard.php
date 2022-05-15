@@ -17,9 +17,52 @@ class Dashboard extends AdminController {
             $country = 1;
         }
 
-        $TotalVisits = MDashboard::getVisitNew($country);
+        // if (isset(Input::has(''))) {
+            
+        // }
+
+        $TotalVisits =  MDashboard::getVisitNew($country);
         $EnglishVisits = MDashboard::getVisitNew($country, 'en');
         $ArabicVisits = MDashboard::getVisitNew($country, 'ar');
+        
+        $YearsChart = DB::table('analytics')->select(DB::raw('YEAR(created_at) year'))->groupBy('year')->get();
+        $years_chart = [] ;
+        foreach ($YearsChart as $value) {
+            $years_chart[] = $value->year;
+        }
+        
+        // dd($years_chart);
+        
+        $total_visits = $english_visits = $arabic_visits = [];
+        
+        for ( $i = 1; $i <= 12; $i++) { 
+            $month_visitor = $month_visitor_en = $month_visitor_ar = 0;
+            
+            foreach ($TotalVisits as $t) {
+                
+                if ( $i == intval($t->month)) {
+                    $month_visitor = intval($t->total) ;
+                }
+            }
+            $total_visits[] = $month_visitor;
+            
+            foreach ($EnglishVisits as $t) {
+                
+                if ( $i == intval($t->month)) {
+                    $month_visitor_en = intval($t->total) ;
+                }
+            }
+            $english_visits[] = $month_visitor_en;
+            
+            foreach ($ArabicVisits as $t) {
+                
+                if ( $i == intval($t->month)) {
+                    $month_visitor_ar = intval($t->total) ;
+                }
+            }
+            $arabic_visits[] = $month_visitor_ar;
+        }
+
 
         $data = array(
             'sitename' => $settings['name'],
@@ -28,9 +71,10 @@ class Dashboard extends AdminController {
             'action' => 'dashboard',
             'country' => $country,
             'settings' => $settings,
-            'TotalVisits' => $TotalVisits,
-            'EnglishVisits' => $EnglishVisits,
-            'ArabicVisits' => $ArabicVisits,
+            'YearsChart' => $years_chart,
+            'TotalVisits' => $total_visits,
+            'EnglishVisits' => $english_visits,
+            'ArabicVisits' => $arabic_visits,
             'partials_name' => 'coursescatpage',
             'side_menu' => array('home'),
         );
@@ -39,6 +83,12 @@ class Dashboard extends AdminController {
 
         return view('admin.partials.dashboard', $data);
     }
+
+    // public function chart()
+    // {
+
+
+    // }
 
     public function suggest() {
         $term = "";

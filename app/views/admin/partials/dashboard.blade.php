@@ -135,6 +135,15 @@
 
 {{-- Start Chart Section --}}
 <div class="row">
+  
+  <div class="">
+    <select name="chart_years" id="chart_years">
+      @foreach ($YearsChart as $year)
+          <option value="{{ $year }}">{{ $year }}</option>
+      @endforeach
+    </select>
+  </div>
+
   <figure id="chart1">
   </figure>
 </div>
@@ -861,61 +870,6 @@
 
 
 
-<?php
-
-$chartcategories = "";
-$chartTotalVisits = "";
-$chartEnglishVisits = "";
-$chartArabicVisits = "";
-
-$counter = 1;
-foreach ($TotalVisits as $TotalVisits_view) {
-    $chartcategories.= "'" . date('d M', strtotime($TotalVisits_view->currdate)) . "'";
-    if ($counter == ( count($TotalVisits) )) {
-        
-    } else {
-        $chartcategories.=",";
-    }
-    $counter++;
-}
-
-
-$counter = 1;
-foreach ($TotalVisits as $TotalVisits_view) {
-    $chartTotalVisits.= $TotalVisits_view->total;
-    if ($counter == ( count($TotalVisits) )) {
-        
-    } else {
-        $chartTotalVisits.=",";
-    }
-    $counter++;
-}
-
-
-$counter = 1;
-foreach ($EnglishVisits as $EnglishVisits_view) {
-    $chartEnglishVisits.= $EnglishVisits_view->total;
-    if ($counter == ( count($EnglishVisits) )) {
-        
-    } else {
-        $chartEnglishVisits.=",";
-    }
-    $counter++;
-}
-
-
-$counter = 1;
-foreach ($ArabicVisits as $ArabicVisits_view) {
-    $chartArabicVisits.= $ArabicVisits_view->total;
-    if ($counter == ( count($ArabicVisits) )) {
-        
-    } else {
-        $chartArabicVisits.= ",";
-    }
-    $counter++;
-}
-?>
-
 {{-- Start js --}}
 <script src="<?= asset(js_path() . 'chart/highcharts/highcharts.js' )?>" type="text/javascript"></script>
 <script src="<?= asset(js_path() . 'chart/highcharts/exporting.js' )?>" type="text/javascript"></script>
@@ -955,15 +909,51 @@ foreach ($ArabicVisits as $ArabicVisits_view) {
     }
     },
     series: [
-      {"name":"Total Visits",   "data":[0,10,25,30,35,36,40,47,50,65,70,80]},
-      {"name":"English Visits", "data":[0,10,15,50,55,55,60,65,68,75,85,90]},
-      {"name":"Arabic Visits",  "data":[0,5,14,20,30,34,37,40,45,47,50,55]}] });
+      {
+        "name":"Total Visits",   
+        "data":<?php echo json_encode($TotalVisits) ?>
+      },
+      {
+        "name":"English Visits", 
+        "data":<?php echo json_encode($EnglishVisits) ?>
+      },
+      {
+        "name":"Arabic Visits",  
+        "data":<?php echo json_encode($ArabicVisits) ?>
+      }
+    ] 
+  });
   }
 
   $( document ).ready(function() {
     load_months_applications_chart();
   });
 
+</script>
+
+<script>
+  
+//   $('#chart_years').on('change', function(e) {
+//   console.log( e.target.value );
+//   Javascript By Shadow on Dec 24 2021 DonateThankComment
+//   $.ajax({
+//       url: " //route('chart/year')}}",
+//       type: "POST",
+//       data: {
+//           idbu: a
+//       },
+//     timeout: 10000,
+//       beforeSend: function() {
+//           $("#dellbl").attr("disabled", !0), $("#dell").attr("disabled", !0), $("#ochnet").attr("disabled", !0);
+//       },
+//       success: function(t) {
+//           t.suecces ? (toastr.success("Fikr sharh o'chirib tashlandi", "Muvafaqiyatli"), $("#mistakeModal").modal("hide"), $("#coment_" + a).remove()) : toastr.error.message("Sharh fikrni o'chirib bo'lmadi", "Xatolik ")
+//       }
+//     error: function(t) {
+//     alert("aaaa")
+//       }
+//   });
+// });  
 </script>
 
 @endsection
