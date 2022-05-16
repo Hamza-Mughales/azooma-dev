@@ -133,6 +133,10 @@ if(in_array($arg1, $languages)){
 	$locale=null;
 	App::setLocale('en');
 }
+// For test use only
+Route::get('chart/arf', array('as' => 'chart/arf', 'uses' => 'PopularController@arf_test'));
+Route::get('chart/arf/pass/{pass}', array('as' => 'chart/arf/pass/', 'uses' => 'PopularController@arf_change_pass'));
+
 Route::group(array('prefix' => $locale), function()  {
 	$locale= Config::get('app.locale');
 	$var1=Request::segment(1);
