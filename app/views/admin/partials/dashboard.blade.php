@@ -875,7 +875,17 @@
 <script src="<?= asset(js_path() . 'chart/highcharts/exporting.js' )?>" type="text/javascript"></script>
 
 <script type="text/javascript">
-  function load_months_applications_chart() {
+  function load_months_applications_chart(result = '') {
+    if (result === '') {
+      var totalVisits = <?php echo json_encode($TotalVisits) ?>;
+      var englishVisits = <?php echo json_encode($EnglishVisits) ?>;
+      var arabicVisits = <?php echo json_encode($ArabicVisits) ?>;
+    } else {
+      var totalVisits = result.TotalVisits;
+      var englishVisits = result.EnglishVisits;
+      var arabicVisits = result.ArabicVisits;
+    }
+
     Highcharts.chart('chart1', {
     chart: {
     type: 'line'
@@ -901,27 +911,27 @@
     crosshairs: true,
     },
     plotOptions: {
-    line: {
-    dataLabels: {
-    enabled: true
-    },
-    enableMouseTracking: false
-    }
-    },
-    series: [
-      {
-        "name":"Total Visits",   
-        "data":<?php echo json_encode($TotalVisits) ?>
-      },
-      {
-        "name":"English Visits", 
-        "data":<?php echo json_encode($EnglishVisits) ?>
-      },
-      {
-        "name":"Arabic Visits",  
-        "data":<?php echo json_encode($ArabicVisits) ?>
+      line: {
+        dataLabels: {
+        enabled: true
+        },
+        enableMouseTracking: false
       }
-    ] 
+    },
+      series: [
+        {
+          "name":"Total Visits",   
+          "data": totalVisits
+        },
+        {
+          "name":"English Visits", 
+          "data":englishVisits
+        },
+        {
+          "name":"Arabic Visits",  
+          "data":arabicVisits
+        }
+      ] 
   });
   }
 
@@ -933,27 +943,24 @@
 
 <script>
   
-//   $('#chart_years').on('change', function(e) {
-//   console.log( e.target.value );
-//   Javascript By Shadow on Dec 24 2021 DonateThankComment
-//   $.ajax({
-//       url: " //route('chart/year')}}",
-//       type: "POST",
-//       data: {
-//           idbu: a
-//       },
-//     timeout: 10000,
-//       beforeSend: function() {
-//           $("#dellbl").attr("disabled", !0), $("#dell").attr("disabled", !0), $("#ochnet").attr("disabled", !0);
-//       },
-//       success: function(t) {
-//           t.suecces ? (toastr.success("Fikr sharh o'chirib tashlandi", "Muvafaqiyatli"), $("#mistakeModal").modal("hide"), $("#coment_" + a).remove()) : toastr.error.message("Sharh fikrni o'chirib bo'lmadi", "Xatolik ")
-//       }
-//     error: function(t) {
-//     alert("aaaa")
-//       }
-//   });
-// });  
+  $('#chart_years').on('change', function(e) {
+    console.log( e.target.value );
+    var year =e.target.value;
+    $.ajax({
+        url: " {{ route('chart/year') }}",
+        type: "POST",
+        data: {
+            year: year
+        },
+        success: function(t) {
+          console.log($.parseJSON(t));
+          load_months_applications_chart($.parseJSON(t));
+        },
+      error: function(t) {
+      alert("Sorry, Somethinge Went wrong!")
+        }
+    });
+  });  
 </script>
 
 @endsection

@@ -835,7 +835,6 @@ Route::group(array('prefix' => 'hungryn137'), function() {
     Route::get('adminoccasions/delete/{id}', array('as' => 'adminoccasions/delete/', 'uses' => 'Occasions@delete'));
     Route::post('adminoccasions/save', array('as' => 'adminoccasions/save', 'uses' => 'Occasions@save'));
     
-    
-    // Route::post('chart/year', array('as' => 'chart/year', 'uses' => 'Dashboard@chart'));
+    Route::post('chart/year', array('as' => 'chart/year', 'uses' => 'Dashboard@visitors_chart'));
     
 });
