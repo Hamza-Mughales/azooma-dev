@@ -631,6 +631,7 @@ class Rest extends AdminController {
             }
             $country = MGeneral::getCountry($countryID);
             $rest = $this->MRestActions->getRest(Input::get('rest_ID'));
+            DB::table('restaurant_info')->where('rest_ID', '=', intval(Input::get('rest_ID')))->update(['rest_Status'=>1]);
             $pass = "";
             $ref = "";
             $restname = stripslashes($rest->rest_Name);
@@ -713,11 +714,12 @@ class Rest extends AdminController {
                         $message->cc($ccemail, 'Sufrati')->subject($subject);
                     }
                 });
-            }
-            catch(Exception $e){
-                return returnMsg('error','adminrestaurants', $e->getMessage());
+                }
+                catch(Exception $e){
+                    return returnMsg('error','adminrestaurants', $e->getMessage());
 
-            }
+                }
+
                 return returnMsg('success','adminrestaurants', "Congratulation! " . stripslashes($_POST['rest_Name']) . ' is now Sufrati Free Member, Email is sent to restaurant successfully');
             }
             return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
