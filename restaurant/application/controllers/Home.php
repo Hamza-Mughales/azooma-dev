@@ -101,10 +101,105 @@ class Home extends CI_Controller
             $data['total_comments'] =  intval($this->MRestBranch->getCountComments($restid));
             $data['total_diners'] =  intval($this->MRestBranch->getCountDiners($restid));
 
+            $YearsChart = $this->db->distinct()->select('YEAR(created_at) as year')
+                                    ->where('rest_ID', $restid)
+                                    ->order_by('year','DESC')
+                                    ->get('analytics')
+                                    ->result();
+            
+            $years_chart = [] ;
+            foreach ($YearsChart as $value) {
+                $years_chart[] = $value->year;
+            }
+            $data['YearsChart'] = $years_chart;
+    
             $data['side_menu'] = array("home");
             $this->layout->view('home', $data);
         }
     }
+
+    public function visitors_chart()
+    {
+        $year ='';
+        if ($this->input->post('year')) {
+            $year = $this->input->post('year');
+        }
+
+        $TotalVisits =  $this->getVisitNew( "", $year, rest_id());
+        $EnglishVisits = $this->getVisitNew( 'en', $year, rest_id());
+        $ArabicVisits = $this->getVisitNew( 'ar', $year, rest_id());
+        
+        // dd($years_chart);
+        
+        $total_visits = $english_visits = $arabic_visits = [];
+        
+        for ( $i = 1; $i <= 12; $i++) { 
+            $month_visitor = $month_visitor_en = $month_visitor_ar = 0;
+            
+            foreach ($TotalVisits as $t) {
+                
+                if ( $i == intval($t->month)) {
+                    $month_visitor = intval($t->total) ;
+                }
+            }
+            $total_visits[] = $month_visitor;
+            
+            foreach ($EnglishVisits as $t) {
+                
+                if ( $i == intval($t->month)) {
+                    $month_visitor_en = intval($t->total) ;
+                }
+            }
+            $english_visits[] = $month_visitor_en;
+            
+            foreach ($ArabicVisits as $t) {
+                
+                if ( $i == intval($t->month)) {
+                    $month_visitor_ar = intval($t->total) ;
+                }
+            }
+            $arabic_visits[] = $month_visitor_ar;
+        }
+
+        $data = array(
+            'TotalVisits' => $total_visits,
+            'EnglishVisits' => $english_visits,
+            'ArabicVisits' => $arabic_visits
+        );
+
+            $data =  json_encode($data);
+        
+
+        // dd($data);
+        echo($data);
+    }
+
+    public function getVisitNew( $lang = "", $y = '', $rest_id = null) {
+        $ana = $this->db->select('count(id) total,MONTH(created_at) month');
+        
+        if (!empty($y)) {
+            $year = $y;
+        } else {
+            $year =  date("Y");
+        }
+        
+        $date_from = date("$year-01-01");
+        $date_to = date("$year-21-31");
+        
+        $this->db->where("created_at >=", $date_from);
+        $this->db->where("created_at <=", $date_to);
+
+        if (!empty($lang)) {
+            $this->db->where('lang', $lang);
+        }
+        
+        if (!empty($rest_id)) {
+            $this->db->where('rest_ID', $rest_id);
+        }
+        $this->db->group_by('month');
+        return $this->db->get('analytics')->result();
+    }
+
     public function set_language($lang)
     {
 

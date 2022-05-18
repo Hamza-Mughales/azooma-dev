@@ -201,13 +201,18 @@ echo message_box('success');
     </div>
 
     <div class="col-xl-7  col-lg-7 box-col-7">
-      <div class="card ">
-        <div class="card-body">
-          <h5 class="mx-3"><?= lang('Vistors') ?></h5>
-
-          <div style="height:385px" id="vistors-chart"></div>
-        </div>
+      <div style="position: absolute;width: 100px;right: 51px;z-index: 1;">
+        <select name="chart_years" id="chart_years">
+          <?php
+            foreach ($YearsChart as $year) {
+              echo '<option value="'.$year.'">'.$year.'</option>';
+            }
+          ?>
+        </select>
       </div>
+
+      <figure id="chart1">
+      </figure>
     </div>
     <div class="col-xl-5 col-md-12 box-col-12">
       <div class="card o-hidden">
@@ -539,55 +544,98 @@ $index++;
 
 $vistors = json_encode($vistors_data);
 ?>
-<script>
-  function load_vistors_chart(vistors_data = [], chart_title = '') {
-    Highcharts.chart('vistors-chart', {
-      chart: {
-        type: 'line'
-      },
-      title: {
-        text: chart_title,
-      },
 
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      },
-      yAxis: {
-        title: {
-          text: ''
+<script type="text/javascript">
+  function load_months_applications_chart(result = '') {
+
+      var totalVisits = result.TotalVisits;
+      var englishVisits = result.EnglishVisits;
+      var arabicVisits = result.ArabicVisits;
+    
+
+    Highcharts.chart('chart1', {
+    chart: {
+    type: 'line'
+    },
+    title: {
+    text: 'Average Visits'
+    },
+    xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+    title: {
+    text: ''
+    }
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle'
+    },
+    tooltip: {
+    shared: true,
+    crosshairs: true,
+    },
+    plotOptions: {
+      line: {
+        dataLabels: {
+        enabled: true
+        },
+        enableMouseTracking: false
+      }
+    },
+      series: [
+        {
+          "name":"Total Visits",   
+          "data": totalVisits
+        },
+        {
+          "name":"English Visits", 
+          "data":englishVisits
+        },
+        {
+          "name":"Arabic Visits",  
+          "data":arabicVisits
         }
-      },
-      plotOptions: {
-        line: {
-          dataLabels: {
-            enabled: true
-          },
-          enableMouseTracking: false
-        }
-      },
-      series: vistors_data
-    });
+      ] 
+  });
   }
-  var vistors = <?= $vistors ?>;
-  load_vistors_chart(vistors, '');
-  // earning chart
 
-  var options = {
-          series: [<?=$statics['total_rating']?>],
-          chart: {
-          height: 350,
-          type: 'radialBar',
+  $(document).ready(function() {
+    $.ajax({
+        url: "<?= base_url('home/visitors_chart') ?>",
+        type: "POST",
+        dataType:"json",
+        data: {
+            year: "<?=date("Y")?>"
         },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '70%',
-            }
-          },
+        success: function(t) {
+          console.log(t);
+          load_months_applications_chart(t);
+        }
+     
+    });
+  });
+</script>
+
+<script>
+
+  $('#chart_years').on('change', function(e) {
+    console.log( e.target.value );
+    var year =e.target.value;
+    $.ajax({
+        url: "<?= base_url('home/visitors_chart') ?>",
+        type: "POST",
+        dataType:"json",
+        data: {
+            year: year
         },
-        colors: ['#d04127'],
-        labels: ['<?=$rating_text?>'],
-        };
-  var chart = new ApexCharts(document.querySelector("#chart-widget5"), options);
-  chart.render();
+        success: function(t) {
+          console.log(t);
+          load_months_applications_chart(t);
+        }
+     
+    });
+  });  
 </script>

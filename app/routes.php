@@ -176,7 +176,7 @@ Route::group(array('prefix' => $locale), function()  {
 			Route::get('userhelp/{any}',array('as'=>'userhelp','uses'=>'UserController@helper'));
 			Route::get('user/{id}', array('as'=>'user','uses'=>'UserController@index'));
 			Route::get('user/{id}/notifications', array('as'=>'user/notifications','uses'=>'UserController@notifications'));
-		//	Route::get('add/t', array('as'=>'add/t','uses'=>'AddController@t'));
+			// Route::get('add/t', array('as'=>'add/t','uses'=>'AddController@t'));
 			Route::post('add/articlecomment', array('as'=>'add/articlecomment','uses'=>'AddController@addComment'));
 			Route::post('add/recipecomment', array('as'=>'add/recipecomment','uses'=>'AddController@addComment'));
 			Route::get('add/reciperecommend', array('as'=>'add/reciperecommend','uses'=>'AddController@recommendRecipe'));
