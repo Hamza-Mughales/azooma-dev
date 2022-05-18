@@ -515,7 +515,7 @@ class RestMenu extends AdminController {
         $uploadDir = $directory;
         // ======================= upload 1 ===========================
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
-            $uploadFile_1 = uniqid('sufrati') . $_FILES[$name]['name'];
+            $uploadFile_1 = uniqid('sufrati') . "_menu".time().rand(1,99).'.'.pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
             $uploadFile1 = $uploadDir . $uploadFile_1;
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1)) {
                 //print "File is valid, and was successfully uploaded. \n\n ";

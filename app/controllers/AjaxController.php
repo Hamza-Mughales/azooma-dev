@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Response;
+
 class AjaxController extends BaseController {
 	public function __construct(){
 	}
@@ -508,6 +511,36 @@ class AjaxController extends BaseController {
 				'country'=>$city->country
 			);
 			DB::table('menu_downloads')->insert($data);
+		}
+	}
+
+	public function downloadMenuNew($rest = null, $id = null){
+		if($rest){
+			
+			$lang = Config::get('app.locale');
+			
+			$menu=DB::table('rest_menu_pdf')->where('id', $id)->first();
+			
+			if($lang=="ar"){
+				$cityurl=Request::segment(2);
+				$menu_name = $menu->menu_ar;
+				$the_menu = menu_pdf_path().$menu->menu_ar;
+			}else{
+				$cityurl=Request::segment(1);
+				$menu_name = $menu->menu;
+				$the_menu = menu_pdf_path().$menu->menu;
+			}
+			
+			$city= MGeneral::getCityURL($cityurl,true);
+			$data=array(
+				'restID'=>$menu->rest_ID,
+				'menuID'=>$menu->id,
+				'country'=>$city->country
+			);
+
+			DB::table('menu_downloads')->insert($data);
+
+			return Response::download($the_menu, $menu_name, ['Content-Type: application/pdf']);
 		}
 	}
 

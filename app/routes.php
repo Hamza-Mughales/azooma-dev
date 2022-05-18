@@ -292,6 +292,7 @@ Route::group(array('prefix' => $locale), function()  {
 					Route::post('aj/addtolist',array('as'=>'aj/addtolist','uses'=>'AjaxController@addToList'));
 					Route::get('aj/websiteref', array('as'=>'aj/websiteref','uses'=>'AjaxController@websiteRef'));
                     Route::get('aj/downloadmenu/', array('as'=>'aj/downloadmenu','uses'=>'AjaxController@downloadMenu'));
+                    Route::get('aj/downloadmenu/{rest}/{id}', array('as'=>'aj/downloadmenu','uses'=>'AjaxController@downloadMenuNew'));
 					Route::post('aj/claim',array('as'=>'ajax/claim','uses'=>'AjaxController@claimRestaurant'));
 					Route::post('aj/likephoto', array('as'=>'aj/likephoto','uses'=>'AjaxController@likePhoto'));
 					Route::post('aj/recommendmenu', array('as'=>'aj/recommendmenu','uses'=>'AjaxController@recommendMenu'));
