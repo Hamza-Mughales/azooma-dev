@@ -76,13 +76,15 @@ class User extends Eloquent{
 			'sufrati'=>$countryid,
 			'user_Status'=>$status,
 			'google'=>$google,
-			'facebook'=>$facebook
+			'facebook'=>$facebook,
+			'lastLogin'=>\Carbon\Carbon::now()->toDateTimeString(),
+			'lastimportedfromgoogle'=>\Carbon\Carbon::now()->toDateTimeString()
 		);
 		$userid=DB::table('user')->insertGetId($data);
-		User::addUserNotification($userid,$name,$email);
+		User::addUserNotification($userid,$name,$email,$countryid);
         return DB::table('user')->where('user_ID',$userid)->first();
 	}
-	public static function addUserNotification($userid=0,$name,$email){
+	public static function addUserNotification($userid=0,$name,$email,$countryid=null){
 		$data = array(
             'user_ID' => $userid,
             'status' => 1
