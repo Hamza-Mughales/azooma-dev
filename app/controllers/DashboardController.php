@@ -147,11 +147,15 @@ class DashboardController extends BaseController {
 			}
 			if($user->user_City!=NULL){
 				if(is_numeric($user->user_City)){
-				$city= DB::table('city_list')->select('city_ID','city_Name','city_Name_ar','seo_url')->where('city_ID',$user->user_City)->first();
-				$cityname=$lang=="en"?stripcslashes($city->city_Name):stripcslashes($city->city_Name_ar);
-				$data['city']=$city;	
+					$city= DB::table('city_list')->select('city_ID','city_Name','city_Name_ar','seo_url')->where('city_ID',$user->user_City)->first();
+					$cityname=$lang=="en"?stripcslashes($city->city_Name):stripcslashes($city->city_Name_ar);
+					$data['city']=$city;	
+				}
 			}
-		}
+
+			$city=DB::table('city_list')->select('city_ID','city_Name_ar','city_Name','seo_url', 'country')->where('city_ID',$user->user_City)->first();
+			$data['city']=$city;	
+
 			$data['lang']=$lang;
 			return View::make('dashboard',$data);
 		}else{
