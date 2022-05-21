@@ -163,12 +163,10 @@ class User extends Eloquent{
 	}
 
 	public static function getTotalComments($userid=0,$status=1){
-		$q="SELECT count(review_ID) as total FROM review WHERE user_ID=:userid ";
-		if($status==1){
-			$q.=" AND review_Status=1";
+		if( $status == 1 ){
+			return DB::table('review')->where('user_ID',$userid)->where('review_Status', $status)->count();
 		}
-		$comments= DB::select(DB::raw($q),array('userid'=>$userid));
-		return $comments[0]->total;
+		return DB::table('review')->where('user_ID',$userid)->count();
 	}
 
 	public static function getTotalRatings($userid=0){
