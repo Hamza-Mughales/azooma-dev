@@ -272,7 +272,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <button class="add-list" id="add-to-list-btn">
+                        <button type="button" class="add-list" data-bs-toggle="modal" data-bs-target="#addToList">
                             <div>
                                 <i class="fa fa-list"></i>
                                 <?php echo Lang::get('messages.add_to_list'); ?>
@@ -1006,6 +1006,45 @@
         </div>
     </div>
     {{-- End Cllaim Modalaimb --}}
+    
+    {{-- Start Modal --}}
+    <div class="modal fade" id="addToList" tabindex="-1" aria-labelledby="addToListLable" aria-hidden="true">
+        <div class="modal-dialog " >
+        <div class="modal-content " >
+            <div class="modal-header">
+                <h5 class="modal-title">   <?php echo Lang::get('messages.my_lists');?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post" action="<?php echo Azooma::URL($city->seo_url.'/aj/addtolist');?>">
+                    <?php if(isset($userlists)) { ?>
+                    <?php foreach ($userlists as $list) { ?>
+                    <div class="checkbox form-group d-flex justify-content-between">
+                        <label>
+                            <input class="form-check-input" type="checkbox" name="userlist[]" id="userlist<?php echo $list->id;?>" value="<?php echo $list->id;?>" <?php if(isset($userlisthasrestaurant)&&isset($userlisthasrestaurant[$list->id])){ echo 'checked'; } ?>/> 
+                                <span style="padding:0 5px"><?php echo stripcslashes($list->name);?></span>
+                            </label>
+                            <a class="pull-right normal-text" target="_blank" href="<?php echo Azooma::URL('user/'.Session::get('userid').'#lists');?>"><i class="fa fa-list-ul"></i></a>
+    
+                    </div>
+                    <?php }  } ?>
+                    <div class="input-group has-feedback">
+                        <span class="input-group-text" id="basic-addon1">  <i class="fa fa-plus form-control-feedback"></i></span>
+                        <input class="form-control" type="text" name="new-user-list" id="new-user-list" placeholder="<?php echo Lang::get('messages.add_new_list');?>"/> 
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 d-md-flex justify-content-end">
+                            <button type="button" class="btn btn-light btn-lg btn-block sufrati-close-popup"><?php echo Lang::get('messages.cancel');?></button>
+                            <input type="hidden" name="rest" value="<?php echo $rest->rest_ID;?>"/>
+                            <button type="button" class="big-main-btn" id="save-to-list-btn"><?php echo Lang::get('messages.add_to_list');?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    {{-- End Modal --}}
 
     <script>
         (function (d, s, id) {
@@ -1023,87 +1062,89 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXFAxSgXP7b5D25WEtjxkYqoWM2PjxaLg&callback=initialize&libraries=places">
     </script> --}}
     <?php if(count($restbranches) > 0){ ?>
-    <script>
-        function initialize() {
-            initMap();
-            initMap2();
+        <script>
+            function initialize() {
+                initMap();
+                initMap2();
+                }
+            function initMap() {
+                const myLatLng = {
+                    lat: <?php echo $restbranches[0] -> latitude ?> ,
+                    lng: <?php echo $restbranches[0] -> longitude ?>
+                };
+                const map = new google.maps.Map(document.getElementById("rest-map"), {
+                    zoom: 11,
+                    disableDefaultUI: true,
+                    mapTypeId: "roadmap",
+                    center: myLatLng,
+                }); 
+                <?php
+                if (count($restbranches) > 0) {
+                    foreach($restbranches as $branch) {
+                        ?>
+                        var marker = new google.maps.Marker({
+                            position: {
+                                lat: <?php echo $branch -> latitude; ?> ,
+                                lng : <?php echo $branch -> longitude; ?>
+                            },
+                            map,
+                            url: "#<?php echo $restname; ?>",
+                            title: "<?php echo $restname; ?>",
+                            label: {
+                                text: "<?php echo $restname; ?>",
+                                color: "black",
+                                fontSize: "8px"
+                            }
+                        });
+
+
+                        <?php
+                    }
+                } ?>
             }
-        function initMap() {
-            const myLatLng = {
-                lat: <?php echo $restbranches[0] -> latitude ?> ,
-                lng: <?php echo $restbranches[0] -> longitude ?>
-            };
-            const map = new google.maps.Map(document.getElementById("rest-map"), {
-                zoom: 11,
-                disableDefaultUI: true,
-                mapTypeId: "roadmap",
-                center: myLatLng,
-            }); 
-            <?php
-            if (count($restbranches) > 0) {
-                foreach($restbranches as $branch) {
-                    ?>
-                    var marker = new google.maps.Marker({
-                        position: {
-                            lat: <?php echo $branch -> latitude; ?> ,
-                            lng : <?php echo $branch -> longitude; ?>
-                        },
-                        map,
-                        url: "#<?php echo $restname; ?>",
-                        title: "<?php echo $restname; ?>",
-                        label: {
-                            text: "<?php echo $restname; ?>",
-                            color: "black",
-                            fontSize: "8px"
-                        }
-                    });
+
+            function initMap2() {
+                const myLatLng = {
+                    lat: <?php echo $restbranches[0] -> latitude ?> ,
+                    lng: <?php echo $restbranches[0] -> longitude ?>
+                };
+                const map = new google.maps.Map(document.getElementById("rest-map-2"), {
+                    zoom: 11,
+                    disableDefaultUI: true,
+                    mapTypeId: "roadmap",
+                    center: myLatLng,
+                });
+
+                <?php
+                    if (count($restbranches) > 0) {
+                        $i = 0;
+                        foreach($restbranches as $branch) {
+                            $i++;
+                ?>
+                        var marker = new google.maps.Marker({
+                            position: {
+                                lat: <?php echo $branch -> latitude; ?> ,
+                                lng : <?php echo $branch -> longitude; ?>
+                            },
+                            map,
+                            url: "#<?php echo $restname; ?>",
+                            title: "<?php echo $i; ?>",
+                            label: {
+                                text: "<?php echo $i; ?>",
+                                color: "black",
+                                fontSize: "8px"
+                            }
+                        });
 
 
-                    <?php
-                }
-            } ?>
-        }
-
-        function initMap2() {
-            const myLatLng = {
-                lat: <?php echo $restbranches[0] -> latitude ?> ,
-                lng: <?php echo $restbranches[0] -> longitude ?>
-            };
-            const map = new google.maps.Map(document.getElementById("rest-map-2"), {
-                zoom: 11,
-                disableDefaultUI: true,
-                mapTypeId: "roadmap",
-                center: myLatLng,
-            }); 
-            <?php
-            if (count($restbranches) > 0) {
-                $i = 0;
-                foreach($restbranches as $branch) {
-                    $i++;
-                    ?>
-                    var marker = new google.maps.Marker({
-                        position: {
-                            lat: <?php echo $branch -> latitude; ?> ,
-                            lng : <?php echo $branch -> longitude; ?>
-                        },
-                        map,
-                        url: "#<?php echo $restname; ?>",
-                        title: "<?php echo $i; ?>",
-                        label: {
-                            text: "<?php echo $i; ?>",
-                            color: "black",
-                            fontSize: "8px"
-                        }
-                    });
-
-
-                    <?php
-                }
-            } ?>
-        }
-    </script>
+                <?php  } } ?>
+            }
+            
+        </script>
     <?php } ?>
+
     <script src="<?php echo URL::asset('js/restaurant.js');?>"></script>
+    
     <script>
         $(window).on( 'hashchange', function(e) {
         var ar = ""+decodeURIComponent(location.hash)+"";
@@ -1121,45 +1162,10 @@
         $('.res-nav .show').removeClass('show');
         $('.res-nav .' + ar).addClass('show');
         } 
-</script>
-<script type="text/html" id="add-to-list-form-tpl">
-    <div class="modal-content center-model" id="add-to-list-form">
-        <div class="modal-header">
-            <h5 class="modal-title">   <?php echo Lang::get('messages.my_lists');?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
-        </div>
-        <div class="modal-body">
-            <form role="form" method="post" action="<?php echo Azooma::URL($city->seo_url.'/aj/addtolist');?>">
-                <?php if(isset($userlists)) { ?>
-                <?php foreach ($userlists as $list) { ?>
-                <div class="checkbox form-group d-flex justify-content-between">
-                    <label>
-                        <input class="form-check-input" type="checkbox" name="userlist[]" id="userlist<?php echo $list->id;?>" value="<?php echo $list->id;?>" <?php if(isset($userlisthasrestaurant)&&isset($userlisthasrestaurant[$list->id])){ echo 'checked'; } ?>/> 
-                            <span style="padding:0 5px"><?php echo stripcslashes($list->name);?></span>
-                        </label>
-                        <a class="pull-right normal-text" target="_blank" href="<?php echo Azooma::URL('user/'.Session::get('userid').'#lists');?>"><i class="fa fa-list-ul"></i></a>
+    </script>
 
-                </div>
-                <?php }  } ?>
-                <div class="input-group has-feedback">
-                    <span class="input-group-text" id="basic-addon1">  <i class="fa fa-plus form-control-feedback"></i></span>
-                    <input class="form-control" type="text" name="new-user-list" id="new-user-list" placeholder="<?php echo Lang::get('messages.add_new_list');?>"/> 
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12 d-md-flex justify-content-end">
-                        <button type="button" class="btn btn-light btn-lg btn-block sufrati-close-popup"><?php echo Lang::get('messages.cancel');?></button>
-                        <input type="hidden" name="rest" value="<?php echo $rest->rest_ID;?>"/>
-                        <button type="button" class="big-main-btn" id="save-to-list-btn"><?php echo Lang::get('messages.add_to_list');?></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    </div>
-    </div>
-</script>
-<script src="<?php echo URL::asset('js/branch.js');?>"></script>
+    <script src="<?php echo URL::asset('js/branch.js');?>"></script>
+
 </body>
 
 </html>
