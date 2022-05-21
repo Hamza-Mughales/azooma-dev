@@ -71,6 +71,7 @@ class User extends Eloquent{
 			'user_Pass'=>$password,
 			'user_Mobile' =>$phone,
 			'user_City'=>$cityid,
+			'user_Status'=>0,
 			'rand_num' => $rand,
 			'user_Country'=>$countrycode,
 			'sufrati'=>$countryid,

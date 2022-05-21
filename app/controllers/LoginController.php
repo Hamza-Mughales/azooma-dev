@@ -12,6 +12,7 @@ class LoginController extends BaseController {
 		$data['html']=stripcslashes(View::make('ajax.login',$t));
 		return Response::json($data);
 	}
+
 	public function l(){
 		$output=array();
 		$rules=array(
@@ -23,7 +24,14 @@ class LoginController extends BaseController {
 			$output['error']=Lang::get('messages.please_enter_all_fields');
 		}else{
 			$email=Input::get('user-email');
-			$emailexists=DB::select(DB::raw('SELECT user_ID FROM user WHERE user_Email=:email'),array('email'=>$email));
+			$emailexists=DB::select(DB::raw('SELECT user_ID, user_Status FROM user WHERE user_Email=:email'),array('email'=>$email));
+			
+			// Check if account not activated yet
+			if (isset($emailexists) && intval($emailexists[0]->user_Status) == 0) {
+				$output['error']=Lang::get('Please check your email to active your acount First!');
+				return Response::json($output);
+			}
+
 			if(count($emailexists)>0){
 				//user is present
 				$password=Input::get('user-password');
@@ -393,6 +401,11 @@ class LoginController extends BaseController {
 		$lang=Config::get('app.locale');
 		$user=DB::table('user')->where('rand_num',$rand)->first();
 		if(count($user)>0){
+			if (intval($user->user_Status) == 0) {
+				DB::table('user')->where('user_ID', $user->user_ID)->update(['user_Status'=>1]);
+				// dd($user);
+			}
+
 			$username=($user->user_NickName=="")?stripcslashes($user->user_FullName):stripcslashes($user->user_NickName);
 			Config::set('session.lifetime',365*12*3600);
 			Session::put('name',$username);
