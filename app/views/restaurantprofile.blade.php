@@ -291,11 +291,12 @@
                                     $menuaa=$pdf->menu_ar;
                                 }
                                 ?>
-                            <a target="_blank" class="pdf-download" href="aj/downloadmenu/<?php echo $rest->rest_ID?>/<?php echo $pdf->id?>" ></a>
-                            <div>
-                                <i class="fas fa-file-pdf"></i>
-                                <?php echo Lang::get('messages.download_pdf_menu'); ?>
-                            </div>
+                            <a target="_blank" class="pdf-download" href="aj/downloadmenu/<?php echo $rest->rest_ID?>/<?php echo $pdf->id?>" >
+                                <div>
+                                    <i class="fas fa-file-pdf"></i>
+                                    <?php echo Lang::get('messages.download_pdf_menu'); ?>
+                                </div>
+                            </a>
                         </button>
                         <?php } } else{ ?>
                             <button disabled class="pdf-download"
