@@ -320,6 +320,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
             </div>
             <?php
             if (count($mastercuisines) > 0) {
+                // dd($mastercuisines);
                 foreach ($mastercuisines as $mastercuisine) {
                     $class_hidden = "hidden";
                     if (in_array($mastercuisine->id, $mastercuisineList)) {
@@ -329,7 +330,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                     <div class="form-group col-md-6 row subcuisine-list <?php echo $class_hidden; ?>" id="cuisine-list-<?php echo $mastercuisine->id; ?>">
                         <label class="col-md-4 control-label" for="cuisine">Food/Cuisine for <?php echo $mastercuisine->name; ?> Cuisines</label>
                         <div class="col-md-8">
-                            <select multiple class="form-control  required subcuisine" data-maxpersons="<?php echo $maxcuisine; ?>" tabindex="7" data-placeholder="Select Cuisines" name="cuisine[]" id="cuisine-<?php echo $mastercuisine->id; ?>">
+                            <select multiple class="form-control   subcuisine" data-maxpersons="<?php echo $maxcuisine; ?>" tabindex="7" data-placeholder="Select Cuisines" name="cuisine[]" id="cuisine-<?php echo $mastercuisine->id; ?>">
                                 <?php
                                 if (isset($rest)) {
                                     foreach ($cuisines as $cuisine) {
