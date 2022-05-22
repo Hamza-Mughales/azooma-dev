@@ -110,6 +110,17 @@ class AjaxController extends BaseController {
 							$message->subject($subject);
 						});
 					}
+
+					DB::table('notifications')->insert(
+						[
+							'user_ID' => $userid,
+							'rest_ID' => $rest->rest_ID,
+							'status' => 1,
+							'detail' => 'new review '. $comment
+						]
+					);
+					
+
 					Session::flash('success',Lang::get('messages.thank_for_review'));
 					return Redirect::to($cityurl.'/'.$rest->seo_url.'#n');
 				}else{

@@ -15,6 +15,7 @@ class Home extends CI_Controller
         $this->load->model('Mgeneral',"MGeneral");
         $this->load->model('Mbooking',"MBooking");
         $this->load->model('Mrestbranch',"MRestBranch");
+        $this->load->model('Notification');
         $this->load->library('pagination');
         $sys_lang=$this->session->userdata("lang");
         if($sys_lang=='arabic' or $sys_lang=='english'){

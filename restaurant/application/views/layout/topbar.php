@@ -1,8 +1,13 @@
 <?php
-
 use Illuminate\Support\Facades\Lang;
 ?>
 <body class="dash-body <?=(sys_lang()=="arabic" ?"rtl" :"")?> <?=(isset($_COOKIE['darkMode']) && $_COOKIE['darkMode']==1 ? "dark-only" :"")?>">
+<?php
+    
+    $noo = new Notification ();
+    $notif_count = count($noo->get_notification(rest_id(), 1));
+    $notifications = $noo->get_notification(rest_id(), 1, 5);
+?>
     <div class="loader-wrapper">
       <div class="loader-index"><span></span></div>
       <svg>
@@ -55,24 +60,21 @@ use Illuminate\Support\Facades\Lang;
                         </li>
                         <li class="d-none"> <span class="header-search"><i data-feather="search"></i></span></li>
                         <li class="onhover-dropdown">
-                            <div class="notification-box"><i data-feather="bell"> </i><span class="badge rounded-pill badge-secondary">4 </span></div>
+                            <div class="notification-box"><i data-feather="bell"> </i><span class="badge rounded-pill badge-secondary"><?= $notif_count ?></span></div>
                             <ul class="notification-dropdown onhover-show-div">
                                 <li><i data-feather="bell"></i>
                                     <h6 class="f-18 mb-0">Notitications</h6>
                                 </li>
+                                <?php
+                                    if (isset($notifications) && count($notifications) > 0) {
+                                        foreach ($notifications as $notif) { 
+                                ?>
                                 <li>
-                                    <p><i class="fa fa-circle-o me-3 font-primary"> </i>Delivery processing <span class="pull-right">10 min.</span></p>
+                                    <p><i class="fa fa-circle-o me-3 font-success"></i><?php echo mb_substr($notif->detail,0,30) ?><span class="pull-right"></span></p>
                                 </li>
-                                <li>
-                                    <p><i class="fa fa-circle-o me-3 font-success"></i>Order Complete<span class="pull-right">1 hr</span></p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-circle-o me-3 font-info"></i>Tickets Generated<span class="pull-right">3 hr</span></p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-circle-o me-3 font-danger"></i>Delivery Complete<span class="pull-right">6 hr</span></p>
-                                </li>
-                                <li><a class="btn btn-primary" href="#">Check all notification</a></li>
+                                <?php } }?>
+                                
+                                <li><a class="btn btn-primary" href="<?= base_url('Notifications/index'); ?>">Check all notification</a></li>
                             </ul>
                         </li>
                

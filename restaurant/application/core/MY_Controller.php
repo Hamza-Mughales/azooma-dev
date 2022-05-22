@@ -11,6 +11,8 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        
+        $this->load->model('Notification');
       
       $sys_lang=$this->session->userdata("lang");
       if($sys_lang=='arabic' or $sys_lang=='english'){
