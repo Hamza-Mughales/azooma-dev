@@ -31,3 +31,15 @@ UPDATE `admin` SET `pass`=MD5(pass);
 
 ALTER TABLE `azooma`.`restaurant_info` CHANGE `lastUpdatedOn` `lastUpdatedOn` timestamp NOT NULL DEFAULT now() COMMENT '';
 ALTER TABLE `azooma`.`rest_branches` CHANGE `lastUpdated` `lastUpdated` timestamp NOT NULL DEFAULT now() COMMENT '';
+
+
+-- Last Update on DB 
+ALTER TABLE `azooma`.`notifications` ADD COLUMN `detail` VARCHAR(255) COMMENT '' AFTER `country`;
+
+ALTER TABLE `azooma`.`notifications` CHANGE `createdAt` `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '' AFTER `detail`;
+
+ALTER TABLE `azooma`.`notifications` CHANGE `country` `country` int(2) NOT NULL DEFAULT '1' COMMENT '' AFTER `createdAt`;
+
+ALTER TABLE `azooma`.`notifications` ADD COLUMN `rest_ID` int(11) COMMENT '' AFTER `user_ID`;
+
+ALTER TABLE `azooma`.`notifications` CHANGE `detail` `detail` TEXT NULL  COMMENT '';
