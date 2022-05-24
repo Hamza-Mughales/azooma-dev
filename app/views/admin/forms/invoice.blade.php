@@ -531,7 +531,7 @@ if (isset($invoice) && $invoice->payment_option != '0') {
     .short-width {
         width: 315px;
     }
-    .sufrati-backend-input-seperator div{
+    .Azooma-backend-input-seperator div{
         float: left;
     }
     .margin-bottom col-md-6{

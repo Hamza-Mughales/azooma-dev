@@ -9746,7 +9746,7 @@ a:hover {
   display: block;
 }
 
-.sufSearchAuto .sufrati-suggest-list {
+.sufSearchAuto .Azooma-suggest-list {
   position: absolute;
   top: 1rem;
   background-color: #fff;
@@ -9757,21 +9757,21 @@ a:hover {
   border-radius: 20px;
 }
 
-.sufSearchAuto .sufrati-suggest-list li:first-of-type {
+.sufSearchAuto .Azooma-suggest-list li:first-of-type {
   border-radius: 20px 20px 0 0;
 }
 
-.sufSearchAuto .sufrati-suggest-list li:last-of-type {
+.sufSearchAuto .Azooma-suggest-list li:last-of-type {
   border-radius: 0 0 20px 20px;
 }
 
-.sufSearchAuto .sufrati-suggest-list li a {
+.sufSearchAuto .Azooma-suggest-list li a {
   padding: 10px 20px;
   border-bottom: 1px solid #eee;
   display: block;
 }
 
-.sufSearchAuto .sufrati-suggest-list .category-list {
+.sufSearchAuto .Azooma-suggest-list .category-list {
   background-color: #eee;
   padding: 10px 20px;
   border-bottom: 1px solid #eee;

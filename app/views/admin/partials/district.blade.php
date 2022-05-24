@@ -60,7 +60,7 @@
                                     ?>
                                 </td>
                                 <td><?php echo date('d/m/Y', strtotime($list->updatedAt)); ?></td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('admindistrict/form/',$list->district_ID) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->district_Status == 0) {

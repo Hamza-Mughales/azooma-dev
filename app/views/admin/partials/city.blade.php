@@ -61,7 +61,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincity/form/',$list->city_ID) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->city_Status == 0) {

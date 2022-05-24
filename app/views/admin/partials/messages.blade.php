@@ -75,7 +75,7 @@
                                 <td><?php echo stripslashes($list->text_en); ?></td>
                                 <td><?php echo $countries[$list->country]; ?></td>
                                 <td><?php echo date('d/m/Y', strtotime($list->created_at)); ?></td>            
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminmessages/form/',$list->id) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->status == 0) {

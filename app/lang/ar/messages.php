@@ -179,7 +179,7 @@ return array(
 	'do_you_want_to_use_this_image'=>'هل تود ان يتم إستخدام هذه الصورة ؟',
 	'please_copy_paste'=>'فضلاْ قم بنسخ و لصق هذا الكود على موقعك الإلكتروني',
 	'all_images_property_of_azooma'=>'كل الصور تعتبر من محتويات عزومه الخاصة',
-	'photo_of_rest_brought_to_you_by_azooma'=>'هذه الصورة لـ <a href="" title=":restname">:restname</a> مقدمة لكم من<a href="http://www.azooma.co" title="Restaurant Directory">Sufrati</a>',
+	'photo_of_rest_brought_to_you_by_azooma'=>'هذه الصورة لـ <a href="" title=":restname">:restname</a> مقدمة لكم من<a href="http://www.azooma.co" title="Restaurant Directory">Azooma</a>',
 	'add_restaurant_helper'=>'أضف مطعمك واستفد من خدماتنا المجانية. عزومه تربطك مع عملائك بأفضل طريقة. نتخصص في مجال الطعام و المطاعم ، تم تصميم عزومه لجعل العثور على المطعم خيارا سهلاً للمستخدم وإبتكار وسيلة سهلة وموثوقة لضمان الظهور على الساحة العامة ',
 	'restaurant_name'=>'إسم المطعم',
 	'searchresults'=>'نتائج البحث',

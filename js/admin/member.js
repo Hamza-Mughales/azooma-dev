@@ -1,5 +1,5 @@
 function addmore() {
-    var element = '<div id="input-' + counter + '"><input type="text" name="emails[]"  placeholder="Contact Email"  /><a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
+    var element = '<div id="input-' + counter + '"><input type="text" name="emails[]"  placeholder="Contact Email"  /><a class="close Azooma-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
     $("#memberemails").append(element);
     counter++;
 }
@@ -11,7 +11,7 @@ function selectPermissions() {
                 $("#price").val(data['price']);
             }, "json");
 }
-$(document).on("click", ".sufrati-close", function(event) {
+$(document).on("click", ".Azooma-close", function(event) {
     var dismiss = $(this).attr('data-dismiss');
     $(this).parent().remove();
 });

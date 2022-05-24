@@ -1,5 +1,5 @@
-<div class="sufrati-popup-box" id="video-pop-box">
-    <h3 class="popup-heading sufrati-head">
+<div class="Azooma-popup-box" id="video-pop-box">
+    <h3 class="popup-heading Azooma-head">
        <?php echo $videoname;?>
     </h3>
     <div class="popup-content">

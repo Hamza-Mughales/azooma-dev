@@ -26,7 +26,7 @@
                     <div class="form-group row">
                     
                         <label class="control-label col-md-4" for="rest_Subscription"> Account Type</label>
-                        <div class="col-md-7 sufrati-backend-input-seperator">
+                        <div class="col-md-7 Azooma-backend-input-seperator">
                             <select class="form-control" name="rest_Subscription" id="rest_Subscription" class="required" onchange="selectPermissions();">
                                 <option value="0">Select Membership Type</option>
                                 <option value="0" <?php
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-4" for="member_duration"> Member Duration</label>
-                        <div class="col-md-7 sufrati-backend-input-seperator">
+                        <div class="col-md-7 Azooma-backend-input-seperator">
                             <select class="form-control" name="member_duration" id="member_duration" class="required">
                                 <option>Select Membership Duration</option>
                                 <option value="0" <?php
@@ -100,13 +100,13 @@
                     <div class="col-md-6" >
                     <div class="form-group row">
                         <label class="control-label col-md-4" for="price"> Membership Price</label>
-                        <div class="col-md-7 sufrati-backend-input-seperator">
+                        <div class="col-md-7 Azooma-backend-input-seperator">
                             <input class="form-control auto-width" type="text" name="price" id="price" placeholder="Membership Price" <?php echo isset($member) ? 'value="' . $member->price . '"' : ""; ?> />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-4" for="member_date"> Account Start Date</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input class="form-control auto-width" type="text" name="member_date" id="member_date" placeholder="Account Start Date" <?php echo isset($rest) ? 'value="' . $rest->member_date . '"' : ""; ?> />
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                     <div class="col-md-6" >
                     <div class="form-group row">
                         <label class="control-label col-md-4" for="member_date"> Account Update Date</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <?php
                             if (isset($member)) {
                                 if (!empty($member->date_upd)) {
@@ -128,7 +128,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-4" for="preferredlang"> Preferred Language</label>
-                        <div class="col-md-7 sufrati-backend-input-seperator">
+                        <div class="col-md-7 Azooma-backend-input-seperator">
                             <select class="form-control" name="preferredlang" id="preferredlang">
                                 <option value="0" <?php
                                 if (isset($member)) {
@@ -147,7 +147,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-4" for="member_date"> Messages</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input class="form-control" type="text" name="allowed_messages" id="allowed_messages" placeholder="Allowed Messages 10" <?php echo isset($member) ? 'value="' . $member->allowed_messages . '"' : ""; ?> />
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                     if (count($logs) > 0) {
                         ?>
                         <legend>Membership Log</legend>
-                        <table class="table table-bordered table-striped sufrati-backend-table" > 
+                        <table class="table table-bordered table-striped Azooma-backend-table" > 
                             <thead> 
                                 <tr>                                    
                                     <th style="width:65px;"> Reference No </th> 
@@ -233,7 +233,7 @@
 </script>
 
 <style>
-    .sufrati-backend-input-seperator input, .sufrati-backend-input-seperator select {
+    .Azooma-backend-input-seperator input, .Azooma-backend-input-seperator select {
         width: 315px;
     }
 </style>

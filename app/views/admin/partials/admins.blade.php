@@ -63,7 +63,7 @@
                                     ?>
                                 </td>
                                 <td><?php echo date('d/m/Y', strtotime($list->lastlogin)); ?></td>            
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info m-1" href="{{ route('admins/form/',$list->id) }}" title="Edit {{ $title }}"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->status == 0) {

@@ -78,7 +78,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info m-1" href="{{ route('adminrestaurants/polloptionform/', $option->id).'?rest_ID='.$rest->rest_ID.'&poll='.$pollID; }}" title="Edit Content">
                                         <i data-feather="edit"></i> 
                                     </a>

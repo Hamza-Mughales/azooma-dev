@@ -10,7 +10,7 @@ if($lang=="en"){
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><?php echo $photoname ?></h5>
-        <button type="button"  class="btn-close sufrati-close-popup" data-bs-dismiss="modal" aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
+        <button type="button"  class="btn-close Azooma-close-popup" data-bs-dismiss="modal" aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
         </div>
         <div class="modal-body">
             <div class="modal-start-gallary">

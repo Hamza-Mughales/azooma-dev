@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>
-            Sufrati Email
+            Azooma Email
         </title>
         <style media="all" type="text/css">
             table td {border-collapse: collapse;}
@@ -23,8 +23,8 @@
                                 <table cellpadding="0" cellspacing="0" border="0" width="640" >
                                     <tr>
                                         <td colspan="2" align="left" style="padding:20px 30px;" valign="top">
-                                            <a href="<?php echo Azooma::URL(); ?>" title="Sufrati">
-                                                <img src="<?php echo Azooma::CDN('sufratilogo/sufratilogo_new.jpg'); ?>" height="60" alt="Sufrati" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/>
+                                            <a href="<?php echo Azooma::URL(); ?>" title="Azooma">
+                                                <img src="<?php echo Azooma::CDN('sufratilogo/sufratilogo_new.jpg'); ?>" height="60" alt="Azooma" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/>
                                             </a>
                                         </td>
                                     </tr>
@@ -69,7 +69,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="2" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:20px;padding:0px 0px;line-height:21px;"> 
-                                                                    Thank you for using Sufrati.com
+                                                                    Thank you for using Azooma.co
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -89,7 +89,7 @@
                                                                 <td colspan="2" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;padding-bottom:10px;" > Best regards </td>
                                                             </tr>
                                                             <tr>
-                                                                <td colspan="2" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;padding-bottom:10px;" > Sufrati Team </td>
+                                                                <td colspan="2" style="font-family:Arial, Helvetica, sans-serif;font-size:14px;padding-bottom:10px;" > Azooma Team </td>
                                                             </tr>                  
 
                                                         </table>
@@ -107,21 +107,21 @@
                                                 <a href="<?php echo Azooma::URL('contact'); ?>" target="_blank">
                                                     Contact Us
                                                 </a> | 
-                                                <a href="<?php echo $country->facebook; ?>" title="Sufrati Facebook">Facebook</a> | 
-                                                <a href="<?php echo $country->twitter; ?>" title="Sufrati Twitter">Twitter</a>
+                                                <a href="<?php echo $country->facebook; ?>" title="Azooma Facebook">Facebook</a> | 
+                                                <a href="<?php echo $country->twitter; ?>" title="Azooma Twitter">Twitter</a>
                                             </p>
                                         </td>
                                         <td align="right" style=" padding:20px 30px;" valign="bottom">            
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="https://itunes.apple.com/us/app/sufrati-lite/id709229893?ls=1&mt=8" title="Download Sufrati for iOS">
-                                                            <img src="http://local.azooma.co/new-sufrati/apple-badge.png" />
+                                                        <a href="https://itunes.apple.com/us/app/Azooma-lite/id709229893?ls=1&mt=8" title="Download Azooma for iOS">
+                                                            <img src="http://local.azooma.co/new-Azooma/apple-badge.png" />
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="https://play.google.com/store/apps/details?id=com.LetsEat.SufratiLite" title="Download Sufrati for Android">
-                                                            <img src="http://local.azooma.co/new-sufrati/google-badge.png" />
+                                                        <a href="https://play.google.com/store/apps/details?id=com.LetsEat.AzoomaLite" title="Download Azooma for Android">
+                                                            <img src="http://local.azooma.co/new-Azooma/google-badge.png" />
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -130,7 +130,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="background-color:whitesmoke;padding:5px 30px;text-align:center;color:#666;line-height:18px;">
-                                            &copy; <?php echo date('Y'); ?> Sufrati<br/>
+                                            &copy; <?php echo date('Y'); ?> Azooma<br/>
                                             Tel:- <?php echo $country->telephone; ?><br/>
                                             <?php echo $country->address; ?>
                                         </td>

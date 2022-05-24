@@ -18,7 +18,7 @@ class DailyCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Daily Cron job for Sufrati.';
+	protected $description = 'Daily Cron job for Azooma.';
 
 	/**
 	 * Create a new command instance.
@@ -54,7 +54,7 @@ class DailyCommand extends Command {
         		$cityid=0;
         		$data=array(
 					'logoimage'=>$logoimage,
-					'title'=>'Sufrati',
+					'title'=>'Azooma',
 					'country'=>$country,
 					'lang'=>$lang,
 					'randommessage'=>$randommessage,
@@ -68,7 +68,7 @@ class DailyCommand extends Command {
 					}
         		}
         		Mail::queue('emails.user.birthday',$data,function($message) use ($user) {
-					$message->to($user->user_Email,$user->user_FullName)->subject('Happy Birthday from Sufrati');
+					$message->to($user->user_Email,$user->user_FullName)->subject('Happy Birthday from Azooma');
 				});
         	}
         }
@@ -81,7 +81,7 @@ class DailyCommand extends Command {
         		$date = date("Y-m-d", strtotime("yesterday"));
         		$data=array(
 					'logoimage'=>$logoimage,
-					'title'=>'Sufrati',
+					'title'=>'Azooma',
 					'country'=>$country,
 					'date'=>$date		
 				);
@@ -113,9 +113,9 @@ class DailyCommand extends Command {
 				$teamemails=explode(",",$country->teamemail);
 				Mail::queue('emails.internal.daily_analytics',$data,function($message) use ($country,$date,$teamemails) {
 					foreach ($teamemails as $email) {
-						$message->to(trim($email),'Sufrati');
+						$message->to(trim($email),'Azooma');
 					}
-					$message->subject(date('dS F Y', strtotime($date)) .' '. $country->name.'  report - Sufrati');
+					$message->subject(date('dS F Y', strtotime($date)) .' '. $country->name.'  report - Azooma');
 				});
         	}
         }

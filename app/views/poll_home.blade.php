@@ -10,7 +10,7 @@
     </head>
     <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
         @include('inc.header')
-        <div class=" sufrati-white-box" id="n">
+        <div class=" Azooma-white-box" id="n">
             <div class="spacing-container">
             </div>
             <div class="container">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                 <?php echo ($lang=="en")?stripcslashes($latestpoll->question):stripcslashes($latestpoll->question_ar);?>
@@ -53,10 +53,10 @@
         </div>
         
         <div class="container">
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 no-padding no-border">
-                        <div class="sufrati-white-box inner-padding put-border">
+                    <div class="Azooma-main-col-1 no-padding no-border">
+                        <div class="Azooma-white-box inner-padding put-border">
                             <h2 class="rest-page-second-heading">
                                 <?php echo ($lang=="en")?stripcslashes($latestpoll->question):stripcslashes($latestpoll->question_ar);?>
                             </h2>
@@ -135,9 +135,9 @@
 
                         </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>

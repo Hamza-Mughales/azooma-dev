@@ -44,7 +44,7 @@
             {{-- Breadcrumb Section End --}}
 
         <div>
-            <div class="sufrati-head">
+            <div class="Azooma-head">
                 <div class="container">
                     <h1 class="secttion-title mb-6">
                     <?php echo Lang::get('messages.privacy_policy');?>
@@ -54,10 +54,10 @@
             <div class="spacing-container">
             </div>
             
-            <div class="container sufrati-white-box">
+            <div class="container Azooma-white-box">
                 <div class="spacing-container">
                 </div>
-                <div id="iubenda_policy" class="sufrati-main-col mt-4" style="overflow: hidden">
+                <div id="iubenda_policy" class="Azooma-main-col mt-4" style="overflow: hidden">
                     <div class="iub_container iub_base_container">
                         <div id="wbars">
                             <div class="iub_content legal_pp">

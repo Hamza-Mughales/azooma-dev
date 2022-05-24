@@ -24,11 +24,11 @@
     }
     ?>
     <meta property="og:image" content="<?php echo $img;?>">
-    <meta property="og:site_name" content="Sufrati">
+    <meta property="og:site_name" content="Azooma">
     <meta property="fb:admins" content="100000277799043">
     <meta name="twitter:card" content="product">
-    <meta name="twitter:site" content="@sufrati">
-    <meta name="twitter:creator" content="@sufrati">
+    <meta name="twitter:site" content="@Azooma">
+    <meta name="twitter:creator" content="@Azooma">
     <meta name="twitter:url" content="<?php echo Request::url();?>">
     <meta name="twitter:title"
         content="<?php echo (isset($meta['title']))?$meta['title']:Lang::get('messages.azooma');?>">
@@ -54,7 +54,7 @@
     <meta name="twitter:data2" content="<?php echo $llikers;?>">
     <meta name="twitter:app:id:iphone" content="709229893">
     <meta name="twitter:app:id:ipad" content="709229893">
-    <meta name="twitter:app:id:googleplay" content="com.LetsEat.SufratiLite">
+    <meta name="twitter:app:id:googleplay" content="com.LetsEat.AzoomaLite">
     <?php 
     if(count($menu)<=0&&count($pdfs)<=0){
         ?>
@@ -864,7 +864,7 @@
             "data_track_addressbar": false,
             'services_expanded': 'facebook,twitter,print,email',
             'services_compact': 'facebook,twitter,print,email',
-            'ui_cobrand': 'Sufrati'
+            'ui_cobrand': 'Azooma'
         };
     </script>
     {{-- Start Photo Upload Modal --}}
@@ -1034,7 +1034,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12 d-md-flex justify-content-end">
-                            <button type="button" class="btn btn-light btn-lg btn-block sufrati-close-popup"><?php echo Lang::get('messages.cancel');?></button>
+                            <button type="button" class="btn btn-light btn-lg btn-block Azooma-close-popup"><?php echo Lang::get('messages.cancel');?></button>
                             <input type="hidden" name="rest" value="<?php echo $rest->rest_ID;?>"/>
                             <button type="button" class="big-main-btn" id="save-to-list-btn"><?php echo Lang::get('messages.add_to_list');?></button>
                         </div>

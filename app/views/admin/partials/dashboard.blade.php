@@ -326,7 +326,7 @@
 
 {{-- Start Section --}}
 <div class="m-5 h4">
-  <span><?= __('Sufrati Members')?></span>
+  <span><?= __('Azooma Members')?></span>
 </div>
 <div class="col-md-4">
   <div class="card browser-widget">

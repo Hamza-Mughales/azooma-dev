@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="<?php echo $lang;?>" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# sufratiletseat: http://ogp.me/ns/fb/sufratiletseat#">
+<html lang="<?php echo $lang;?>" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# Azoomaletseat: http://ogp.me/ns/fb/sufratiletseat#">
 <head>
     @include('inc.metaheader',$meta)
     <?php
@@ -16,7 +16,7 @@
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
     <?php ($lang=="en")?$cityname=stripcslashes($city->city_Name):$cityname=stripcslashes($city->city_Name_ar); ?>
-    <div class="sufrati-white-box" id="n">
+    <div class="Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo $photoname;?>
@@ -75,9 +75,9 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 sufrati-white-box">
+                    <div class="Azooma-main-col-1 Azooma-white-box">
                         <div id="social-share-list">
                             <div class="addthis_toolbox addthis_default_style">
                             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -91,9 +91,9 @@
                             <img src="<?php echo Azooma::CDN('/Gallery/'.$photo->image_full);?>" alt="<?php echo $photoname;?>" width="<?php echo $width;?>" height="<?php echo $height;?>"/>
                         </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>
@@ -102,9 +102,9 @@
     </div>
     <script type="text/html" id="photo-copyright-holder-tpl">
     <div id="photo-copyright-pop">
-    <div class="sufrati-popup-box">
+    <div class="Azooma-popup-box">
         <div class="super-popup-image stand-alone">
-            <h3 class="popup-heading sufrati-head">
+            <h3 class="popup-heading Azooma-head">
                 <?php echo Lang::get('messages.do_you_want_to_use_this_image');?>
             </h3>
             <div>
@@ -121,7 +121,7 @@
     </div>
     </script>
     @include('inc.footer')
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};</script>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};</script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>
 </body>
 </html>

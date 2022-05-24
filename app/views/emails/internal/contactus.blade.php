@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>
-            Sufrati Email
+            Azooma Email
         </title>
         <style media="all" type="text/css">
         table td {border-collapse: collapse;}
@@ -23,15 +23,15 @@
                                 <table cellpadding="0" cellspacing="0" border="0" width="640" >
                                     <tr>
                                         <td colspan="2" align="left" style="padding:20px 30px;" valign="top">
-                                            <a href="<?php echo Azooma::URL();?>" title="Sufrati">
-                                                <img src="<?php echo Azooma::CDN('sufratilogo/'.$logoimage);?>" height="60" alt="Sufrati" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/>
+                                            <a href="<?php echo Azooma::URL();?>" title="Azooma">
+                                                <img src="<?php echo Azooma::CDN('sufratilogo/'.$logoimage);?>" height="60" alt="Azooma" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/>
                                             </a>
                                         </td>
                                     </tr>
                                     <tr align="left"  valign="top">
                                         <td colspan="2" style="padding:20px 30px">
                                             <h1 style="color: #333;font-size:25px;line-height:28px;margin:15px 0;">
-                                                <?php echo $name;?> send a contact us message on sufrati
+                                                <?php echo $name;?> send a contact us message on Azooma
                                             </h1>
                                         </td>
                                     </tr>
@@ -104,21 +104,21 @@
                                                 <a href="<?php echo Azooma::URL('contact');?>" target="_blank">
                                                     Contact Us
                                                 </a> | 
-                                                <a href="<?php echo $country->facebook;?>" title="Sufrati Facebook">Facebook</a> | 
-                                                <a href="<?php echo $country->twitter;?>" title="Sufrati Twitter">Twitter</a>
+                                                <a href="<?php echo $country->facebook;?>" title="Azooma Facebook">Facebook</a> | 
+                                                <a href="<?php echo $country->twitter;?>" title="Azooma Twitter">Twitter</a>
                                             </p>
                                         </td>
                                         <td align="right" style=" padding:20px 30px;" valign="bottom">            
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="https://itunes.apple.com/us/app/sufrati-lite/id709229893?ls=1&mt=8" title="Download Sufrati for iOS">
-                                                            <img src="<?php echo Azooma::CDN('stat/appstore-135.jpg');?>" alt="Sufrati for iOS" height="40" width="135"/>
+                                                        <a href="https://itunes.apple.com/us/app/Azooma-lite/id709229893?ls=1&mt=8" title="Download Azooma for iOS">
+                                                            <img src="<?php echo Azooma::CDN('stat/appstore-135.jpg');?>" alt="Azooma for iOS" height="40" width="135"/>
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="https://play.google.com/store/apps/details?id=com.LetsEat.SufratiLite" title="Download Sufrati for Android">
-                                                            <img src="<?php echo Azooma::CDN('stat/googleplay-135.jpg');?>" alt="Sufrati for Android" height="40" width="135"/>
+                                                        <a href="https://play.google.com/store/apps/details?id=com.LetsEat.AzoomaLite" title="Download Azooma for Android">
+                                                            <img src="<?php echo Azooma::CDN('stat/googleplay-135.jpg');?>" alt="Azooma for Android" height="40" width="135"/>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -127,7 +127,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="background-color:whitesmoke;padding:5px 30px;text-align:center;color:#666;line-height:18px;">
-                                            &copy; <?php echo date('Y');?> Sufrati<br/>
+                                            &copy; <?php echo date('Y');?> Azooma<br/>
                                             Tel:- <?php echo $country->telephone;?><br/>
                                             <?php echo $country->address;?>
                                         </td>

@@ -19,7 +19,7 @@
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
     <?php  ($lang=="en")?$cityname=stripcslashes($city->city_Name):$cityname=stripcslashes($city->city_Name_ar);?>
-    <div class="sufrati-white-box" id="n" itemscope itemtype="http://schema.org/Restaurant">
+    <div class="Azooma-white-box" id="n" itemscope itemtype="http://schema.org/Restaurant">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo Lang::choice('messages.review',1).' '.Lang::choice('messages.by',1).' '.$username.' '.Lang::get('messages.for').' '.$restname ;?>
@@ -67,9 +67,9 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 sufrati-white-box">
+                    <div class="Azooma-main-col-1 Azooma-white-box">
                         <div id="social-share-list">
                             <div class="addthis_toolbox addthis_default_style">
                             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -80,8 +80,8 @@
                         </div>
                         <div class="spacing-container">
                         </div>
-                        <div class="overflow sufrati-user-review" id="user-review-<?php echo $review->review_ID;?>" itemscope itemtype="http://data-vocabulary.org/Review">
-                        <div class="pull-left sufrati-user-info">
+                        <div class="overflow Azooma-user-review" id="user-review-<?php echo $review->review_ID;?>" itemscope itemtype="http://data-vocabulary.org/Review">
+                        <div class="pull-left Azooma-user-info">
                             <?php
                             $userimage=($user->image=="")?'user-default.svg':$user->image;
                             if($user->user_Status==1){
@@ -103,7 +103,7 @@
                                     <?php echo $usertotalreviews.' <i class="fa fa-comment"></i>&nbsp;&nbsp;|&nbsp;&nbsp;'.$usertotalratings.' <i class="fa fa-star"></i>';?> 
                                 </div>
                         </div>
-                        <div class="pull-left sufrati-review-info">
+                        <div class="pull-left Azooma-review-info">
                             <div class="review-author-date">
                                 <div class="overflow">
                                     <span class="pull-left">
@@ -166,9 +166,9 @@
                         </div>
                     </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>
@@ -176,7 +176,7 @@
         </div>
     </div>
     @include('inc.footer')
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};
     require(['_review'],function(){});
     </script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>

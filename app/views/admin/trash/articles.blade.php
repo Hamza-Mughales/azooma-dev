@@ -140,7 +140,7 @@
                                     }
                                     ?></td>
 
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <?php
                                     if ($list->articleType == '1') {
                                         ?>

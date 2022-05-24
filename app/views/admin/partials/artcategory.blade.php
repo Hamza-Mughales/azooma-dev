@@ -62,7 +62,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminarticlecomments/view/',$list->id)  }}" title="Edit Content"><i data-feather="eye"></i> View Comments </a>
                                 </td>
                             </tr>

@@ -289,7 +289,7 @@ echo HTML::script('js/admin/invoice.js');
     .short-width {
         width: 315px;
     }
-    .sufrati-backend-input-seperator div{
+    .Azooma-backend-input-seperator div{
         float: left;
     }
     .margin-bottom{

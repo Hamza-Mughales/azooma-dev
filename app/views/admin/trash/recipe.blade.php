@@ -123,7 +123,7 @@
                                     ?>
                                 </td>
 
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminrecipe/form/',$list->id); }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->status == 0) {

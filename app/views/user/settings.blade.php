@@ -93,7 +93,7 @@
                                                 <option value=""><?php echo Lang::get('messages.city');?></option> 
                                                 <?php 
                                                 $usercity=0;
-                                                $country=$user->sufrati;
+                                                $country=$user->Azooma;
                                                 if($country==0){
                                                     $country=1;
                                                 }

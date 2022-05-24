@@ -1,5 +1,5 @@
-<div class="sufrati-popup-box" id="menu-item-pop-box">
-    <h3 class="popup-heading sufrati-head">
+<div class="Azooma-popup-box" id="menu-item-pop-box">
+    <h3 class="popup-heading Azooma-head">
        <?php echo ($lang=="en")?stripcslashes($item->menu_item):stripcslashes($item->menu_item_ar);?>
     </h3>
     <div class="popup-content">

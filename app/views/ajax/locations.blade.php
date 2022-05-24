@@ -1,4 +1,4 @@
-<div class="sufrati-popup-box locations-box">
+<div class="Azooma-popup-box locations-box">
 	
 	<div class="popup-content photo-popup relative">
 		<div class="spacing-container"></div>

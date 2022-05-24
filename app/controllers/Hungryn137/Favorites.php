@@ -54,8 +54,8 @@ class Favorites extends AdminController {
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Restaurant Name', 'Restaurant Name Arabic', 'Total Views', 'Action'),
-            'pagetitle' => 'All Sufrati Favourites Reaturants',
-            'title' => 'Sufrati Favourites Reaturants',
+            'pagetitle' => 'All Azooma Favourites Reaturants',
+            'title' => 'Azooma Favourites Reaturants',
             'action' => 'adminfavorites',
             'country' => $country,
             'side_menu' => array('Categories / Lists','Favorites'),
@@ -132,8 +132,8 @@ class Favorites extends AdminController {
         } else {
             $data = array(
                 'sitename' => $settings['name'],
-                'pagetitle' => 'Edit Sufrati Favorites',
-                'title' => 'Edit Sufrati Favorites',
+                'pagetitle' => 'Edit Azooma Favorites',
+                'title' => 'Edit Azooma Favorites',
                 'side_menu' => array('Categories / Lists','Favorites'),
             );
         }
@@ -144,7 +144,7 @@ class Favorites extends AdminController {
             $data['rest'] = $this->MRestActions->getRest($id);
             $data['pagetitle'] = strip_slashes(htmlspecialchars($data['rest']['rest_Name']));
         } else {
-            $data['pagetitle'] = 'Edit Sufrati favourite';
+            $data['pagetitle'] = 'Edit Azooma favourite';
         }
         $data['main'] = 'favoriteform';
         $data['js'] = 'validate';

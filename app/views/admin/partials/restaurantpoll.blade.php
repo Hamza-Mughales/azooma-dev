@@ -71,7 +71,7 @@
                                     if ($value->rest_ID != 0) {
                                         //echo stripslashes(($value['restaurant']));
                                     } else {
-                                        echo 'Sufrati Team';
+                                        echo 'Azooma Team';
                                     }
                                     ?>
                                 </td>
@@ -105,7 +105,7 @@
                                     }
                                     ?>
                                 </td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info m-1" href="<?php echo route('adminrestaurants/polloptions/', $value->id) . '?rest_ID=' . $rest->rest_ID; ?>" rel="tooltip" title="View Options">
                                         <i data-feather="eye"></i>
                                     </a>

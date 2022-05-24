@@ -5,7 +5,7 @@
 		
 		<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalLabel"><?php echo Lang::get('messages.connect_with_azooma');?></h5>
-			<button type="button"  class="btn-close sufrati-close-popup" data-bs-dismiss="modal" aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
+			<button type="button"  class="btn-close Azooma-close-popup" data-bs-dismiss="modal" aria-label="Close"><ion-icon name="close-outline"></ion-icon></button>
 			</div>
 		<div class="modal-body login-model">
 			<div class="login-block show">

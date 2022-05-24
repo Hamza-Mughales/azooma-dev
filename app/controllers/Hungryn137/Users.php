@@ -36,8 +36,8 @@ class Users extends AdminController {
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Email', 'Country', 'Nationality', 'Joined Date','No of Activities','Action'),
-            'pagetitle' => 'List of All Sufrati Users',
-            'title' => 'All Sufrati Users',
+            'pagetitle' => 'List of All Azooma Users',
+            'title' => 'All Azooma Users',
             'action' => 'adminusers',
             'lists' => $lists
         );

@@ -8,7 +8,7 @@ if(count($restaurants)>0){
         }
 		?>
 		<div class="gold-box result-box overflow">
-    		<div class="sufrati-result-sub-col-1 overflow ">
+    		<div class="Azooma-result-sub-col-1 overflow ">
     			<div class="pull-left result-col-desc">
     				<div>
 	    				<a class="result-rest-name" href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->url.'#n');?>" title="<?php echo $restname.' '.Lang::get('messages.inplace',array('name'=>$cityname));?>">
@@ -30,7 +30,7 @@ if(count($restaurants)>0){
     			</div>
     			<div class="pull-left result-col-logo">
 	    			<a class="rest-logo" href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->url.'#n');?>" title="<?php echo $restname.' '.Lang::get('messages.inplace',array('name'=>$cityname));?>">
-	    				<img class="sufrati-super-lazy" src="http://uploads.azooma.co/stat/blank.gif" data-original="<?php echo Azooma::CDN('logos/70/'.$restlogo);?>" />
+	    				<img class="Azooma-super-lazy" src="http://uploads.azooma.co/stat/blank.gif" data-original="<?php echo Azooma::CDN('logos/70/'.$restlogo);?>" />
 	    			</a>
 	    			<?php 
 	    			if(Session::has('userid')){
@@ -58,7 +58,7 @@ if(count($restaurants)>0){
 	    			} ?>
 	    		</div>
     		</div>
-    		<div class="sufrati-result-sub-col-2 rateit-list">
+    		<div class="Azooma-result-sub-col-2 rateit-list">
     			<form class="form-horizontal" role="form" id="add-rating-block">
                     <div class="form-group row">
                         <label for="foodMini" class="col-sm-3 control-label"><?php echo Lang::get('messages.food');?></label>

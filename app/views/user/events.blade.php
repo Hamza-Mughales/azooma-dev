@@ -3,7 +3,7 @@
 if(Session::has('userid')&&Session::get('userid')==$user->user_ID){
 	$events=User::getUserEvents($user->user_ID);
 ?>
-	<div class="sufrati-white-box inner-padding put-border">
+	<div class="Azooma-white-box inner-padding put-border">
 		<?php
 		if(count($events)>0){
 			?>

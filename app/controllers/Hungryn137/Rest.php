@@ -117,18 +117,18 @@ class Rest extends AdminController {
                 if ($rest->rest_Status == 1) {
                     if ($rest->sufrati_favourite == 0) {
                                                       
-                           $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminfavorites/favourite/', $rest->rest_ID).'" rel="tooltip" title="Add to Sufrati Favourites">
+                           $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminfavorites/favourite/', $rest->rest_ID).'" rel="tooltip" title="Add to Azooma Favourites">
                             <i class="fa fa-star"></i>
                         </a>';
                      } else { 
-                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminfavorites/remove/', $rest->rest_ID) . '?rest=1'.'" rel="tooltip" title="Remove from Sufrati Favourites">
+                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminfavorites/remove/', $rest->rest_ID) . '?rest=1'.'" rel="tooltip" title="Remove from Azooma Favourites">
                             <i class="fa fa-heart"></i>
                         </a>';
                     
                     }
                     if (!isset($rest->membershipstatus) OR $rest->membershipstatus == "") {
                         
-                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/newmember/',$rest->rest_ID).'" title="Make Sufrati Member">
+                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/newmember/',$rest->rest_ID).'" title="Make Azooma Member">
                             <i class="fa '.($rest->rest_Subscription == "" ? 'fa-arrow-up' : 'fa-info').'"></i>
                         </a>';
                        
@@ -675,7 +675,7 @@ class Rest extends AdminController {
             if (isset($_POST['emails'])) {
                 $userEmails = Input::get('emails');
             }
-            $sufratiUser = array("info@azooma.co", "passwords@azooma.co", "data@azooma.com", "admin@azooma.com", "kareem@primedigiko.com", 'ha@azooma.com');
+            $sufratiUser = array("info@azooma.co", "passwords@azooma.co", "data@Azooma.co", "admin@Azooma.co", "kareem@primedigiko.com", 'ha@Azooma.co');
             if (is_array($userEmails)) {
                 $data = array();
                 if (Session::get('admincountryName') != "") {
@@ -696,10 +696,10 @@ class Rest extends AdminController {
                 $data['duration'] = $duration;
                 $data['title'] = "Admin account";
                 $data['sitename'] = $settings['name'];
-                $subject = "Your admin account at Sufrati";
+                $subject = "Your admin account at Azooma";
                 try{
                 Mail::queue('emails.restaurant.memberaccountnew', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
-                    $message->to($userEmails[0], 'Sufrati')->subject($subject);
+                    $message->to($userEmails[0], 'Azooma')->subject($subject);
                     $counter = 0;
                     $ccemail = array();
                     if (count($userEmails) > 1) {
@@ -711,7 +711,7 @@ class Rest extends AdminController {
                             $counter++;
                             $ccemail[] = $emaillist;
                         }
-                        $message->cc($ccemail, 'Sufrati')->subject($subject);
+                        $message->cc($ccemail, 'Azooma')->subject($subject);
                     }
                 });
                 }
@@ -720,7 +720,7 @@ class Rest extends AdminController {
 
                 }
 
-                return returnMsg('success','adminrestaurants', "Congratulation! " . stripslashes($_POST['rest_Name']) . ' is now Sufrati Free Member, Email is sent to restaurant successfully');
+                return returnMsg('success','adminrestaurants', "Congratulation! " . stripslashes($_POST['rest_Name']) . ' is now Azooma Free Member, Email is sent to restaurant successfully');
             }
             return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
 

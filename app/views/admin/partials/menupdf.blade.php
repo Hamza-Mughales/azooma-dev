@@ -72,7 +72,7 @@
                                     }
                                     ?>
                                 </td>            
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminrestmenu/formpdf/',$list->id).'?rest='.$rest->rest_ID; }}" title="Edit Content">
                                         <i data-feather="edit"></i> 
                                     </a>

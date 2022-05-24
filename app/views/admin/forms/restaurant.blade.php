@@ -471,7 +471,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                     ?>
                             <div id="input-<?php echo $i; ?>" class="input-<?php echo $i; ?>">
                                 <input class="form-control" type="text" name="rest_Email[]" placeholder="Contact Email" <?php echo isset($rest_Emails) ? 'value="' . $rest_Emails[$i] . '"' : ""; ?> />
-                                <a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i; ?>">&times;</a>
+                                <a class="close Azooma-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i; ?>">&times;</a>
                             </div>
                         <?php
                         }
@@ -621,7 +621,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                         }
                         ?>
                         <div class="col-md-6">
-                            <select name="weekdays[]" class="form-control  sufrati-select " data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
+                            <select name="weekdays[]" class="form-control  Azooma-select " data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
                                 <option value="">
                                     Select Days
                                 </option>
@@ -708,7 +708,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <select name="weekends[]" class="form-control  sufrati-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
+                            <select name="weekends[]" class="form-control  Azooma-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
                                 <option value="">
                                     Select Days
                                 </option>
@@ -797,7 +797,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                         </div>
 
                         <div class="col-md-6">
-                            <select name="breakfast[]" class="form-control  sufrati-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
+                            <select name="breakfast[]" class="form-control  Azooma-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
                                 <option value="">
                                     Select Days
                                 </option>
@@ -883,7 +883,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <select name="brunch[]" class="form-control  sufrati-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
+                            <select name="brunch[]" class="form-control  Azooma-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
                                 <option value="">
                                     Select Days
                                 </option>
@@ -969,7 +969,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <select name="lunch[]" class="form-control  sufrati-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
+                            <select name="lunch[]" class="form-control  Azooma-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
                                 <option value="">
                                     Select Days
                                 </option>
@@ -1055,7 +1055,7 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <select name="dinner[]" class="form-control  sufrati-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
+                            <select name="dinner[]" class="form-control  Azooma-select" data-placeholder="Select Days" multiple style="width:350px;" tabindex="4">
                                 <option value="">
                                     Select Days
                                 </option>
@@ -1363,12 +1363,12 @@ include(app_path() . '/views/admin/common/restaurant.blade.php');
 
 
     function addmore() {
-        var element = '<div id="input-' + counter + '" class="input-' + counter + '" ><input type="text" name="rest_Email[]"  placeholder="Contact Email" class="form-control"  /><a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
+        var element = '<div id="input-' + counter + '" class="input-' + counter + '" ><input type="text" name="rest_Email[]"  placeholder="Contact Email" class="form-control"  /><a class="close Azooma-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
         $("#memberemails").append(element);
         counter++;
     }
 
-    $(document).on("click", ".sufrati-close", function(event) {
+    $(document).on("click", ".Azooma-close", function(event) {
         var dismiss = $(this).attr('data-dismiss');
         $(this).parent().remove();
     });

@@ -19,7 +19,7 @@
                         <li>
                             <span>
                                 <figure>
-                                    <img src="http://azooma.co/images/t/<?php echo $rand; ?>.jpg" alt="Sufrati.com" />
+                                    <img src="http://azooma.co/images/t/<?php echo $rand; ?>.jpg" alt="Azooma.co" />
                                 </figure>  
                             </span>
                         </li>

@@ -79,8 +79,8 @@ class Invoice extends AdminController
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Restaurant Name', 'Reference No', 'Membership', 'Joined On', "Status", 'Last Update', 'Expiry Date', 'Actions'),
-            'pagetitle' => 'List of All Sufrati Members',
-            'title' => 'All Sufrati Members',
+            'pagetitle' => 'List of All Azooma Members',
+            'title' => 'All Azooma Members',
             'action' => 'admininvoice',
             'MRestActions' => $this->MRestActions,
             'lists' => $lists,
@@ -495,10 +495,10 @@ class Invoice extends AdminController
                     try {
                         Mail::queue('emails.restaurant.invoice', $t, function ($message) use ($subject) {
                             $subject = $subject . ' - DRAFT';
-                            $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                            //$message->to("info@azooma.co", 'Sufrati')->subject($subject);
-                            //$message->cc("accounts@sufrati", 'Sufrati')->subject($subject);
-                            //$message->bcc("ha@azooma.co", 'Sufrati')->subject($subject);
+                            $message->to("ha@azooma.co", 'Azooma')->subject($subject);
+                            //$message->to("info@azooma.co", 'Azooma')->subject($subject);
+                            //$message->cc("accounts@sufrati", 'Azooma')->subject($subject);
+                            //$message->bcc("ha@azooma.co", 'Azooma')->subject($subject);
                         });
                     } catch (Exception $e) {
                         return returnMsg('error', 'admininvoice', $e->getMessage());
@@ -514,8 +514,8 @@ class Invoice extends AdminController
                     if (is_array($userEmails)) {
                         try {
                             Mail::queue('emails.restaurant.invoice', $t, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                                $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                                //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                                $message->to("ha@azooma.co", 'Azooma')->subject($subject);
+                                //$message->to($userEmails[0], 'Azooma')->subject($subject);
                                 $counter = 0;
                                 $ccemail = array();
                                 if (count($userEmails) > 1) {
@@ -527,9 +527,9 @@ class Invoice extends AdminController
                                         $counter++;
                                         $ccemail[] = $emaillist;
                                     }
-                                    //$message->cc($ccemail, 'Sufrati')->subject($subject);
+                                    //$message->cc($ccemail, 'Azooma')->subject($subject);
                                 }
-                                //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                                //$message->bcc($sufratiUser, 'Azooma')->subject($subject);
                             });
                         } catch (Exception $e) {
                             return returnMsg('error', 'admininvoice', $e->getMessage());
@@ -691,8 +691,8 @@ class Invoice extends AdminController
 
             try {
                 Mail::queue('emails.restaurant.' . $filename, $t, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                    $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                    //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                    $message->to("ha@azooma.co", 'Azooma')->subject($subject);
+                    //$message->to($userEmails[0], 'Azooma')->subject($subject);
                     $counter = 0;
                     $ccemail = array();
                     if (count($userEmails) > 1) {
@@ -704,9 +704,9 @@ class Invoice extends AdminController
                             $counter++;
                             $ccemail[] = $emaillist;
                         }
-                        //$message->cc($ccemail, 'Sufrati')->subject($subject);
+                        //$message->cc($ccemail, 'Azooma')->subject($subject);
                     }
-                    //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                    //$message->bcc($sufratiUser, 'Azooma')->subject($subject);
                 });
             } catch (Exception $e) {
                 return returnMsg('error', 'admininvoice', $e->getMessage());

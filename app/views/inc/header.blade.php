@@ -348,7 +348,7 @@ $checklanding=TRUE;
               </li>
               <?php
                   // Get All Cuisines
-                  $mastercuisines=DB::connection('new-sufrati')->select('SELECT DISTINCT mc.id,mc.name,mc.name_ar FROM master_cuisine mc JOIN cuisine_list cl ON cl.master_id=mc.id JOIN rest_branches rb ON rb.city_ID='.$cityid.' AND rb.status=1 JOIN restaurant_cuisine rc  ON rc.cuisine_ID =cl.cuisine_ID AND rc.rest_ID=rb.rest_fk_id WHERE mc.status=1 AND cl.cuisine_Status=1 ORDER BY name ASC');
+                  $mastercuisines=DB::connection('new-Azooma')->select('SELECT DISTINCT mc.id,mc.name,mc.name_ar FROM master_cuisine mc JOIN cuisine_list cl ON cl.master_id=mc.id JOIN rest_branches rb ON rb.city_ID='.$cityid.' AND rb.status=1 JOIN restaurant_cuisine rc  ON rc.cuisine_ID =cl.cuisine_ID AND rc.rest_ID=rb.rest_fk_id WHERE mc.status=1 AND cl.cuisine_Status=1 ORDER BY name ASC');
                   foreach ($mastercuisines as $mc) {
                   $mastercuisine=(Config::get('app.locale')=="en")?stripcslashes($mc->name):stripcslashes($mc->name_ar);
                 ?>
@@ -358,7 +358,7 @@ $checklanding=TRUE;
                     class="icon"><?php echo $mastercuisine;?> </span> <i style="color:#717171"
                     class="fas fa-angle-<?php if($lang=="en"){ echo "right"; }else{ echo "left"; } ?>"></i> </a>
                 <?php
-                    $cuisines=DB::connection('new-sufrati')->select('SELECT DISTINCT cu.seo_url,cu.cuisine_Name,cu.cuisine_Name_ar,COUNT(DISTINCT ri.rest_ID) as total FROM cuisine_list cu JOIN rest_branches rb ON rb.city_ID='.$cityid.' AND rb.status=1 JOIN restaurant_info ri ON ri.rest_ID=rb.rest_fk_id AND ri.rest_Status=1 JOIN restaurant_cuisine rc ON rc.cuisine_ID=cu.cuisine_ID AND rc.rest_ID=rb.rest_fk_id WHERE cu.cuisine_Status=1 AND cu.master_id='.$mc->id.' GROUP BY cu.cuisine_ID ORDER BY cu.cuisine_Name ASC');
+                    $cuisines=DB::connection('new-Azooma')->select('SELECT DISTINCT cu.seo_url,cu.cuisine_Name,cu.cuisine_Name_ar,COUNT(DISTINCT ri.rest_ID) as total FROM cuisine_list cu JOIN rest_branches rb ON rb.city_ID='.$cityid.' AND rb.status=1 JOIN restaurant_info ri ON ri.rest_ID=rb.rest_fk_id AND ri.rest_Status=1 JOIN restaurant_cuisine rc ON rc.cuisine_ID=cu.cuisine_ID AND rc.rest_ID=rb.rest_fk_id WHERE cu.cuisine_Status=1 AND cu.master_id='.$mc->id.' GROUP BY cu.cuisine_ID ORDER BY cu.cuisine_Name ASC');
                     if(count($cuisines)>0){
                       ?>
                 <ul class="dropdown-menu level">

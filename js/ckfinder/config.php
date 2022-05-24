@@ -81,7 +81,7 @@ ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
 
-$baseDir = '/home/diner/public_html/localhost/Sufrati/saudi-new-backend/js/admin/ckfinder/userfiles/';
+$baseDir = '/home/diner/public_html/localhost/Azooma/saudi-new-backend/js/admin/ckfinder/userfiles/';
 
 
 //$baseDir = '/js/ckfinder/userfiles/';

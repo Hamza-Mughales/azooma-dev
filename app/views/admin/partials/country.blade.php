@@ -49,7 +49,7 @@
                                 <td><?php echo stripslashes($list->name); ?></td>
                                 <td><?php echo stripslashes($list->nameAr); ?></td>
                                 <td><?php echo date('d/m/Y', strtotime($list->createdAt)); ?></td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincountry/form/',$list->id) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     /*if ($list->status == 0) {

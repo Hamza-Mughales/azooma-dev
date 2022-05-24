@@ -134,7 +134,7 @@
                                 }
 
                                 if (isset($actions)) {
-                                    echo '<td class="sufrati-action">';
+                                    echo '<td class="Azooma-action">';
                                     foreach ($actions as $key => $value) {
                                         $addURL = "";
                                         if (isset($articlesflag) && $articlesflag) {

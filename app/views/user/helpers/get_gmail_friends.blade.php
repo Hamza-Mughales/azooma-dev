@@ -1,7 +1,7 @@
 <div class="spacing-container"></div>
 <ul class="nav nav-tabs" role="tablist">
     <li class="active">
-        <a href="#google-sufrati-tab" data-bs-toggle="tab">
+        <a href="#google-Azooma-tab" data-bs-toggle="tab">
             <b><?php echo Lang::get('messages.google_friends_sufrati').' ('.count($sufratiusers).')';?></b>
         </a>
     </li>
@@ -12,7 +12,7 @@
     </li>
 </ul>
 <div class="tab-content">
-    <div class="tab-pane active" id="google-sufrati-tab">
+    <div class="tab-pane active" id="google-Azooma-tab">
         <div class="spacing-container"></div>
         <?php 
         $friends=array(

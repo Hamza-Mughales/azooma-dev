@@ -38,7 +38,7 @@ class Gallery extends AdminController
                 case "All":
                     $user = "";
                     break;
-                case "Sufrati":
+                case "Azooma":
                     $user = 0;
                     $menu = 'Uploads';
                     break;
@@ -81,14 +81,14 @@ class Gallery extends AdminController
         }
         $type = get('type');
         switch ($type) {
-            case "Sufrati":
+            case "Azooma":
                 $query->whereNull('image_gallery.user_ID');
                 break;
             case "Users":
                 $query->where('image_gallery.user_ID', '>', 0);
                 break;
         }
-        if ($type == "Sufrati") {
+        if ($type == "Azooma") {
             $query->whereNull('image_gallery.user_ID');
         }
         return  DataTables::of($query)
@@ -114,14 +114,14 @@ class Gallery extends AdminController
             ->addColumn('user_name', function ($gallery) {
                 $html = '';
                 $type = get('type');
-                if ($type == "Sufrati") {
-                    $html = 'Sufrati';
+                if ($type == "Azooma") {
+                    $html = 'Azooma';
                 } else {
                     if ($gallery->user_ID != "") {
                         $html = $gallery->user_FullName . '<br>';
                         $html .= '<a href="mailto:' . $gallery->user_Email . '">' . $gallery->user_Email . '</a>';
                     } else {
-                        $html = 'Sufrati';
+                        $html = 'Azooma';
                     }
                 }
                 return $html;

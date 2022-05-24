@@ -1,6 +1,6 @@
-<div class="sufrati-popup-box" id="event-plan-box">
+<div class="Azooma-popup-box" id="event-plan-box">
     <?php if(!isset($noajax)){ ?>
-    <h3 class="popup-heading sufrati-head">
+    <h3 class="popup-heading Azooma-head">
        <?php echo Lang::get('messages.plan_event');?>
     </h3>
     <div class="popup-content">

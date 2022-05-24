@@ -224,10 +224,10 @@ text.highcharts-credits {
 .btn.btn-info.btn-sm.pull-right{
     margin-bottom: 10px;
 }
-.sufrati-backend-input-seperator input, .sufrati-backend-input-seperator select {
+.Azooma-backend-input-seperator input, .Azooma-backend-input-seperator select {
     width: 300px !important; 
 }
-.sufrati-backend-input-seperator input[type=checkbox]{
+.Azooma-backend-input-seperator input[type=checkbox]{
     width: 77px !important; 
 }
 legend{
@@ -235,12 +235,12 @@ legend{
     margin-bottom: 1rem;
 }
 
-.sufrati-action a{
+.Azooma-action a{
     padding: 0.1rem 0.1rem;
     font-size: 5px;
     margin-right: 2px;
 }
-.sufrati-action .mytooltip {
+.Azooma-action .mytooltip {
     font-size: 10px;
 }
 .breadcrumb li:not(:last-child):after{

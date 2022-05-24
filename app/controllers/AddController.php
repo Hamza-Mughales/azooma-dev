@@ -92,7 +92,7 @@ class AddController extends BaseController {
 					DB::table('rest_menu_pdf')->insert($menut);
 				}
 			}
-			//Mail Sufrati
+			//Mail Azooma
 			$logo=DB::table('art_work')->select('image','image_ar')->where('active',1)->where('art_work_name','Azooma Logo')->first();
 			$logoimage=($lang=="en")?$logo->image:$logo->image_ar;
 			$country=MGeneral::getCountry($city->country);
@@ -112,7 +112,7 @@ class AddController extends BaseController {
 			$teamemails=explode(",",$country->teamemail);
 			Mail::queue('emails.internal.newrestaurant',$tdata,function($message) use ($subject,$teamemails) {
 				foreach ($teamemails as $email) {
-					$message->to(trim($email),'Sufrati');
+					$message->to(trim($email),'Azooma');
 				}
 				$message->subject($subject);
 			});
@@ -223,7 +223,7 @@ class AddController extends BaseController {
 		$username=$user->user_FullName;
 		$data=array(
 			'logoimage'=>$logoimage,
-			'title'=>'Sufrati',
+			'title'=>'Azooma',
 			'country'=>$country,
 			'username'=>$username,
 			'heading'=>'Forgot your Password? Reset Password',
@@ -236,7 +236,7 @@ class AddController extends BaseController {
 		);
 		$subject="Forgot your password?";
 		Mail::send('emails.general',$data,function($message) use ($subject) {
-			$message->from('info@azooma.co', 'Sufrati');
+			$message->from('info@azooma.co', 'Azooma');
 			$message->to('fasi.manu@gmail.com','Mohamed Fasil');
 			$message->subject($subject);
 		});

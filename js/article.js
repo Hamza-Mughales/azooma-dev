@@ -11,7 +11,7 @@ $(document).ready(function(){
 				return true;
 			}
 		}else{
-			sufratiloginpopup("sufrati-login-form");
+			sufratiloginpopup("Azooma-login-form");
 			return false;
 		}
 	});
@@ -37,7 +37,7 @@ $(document).ready(function(){
 				dataType:'json'
 			})
 		}else{
-			sufratiloginpopup("sufrati-login-form");return false;
+			sufratiloginpopup("Azooma-login-form");return false;
 		}
 	});
 	if($(".article-slide").length>0){

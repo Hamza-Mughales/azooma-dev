@@ -19,7 +19,7 @@
             <li>
                 <div class="image-block">
                     <a class="image put-border ajax-link" href="<?php echo Azooma::URL('video/'.$video->id.'?autoplay=1');?>" title="<?php echo ($lang=='en')?stripcslashes($video->name_en):stripcslashes($video->name_ar); ?>" >
-                        <img class="sufrati-super-lazy" src="http://img.youtube.com/vi/<?php echo $youtube;?>/mqdefault.jpg" alt="<?php echo ($lang=='en')?stripcslashes($video->name_en):stripcslashes($video->name_ar); ?>">
+                        <img class="Azooma-super-lazy" src="http://img.youtube.com/vi/<?php echo $youtube;?>/mqdefault.jpg" alt="<?php echo ($lang=='en')?stripcslashes($video->name_en):stripcslashes($video->name_ar); ?>">
                     </a>
                     <div class="image-info" data-bs-toggle="modal" data-bs-target="#img<?php echo $photo->image_ID;?>">
                         <h3 class="title"> <?php echo ($lang=='en')?stripcslashes($video->name_en):stripcslashes($video->name_ar); ?>></h3>

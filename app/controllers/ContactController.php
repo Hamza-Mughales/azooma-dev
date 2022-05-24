@@ -50,9 +50,9 @@ class ContactController extends BaseController {
 			$subject='Contact us request from '.Input::get('contactname').' - '.Input::get('enquiry_type');
 			Mail::queue('emails.internal.contactus',$data,function($message) use ($subject,$teamemails) {
 				foreach ($teamemails as $email) {
-					//$message->to(trim($email),'Sufrati');
+					//$message->to(trim($email),'Azooma');
 				}
-				$message->to('fasi.manu@gmail.com','Sufrati');
+				$message->to('fasi.manu@gmail.com','Azooma');
 				$message->subject($subject);
 			});
 			Session::flash('success',Lang::get('messages.contact_thanks'));

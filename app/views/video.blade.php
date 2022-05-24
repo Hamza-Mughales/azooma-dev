@@ -27,7 +27,7 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
-    <div class="sufrati-white-box" id="n">
+    <div class="Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo $videoname;?>
@@ -75,10 +75,10 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 full-page no-border">
-                        <div class="sufrati-white-box put-border" id="youtube-player">
+                    <div class="Azooma-main-col-1 full-page no-border">
+                        <div class="Azooma-white-box put-border" id="youtube-player">
                             <?php
                             if(count($video)>0){
                                 if($lang=="en"||($lang=="ar"&&$video[0]->youtube_ar=="")){
@@ -120,7 +120,7 @@
                         if(count($videos)>0){
                             $i=0;
                             ?>
-                            <ul id="sufrati-other-videos-list" class="sufrati-gallery-list sufrati-video-gallery">
+                            <ul id="Azooma-other-videos-list" class="Azooma-gallery-list Azooma-video-gallery">
                             <?php
                             foreach ($videos as $video) {
                                 $i++;
@@ -141,7 +141,7 @@
                                     <a class="image rest-logo gallery-image" href="<?php echo Azooma::URL('video/'.$video->id.'?autoplay=1');?>" >
                                         <img src="http://img.youtube.com/vi/<?php echo $youtube;?>/mqdefault.jpg" alt="<?php echo$videoname; ?>">
                                     </a>
-                                    <div class="inner-padding sufrati-white-box overflow put-border">
+                                    <div class="inner-padding Azooma-white-box overflow put-border">
                                         <div class="video-title">
                                             <a href="<?php echo Azooma::URL('video/'.$video->id.'?autoplay=1');?>" title="<?php echo $videoname; ?>">
                                                 <?php echo (strlen($videoname)>40)?mb_substr($videoname, 0,40,'UTF-8').'..':$videoname; ?>
@@ -163,7 +163,7 @@
                         ?>
                     </div>
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>
@@ -171,7 +171,7 @@
         </div>
     </div>
     @include('inc.footer')
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};</script>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};</script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>
 </body>
 </html>

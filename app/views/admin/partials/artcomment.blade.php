@@ -112,7 +112,7 @@
                                     echo date('d/m/Y', strtotime($list->createdAt));
                                     ?>
                                 </td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <?php
                                     if ($list->status == 0) {
                                         ?>

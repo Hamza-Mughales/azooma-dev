@@ -84,7 +84,7 @@
                                     
                                     ?>
                                 </td>            
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminrestgallery/form/',$image->image_ID).'?rest_ID='.$rest->rest_ID; }}" title="Edit Content">
                                         <i data-feather="edit"></i> 
                                     </a>

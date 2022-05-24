@@ -16,8 +16,8 @@
 		?>
 			<li>
 				<a <?php if(count($checkuserliked)>0){ ?>data-selected="1"<?php } ?> data-cuisine="<?php echo $cuisine->cuisine_ID;?>" href="javascript:void(0);" title="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
-					{{-- <img src="http://uploads.azooma.co/logos/Sufrati60383b3d15696Mask Group 8.png" /> --}}
-						<img class="sufrati-super-lazy" src="<?php echo Config::get('settings.uploadurl') .'images/cuisine/'.$cuisineimage;?>" alt="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
+					{{-- <img src="http://uploads.azooma.co/logos/Azooma60383b3d15696Mask Group 8.png" /> --}}
+						<img class="Azooma-super-lazy" src="<?php echo Config::get('settings.uploadurl') .'images/cuisine/'.$cuisineimage;?>" alt="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
 			      <span class="title"><?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?></span>
 			      <span class="selected"><i class="far fa-heart"></i></span>
 			    </a>

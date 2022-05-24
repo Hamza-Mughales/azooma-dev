@@ -846,7 +846,7 @@
               title="<?php echo $cuisinename;?>" class="cuisines-box">
               <div class="box-img">
                 {{-- <img src="<?php echo Azooma::CDN('logos/'.$restlogo);?>" /> --}}
-                <img class="sufrati-super-lazy" src="<?php echo Config::get('settings.uploadurl') .'images/cuisine/'.$cuisineimage;?>" alt="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
+                <img class="Azooma-super-lazy" src="<?php echo Config::get('settings.uploadurl') .'images/cuisine/'.$cuisineimage;?>" alt="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
                
               </div>
               <div class="box-info">

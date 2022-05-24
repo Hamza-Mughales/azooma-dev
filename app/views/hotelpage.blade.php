@@ -10,7 +10,7 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
-    <div class=" sufrati-white-box" id="n">
+    <div class=" Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo ($lang=="en")?stripcslashes($hotel->hotel_name):stripcslashes($hotel->hotel_name_ar);?>
@@ -61,9 +61,9 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 sufrati-white-box">
+                    <div class="Azooma-main-col-1 Azooma-white-box">
                         <h2 class="rest-page-second-heading">
                             <?php echo ($lang=="en")?stripcslashes($hotel->hotel_name):stripcslashes($hotel->hotel_name_ar);?>
                         </h2>
@@ -72,7 +72,7 @@
                             <?php $i=0; foreach ($restaurants as $rest) {  $i++;
                                 $restname=($lang=="en")?stripcslashes($rest->rest_Name):stripcslashes($rest->rest_Name_Ar);
                             ?>
-                            <div class="overflow <?php if($i==count($restaurants)){ echo 'last-child'; } ?> sufrati-mini-list"> 
+                            <div class="overflow <?php if($i==count($restaurants)){ echo 'last-child'; } ?> Azooma-mini-list"> 
                                 <div class="pull-left">
                                     <div>
                                         <strong>
@@ -93,9 +93,9 @@
                             <?php } ?>
                         </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>

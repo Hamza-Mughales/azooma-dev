@@ -460,7 +460,7 @@ class RestMenu extends AdminController {
                 $data['title'] = "Menu Notification for " . stripslashes($rest_data['rest_Name']);
                 $data['sitename'] = $settings['name'];
 
-                $this->email->from($this->config->item("mainemail"), "Sufrati.com");
+                $this->email->from($this->config->item("mainemail"), "Azooma.co");
 
                 foreach ($menuRequest as $request) {
                     $data['user'] = $request;

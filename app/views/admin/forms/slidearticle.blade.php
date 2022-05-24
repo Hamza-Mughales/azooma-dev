@@ -192,7 +192,7 @@
                         ?>
                         <legend>
                             Slide <?php echo ($i + 1); ?>
-                            <a onclick="return confirm('Do You Want to Delete?')" class="close sufrati-close-slide" href="javascript:void(0);" data-dismiss-id="<?php echo $slide['id']; ?>" data-dismiss="slide-<?php echo $i; ?>">×</a>
+                            <a onclick="return confirm('Do You Want to Delete?')" class="close Azooma-close-slide" href="javascript:void(0);" data-dismiss-id="<?php echo $slide['id']; ?>" data-dismiss="slide-<?php echo $i; ?>">×</a>
                         </legend>
                         <div id="slide-<?php echo $i; ?>">
                             <div class="form-group row">
@@ -448,7 +448,7 @@ echo HTML::script('js/ckfinder/ckfinder.js');
 
 
     $(document).ready(function() {
-        $(document).on("click", ".sufrati-close-slide", function(event) {
+        $(document).on("click", ".Azooma-close-slide", function(event) {
             var dismiss = $(this).attr('data-dismiss');
             var dismissid = $(this).attr('data-dismiss-id');
             console.log('#' + dismiss);

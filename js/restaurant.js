@@ -126,7 +126,7 @@ $("#load-more-reviews").click(function(e){
 				$("#load-more-reviews").remove();
 			}else{
 				$("#load-more-reviews").attr('data-loaded',data['loaded']);
-				$("#user-reviews-container .sufrati-user-review.last").removeClass('last');
+				$("#user-reviews-container .Azooma-user-review.last").removeClass('last');
 				$("#user-reviews-container").append(data['html']);
 			}
 		}
@@ -135,7 +135,7 @@ $("#load-more-reviews").click(function(e){
 
 $("#load-more-sfphotos").click(function(e){
 	e.preventDefault();
-	$("#sufrati-profile-gallery li").removeClass('hidden');
+	$("#Azooma-profile-gallery li").removeClass('hidden');
 	$("#load-more-sfphotos").remove();
 });
 $("#load-more-uphotos").click(function(e){
@@ -178,7 +178,7 @@ $(document).on('submit','#rest-review-form',function(e){
 	          tdata[t[0]]=t[1];
 	        }
 	    });
-		sufratiloginpopup("sufrati-login-form",tdata);
+		sufratiloginpopup("Azooma-login-form",tdata);
 		return false;
 	}
 });
@@ -192,7 +192,7 @@ $("#add-photo-btn").click(function(e){
         // });	
 		$('#photo-upload-form').modal('toggle');
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });
 
@@ -205,7 +205,7 @@ $("#add-to-list-btn").click(function(e){
         });
 
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });
 
@@ -222,7 +222,7 @@ $("#add-rating-btn").click(function(e){
         });
 
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });
 
@@ -320,7 +320,7 @@ $(document).on('click','#submit-rating-btn',function(e){
 			}
 		})
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });
 function downloadMenu(menu){
@@ -405,7 +405,7 @@ $(document).on('click','.menu-recommend-btn',function(e){
 			}
 		});
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });
 
@@ -432,7 +432,7 @@ $(document).on('click','.review-recommend-btn',function(e){
 			}
 		});
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });
 $(document).on('click','.show-comment-btn',function(e){
@@ -451,7 +451,7 @@ $(document).on('click','#branch-correct-btn',function(e){
 	$("#branch-correction-form").removeClass('hidden');
 	$("#branch-contents").addClass('hidden');
 	$("#branch-box").css('width','500px');
-	$("#sufrati-modal-container").center();
+	$("#Azooma-modal-container").center();
 	var zoom=14;
 	var title=$("#branch-correction-form").attr('data-title');
 	require(['async!http://maps.google.com/maps/api/js?key=AIzaSyDlBwn7IHKMc9fTsdoACBRidhjfGESyYO0&sensor=true!callback'],function(){
@@ -562,7 +562,7 @@ $(document).on('click','#branch-edit-cancel',function(e){
 	$("#branch-correction-form").addClass('hidden');
 	$("#branch-contents").removeClass('hidden');
 	$("#branch-box").attr('style','');
-	$("#sufrati-modal-container").center();
+	$("#Azooma-modal-container").center();
 });
 function getRelatedLists(rest){
 	if(loggedinuser){

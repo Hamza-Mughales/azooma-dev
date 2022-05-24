@@ -10,7 +10,7 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
-    <div class=" sufrati-white-box" id="n">
+    <div class=" Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo $articletitle;?>
@@ -85,10 +85,10 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 no-padding no-border">
-                        <div class="sufrati-white-box inner-padding put-border">
+                    <div class="Azooma-main-col-1 no-padding no-border">
+                        <div class="Azooma-white-box inner-padding put-border">
                         <div id="social-share-list">
                             <div class="addthis_toolbox addthis_default_style">
                             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -152,7 +152,7 @@
                     </div>
                     <?php if(count($comments)>0){
                     ?>
-                    <div class="sufrati-white-box put-border">
+                    <div class="Azooma-white-box put-border">
                         <h4 class="third-heading with-margin">
                             <?php echo Lang::get('messages.comments');?>
                         </h4>
@@ -181,8 +181,8 @@
                                     $userimage="user-default.svg";
                                 }
                                 ?>
-                                <div class="overflow sufrati-user-review <?php if($t==count($comments)){ echo 'last'; } ?>">
-                                    <div class="pull-left sufrati-user-info">
+                                <div class="overflow Azooma-user-review <?php if($t==count($comments)){ echo 'last'; } ?>">
+                                    <div class="pull-left Azooma-user-info">
                                         <?php if(count($user)>0){
                                             ?>
                                             <a class="rest-logo" href="<?php echo Azooma::URL('user/'.$comment->userID);?>" alt="<?php echo $username;?>">
@@ -199,7 +199,7 @@
                                             </span>
                                             <?php } ?>
                                     </div>
-                                    <div class="pull-left sufrati-review-info">
+                                    <div class="pull-left Azooma-review-info">
                                         <div class="review-author-date">
                                             <div class="overflow ">
                                                 <?php if(count($user)>0){
@@ -242,7 +242,7 @@
                     ?>
                     <div class="spacing-container">
                         </div>
-                        <div class="sufrati-white-box put-border">
+                        <div class="Azooma-white-box put-border">
                             <div class="overflow">
                                 <h4 class="third-heading with-margin">
                                     <?php echo Lang::get('messages.add_your_comment');?>
@@ -275,9 +275,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         <div class="right-col-block">
                             <div class="right-col-head">
                                 <?php  echo Lang::get('messages.archive');?>
@@ -307,7 +307,7 @@
         </div>
     </div>
     @include('inc.footer')
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};</script>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};</script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>
     <script type="text/javascript" >
     require(['article'],function(){});

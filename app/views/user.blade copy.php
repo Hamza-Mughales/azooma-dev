@@ -15,7 +15,7 @@
             </div>
             <div class="container">
                 <div class="overflow">
-                    <div id="user-photo-container" class="rest-logo pull-left sufrati-white-box">
+                    <div id="user-photo-container" class="rest-logo pull-left Azooma-white-box">
                         <?php $userimage=($user->image=="")?'user-default.svg':$user->image; ?>
                         <img src="<?php echo Azooma::CDN('images/userx130/'.$userimage);?>" alt="<?php echo $username;?>" width="130" height="130"/>
                         <?php
@@ -109,7 +109,7 @@
             <div class="spacing-container">
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <ul class="nav navbar-nav" id="user-profile-tabs">
                     <?php if(Session::has('userid')&&(Session::get('userid')==$user->user_ID)){ ?>
@@ -184,9 +184,9 @@
         </div>
         <div class="spacing-container"></div>
         <div class="container">
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 no-padding no-border">
+                    <div class="Azooma-main-col-1 no-padding no-border">
                         <div class="tab-content">
                         <?php
                             if(Session::has('userid')&&(Session::get('userid')==$user->user_ID)){
@@ -318,9 +318,9 @@
                             @include('user.following',$follow)
                         </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         <?php 
                         $userrigh=array('lang'=>$lang);
                         $bannerarray=array('userprofile'=>true);
@@ -341,7 +341,7 @@
         require(['user'],function(){});
     </script>
     <!-- AddThis Button BEGIN -->
-<script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};</script>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>
 <!-- AddThis Button END -->
 </body>

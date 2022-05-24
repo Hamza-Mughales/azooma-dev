@@ -116,7 +116,7 @@ $message = Session::get('message');
                         <?php if (isset($page)) {
                           if (!in_array($value->rest_ID, $rest_IDs)) {
                             ?>
-                            <a id="fav-<?php echo $value->rest_ID; ?>" class="sufrati-backend-actions" href="javascript:void(0);" onclick="return addToFavorite('<?php echo $value->rest_ID; ?>','<?php echo $page->bestfor_ID; ?>');" rel="tooltip" data-original-title="Add to List"> <i class="icon icon-exclamation-sign"></i> 
+                            <a id="fav-<?php echo $value->rest_ID; ?>" class="Azooma-backend-actions" href="javascript:void(0);" onclick="return addToFavorite('<?php echo $value->rest_ID; ?>','<?php echo $page->bestfor_ID; ?>');" rel="tooltip" data-original-title="Add to List"> <i class="icon icon-exclamation-sign"></i> 
                               <i class="glyphicon glyphicon-check"></i>   Add to List 
                             </a>
                             <?php

@@ -90,7 +90,7 @@
                                     }
                                     ?>
                                 </td>            
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminrestaurants/branches/form/',$list->br_id).'?rest_ID='.$rest->rest_ID }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <a class="btn btn-xs btn-primary mytooltip m-1" href="{{ route('adminrestaurants/branches/images/',$list->br_id).'?rest_ID='.$rest->rest_ID }}" title="Add Branch Photos"><i data-feather="camera"></i></a>
                                     <?php

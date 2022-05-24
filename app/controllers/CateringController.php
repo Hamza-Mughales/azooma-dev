@@ -188,7 +188,7 @@ class CateringController extends BaseController {
 		$data['tosufrati']=true;
 		Mail::queue('emails.notify.new_catering',$data,function($message) use ($subject,$teamemails) {
 			foreach ($teamemails as $email) {
-				$message->to(trim($email),'Sufrati');
+				$message->to(trim($email),'Azooma');
 			}
 			$message->subject($subject);
 		});
@@ -228,7 +228,7 @@ class CateringController extends BaseController {
 		$data['tosufrati']=true;
 		Mail::queue('emails.notify.cancel_event',$data,function($message) use ($subject,$teamemails) {
 			foreach ($teamemails as $email) {
-				$message->to(trim($email),'Sufrati');
+				$message->to(trim($email),'Azooma');
 			}
 			$message->subject($subject);
 		});

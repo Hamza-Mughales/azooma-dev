@@ -50,7 +50,7 @@
                     </h1>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                    <div class="sufrati-white-box inner-padding put-border">
+                    <div class="Azooma-white-box inner-padding put-border">
                         <div id="social-share-list">
                             <div class="addthis_toolbox addthis_default_style">
                             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -87,7 +87,7 @@
     </section>
  
     @include('inc.footer')
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};</script>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};</script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>
     <script type="text/javascript" >
     require(['article'],function(){});

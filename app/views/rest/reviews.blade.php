@@ -1,5 +1,5 @@
 
-	<div class="sufrati-white-box inner-padding put-border">
+	<div class="Azooma-white-box inner-padding put-border">
 		<h2 class="rest-page-second-heading">
 			<?php echo $restname.' '.Lang::get('messages.critics_reviews').' ('.count($criticreviews).')';?>
 		</h2>

@@ -22,7 +22,7 @@
         </div>
         <div class="spacing-container">
         </div>
-        <div class="sufrati-white-box put-border inner-padding">
+        <div class="Azooma-white-box put-border inner-padding">
             <div class="overflow">
                 <h4 class="inline-block">
                     <?php echo Lang::get('messages.your').' '.Lang::choice('messages.notification',$totalnotifications);?>

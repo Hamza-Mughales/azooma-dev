@@ -19,7 +19,7 @@ class TestController extends BaseController {
 	    $city=MGeneral::getCity(1,false);
 		$data=array(
 			'logoimage'=>$logoimage,
-			'title'=>'Sufrati',
+			'title'=>'Azooma',
 			'country'=>$country,
 			'lang'=>$lang,
 			'randommessage'=>$randommessage,
@@ -33,7 +33,7 @@ class TestController extends BaseController {
         $date="2015-01-07";
         $data=array(
 			'logoimage'=>$logoimage,
-			'title'=>'Sufrati',
+			'title'=>'Azooma',
 			'country'=>$country,
 			'date'=>$date		
 		);

@@ -257,9 +257,9 @@ class Occasions extends AdminController {
                             $user_Email = "";
                             $user_Email = $arr;
                             Mail::queue('emails.restaurant.cateringinfo', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
-                                $message->to("ha@azooma.co", 'Sufrati.com')->subject($subject);
-                                #$message->to($userEmails, 'Sufrati.com')->subject($subject);
-                                #$message->bcc($sufratiUser, 'Sufrati.com')->subject($subject);
+                                $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
+                                #$message->to($userEmails, 'Azooma.co')->subject($subject);
+                                #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
                             });
                         }
                     }
@@ -333,9 +333,9 @@ class Occasions extends AdminController {
             $user_Email = $user->user_Email;
             if ($user->user_Status == 1) {
                 Mail::queue('emails.user.cateringapproved', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
-                    $message->to("ha@azooma.co", 'Sufrati.com')->subject($subject);
-                    #$message->to($userEmails, 'Sufrati.com')->subject($subject);
-                    #$message->bcc($sufratiUser, 'Sufrati.com')->subject($subject);
+                    $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
+                    #$message->to($userEmails, 'Azooma.co')->subject($subject);
+                    #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
                 });
             }
             $this->MAdmins->addActivity(stripslashes($page->name) . ' Approved successfully');
@@ -384,9 +384,9 @@ class Occasions extends AdminController {
             $user_Email = $user->user_Email;
             if ($user->user_Status == 1) {
                 Mail::queue('emails.user.cateringcancelled', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
-                    $message->to("ha@azooma.co", 'Sufrati.com')->subject($subject);
-                    #$message->to($userEmails, 'Sufrati.com')->subject($subject);
-                    #$message->bcc($sufratiUser, 'Sufrati.com')->subject($subject);
+                    $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
+                    #$message->to($userEmails, 'Azooma.co')->subject($subject);
+                    #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
                 });
             }
             $this->MAdmins->addActivity(stripslashes($page->name) . ' cancelled successfully');

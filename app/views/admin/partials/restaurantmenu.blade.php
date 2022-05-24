@@ -81,7 +81,7 @@
                                         }
                                         ?>
                                     </td>            
-                                    <td class="sufrati-action">
+                                    <td class="Azooma-action">
                                         <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminrestmenu/',$rest->rest_ID).'?menu_id='.$list->menu_id }}" title="View Categories ">
                                             <i data-feather="file-plus"></i> Categories
                                         </a>

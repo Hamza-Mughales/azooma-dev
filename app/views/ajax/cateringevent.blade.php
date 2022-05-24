@@ -1,5 +1,5 @@
-<div class="sufrati-popup-box" id="event-ref-box">
-    <h3 class="popup-heading sufrati-head">
+<div class="Azooma-popup-box" id="event-ref-box">
+    <h3 class="popup-heading Azooma-head">
        <?php echo $event->name;?>
     </h3>
     <div class="popup-content">

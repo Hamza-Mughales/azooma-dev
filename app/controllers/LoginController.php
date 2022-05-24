@@ -157,7 +157,7 @@ class LoginController extends BaseController {
 			    $logoimage=($lang=="en")?$logo->image:$logo->image_ar;
 				$data=array(
 					'logoimage'=>$logoimage,
-					'title'=>'Sufrati',
+					'title'=>'Azooma',
 					'country'=>$country,
 					'heading'=>Lang::get('email.welcome_to_sufrati'),
 					'helper'=>Lang::get('email.welcome_helper'),
@@ -237,7 +237,7 @@ class LoginController extends BaseController {
 				}
 				$data=array(
 					'logoimage'=>$logoimage,
-					'title'=>'Sufrati',
+					'title'=>'Azooma',
 					'country'=>$country,
 					'heading'=>Lang::get('email.welcome_to_sufrati'),
 					'helper'=>Lang::get('email.welcome_helper'),
@@ -382,7 +382,7 @@ class LoginController extends BaseController {
 		$logoimage=($lang=="en")?$logo->image:$logo->image_ar;
 		$data=array(
 			'logoimage'=>$logoimage,
-			'title'=>'Sufrati',
+			'title'=>'Azooma',
 			'country'=>array(),
 			'heading'=>Lang::get('email.welcome_to_sufrati'),
 			'helper'=>Lang::get('email.welcome_helper'),
@@ -391,7 +391,7 @@ class LoginController extends BaseController {
 			'actionlink'=>Azooma::URL('welcome/'.$user->rand_num)
 		);
 		Mail::queue('emails.general',$data,function($message) use ($user) {
-			$message->to($user->user_Email,$user->user_FullName)->subject('Activate account | Sufrati');
+			$message->to($user->user_Email,$user->user_FullName)->subject('Activate account | Azooma');
 		});
 		return Redirect::back();
 	}

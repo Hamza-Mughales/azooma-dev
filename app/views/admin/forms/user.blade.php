@@ -2,7 +2,7 @@
 @section('content')
 <ol class="breadcrumb">
     <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
-    <li><a href="<?= route('adminusers'); ?>">All Sufrati Users</a></li>  
+    <li><a href="<?= route('adminusers'); ?>">All Azooma Users</a></li>  
     <li class="active">{{ $title }}</li>
 </ol>
 

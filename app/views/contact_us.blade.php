@@ -111,7 +111,7 @@
                                     <option value="Bug Reporting"><?php echo Lang::get('messages.bug_report');?></option>
                                     <option value="Job Seeker"><?php echo Lang::get('messages.seeking_job');?></option>
                                     <option value="To Promote My Restaurant"><?php echo Lang::get('messages.promote_restaurant');?></option>
-                                    <option value="Ideas to Improve Sufrati.com"><?php echo Lang::get('messages.ideas_improve_sufrati');?></option>
+                                    <option value="Ideas to Improve Azooma.co"><?php echo Lang::get('messages.ideas_improve_sufrati');?></option>
                                     <option value="Out of Date Business Listing"><?php echo Lang::get('messages.out_of_date');?></option>
                                     <option value="Make a Complaint"><?php echo Lang::get('messages.make_complaint');?></option>
                                     <option value="Other"><?php echo Lang::get('messages.other');?></option>

@@ -96,7 +96,7 @@ class AjaxController extends BaseController {
 					$restname=$rest->rest_Name;
 					Mail::queue('emails.notify.newreview',$data,function($message) use ($subject,$teamemails) {
 						foreach ($teamemails as $email) {
-							$message->to(trim($email),'Sufrati');
+							$message->to(trim($email),'Azooma');
 						}
 						$message->subject($subject);
 					});
@@ -433,7 +433,7 @@ class AjaxController extends BaseController {
 				$s=array('fasi.manu@gmail.com','fasil@azooma.co');
 				$message;
 				foreach ($s as $email) {
-					$message->to($email,'Sufrati');
+					$message->to($email,'Azooma');
 				}
 				$message->subject($subject);
 			});
@@ -587,7 +587,7 @@ class AjaxController extends BaseController {
 						$logoimage=($lang=="en")?$logo->image:$logo->image_ar;
 						$data=array(
 							'logoimage'=>$logoimage,
-							'title'=>'Sufrati',
+							'title'=>'Azooma',
 							'country'=>$country,
 							'heading'=>Lang::get('email.welcome_to_sufrati'),
 							'helper'=>Lang::get('email.welcome_helper'),
@@ -597,7 +597,7 @@ class AjaxController extends BaseController {
 							'password'=>$password
 						);
 						Mail::queue('emails.general',$data,function($message) use ($user) {
-							$message->to($user->user_Email,$user->user_FullName)->subject('Activate account | Sufrati');
+							$message->to($user->user_Email,$user->user_FullName)->subject('Activate account | Azooma');
 						});
 					}
 				}elseif (Input::has('subscribe')) {
@@ -639,18 +639,18 @@ class AjaxController extends BaseController {
 			$teamemails=explode(",",$country->teamemail);
 			$subject='Menu Request for '.stripcslashes($rest->rest_Name).' by '.$name;
 			if($rest->rest_Email!=""){
-				$subject=$name.' Requests your Menu on Sufrati';
+				$subject=$name.' Requests your Menu on Azooma';
 				$checkmember=MRestaurant::checkMember($rest->rest_ID);
 				$data['checkmember']=$checkmember;
 				$data['otherrequesters']=$otherrequesters;
 				$emails=explode(",",$rest->rest_Email);
-				$subject=$name.' Requests your Menu on Sufrati'.
+				$subject=$name.' Requests your Menu on Azooma'.
 				Mail::queue('emails.restaurant.menurequest_rest',$data,function($message) use ($subject,$emails,$restname,$teamemails) {
 					foreach ($emails as $email) {
 						$message->to($email,$restname);
 					}
 					foreach ($teamemails as $email) {
-						$message->bcc($email,'Sufrati');
+						$message->bcc($email,'Azooma');
 					}
 					$message->subject($subject);
 				});
@@ -791,7 +791,7 @@ class AjaxController extends BaseController {
 							'reviews'=>$userreviews,
 							'ratings'=>$userratings
 						);
-						$subject=$username." invites you to join Sufrati";
+						$subject=$username." invites you to join Azooma";
 					foreach ($invitees as $invitee){
 						$data['invitee']=$invitee;
 						Mail::queue('emails.user.sendinvite',$data,function($message) use ($subject,$invitee) {
@@ -812,7 +812,7 @@ class AjaxController extends BaseController {
 							'reviews'=>$userreviews,
 							'ratings'=>$userratings
 						);
-						$subject=$username." invites you to join Sufrati";
+						$subject=$username." invites you to join Azooma";
 						$data['invitee']=$invitee;
 						Mail::queue('emails.user.sendinvite',$data,function($message) use ($subject,$invitee) {
 							$message->to(trim($invitee->email),$invitee->name);
@@ -874,7 +874,7 @@ class AjaxController extends BaseController {
 			$subject="Branch Correction Request for ".stripcslashes($rest->rest_Name).' - '.$branch->br_loc;
 			Mail::queue('emails.internal.branch_correct',$tdata,function($message) use ($subject,$teamemails) {
 				foreach ($teamemails as $email) {
-					$message->to(trim($email),'Sufrati');
+					$message->to(trim($email),'Azooma');
 				}
 				$message->subject($subject);
 			});

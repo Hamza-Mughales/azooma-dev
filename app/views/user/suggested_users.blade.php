@@ -10,7 +10,7 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
-    <div class="sufrati-white-box" id="n">
+    <div class="Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo Lang::get('messages.find_friends');?>
@@ -40,9 +40,9 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 sufrati-white-box">
+                    <div class="Azooma-main-col-1 Azooma-white-box">
                         <?php 
                         if(count($followsuggestions)>0){
                             $fol=array(
@@ -67,9 +67,9 @@
                         }
                         ?>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>

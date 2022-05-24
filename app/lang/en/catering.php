@@ -24,5 +24,5 @@ return array(
 	'title2'=>'Force majeure',
 	'force_para'=>'Azooma shall not be liable for the losses resulting from non fulfillment of any terms or provisions of this Contract, if Caterer shall be prevented or delayed from performing in whole or in part because unforeseen acts of god or by any other act or occurrence not within the control of Caterer, which it could not prevent. ',
 	'title3'=>'Liability',
-	'liability_para'=>'The Customer agrees to be responsible for any damage done to the function rooms or any other off-site premises at which the function may be held, by the Customer, his guests, invitees, employees, independent contractors, or other agents under the Customer’s control. Sufrati will not assume or accept any responsibility for damage to or loss of any merchandise or articles left in the venue prior to, during, or following the Customer’s function.'
+	'liability_para'=>'The Customer agrees to be responsible for any damage done to the function rooms or any other off-site premises at which the function may be held, by the Customer, his guests, invitees, employees, independent contractors, or other agents under the Customer’s control. Azooma will not assume or accept any responsibility for damage to or loss of any merchandise or articles left in the venue prior to, during, or following the Customer’s function.'
 );

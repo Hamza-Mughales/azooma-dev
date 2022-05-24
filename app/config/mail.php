@@ -30,7 +30,8 @@ return array(
 
 	//'host' => 'host2.azooma.co',
 
-	'host' => 'mail.azooma.co',
+	// 'host' => 'mail.azooma.co',
+	'host' => 'smtp-relay.sendinblue.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,9 +44,9 @@ return array(
 	|
 	*/
 
-	//'port' => 465,
+	'port' => 587,
 
-	'port'=> 465,
+	// 'port'=> 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -86,7 +87,8 @@ return array(
 
 	//'username' => 'testuser@azooma.co',
 
-	'username' => 'azoomamail@azooma.co',
+	// 'username' => 'azoomamail@azooma.co',
+	'username' => 'arafat.733011506@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -101,7 +103,8 @@ return array(
 
 	//'password' => 'testuser',
 
-	'password' => '-!8*6$eCi**w',
+	// 'password' => '-!8*6$eCi**w',
+	'password' => '5RMq1EY2TrmgJW3d',
 
 	/*
 	|--------------------------------------------------------------------------

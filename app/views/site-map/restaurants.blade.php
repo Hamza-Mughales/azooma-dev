@@ -13,7 +13,7 @@
     <div>
         <div class="spacing-container">
         </div>
-        <div class="container sufrati-white-box put-border inner-padding">
+        <div class="container Azooma-white-box put-border inner-padding">
             <div>
                 <?php
                 if(count($city)>0){

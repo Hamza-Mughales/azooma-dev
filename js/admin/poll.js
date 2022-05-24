@@ -3,7 +3,7 @@ function addmore(){
     $("#poll-options-container").append(element);
     counter++;
 }
-$(document).on("click",".sufrati-close",function(event){
+$(document).on("click",".Azooma-close",function(event){
     if(confirm("Are you sure")){
        var dismiss=$(this).attr('data-dismiss');
        $(this).parent().parent().parent().remove();

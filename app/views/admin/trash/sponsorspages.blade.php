@@ -84,7 +84,7 @@
                                 </td>
                                 <td><?php echo Str::limit(stripslashes(strip_tags(html_entity_decode($list->detail))), 100); ?></td>
                                 <td><?php echo date('d/m/Y', strtotime($list->publish_date)); ?></td>
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminsponsors/form/',$list->id) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->active == 0) {

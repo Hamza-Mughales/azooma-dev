@@ -37,11 +37,11 @@
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-lg-5" for="price"> Membership Price</label>
-                        <div class="col-lg-5 sufrati-backend-input-seperator">Free</div>
+                        <div class="col-lg-5 Azooma-backend-input-seperator">Free</div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-lg-5" for="member_date"> Account Start Date</label>
-                        <div class="col-lg-5 sufrati-backend-input-seperator">
+                        <div class="col-lg-5 Azooma-backend-input-seperator">
                             <input class="form-control" type="text" name="member_date" id="member_date" placeholder="Account Start Date" value="<?php
                             if (isset($rest) && !empty($rest->member_date) && $memberFlag) {
                                 echo $rest->member_date;
@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-lg-5" for="email"> Contact Emails</label>
-                        <div class="col-lg-7 sufrati-backend-input-seperator" id="memberemails">
+                        <div class="col-lg-7 Azooma-backend-input-seperator" id="memberemails">
                             <?php
                             if (isset($member)) {
                                 $memberemails = explode(',', $member->email);
@@ -74,7 +74,7 @@
                                     ?>
                                     <div id="input-<?php echo $i; ?>">
                                         <input class="form-control" type="text" name="emails[]"  placeholder="Contact Email" <?php echo isset($memberemails) ? 'value="' . $memberemails[$i] . '"' : ""; ?> />
-                                        <a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i; ?>">&times;</a>
+                                        <a class="close Azooma-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i; ?>">&times;</a>
                                     </div>
                                     <?php
                                 }
@@ -138,101 +138,101 @@
                 <div id="permissions" class="right col-lg-6 ">
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> <strong>Features</strong></label>
-                        <div class="col-md-6 sufrati-backend-input-seperator"> <strong>Select Features</strong> </div>
+                        <div class="col-md-6 Azooma-backend-input-seperator"> <strong>Select Features</strong> </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Profile Page</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" checked="checked" disabled="disabled"   name="editfeatures[]"  value="1" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Branch Management</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" checked="checked" disabled="disabled" name="editfeatures[]"  value="2" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Sample Menu</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="3" checked="checked" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Full Menu + PDF</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="4" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Photo Gallery (3 Photos)</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox"   name="editfeatures[]"  value="6" checked="checked" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Photo Gallery (6 Photos)</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox"  name="editfeatures[]"  value="7" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Photo Gallery (12 Photos)</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox"  name="editfeatures[]"  value="8" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Photo Gallery (20 Photos)</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="9" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> News Feed</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="16" disabled="disabled" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Special Offer (1 Offer)</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="10" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Special Offer (3 Offers)</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="11" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Fan Club</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="17" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Comments Response</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="14" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Video Gallery</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="15" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Polls</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="13" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-md-6" for=""> Booking</label>
-                        <div class="col-md-6 sufrati-backend-input-seperator">
+                        <div class="col-md-6 Azooma-backend-input-seperator">
                             <input type="checkbox" name="editfeatures[]"  value="12" disabled="disabled"/>
                         </div>
                     </div>

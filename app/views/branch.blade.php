@@ -11,7 +11,7 @@
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
     <?php  ($lang=="en")?$cityname=stripcslashes($city->city_Name):$cityname=stripcslashes($city->city_Name_ar);?>
-    <div class="sufrati-white-box" id="n" itemscope itemtype="http://schema.org/Restaurant">
+    <div class="Azooma-white-box" id="n" itemscope itemtype="http://schema.org/Restaurant">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo $restname.' - '.$branchname;?>
@@ -59,9 +59,9 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 sufrati-white-box">
+                    <div class="Azooma-main-col-1 Azooma-white-box">
                         <div class="hidden"><?php echo Lang::get('messages.a').' '.Lang::choice('messages.branch_branches',1).' '.Lang::get('messages.of').' ';?><span itemscope itemtype="http://schema.org/Restaurant">
                             <a itemprop="url" href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->seo_url);?>" title="<?php echo $restname.' '.Lang::get('messages.inplace',array('name'=>$cityname));?>"><span itemprop="name"><?php echo $restname;?></span></a>
                         </span></div>
@@ -225,9 +225,9 @@
                             <a href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->seo_url.'#rest-gallery');?>" class="btn btn-success btn-sm"><?php echo $restname.' '.Lang::get('messages.photos').' '.Lang::get('messages.and').' '.Lang::get('messages.videos');?></a>
                         </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>

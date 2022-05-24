@@ -23,7 +23,7 @@
 ?>
 <meta property="og:image" content="http://azooma.co/sufratiapp.png">
 <?php } ?>
-<meta property="og:site_name" content="Sufrati">
+<meta property="og:site_name" content="Azooma">
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
@@ -305,7 +305,7 @@
                                     <li>
                                         <a href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->url);?>" title="<?php echo $restname;?>">
                                             <div class="res-img">
-                                                <img class="sufrati-super-lazy" src="<?php echo Azooma::CDN('Gallery/'.$resbanner);?>" alt="<?php echo $restname;?>"/>
+                                                <img class="Azooma-super-lazy" src="<?php echo Azooma::CDN('Gallery/'.$resbanner);?>" alt="<?php echo $restname;?>"/>
                                             </div>
                                         
                                             <div class="info">
@@ -383,7 +383,7 @@
                                         <a href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->url);?>" title="<?php echo $restname;?>">
             
                                             <div class="res-img">
-                                                <img class="sufrati-super-lazy" src="<?php echo Azooma::CDN('Gallery/'.$resbanner);?>" alt="<?php echo $restname;?>"/>
+                                                <img class="Azooma-super-lazy" src="<?php echo Azooma::CDN('Gallery/'.$resbanner);?>" alt="<?php echo $restname;?>"/>
                                             </div>                                 
                                             <div class="info">
                                             <?php echo (strlen($restname)>18)?mb_substr($restname, 0,18,'UTF-8').'..':$restname;?>
@@ -457,7 +457,7 @@
                                         <a href="<?php echo Azooma::URL($city->seo_url.'/'.$rest->url);?>" title="<?php echo $restname;?>">
             
                                             <div class="res-img">
-                                                <img class="sufrati-super-lazy" src="<?php echo Azooma::CDN('Gallery/'.$resbanner);?>" alt="<?php echo $restname;?>"/>
+                                                <img class="Azooma-super-lazy" src="<?php echo Azooma::CDN('Gallery/'.$resbanner);?>" alt="<?php echo $restname;?>"/>
                                                 
                                             </div>  
                                         <div class="info">

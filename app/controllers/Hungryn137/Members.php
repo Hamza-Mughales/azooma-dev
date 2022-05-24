@@ -33,8 +33,8 @@ class Members extends AdminController
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Reference No', 'Membership', 'Joined On',"status", 'Last Update', 'Expiry Date', 'Actions'),
-            'pagetitle' => 'List of All Sufrati Members',
-            'title' => 'All Sufrati Members',
+            'pagetitle' => 'List of All Azooma Members',
+            'title' => 'All Azooma Members',
             'action' => 'adminmembers',
             "is_paid"=>0,
             'country' => $country,
@@ -173,8 +173,8 @@ class Members extends AdminController
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Reference No', 'Membership', 'Joined On', "Status",'Last Update', 'Expiry Date', 'Actions'),
-            'pagetitle' => 'List of All Sufrati Paid Members',
-            'title' => 'All Sufrati Paid Members',
+            'pagetitle' => 'List of All Azooma Paid Members',
+            'title' => 'All Azooma Paid Members',
             'action' => 'adminpaidmembers',
             "is_paid"=>1,
             'country' => $country,
@@ -251,10 +251,10 @@ class Members extends AdminController
                         $data['title'] = "Admin account";
                         $data['sitename'] = $settings['name'];
                         $date['side_menu'] = array('Subscriptions', 'All Members');
-                        $subject = "Contact information Updated Successfully at Sufrati";
+                        $subject = "Contact information Updated Successfully at Azooma";
                         try{
                         Mail::queue('emails.restaurant.memberaccountupdate', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                            $message->to($userEmails[0], 'Sufrati')->subject($subject);
+                            $message->to($userEmails[0], 'Azooma')->subject($subject);
                             $counter = 0;
                             $ccemail = array();
                             if (count($userEmails) > 1) {
@@ -266,9 +266,9 @@ class Members extends AdminController
                                     $counter++;
                                     $ccemail[] = $emaillist;
                                 }
-                                $message->cc($ccemail, 'Sufrati')->subject($subject);
+                                $message->cc($ccemail, 'Azooma')->subject($subject);
                             }
-                            $message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                            $message->bcc($sufratiUser, 'Azooma')->subject($subject);
                         });
                     }
                     catch(Exception $e ){
@@ -448,7 +448,7 @@ class Members extends AdminController
                     $sufratiUser = $settings['teamEmails'];
                     try{
                     Mail::queue('emails.restaurant.memberaccountupdatedetails', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                        $message->to($userEmails[0], 'Sufrati')->subject($subject);
+                        $message->to($userEmails[0], 'Azooma')->subject($subject);
                         $counter = 0;
                         $ccemail = array();
                         if (count($userEmails) > 1) {
@@ -460,9 +460,9 @@ class Members extends AdminController
                                 $counter++;
                                 $ccemail[] = $emaillist;
                             }
-                            $message->cc($ccemail, 'Sufrati')->subject($subject);
+                            $message->cc($ccemail, 'Azooma')->subject($subject);
                         }
-                        $message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                        $message->bcc($sufratiUser, 'Azooma')->subject($subject);
                     });
                 }
                 catch(Exception $e ){
@@ -511,7 +511,7 @@ class Members extends AdminController
             $data['manager_name'] = stripslashes($member->full_name);
             $data['username'] = $member->user_name;
             $data['password'] = $member->password;
-            $subject = stripslashes($rest->rest_Name) . " admin account at Sufrati.com";
+            $subject = stripslashes($rest->rest_Name) . " admin account at Azooma.co";
             if ($account->status == 1) {
                 $this->MClients->deActivate($id);
                 $filename = "memberaccountterminated";
@@ -525,8 +525,8 @@ class Members extends AdminController
             }
             try{
             Mail::queue('emails.restaurant.' . $filename, $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                $message->to("ha@azooma.co", 'Azooma')->subject($subject);
+                //$message->to($userEmails[0], 'Azooma')->subject($subject);
                 $counter = 0;
                 $ccemail = array();
                 if (count($userEmails) > 1) {
@@ -538,9 +538,9 @@ class Members extends AdminController
                         $counter++;
                         $ccemail[] = $emaillist;
                     }
-                    //$message->cc($ccemail, 'Sufrati')->subject($subject);
+                    //$message->cc($ccemail, 'Azooma')->subject($subject);
                 }
-                //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                //$message->bcc($sufratiUser, 'Azooma')->subject($subject);
             });
         }
         catch(Exception $e ){
@@ -588,13 +588,13 @@ class Members extends AdminController
             $data['manager_name'] = stripslashes($member->full_name);
             $data['username'] = $member->user_name;
             $data['password'] = $member->password;
-            $subject = stripslashes($rest->rest_Name) . " admin account at Sufrati.com";
+            $subject = stripslashes($rest->rest_Name) . " admin account at Azooma.co";
             $flashmessage = stripslashes(($rest->rest_Name)) . ' Membership removed succesfully';
             $this->MAdmins->addActivity('Deactivated ' . stripslashes(($rest->rest_Name)) . ' membership removed.');
             try{
             Mail::queue('emails.restaurant.memberaccountterminated', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                $message->to("ha@azooma.co", 'Azooma')->subject($subject);
+                //$message->to($userEmails[0], 'Azooma')->subject($subject);
                 $counter = 0;
                 $ccemail = array();
                 if (count($userEmails) > 1) {
@@ -606,9 +606,9 @@ class Members extends AdminController
                         $counter++;
                         $ccemail[] = $emaillist;
                     }
-                    //$message->cc($ccemail, 'Sufrati')->subject($subject);
+                    //$message->cc($ccemail, 'Azooma')->subject($subject);
                 }
-                //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                //$message->bcc($sufratiUser, 'Azooma')->subject($subject);
             });
         }
             catch(Exception $e ){
@@ -651,13 +651,13 @@ class Members extends AdminController
             $data['manager_name'] = stripslashes($member->full_name);
             $data['username'] = $member->user_name;
             $data['password'] = $member->password;
-            $subject = stripslashes($rest->rest_Name) . " admin account details at Sufrati.com";
+            $subject = stripslashes($rest->rest_Name) . " admin account details at Azooma.co";
             $flashmessage = stripslashes($rest->rest_Name) . " admin account details sent successfully";
             $this->MAdmins->addActivity(stripslashes($rest->rest_Name) . " admin account details sent successfully");
             try{
             Mail::queue('emails.restaurant.resendpassword', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
-                $message->to("ha@azooma.co", 'Sufrati')->subject($subject);
-                //$message->to($userEmails[0], 'Sufrati')->subject($subject);
+                $message->to("ha@azooma.co", 'Azooma')->subject($subject);
+                //$message->to($userEmails[0], 'Azooma')->subject($subject);
                 $counter = 0;
                 $ccemail = array();
                 if (count($userEmails) > 1) {
@@ -669,9 +669,9 @@ class Members extends AdminController
                         $counter++;
                         $ccemail[] = $emaillist;
                     }
-                    //$message->cc($ccemail, 'Sufrati')->subject($subject);
+                    //$message->cc($ccemail, 'Azooma')->subject($subject);
                 }
-                //$message->bcc($sufratiUser, 'Sufrati')->subject($subject);
+                //$message->bcc($sufratiUser, 'Azooma')->subject($subject);
             });
         }
             catch(Exception $e ){

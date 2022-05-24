@@ -10,7 +10,7 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
-    <div class=" sufrati-white-box" id="n">
+    <div class=" Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo $articletitle;?>
@@ -55,10 +55,10 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 no-padding no-border">
-                        <div class="sufrati-white-box inner-padding put-border">
+                    <div class="Azooma-main-col-1 no-padding no-border">
+                        <div class="Azooma-white-box inner-padding put-border">
                         <div id="social-share-list">
                             <div class="addthis_toolbox addthis_default_style">
                             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -103,9 +103,9 @@
                     <div class="spacing-container">
                     </div>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         @include('inc.rightcol')
                     </div>
                 </div>
@@ -113,7 +113,7 @@
         </div>
     </div>
     @include('inc.footer')
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Sufrati'};</script>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":false,'services_expanded':'facebook,twitter,print,email','services_compact':'facebook,twitter,print,email','ui_cobrand':'Azooma'};</script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5289d82629d64c3d"></script>
     <script type="text/javascript" >
     require(['article'],function(){});

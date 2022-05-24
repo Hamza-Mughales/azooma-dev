@@ -126,18 +126,18 @@ $(document).ready(function(){
     });
 
 	if(typeof window.location.hash.split('#')[1]!="undefined"&&window.location.hash.split('#')[1]=="n"){
-		$("#sufrati-top-bar").addClass('slideUp');
+		$("#Azooma-top-bar").addClass('slideUp');
 	}
 	$("[data-toggle=tooltip]").tooltip();
-	$("img.sufrati-super-lazy").lazyload({
+	$("img.Azooma-super-lazy").lazyload({
         effect : "fadeIn"
-    }).removeClass("sufrati-super-lazy");
+    }).removeClass("Azooma-super-lazy");
     $("#filter-button").click(function(){
-    	if($("#sufrati-filter-container").hasClass('hidden')){
-    		$("#sufrati-filter-container").removeClass('hidden');
+    	if($("#Azooma-filter-container").hasClass('hidden')){
+    		$("#Azooma-filter-container").removeClass('hidden');
             $("#filter-button").html('<i class="fa fa-bars"></i> <i class="fa fa-long-arrow-up"></i>');
     	}else{
-    		$("#sufrati-filter-container").addClass('hidden');
+    		$("#Azooma-filter-container").addClass('hidden');
             $("#filter-button").html('<i class="fa fa-bars"></i> <i class="fa fa-long-arrow-down"></i>');
     	}
     });
@@ -419,13 +419,13 @@ $(document).on('submit','#register-form',function(e){
         dataType:'json'
     });
 });
-$(document).on('click',".sufrati-hide-seek",function(e){
+$(document).on('click',".Azooma-hide-seek",function(e){
     e.preventDefault();
     var parent=$(this).closest('div[data-hide-seek]').attr('id');
     $(".hide-seek").addClass('hidden');
     var cont=$(this).attr('data-cont');
     $("#"+cont).removeClass('hidden');
-    $("#sufrati-modal-container").center();
+    $("#Azooma-modal-container").center();
 });
 $(document).on('click','#forgot-password-link',function(e){
     e.preventDefault();
@@ -482,9 +482,9 @@ $(document).on('submit','#reset-form',function(){
     }
 });
 $(document).ajaxStop(function(){
-    // $("img.sufrati-super-lazy").lazyload({
+    // $("img.Azooma-super-lazy").lazyload({
     //     effect : "fadeIn"
-    // }).removeClass("sufrati-super-lazy");
+    // }).removeClass("Azooma-super-lazy");
     // $("[data-rel=tooltip]").tooltip();
 });
 (function($){
@@ -497,33 +497,33 @@ $(document).ajaxStop(function(){
             }else{
                 var left='5';
                 $(this).css({position:'absolute', margin:0, top: (top > 0 ? top : 0)+'px', left: (left > 0 ? left : 0)+'%',width:'90%'});
-                $(this).find('.sufrati-popup-box').css({width:'100%'});
+                $(this).find('.Azooma-popup-box').css({width:'100%'});
             }
             
         });
    };
 }(jQuery));
 function sufratipopupinitialize(){
-    if($("#sufrati-modal-bg").length>0){
-        $("#sufrati-modal-bg").remove();
+    if($("#Azooma-modal-bg").length>0){
+        $("#Azooma-modal-bg").remove();
     }
-    if($("#sufrati-modal-container").length>0){
-        $("#sufrati-modal-container").remove();
+    if($("#Azooma-modal-container").length>0){
+        $("#Azooma-modal-container").remove();
     }
     if(!popupshowing){
-        var thtml='<div class="modal fade" id="sufrati-modal-bg" tabindex="-1" aria-hidden="true" tabindex="-1"><div id="sufrati-modal-container" class="modal-dialog modal-dialog-centered">';
+        var thtml='<div class="modal fade" id="Azooma-modal-bg" tabindex="-1" aria-hidden="true" tabindex="-1"><div id="Azooma-modal-container" class="modal-dialog modal-dialog-centered">';
         $('body').append(thtml);
-        $('#sufrati-modal-bg').modal('show');
+        $('#Azooma-modal-bg').modal('show');
         // $("#floatingCirclesG").center();
         popupshowing=true;
     }
 }
 function sufratiloading(){
     var thtml='<div id="floatingCirclesG"><div class="f_circleG" id="frotateG_01"></div><div class="f_circleG" id="frotateG_02"></div><div class="f_circleG" id="frotateG_03"></div><div class="f_circleG" id="frotateG_04"></div><div class="f_circleG" id="frotateG_05"></div><div class="f_circleG" id="frotateG_06"></div><div class="f_circleG" id="frotateG_07"></div><div class="f_circleG" id="frotateG_08"></div></div>';
-    if($("#sufrati-modal-bg").length>0){
-        $("#sufrati-modal-bg").append(thtml);
+    if($("#Azooma-modal-bg").length>0){
+        $("#Azooma-modal-bg").append(thtml);
     }else{
-        thtml='<div id="sufrati-modal-bg"><div id="sufrati-modal-container">'+thtml+'</div></div>';
+        thtml='<div id="Azooma-modal-bg"><div id="Azooma-modal-container">'+thtml+'</div></div>';
         $('body').append(thtml).addClass('hidden-overflow');    
     }
     $("#floatingCirclesG").center();
@@ -539,12 +539,12 @@ function hideloading(closepop){
     }
 }
 function sufratipopup(html,callback){
-    // $("#sufrati-modal-container .modal-body").html(html);
-    if($("#sufrati-modal-container").length>0){
-        $("#sufrati-modal-container").html(html);
+    // $("#Azooma-modal-container .modal-body").html(html);
+    if($("#Azooma-modal-container").length>0){
+        $("#Azooma-modal-container").html(html);
     }
   
-    // $("#sufrati-modal-container").center();
+    // $("#Azooma-modal-container").center();
     if(typeof callback!="undefined"){
         callback();
     }
@@ -556,12 +556,12 @@ function closepopup(foo){
             historymoved=0;
         }
     }
-    $('#sufrati-modal-bg').modal('hide');
-    if($("#sufrati-modal-bg").length>0){
-        $("#sufrati-modal-bg").remove();
+    $('#Azooma-modal-bg').modal('hide');
+    if($("#Azooma-modal-bg").length>0){
+        $("#Azooma-modal-bg").remove();
     }
-    if($("#sufrati-modal-container").length>0){
-        $("#sufrati-modal-container").remove();
+    if($("#Azooma-modal-container").length>0){
+        $("#Azooma-modal-container").remove();
     }
     popupshowing=false;
     if(typeof foo!="undefined"){
@@ -599,13 +599,13 @@ function loadpopup(url,title){
         dataType:'json'
     });
 }
-$(document).on('click',"#sufrati-modal-bg",function(e){
+$(document).on('click',"#Azooma-modal-bg",function(e){
     if(e.target==e.currentTarget){
         closepopup();
     }
 });
 
-$(document).on('click','.sufrati-close-popup',function(e){
+$(document).on('click','.Azooma-close-popup',function(e){
     closepopup();
 });
 $(document).on('submit','#sufSearchAuto',function(e){
@@ -623,10 +623,10 @@ $(document).on('mouseenter','.super-popup-image',function(e){
 $(document).on('mouseleave','.super-popup-image',function(e){
     superinside=false;
 });
-$(document).on('mouseenter','.sufrati-gallery-photo',function(){
+$(document).on('mouseenter','.Azooma-gallery-photo',function(){
     $(this).find('.photo-like-container').removeClass('hidden');
 });
-$(document).on('mouseleave','.sufrati-gallery-photo',function(){
+$(document).on('mouseleave','.Azooma-gallery-photo',function(){
     $(this).find('.photo-like-container').addClass('hidden');
 });
 $(document).on('click',".switch-with",function(e){
@@ -691,10 +691,10 @@ $(document).on('click','.heart-btn',function(e){
             }
         });
     }else{
-        sufratiloginpopup("sufrati-login-form");    
+        sufratiloginpopup("Azooma-login-form");    
     }
 });
-$(document).on('contextmenu','.sufrati-popup-image',function(e){
+$(document).on('contextmenu','.Azooma-popup-image',function(e){
     if(!superinside){
         e.preventDefault();
         $(this).find('.super-popup-image').removeClass('hidden');
@@ -881,7 +881,7 @@ $(document).on('click','.like-btn',function(e){
             dataType:'json'
         });
     }else{
-        sufratiloginpopup("sufrati-login-form");
+        sufratiloginpopup("Azooma-login-form");
     }
 });
 $(".cuisine-like-list").on('click','li a',function(){
@@ -956,7 +956,7 @@ $(document).on('click','.mini-like-btn',function(e){
             dataType:'json'
         });
     }else{
-        sufratiloginpopup("sufrati-login-form");
+        sufratiloginpopup("Azooma-login-form");
     }
 });
 
@@ -1018,7 +1018,7 @@ $(document).on('click','.mini-like-btn-2',function(e){
             dataType:'json'
         });
     }else{
-        sufratiloginpopup("sufrati-login-form");
+        sufratiloginpopup("Azooma-login-form");
     }
 });
 $(document).on('click','.follow-btn',function(e){
@@ -1047,12 +1047,12 @@ $(document).on('click','.follow-btn',function(e){
             dataType:'json'
         });
     }else{
-        sufratiloginpopup("sufrati-login-form");
+        sufratiloginpopup("Azooma-login-form");
     }
 });
 //change location
 
-$(document).on('click','#sufrati-top-city-selector',function(e){
+$(document).on('click','#Azooma-top-city-selector',function(e){
     sufratipopupinitialize();
     $.ajax({
         url:base+'/locations',

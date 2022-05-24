@@ -76,11 +76,11 @@
                                 $j++;
                     ?>
                                 <div class="form-group " id="parent-<?php echo $option->id; ?>">
-                                    <div class="form-group row sufrati-backend-input-seperator">
+                                    <div class="form-group row Azooma-backend-input-seperator">
                                         <label class="col-md-2 control-label" for="field-<?php echo $option->id; ?>">Poll Option <?php echo $j; ?></label>
                                         <div class="col-md-6">
                                             <input class="form-control required" type="text" name="field-<?php echo $option->id; ?>" id="field-<?php echo $option->id; ?>" placeholder="Poll Option <?php echo $j; ?>" value="<?php echo stripslashes(($option->field)); ?>" />
-                                            <a class="btn btn-XS btn-danger p-1 m-1 close sufrati-close" href="javascript:void(0);" data-dismiss="input-<?php echo $j; ?>">&times;</a>
+                                            <a class="btn btn-XS btn-danger p-1 m-1 close Azooma-close" href="javascript:void(0);" data-dismiss="input-<?php echo $j; ?>">&times;</a>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -188,7 +188,7 @@
         $("#poll-options-container").append(element);
         counter++;
     }
-    $('body').on("click", ".sufrati-close", function(event) {
+    $('body').on("click", ".Azooma-close", function(event) {
         var btn = $(this);
 
         Swal.fire({

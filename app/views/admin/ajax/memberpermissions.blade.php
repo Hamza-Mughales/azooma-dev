@@ -1,6 +1,6 @@
 <div class="form-group  my-1 ">
      <strong>Features</strong>
-    <div class="sufrati-backend-input-seperator">
+    <div class="Azooma-backend-input-seperator">
          <strong>Select Features</strong>
     </div>
 </div>

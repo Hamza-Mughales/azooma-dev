@@ -86,7 +86,7 @@
                                     }
                                     ?>
                                 </td>            
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminrestaurants/branches/imageform/',$list->image_ID)."?br_id=".$br_id."&rest_ID=".$rest->rest_ID; }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->status == 0) {

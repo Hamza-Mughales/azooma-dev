@@ -10,7 +10,7 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
     @include('inc.header')
-    <div class="sufrati-white-box" id="n">
+    <div class="Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo Lang::get('messages.cuisines_you_like');?>
@@ -40,7 +40,7 @@
         <div class="container" id="user-preferences-block">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-white-box put-border inner-padding">
+            <div class="Azooma-white-box put-border inner-padding">
                 <div class="overflow">
                     <button type="button" class="btn btn-camera btn-lg pull-right first user-preference-save-btn"><?php echo Lang::get('messages.save');?></button>
                 </div>
@@ -51,7 +51,7 @@
                 ?>
                     <li>
                         <a <?php if(count($checkuserliked)>0){ ?>data-selected="1"<?php } ?> data-cuisine="<?php echo $cuisine->cuisine_ID;?>" href="javascript:void(0);" title="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
-                          <img class="sufrati-super-lazy" src="http://uploads.azooma.co/stat/blank.gif" data-original="<?php echo Azooma::CDN('images/cuisine/'.$cuisine->image);?>" alt="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
+                          <img class="Azooma-super-lazy" src="http://uploads.azooma.co/stat/blank.gif" data-original="<?php echo Azooma::CDN('images/cuisine/'.$cuisine->image);?>" alt="<?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?>">
                           <span class="title"><?php echo ($lang=="en")?stripcslashes($cuisine->cuisine_Name):stripcslashes($cuisine->cuisine_Name_ar);?></span>
                           <span class="selected <?php if(count($checkuserliked)<=0){ ?> hidden <?php } ?><i class="fa fa-heart"></i></span>
                         </a>

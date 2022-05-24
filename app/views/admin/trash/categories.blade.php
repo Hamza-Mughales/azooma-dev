@@ -119,7 +119,7 @@
                                     }
                                     ?></td>
 
-                                <td class="sufrati-action">
+                                <td class="Azooma-action">
 
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('adminarticles/articles/',$list->id) }}" title="View Sub Articles"><i data-feather="eye"></i></a>
 

@@ -75,7 +75,7 @@ $countries = Config::get('settings.countries');
                                             }
                                             ?>
                                         </td>
-                                        <td class="sufrati-action">
+                                        <td class="Azooma-action">
 
                                             <a class="btn btn-xs btn-info mytooltip m-1" href="{{ route('adminsubscriptions/form/',$list->id) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                             <a  class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="{{ route('adminsubscriptions/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>

@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon-precomposed" href="http://app.azooma.co/images/icon.png">
 <link rel="icon" href="<?php echo URL::to('favicon_en.png'); ?>" type="image/png">
 <link type="text/plain" rel="author" href="<?php echo URL::to('humans.txt');?>" />
-<link href="https://plus.google.com/+Sufratiplus" rel="publisher"/>
+<link href="https://plus.google.com/+Azoomaplus" rel="publisher"/>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
@@ -78,7 +78,7 @@ if($lang=="en"){
 	<?php
 }
 if(Session::get('sfcity')!=null){
-	$city=DB::connection('new-sufrati')->select('SELECT city_ID,city_Name,city_Name_ar,seo_url FROM city_list WHERE city_Status=1 AND city_ID='.Session::get('sfcity').' LIMIT 1');
+	$city=DB::connection('new-Azooma')->select('SELECT city_ID,city_Name,city_Name_ar,seo_url FROM city_list WHERE city_Status=1 AND city_ID='.Session::get('sfcity').' LIMIT 1');
 	?>
 	var city={'id':'<?php echo stripcslashes($city[0]->city_ID);?>','name':'<?php echo stripcslashes($city[0]->city_Name);?>','nameAr':'<?php echo stripcslashes($city[0]->city_Name_ar);?>','url':'<?php echo stripcslashes($city[0]->seo_url);?>'};
 	<?php

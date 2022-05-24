@@ -102,7 +102,7 @@
                                 <td><?php echo stripslashes($list->cuisine_Name); ?></td>
                                 <td><?php echo Str::limit(stripslashes(strip_tags(html_entity_decode($list->cuisine_description))), 100); ?></td>
                                 <td><?php echo date('d/m/Y', strtotime($list->updatedAt)); ?></td>
-                                <td class="sufrati-action">              
+                                <td class="Azooma-action">              
                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincuisine/cuisineform/',$list->cuisine_ID) }}" title="Edit Content"><i data-feather="edit"></i></a>
                                     <?php
                                     if ($list->cuisine_Status == 0) {

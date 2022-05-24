@@ -13,7 +13,7 @@
     <?php 
     ($lang=="en")?$cityname=stripcslashes($city->city_Name):$cityname=stripcslashes($city->city_Name_ar);
     ?>
-    <div class="sufrati-white-box" id="n">
+    <div class="Azooma-white-box" id="n">
         <div class="spacing-container">
         </div>
         <div class="container">
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="sufrati-head">
+        <div class="Azooma-head">
             <div class="container">
                 <h1>
                     <?php echo $meta['title'];?>
@@ -61,9 +61,9 @@
         <div class="container">
             <div class="spacing-container">
             </div>
-            <div class="sufrati-main-col">
+            <div class="Azooma-main-col">
                 <div class="col-mask-left">
-                    <div class="sufrati-main-col-1 sufrati-white-box">
+                    <div class="Azooma-main-col-1 Azooma-white-box">
                         <div id="social-share-list">
                             <div class="addthis_toolbox addthis_default_style">
                             <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
@@ -164,9 +164,9 @@
                         </div>
                         <?php } ?>
                     </div>
-                    <div class="sufrati-main-col-2">
+                    <div class="Azooma-main-col-2">
                     </div>
-                    <div class="sufrati-main-col-3 sufrati-white-box">
+                    <div class="Azooma-main-col-3 Azooma-white-box">
                         <div class="right-col-block">
                             <div class="right-col-head">
                                 <?php  echo Lang::get('messages.other').' '.Lang::get('messages.special_offers');?>

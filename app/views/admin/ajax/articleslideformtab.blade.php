@@ -8,7 +8,7 @@ $i = $counter;
 ?>
 <legend>
     Slide <?php echo ($i + 1); ?>
-    <a class="close sufrati-close-slide" href="javascript:void(0);" data-dismiss-id="0" data-dismiss="slide-<?php echo $i; ?>">×</a>
+    <a class="close Azooma-close-slide" href="javascript:void(0);" data-dismiss-id="0" data-dismiss="slide-<?php echo $i; ?>">×</a>
 </legend>
 
 <div id="slide-<?php echo $i; ?>">

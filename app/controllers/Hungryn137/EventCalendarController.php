@@ -229,7 +229,7 @@ class EventCalendarController extends AdminController {
                     $data['event'] = $event;
                     if(isset($_GET['pass']) && $_GET['pass'] == 'yoman'){
                     Mail::queue('emails.newsletter.event', $data, function($message) use ($subject, $sufratiUser) {
-                        $message->to("ha@azooma.co", 'Sufrati.com')->subject($subject);
+                        $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
                     });
                     return returnMsg('success','admineventcalendar', stripslashes($event->name) . ' Test Email Sent successfully');
                     }else{

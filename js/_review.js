@@ -21,6 +21,6 @@ $(document).on('click','.review-recommend-btn',function(e){
 			}
 		});
 	}else{
-		sufratiloginpopup("sufrati-login-form");
+		sufratiloginpopup("Azooma-login-form");
 	}
 });

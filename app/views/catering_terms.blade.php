@@ -11,7 +11,7 @@
     </head>
     <body <?php if($lang=="ar"){?>class="arabic" <?php } ?>itemscope itemtype="http://schema.org/WebPage">
         @include('inc.header')
-        <div class=" sufrati-white-box" id="n">
+        <div class=" Azooma-white-box" id="n">
             <div class="spacing-container">
             </div>
             <div class="container">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div>
-            <div class="sufrati-head">
+            <div class="Azooma-head">
                 <div class="container">
                     <h1>
                     <?php echo Lang::get('messages.catering_terms');?>
@@ -41,7 +41,7 @@
             <div class="spacing-container">
             </div>
             
-            <div class="container sufrati-white-box put-border inner-padding">
+            <div class="container Azooma-white-box put-border inner-padding">
                 <div class="spacing-container">
                 </div>
                 <div>

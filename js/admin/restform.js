@@ -9,12 +9,12 @@ function disableCuisine(master_id) {
 
 
 function addmore() {
-    var element = '<div id="input-' + counter + '" class="input-' + counter + '" ><input type="text" name="rest_Email[]"  placeholder="Contact Email" class="form-control"  /><a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
+    var element = '<div id="input-' + counter + '" class="input-' + counter + '" ><input type="text" name="rest_Email[]"  placeholder="Contact Email" class="form-control"  /><a class="close Azooma-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
     $("#memberemails").append(element);
     counter++;
 }
 
-$(document).on("click", ".sufrati-close", function(event) {
+$(document).on("click", ".Azooma-close", function(event) {
     var dismiss = $(this).attr('data-dismiss');
     $(this).parent().remove();
 });

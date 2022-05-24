@@ -298,9 +298,9 @@ class AdminComments extends AdminController {
         $user_Email = $userInfo->user_Email;
         if ($userInfo->user_Status == 1) {
             Mail::queue('emails.user.commentnotify', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
-                $message->to("ha@azooma.co", 'Sufrati.com')->subject($subject);
-                #$message->to($userEmails, 'Sufrati.com')->subject($subject);
-                #$message->bcc($sufratiUser, 'Sufrati.com')->subject($subject);
+                $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
+                #$message->to($userEmails, 'Azooma.co')->subject($subject);
+                #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
             });
         }
 
@@ -317,9 +317,9 @@ class AdminComments extends AdminController {
                         $user_Email = "";
                         $user_Email = $otheruserInfo['user_Email'];
                         Mail::queue('emails.user.commentnotifyother', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
-                            $message->to("chaudhry639@gmail.com", 'Sufrati.com')->subject($subject);
-                            #$message->to($userEmails, 'Sufrati.com')->subject($subject);
-                            #$message->bcc($sufratiUser, 'Sufrati.com')->subject($subject);
+                            $message->to("chaudhry639@gmail.com", 'Azooma.co')->subject($subject);
+                            #$message->to($userEmails, 'Azooma.co')->subject($subject);
+                            #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
                         });
                     }
                 }
@@ -344,9 +344,9 @@ class AdminComments extends AdminController {
             $user_Email = $rest->rest_Email;
 
             Mail::queue('emails.restaurant.commentnotify', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
-                $message->to("aas@azooma.co", 'Sufrati.com')->subject($subject);
-                #$message->to($userEmails, 'Sufrati.com')->subject($subject);
-                #$message->bcc($sufratiUser, 'Sufrati.com')->subject($subject);
+                $message->to("aas@azooma.co", 'Azooma.co')->subject($subject);
+                #$message->to($userEmails, 'Azooma.co')->subject($subject);
+                #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
             });
         }
     }

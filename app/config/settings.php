@@ -31,8 +31,8 @@ return array(
         'teamEmails' => array("info@azooma.co", "data@azooma.co", "aas@azooma.co", "admin@azooma.co", 'ha@azooma.co', "fasil@azooma.co"),
     ),
     'saudi-arabia' => array(
-        'name' => 'Sufrati',
-        'nameAr' => 'Sufrati',
+        'name' => 'Azooma',
+        'nameAr' => 'Azooma',
         'country' => 'Saudi Arabia',
         'email' => 'info@azooma.co',
         'twitter' => '',
@@ -49,8 +49,8 @@ return array(
         'teamEmails' => array("info@azooma.co", "data@azooma.co", "aas@azooma.co", "admin@azooma.co", 'ha@azooma.co', "fasil@azooma.co"),
     ),
     'united-kingdom' => array(
-        'name' => 'Sufrati',
-        'nameAr' => 'Sufrati',
+        'name' => 'Azooma',
+        'nameAr' => 'Azooma',
         'country' => 'United Kingdom',
         'email' => 'info@azooma.co',
         'twitter' => '',
@@ -67,8 +67,8 @@ return array(
         'teamEmails' => array("info@azooma.co", "data@azooma.co", "aas@azooma.co", 'ha@azooma.co', "fasil@azooma.co"),
     ),
     'lebanon' => array(
-        'name' => 'Sufrati-Lebanon',
-        'nameAr' => 'Sufrati',
+        'name' => 'Azooma-Lebanon',
+        'nameAr' => 'Azooma',
         'country' => 'Saudi Arabia',
         'email' => 'info@azooma.co',
         'twitter' => '',
