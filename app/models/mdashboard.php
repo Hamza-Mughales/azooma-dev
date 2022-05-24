@@ -299,4 +299,13 @@ class MDashboard extends Eloquent {
         return $mRest->get();
     }
 
+    public static function getCountry($country_id) {
+        $mRest = DB::table('countries');
+        $mRest->select('*');
+        $mRest->where('id', $country_id);
+        // $mRest->get();
+        
+        return $mRest->get(); 
+    }
+
 }
