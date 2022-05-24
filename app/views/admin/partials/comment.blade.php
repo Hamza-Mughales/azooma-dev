@@ -67,13 +67,12 @@
             <table class="table table-hover" id="rest-comments">
                 <thead>
                     <tr>
-                        <?php
-                        foreach ($headings as $key => $value) {
-                            ?>
-                            <th class="col-md-1">{{ $value }}</th>
-                            <?php
-                        }
-                        ?>
+                        <th>Comment</th>
+                        <th>Name</th>
+                        <th>Restaurant</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th style="height: 100%">Actions</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

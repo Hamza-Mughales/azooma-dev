@@ -264,8 +264,12 @@ legend{
 legend{
     border-bottom: 1px solid #ddd;
 }
-tbody td:last-child{
-    display: flex;
+tbody td:last-child {
+    min-width: 100px;
+}
+tbody td:last-child a {
+    display: inline-block;
+    margin: 2px;
 }
 a.label{
     padding: 3px 5px;
