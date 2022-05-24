@@ -154,61 +154,68 @@
   <span><?= __('Statistics') ?></span>
 </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class="bg-primary b-r-4 card-body">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
-            <i data-feather="archive"></i>
-          </div>
-          <div class="media-body"><span class="m-0"><?= __('RESTAURANTS') ?></span>
-            <h4 class="mb-0 counter"><?= MDashboard::getTotalRestaurants($country);?></h4>
-            <i class="feather feather-shopping-bag icon-bg" data-feather="archive"></i>
-            <?php $newrest = MDashboard::getTotalRestaurants($country, 1);?>
-            <div class="stat"><b>New</b> {{ $newrest }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class="bg-secondary b-r-4 card-body">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
-            <i data-feather="users"></i>
-          </div>
-          <div class="media-body"><span class="m-0"><?= __('USERS') ?></span>
-            <h4 class="mb-0 counter"><?= MDashboard::getTotalUsers($country); ?></h4>
-            <i data-feather="users" class="feather feather-shopping-bag icon-bg"></i>
-            <?php $newuser = MDashboard::getTotalUsers($country, 1); ?>
-                <div class="stat"><b>New</b> {{ $newuser }}</div>
+    <a  href="<?=url("hungryn137/adminrestaurants")?>">
+      <div class="card o-hidden">
+        <div class="bg-primary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <i data-feather="archive"></i>
+            </div>
+            <div class="media-body"><span class="m-0"><?= __('RESTAURANTS') ?></span>
+              <h4 class="mb-0 counter"><?= MDashboard::getTotalRestaurants($country);?></h4>
+              <i class="feather feather-shopping-bag icon-bg" data-feather="archive"></i>
+              <?php $newrest = MDashboard::getTotalRestaurants($country, 1);?>
+              <div class="stat"><b>New</b> {{ $newrest }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class="b-r-4 card-body" style="background-color: #f8d62b;">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
-            <i data-feather="thumbs-up"></i>
-          </div>
-          <div class="media-body"><span class="m-0"><?= __('SUBSCRIBERS') ?></span>
-            <h4 class="mb-0 counter"><?= MDashboard::getTotalSubscribers($country); ?></h4>
-            <i data-feather="thumbs-up" class="feather feather-shopping-bag icon-bg"></i>
-            <?php $subscribers = MDashboard::getTotalSubscribers($country, 1); ?>
-                <div class="stat"><b>Active</b> {{ $subscribers }}</div>
+    <a href="<?= url('hungryn137/adminusers'); ?>">
+      <div class="card o-hidden">
+        <div class="bg-secondary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <i data-feather="users"></i>
+            </div>
+            <div class="media-body"><span class="m-0"><?= __('USERS') ?></span>
+              <h4 class="mb-0 counter"><?= MDashboard::getTotalUsers($country); ?></h4>
+              <i data-feather="users" class="feather feather-shopping-bag icon-bg"></i>
+              <?php $newuser = MDashboard::getTotalUsers($country, 1); ?>
+              <div class="stat"><b>New</b> {{ $newuser }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class="b-r-4 card-body text-white" style="background-color: #51bb25;">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
+    <a href="<?= URL::route('adminmembers'); ?>">
+      <div class="card o-hidden">
+        <div class="b-r-4 card-body" style="background-color: #f8d62b;">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <i data-feather="thumbs-up"></i>
+            </div>
+            <div class="media-body"><span class="m-0"><?= __('SUBSCRIBERS') ?></span>
+              <h4 class="mb-0 counter"><?= MDashboard::getTotalSubscribers($country); ?></h4>
+              <i data-feather="thumbs-up" class="feather feather-shopping-bag icon-bg"></i>
+              <?php $subscribers = MDashboard::getTotalSubscribers($country, 1); ?>
+              <div class="stat"><b>Active</b> {{ $subscribers }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <a href="<?= URL::route('admingallery').'?type=All'; ?>">
+      <div class="card o-hidden">
+        <div class="b-r-4 card-body text-white" style="background-color: #51bb25;">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
             <i data-feather="image"></i>
           </div>
           <div class="media-body"><span class="m-0"><?= __('PHOTOS') ?></span>
@@ -216,28 +223,31 @@
             <i data-feather="image" class="feather feather-shopping-bag icon-bg"></i>
             <?php
               $subscribers = MDashboard::getTotalPhotos($country, 1);
-            ?>
+              ?>
             <div class="stat"><b>New</b> {{ $subscribers }}</div>
           </div>
         </div>
       </div>
+    </a>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class="b-r-4 card-body text-white" style="background-color: #6f42c1;">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
-            <i data-feather="edit-3"></i>
-          </div>
-          <div class="media-body"><span class="m-0"><?= __('ARTICLES') ?></span>
-            <h4 class="mb-0 counter"><?= MDashboard::getTotalArticles($country); ?></h4>
-            <i data-feather="edit-3" class="feather feather-shopping-bag icon-bg"></i>
-            <div class="stat"><b>Videos</b> <?= MDashboard::getTotalVideos($country);?></div>
+    <a href="<?= url('hungryn137/adminarticles'); ?>">
+      <div class="card o-hidden">
+        <div class="b-r-4 card-body text-white" style="background-color: #6f42c1;">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <i data-feather="edit-3"></i>
+            </div>
+            <div class="media-body"><span class="m-0"><?= __('ARTICLES') ?></span>
+              <h4 class="mb-0 counter"><?= MDashboard::getTotalArticles($country); ?></h4>
+              <i data-feather="edit-3" class="feather feather-shopping-bag icon-bg"></i>
+              <div class="stat"><b>Videos</b> <?= MDashboard::getTotalVideos($country);?></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
   <div class="col-sm-6 col-lg-3">
     <div class="card o-hidden">
@@ -257,8 +267,9 @@
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class=" b-r-4 card-body text-white" style="background-color: #426d93">
+    <a href="<?=url("hungryn137/adminhotels")?>">
+      <div class="card o-hidden">
+        <div class=" b-r-4 card-body text-white" style="background-color: #426d93">
         <div class="media static-top-widget">
           <div class="align-self-center text-center">
             <i data-feather="home"></i>
@@ -267,28 +278,31 @@
             <h4 class="mb-0 counter"><?= MDashboard::getTotalHotels($country);?></h4>
             <i data-feather="home" class="feather feather-shopping-bag icon-bg"></i>
             <?php $menurequest = MDashboard::getTotalHotels($country, 1); ?>
-                <div class="stat"><b>New</b> {{ $menurequest }}</div>
+            <div class="stat"><b>New</b> {{ $menurequest }}</div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
+  </div>
   </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class=" b-r-4 card-body text-white" style="background-color: #00a0c0">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
-            <i data-feather="layout"></i>
-          </div>
-          <div class="media-body"><span class="m-0"><?= __('Cuisines') ?></span>
-            <h4 class="mb-0 counter"><?= MDashboard::getTotalCuisines($country);?></h4>
-            <i data-feather="layout" class="feather feather-shopping-bag icon-bg"></i>
-            <?php $menurequest = MDashboard::getTotalCuisines($country, 1); ?>
-                <div class="stat"><b>New</b> {{ $menurequest }}</div>
+    <a href="<?=url("hungryn137/admincuisine")?>">
+      <div class="card o-hidden">
+        <div class=" b-r-4 card-body text-white" style="background-color: #00a0c0">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <i data-feather="layout"></i>
+            </div>
+            <div class="media-body"><span class="m-0"><?= __('Cuisines') ?></span>
+              <h4 class="mb-0 counter"><?= MDashboard::getTotalCuisines($country);?></h4>
+              <i data-feather="layout" class="feather feather-shopping-bag icon-bg"></i>
+              <?php $menurequest = MDashboard::getTotalCuisines($country, 1); ?>
+              <div class="stat"><b>New</b> {{ $menurequest }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 {{-- End Section --}}
 

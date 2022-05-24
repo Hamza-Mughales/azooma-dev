@@ -50,6 +50,9 @@ class Members extends AdminController
         $query->join('booking_management', 'booking_management.rest_id', '=', 'restaurant_info.rest_ID')
         ->LeftJoin("subscriptiontypes","restaurant_info.rest_Subscription","=","subscriptiontypes.id");
 
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("restaurant_info.country",  adminCountry());
+        }
         if (get('city')) {
             $query->join('rest_branches', 'rest_branches.rest_fk_id', '=', 'restaurant_info.rest_ID');
             $query->where('rest_branches.city_ID', '=', get('city'));

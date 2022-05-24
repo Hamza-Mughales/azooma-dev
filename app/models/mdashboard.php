@@ -21,12 +21,13 @@ class MDashboard extends Eloquent {
     }
 
     public static function getTotalSubscribers($country, $status = 0) {
-        $subscribers = DB::table('subscribers');
+        $subscribers = DB::table('restaurant_info');
         $subscribers->where('country', '=', $country);
-        if (!empty($status)) {
-            $subscribers->where('status', '=', 1);
-            $subscribers->where('bademail', '=', 0);
-        }
+        $subscribers->whereIn('rest_Subscription', [1,2,3]);
+        // if (!empty($status)) {
+            // $subscribers->where('status', '=', 1);
+            // $subscribers->where('bademail', '=', 0);
+        // }
         return $subscribers->count();
     }
 
@@ -43,7 +44,7 @@ class MDashboard extends Eloquent {
     }
 
     public static function getTotalArticles($country) {
-        $articles = DB::table('article');
+        $articles = DB::table('categories');
         $articles->where('country', '=', $country);
         return $articles->count();
     }
@@ -230,7 +231,7 @@ class MDashboard extends Eloquent {
     }
 
     public static function getTotalCuisines($country) {
-        $videos = DB::table('cuisine_list');
+        $videos = DB::table('master_cuisine');
         $videos->where('country', '=', $country);
         return $videos->count();
     }
