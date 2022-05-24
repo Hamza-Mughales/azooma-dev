@@ -47,7 +47,7 @@
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="email"> البريد الإلكتروني</label>
-                            <div class="controls sufrati-backend-input-seperator" id="memberemails">
+                            <div class="controls azooma-backend-input-seperator" id="memberemails">
                                 <?php
                                 if (isset($member)) {
                                     $memberemails = explode(',', $member['email']);
@@ -55,7 +55,7 @@
                                     for ($i = 0; $i < count($memberemails); $i++) {
                                         ?>
                                         <div id="input-<?php echo $i; ?>">
-                                            <a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i; ?>">&times;</a>
+                                            <a class="close azooma-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i; ?>">&times;</a>
                                             <input  type="text" name="emails[]"  placeholder=" البريد الإلكتروني" <?php echo isset($memberemails) ? 'value="' . $memberemails[$i] . '"' : ""; ?> />
                                         </div>
                                         <?php

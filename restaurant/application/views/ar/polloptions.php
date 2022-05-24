@@ -35,7 +35,7 @@ if($this->session->flashdata('message')){
           
 
 
-        <table class="table table-bordered table-striped sufrati-backend-table" id="table-results-table">
+        <table class="table table-bordered table-striped azooma-backend-table" id="table-results-table">
             <thead>
             <th>
             </th>
@@ -73,10 +73,10 @@ if($this->session->flashdata('message')){
                         <?php echo $this->MGeneral->ago($option['createdAt']);?>
                     </td>
                     <td>
-                        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/optionform/'.$option['id'].'/'.$id);?>" rel="tooltip" title="تحرير">
+                        <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/optionform/'.$option['id'].'/'.$id);?>" rel="tooltip" title="تحرير">
                             <i class="icon icon-edit"></i> تحرير
                         </a><br/>
-                         <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/optionstatus/'.$option['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="<?php echo $option['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Option">
+                         <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/optionstatus/'.$option['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="<?php echo $option['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Option">
                             <?php
                             if($option['status']==1){
                                 ?>
@@ -87,7 +87,7 @@ if($this->session->flashdata('message')){
                             <i class="icon icon-ok"></i> تفعيل
                             <?php }?>
                         </a><br/>
-                        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/optiondelete/'.$option['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
+                        <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/optiondelete/'.$option['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
                             <i class="icon icon-remove"></i>
                             حذف 
                         </a>

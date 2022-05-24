@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>s - Sufrati United Kingdom</title>
+        <title>s - azooma United Kingdom</title>
         <style media="all" type="text/css">
             table td {
                 border-collapse: collapse;
@@ -20,7 +20,7 @@
                             <td colspan="2" style="background:#E2E2E2">
                                 <center>
                                     <p style="color:#646464;margin-bottom: 10px;font-size: 11px;font-family:Arial, Helvetica, sans-serif;">
-                                        You received this email because you signed up for Sufrati newsletter.<br/>
+                                        You received this email because you signed up for azooma newsletter.<br/>
                                         The email is not displayed properly?&nbsp;&nbsp;<a href="http://localhost/Azooma/restaurant/index.php/newsletter/event/13" target="_blank" style="color:#222;padding:0;">View the online version</a>
                                     </p>
                                 </center>
@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <td align="left" style="padding:10px 0 10px 15px;background: #FFFFFF;border-top: 1px solid #EAE9E9;border-left: 1px solid #D4D2D3;" valign="top">
-                                <a href="http://localhost/Azooma/restaurant/" title="Sufrati United Kingdom">
+                                <a href="http://localhost/Azooma/restaurant/" title="azooma United Kingdom">
                                     <img src="http://uploads.azooma.co/logos/sufrati4dc8ff56b4c88Munch.jpg" height="100" alt="Munch Bakery" title="Munch Bakery" style="vertical-align:top;outline:none;border:none"/>
                                 </a>
                             </td>
@@ -41,7 +41,7 @@
                                                 <tr>
                                                     <td style=" font-size: 17px; font-weight: normal; font-family: Arial, Helvetica, sans-serif; ">Brought you by</td>
                                                     <td>
-                                                        <a href="http://localhost/Azooma/restaurant/" title="Sufrati United Kingdom">
+                                                        <a href="http://localhost/Azooma/restaurant/" title="azooma United Kingdom">
                                                             <img src="/images/smallheaderlogo.png" height="50" alt="Munch Bakery" title="Munch Bakery" style="vertical-align:top;outline:none;border:none"/>
                                                         </a>
                                                     </td>
@@ -51,13 +51,13 @@
                                     </tr>
                                     <tr>
                                         <td >
-                                            <a style="display: inline-block;margin-bottom: 4px;" href="https://itunes.apple.com/us/app/sufrati-lite/id709229893" title="Sufrati Lite" target="_blank"> 
-                                                <img src="http://uploads.azooma.co/newsletter/badge_app_store.png" width="120" alt="Sufrati Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
+                                            <a style="display: inline-block;margin-bottom: 4px;" href="https://itunes.apple.com/us/app/azooma-lite/id709229893" title="azooma Lite" target="_blank"> 
+                                                <img src="http://uploads.azooma.co/newsletter/badge_app_store.png" width="120" alt="azooma Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
                                             </a>
                                         </td>
                                         <td> 
-                                            <a href="https://play.google.com/store/apps/details?id=com.LetsEat.SufratiLite" title="Sufrati Lite" target="_blank"> 
-                                                <img src="http://uploads.azooma.co/newsletter/badge_google_play.png" width="120" alt="Sufrati Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
+                                            <a href="https://play.google.com/store/apps/details?id=com.LetsEat.AzoomaLite" title="azooma Lite" target="_blank"> 
+                                                <img src="http://uploads.azooma.co/newsletter/badge_google_play.png" width="120" alt="azooma Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
                                             </a>
                                         </td>
                                         <td width="15" height="20"></td>
@@ -96,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="font-size:13px;line-height:20px;color:#646464;padding:0px 20px;line-height:21px;"> Feel free to contact us for any information at <a href="mailto:info@azooma.co" style="color:#00A2B1;">info@azooma.co</a> or call us on <span style="color:#e60683;font-size:18px;">0044207 993 4477</span>.<br />
-                                            If you would like to advertise with us please contact <a href="mailto:sales@sufrati.com" style="color:#00A2B1;">sales@sufrati.com</a>
+                                            If you would like to advertise with us please contact <a href="mailto:sales@azooma.co" style="color:#00A2B1;">sales@azooma.co</a>
                                             <td>
                                                 </tr>
                                                 <tr>
@@ -111,7 +111,7 @@
                                                                     <td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td colspan="2" style="font-size:13px;line-height:20px;color:#646464;padding:0px 20px;"> Sufrati Team
+                                                                            <td colspan="2" style="font-size:13px;line-height:20px;color:#646464;padding:0px 20px;"> azooma Team
                                                                                 <td>
                                                                                     </tr>
                                                                                     <tr>
@@ -128,7 +128,7 @@
                                                                         <tr height="100px"  style="color:#646464; background-color:whitesmoke;">
                                                                             <td width="410" align="left" valign="bottom" style=" padding:20px 30px 5px;font-size:12px; ">
 
-                                                                                <strong>Sufrati United Kingdom</strong><br />
+                                                                                <strong>azooma United Kingdom</strong><br />
                                                                                                                                                                 <br /><br/>
                                                                                 Telephone: 0044207 993 4477<br />
                                                                                 Mobile: 1<br />
@@ -153,10 +153,10 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td align="right">
-                                                                                                                                                                                            <a style="text-decoration:none;" href="1" target="_blank"> <img src="http://uploads.azooma.co/newsletter/facebook-icon.jpg" width="30" border="0" height="30" alt="Sufrati Facebook Page"/> </a>&nbsp;
-                                                                                                                                                                                                                                                                                        <a style="text-decoration:none;" href="1" target="_blank"> <img src="http://uploads.azooma.co/newsletter/twitter-icon.jpg" width="30" border="0" height="30" alt="Sufrati Twitter Profile"/> </a>&nbsp;
-                                                                                                                                                                                                                                                                                        <a style="text-decoration:none;" href="1" target="_blank"> <img src="http://uploads.azooma.co/newsletter/linkin-icon.jpg" width="30" height="30" border="0" alt="Sufrati Linkedin Profile"/> </a>&nbsp;
-                                                                                                                                                                                                                                                                                        <a href="https://www.youtube.com/user/videosufrati" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/newsletter/youtube-icon.jpg" width="30" height="30" border="0" alt="Sufrati Youtube Channel"/> </a>&nbsp;
+                                                                                                                                                                                            <a style="text-decoration:none;" href="1" target="_blank"> <img src="http://uploads.azooma.co/newsletter/facebook-icon.jpg" width="30" border="0" height="30" alt="azooma Facebook Page"/> </a>&nbsp;
+                                                                                                                                                                                                                                                                                        <a style="text-decoration:none;" href="1" target="_blank"> <img src="http://uploads.azooma.co/newsletter/twitter-icon.jpg" width="30" border="0" height="30" alt="azooma Twitter Profile"/> </a>&nbsp;
+                                                                                                                                                                                                                                                                                        <a style="text-decoration:none;" href="1" target="_blank"> <img src="http://uploads.azooma.co/newsletter/linkin-icon.jpg" width="30" height="30" border="0" alt="azooma Linkedin Profile"/> </a>&nbsp;
+                                                                                                                                                                                                                                                                                        <a href="https://www.youtube.com/user/videosufrati" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/newsletter/youtube-icon.jpg" width="30" height="30" border="0" alt="azooma Youtube Channel"/> </a>&nbsp;
                                                                                                                                                                                                                                                                                         <a href="1" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/newsletter/instagram-icon.png" width="32" height="32" border="0" alt="Instagram Profile"/> </a>&nbsp;
                                                                                                                                                                                     </td>
                                                                                     </tr>
@@ -175,10 +175,10 @@
                                                                                             </p>
                                                                                             <p>
                                                                                                 To the best of our knowledge, all information and offers contained in this email are correct at the time of distribution.
-                                                                                                However, for the most up-to-date information we recommend you check <a href="http://localhost/Azooma/restaurant/">sufrati.com</a>
+                                                                                                However, for the most up-to-date information we recommend you check <a href="http://localhost/Azooma/restaurant/">azooma.co</a>
                                                                                             </p>
                                                                                             <p>
-                                                                                                &copy; 2021 Sufrati.com. All rights reserved. Sufrati , the Sufrati logo, the Chef and the Waiter images are either registered trademarks or trademarks of Sufrati.com in Saudi Arabia and/or other countries.
+                                                                                                &copy; 2021 Azooma.co. All rights reserved. azooma , the azooma logo, the Chef and the Waiter images are either registered trademarks or trademarks of Azooma.co in Saudi Arabia and/or other countries.
                                                                                             </p>
                                                                                         </td>
                                                                                         <td width="30" style="width:30px;"></td>

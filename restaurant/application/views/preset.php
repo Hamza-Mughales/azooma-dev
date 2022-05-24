@@ -2,7 +2,7 @@
 
 <div id="data-table">
   <div class="preset_left">
-    <h2>Choose the right Sufrati.com account for you</h2>
+    <h2>Choose the right Azooma.co account for you</h2>
     <table class="style1 datatable" width="450px">
       <thead>
         <tr>
@@ -39,15 +39,15 @@
         </tr>
         <tr>
           <td>News Feeds</td>
-          <td align="center"><a class="someClass" href="#" title="Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /></a></td>
-          <td align="center"><a class="someClass" href="#" title="Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /></a></td>
-          <td align="center"  colspan="2"><a class="someClass" href="#" title="Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /></a></td>
+          <td align="center"><a class="someClass" href="#" title="Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /></a></td>
+          <td align="center"><a class="someClass" href="#" title="Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /></a></td>
+          <td align="center"  colspan="2"><a class="someClass" href="#" title="Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /></a></td>
         </tr>
         <tr>
           <td>Add Special Offers</td>
           <td align="center"><img src="<?php echo base_url(); ?>images/account/ico_inactive_16.png" class="icon16" alt="" /></td>
-          <td align="center"><a class="someClass" href="#" title="Display your Latest Offer on your profile page and in sufrati.com’s Special offers page instantly."> <img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /> </a></td>
-          <td align="center"  colspan="2"><a class="someClass" href="#" title="Display your Latest Offer on your profile page and in sufrati.com’s Special offers page instantly."> <img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /> </a></td>
+          <td align="center"><a class="someClass" href="#" title="Display your Latest Offer on your profile page and in azooma.co’s Special offers page instantly."> <img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /> </a></td>
+          <td align="center"  colspan="2"><a class="someClass" href="#" title="Display your Latest Offer on your profile page and in azooma.co’s Special offers page instantly."> <img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="" /> </a></td>
         </tr>
         <tr>
           <td>Comment Response</td>
@@ -59,7 +59,7 @@
           <td>Fan Club</td>
           <td align="center"><img src="<?php echo base_url(); ?>images/account/ico_inactive_16.png" class="icon16" alt="" /></td>
           <td align="center"><img src="<?php echo base_url(); ?>images/account/ico_inactive_16.png" class="icon16" alt="" /></td>
-          <td align="center"  colspan="2"><a class="someClass" href="#" title="Fans will receive instant notifications direct to their emails and sufrati.com accounts about your latest updates eg. Menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="Restaurant Info" /></a></td>
+          <td align="center"  colspan="2"><a class="someClass" href="#" title="Fans will receive instant notifications direct to their emails and azooma.co accounts about your latest updates eg. Menu, images, offers, contact numbers."><img src="<?php echo base_url(); ?>images/account/ico_active_16.png" class="icon16" alt="Restaurant Info" /></a></td>
         </tr>
         <tr>
           <td>Video Upload</td>

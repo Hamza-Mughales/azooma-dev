@@ -278,7 +278,7 @@ class Offers extends MY_Controller {
             $file_name = $_FILES[$name]['name'];
             $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
             $new_filename = $rand . $date . "." . $file_ext;
-            $uploadFile_1 = uniqid('sufrati') . $new_filename;
+            $uploadFile_1 = uniqid('azooma') . $new_filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             $fileName = $_FILES[$name]['name'];
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))

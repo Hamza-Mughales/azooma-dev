@@ -362,7 +362,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 $config['mainemail']="info@azooma.co";
-$config['teamemails']=array("info@azooma.co","data@sufrati.com","fasil@sufrati.com","ha@sufrati.com");
+$config['teamemails']=array("info@azooma.co","data@azooma.com","fasil@azooma.com","ha@azooma.com");
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

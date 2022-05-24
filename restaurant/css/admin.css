@@ -66,10 +66,10 @@ h2.accordion-heading {
 .icon-dashboard-widget {
     margin-top: 12px;
 }
-.sufrati-backend-table tbody tr {
+.azooma-backend-table tbody tr {
     cursor:pointer;
 }
-.sufrati-backend-actions {
+.azooma-backend-actions {
     line-height: 21px;
 }
 .inline-block {
@@ -131,15 +131,15 @@ tr.new-row a {
 tr.new-row:hover td {
     background-color: #08C !important;
 }
-.sufrati-backend-input-seperator div {
+.azooma-backend-input-seperator div {
     margin-bottom: 15px;
 }
-.sufrati-backend-input-seperator div a {
+.azooma-backend-input-seperator div a {
     margin-left: 20px;
     margin-top: 5px;
     float: left
 }
-.sufrati-backend-input-seperator div input {
+.azooma-backend-input-seperator div input {
     float: left;
 }
 article form {
@@ -260,7 +260,7 @@ li.active a {
 .accordion-inner form {
     padding-top:10px;
 }
-.sufrati-backend-input-seperator div
+.azooma-backend-input-seperator div
 {
     overflow:auto;
 }

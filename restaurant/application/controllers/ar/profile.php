@@ -84,7 +84,7 @@ class Profile extends CI_Controller {
 	if ( $_FILES[$name]['name'] != '' &&  $_FILES[$name]['name'] != 'none'){
             $filename=$_FILES[$name]['name'];	
             $filename=str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1  = $uploadDir. $uploadFile_1; 
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))
 		$image_name = $uploadFile_1;

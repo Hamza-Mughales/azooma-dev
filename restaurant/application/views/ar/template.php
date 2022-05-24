@@ -6,7 +6,7 @@
 
     <body itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".bs-docs-sidebar" dir="rtl">
         <?php $this->load->view('inc/ar/header'); ?>
-        <div class="top-nav sufrati-seperator">
+        <div class="top-nav azooma-seperator">
             <div class="container hidden-overflow"> 
                 <div class="left"> 
                     <?php
@@ -36,12 +36,12 @@
                             <li class="divider"></li>
                             <li><a href="<?php echo site_url('ar/home/logo'); ?>">تغيير الشعار</a></li>
                             <li class="divider"></li>
-                            <li><a target="_blank" href="http://www.sufrati.com/saudi-arabian-dining/analytics/view/<?php echo $rest['rest_ID']; ?>.html"> التقرير الشهري</a></li>
+                            <li><a target="_blank" href="http://www.azooma.co/saudi-arabian-dining/analytics/view/<?php echo $rest['rest_ID']; ?>.html"> التقرير الشهري</a></li>
                             <li class="divider"></li>
                             <?php
                             $url = "";
                             $cityURL = $this->MGeneral->getRestaurantCityURL($rest['rest_ID']);
-                            $url = 'http://www.sufrati.com/' . $cityURL['seo_url'] . '/' . $rest['seo_url'];
+                            $url = 'http://www.azooma.co/' . $cityURL['seo_url'] . '/' . $rest['seo_url'];
                             ?>
                             <li><a target="_blank" href="<?php echo $url; ?>">معاينة صفحة</a></li>
                             <li class="divider"></li>

@@ -76,8 +76,8 @@ class Accounts extends MY_Controller
 
         $sufratiUser = array();
         $sufratiUser[] = "info@azooma.co";
-        $sufratiUser[] = "data@sufrati.com";
-        $sufratiUser[] = "fasil@sufrati.com";
+        $sufratiUser[] = "data@azooma.co";
+        $sufratiUser[] = "fasil@azooma.co";
         $sufratiUser[] = "kareem@primedigiko.com";
 
         $this->session->unset_userdata('account');

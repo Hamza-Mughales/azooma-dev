@@ -13,7 +13,7 @@
             ?>
             <div class="table-responsive">
 
-                <table class="table table-bordered table-striped sufrati-backend-table text-center" id="basic-1">
+                <table class="table table-bordered table-striped azooma-backend-table text-center" id="basic-1">
                     <thead>
                         <th class="span4">
                             #

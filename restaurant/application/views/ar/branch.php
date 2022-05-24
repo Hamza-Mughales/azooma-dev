@@ -35,7 +35,7 @@ if($this->session->flashdata('message')){
                           if(count($total)>0){
                                   ?>
 
-                          <table class="table table-bordered table-striped sufrati-backend-table" id="rest-results-table">
+                          <table class="table table-bordered table-striped azooma-backend-table" id="rest-results-table">
 
                                           <thead>
                                                   <tr>
@@ -64,19 +64,19 @@ if($this->session->flashdata('message')){
                                                                             ?></td>
 
                                                           <td>
-                          <a class="sufrati-backend-actions" href="<?=base_url()?>ar/branches/from/<?=$p['rest_fk_id']?>/<?=$p['br_id']?>" rel="tooltip" data-original-title="تحرير <?php echo (htmlspecialchars($rest['rest_Name'])); ?>">
+                          <a class="azooma-backend-actions" href="<?=base_url()?>ar/branches/from/<?=$p['rest_fk_id']?>/<?=$p['br_id']?>" rel="tooltip" data-original-title="تحرير <?php echo (htmlspecialchars($rest['rest_Name'])); ?>">
                   <i class="icon icon-edit"></i> تحرير
               </a>
                               <br>
 
 
-                          <a class="sufrati-backend-actions" target="_blank" href="<? echo $this->config->item('sa_url').'rest/'.$rest['seo_url'].'/'.$p['br_id']; ?>" rel="tooltip" data-original-title="     معاينة  ">
+                          <a class="azooma-backend-actions" target="_blank" href="<? echo $this->config->item('sa_url').'rest/'.$rest['seo_url'].'/'.$p['br_id']; ?>" rel="tooltip" data-original-title="     معاينة  ">
                   <i class="icon icon-info-sign"></i>
                   معاينة  </a>
  <br>
 
 
-                          <a class="sufrati-backend-actions" href="<?=base_url()?>ar/branches/photos/<?=$p['br_id']?>/<?=$p['rest_fk_id']?>" rel="tooltip" data-original-title=" معاينة صور">
+                          <a class="azooma-backend-actions" href="<?=base_url()?>ar/branches/photos/<?=$p['br_id']?>/<?=$p['rest_fk_id']?>" rel="tooltip" data-original-title=" معاينة صور">
                   <i class="icon icon-info-sign"></i>
                    معاينة صور </a>
 

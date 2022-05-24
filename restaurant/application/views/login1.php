@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-<link rel="shortcut icon" href="http://www.sufrati.com/sa/favicon.ico" />
+<link rel="shortcut icon" href="http://www.azooma.co/sa/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--
  #####              ####                       #         #    
@@ -27,7 +27,7 @@
 <div id="header-container">
   <header>
     <div class="wrapper clearfix">
-      <h1 id="title" class="left"> <a href="http://www.sufrati.com/" title="Restaurant Directory &amp; Hotel dining guide"> <img src="<?php  echo "http://uploads.azooma.co/sufratilogo/".$logo['image']; ?>" alt="<?php echo $sitename;?>"/> </a> </h1>
+      <h1 id="title" class="left"> <a href="http://www.azooma.co/" title="Restaurant Directory &amp; Hotel dining guide"> <img src="<?php  echo "http://uploads.azooma.co/sufratilogo/".$logo['image']; ?>" alt="<?php echo $sitename;?>"/> </a> </h1>
       <div class="right" id="banner"><img src="<?php echo site_url();?>images/top-photos.jpg" alt="Food Photos" id="top-photos"></div>
     </div>
     <div class="main-nav">
@@ -37,8 +37,8 @@
         </div>
         <div id="social-icons-top">
           <ul class="social-icons">
-            <li class="facebook"><a target="_blank" href="https://www.facebook.com/Sufrati.com" title="Share on Facebook"> </a></li>
-            <li class="twitter"><a target="_blank" href="http://www.twitter.com/sufrati" title="Share on Twitter"></a></li>
+            <li class="facebook"><a target="_blank" href="https://www.facebook.com/Azooma.co" title="Share on Facebook"> </a></li>
+            <li class="twitter"><a target="_blank" href="http://www.twitter.com/azooma" title="Share on Twitter"></a></li>
             <li class="linkIn"><a target="_blank" href="http://www.linkedin.com/company/2249129" title="Share on LinkIn"></a></li>
             <li class="youtube"><a target="_blank" href="http://www.youtube.com/videosufrati" title="Share on Youtube"> </a></li>
           </ul>
@@ -90,9 +90,9 @@
       <h2 class="main-head black normal-head"> <span>Create</span> your free business account</h2>
       <div class="overflow">
         <div id="home-page-text" class="overflow ">
-          <p>Add your restaurant and take advantage of our free services. Sufrati.com connects you with your audience without failure. <br />
+          <p>Add your restaurant and take advantage of our free services. Azooma.co connects you with your audience without failure. <br />
             <br />
-            Specializing only in the field of dining, Sufrati.com is designed to make finding the restaurant of choice easy for diners, creating an easy and reliable way to get noticed.</p>
+            Specializing only in the field of dining, Azooma.co is designed to make finding the restaurant of choice easy for diners, creating an easy and reliable way to get noticed.</p>
           <p style="margin:25px 0px;"> <a href="http://stage.azooma.co/restaurant/suggest">
             <input type="image" src="<?php echo site_url();?>images/create-btn.gif" value="" alt="">
             </a> </p>
@@ -107,25 +107,25 @@
     <div class="col-3 left">
       <div class="col-icons"><img src="<?php echo site_url();?>images/take-control-icon.jpg" alt="Take Control"></div>
       <h4><strong>Take control</strong> of your information</h4>
-      <p>Verified owners and managers can edit their Sufrati.com page instantly to keep their important info up-to-date and accurate. This way our viewers can reach you without any confusion.</p>
+      <p>Verified owners and managers can edit their Azooma.co page instantly to keep their important info up-to-date and accurate. This way our viewers can reach you without any confusion.</p>
     </div>
     <div class="col-3 left">
       <div class="col-icons"><img src="<?php echo site_url();?>images/promote-business-icon.jpg" alt="Take Control"></div>
       <h4><strong>Promote</strong> your business</h4>
-      <p>Every month more than 600 thousand consumers decide where to eat on Sufrati.com. Claim your restaurant today and start using your Free profile page and if you decide to join one of our membership packages, we'll throw in a free 30-day ad! No credit card or any other obligation required.</p>
+      <p>Every month more than 600 thousand consumers decide where to eat on Azooma.co. Claim your restaurant today and start using your Free profile page and if you decide to join one of our membership packages, we'll throw in a free 30-day ad! No credit card or any other obligation required.</p>
     </div>
     <div class="col-3 left">
       <div class="col-icons"><img src="<?php echo site_url();?>images/interact-customers-icon.jpg" alt="Take Control"></div>
       <h4><strong>Interact</strong> with your customers</h4>
-      <p>By becoming an official member you can interact with your customers and give them the latest news about your Menus, events, locations and more. Sufrati.com offers you the easiest way to promote your offers directly to millions of potential customers all year round.</p>
+      <p>By becoming an official member you can interact with your customers and give them the latest news about your Menus, events, locations and more. Azooma.co offers you the easiest way to promote your offers directly to millions of potential customers all year round.</p>
     </div>
   </div>
 </section>
 <div id="footer-container">
   <footer class="wrapper">
     <h4>Proudly featured in</h4>
-    <img src="<?php echo site_url();?>images/footer.jpg" title="Sufrati.com was proudly featured in Reauters, Zawya, Ameinfo, Arab news, Destination Jeddah Etc" alt="As Reviewed By Reauters, Zawya, Ameinfo, Arab news, Destination Jeddah Etc." id="featured-logos">
-    <div>© 2013 Sufrati.com</div>
+    <img src="<?php echo site_url();?>images/footer.jpg" title="Azooma.co was proudly featured in Reauters, Zawya, Ameinfo, Arab news, Destination Jeddah Etc" alt="As Reviewed By Reauters, Zawya, Ameinfo, Arab news, Destination Jeddah Etc." id="featured-logos">
+    <div>© 2013 Azooma.co</div>
   </footer>
 </div>
 <script>
@@ -138,7 +138,7 @@
 	
 	 var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-8627357-3']);
-  _gaq.push(['_setDomainName', 'sufrati.com']);
+  _gaq.push(['_setDomainName', 'azooma.co']);
   _gaq.push(['_trackPageview']);
 
   (function() {

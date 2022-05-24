@@ -14,15 +14,15 @@
 <table align="center" width="600px" style=" background-color:#FFFFFF;">
 			<tr>
             <td colspan="2" align="left" style="padding-left:10px; padding-top:10px;" valign="top">
-            <img src="http://www.sufrati.com/saudi-arabian-dining/images/<?php echo $logo; ?>" alt="Sufrati.com" /></td>
+            <img src="http://www.azooma.co/saudi-arabian-dining/images/<?php echo $logo; ?>" alt="Azooma.co" /></td>
             </tr>
             
             <tr>
-			<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; padding-left:10px; padding-right:10px; padding-top:12px;" colspan="2"><h1>Welcome To Sufrati.com</h1></td>
+			<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; padding-left:10px; padding-right:10px; padding-top:12px;" colspan="2"><h1>Welcome To Azooma.co</h1></td>
 			</tr> 
             
             <tr>
-			<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;padding-left:10px; padding-right:10px;" colspan="2"><h2>Dear Sufrati.com</h2></td>
+			<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;padding-left:10px; padding-right:10px;" colspan="2"><h2>Dear Azooma.co</h2></td>
 			</tr> 
             
             <tr>
@@ -93,7 +93,7 @@ Best regards
 <tr>
 				<td align="left" valign="top" height="160px" colspan="2" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; padding-left:10px; padding-top:10px; color:#FFFFFF; background-color:#000000;">
                                 
-                                <strong>Sufrati.Com Team<br />
+                                <strong>Azooma.Com Team<br />
                                 </strong>P.O.Box 15780<br />
                                 Jeddah 21454<br />
                                 Kingdom of Saudi Arabia<br />

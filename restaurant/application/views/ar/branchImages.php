@@ -27,7 +27,7 @@ if($this->session->flashdata('message')){
            <?php
         if(isset($branchImages)){
             ?>
-            <table class="table table-bordered table-striped sufrati-backend-table" id="table-results-table">
+            <table class="table table-bordered table-striped azooma-backend-table" id="table-results-table">
                 <thead>
                 <th>
                 

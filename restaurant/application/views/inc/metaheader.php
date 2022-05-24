@@ -13,7 +13,7 @@
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="shortcut icon" href="http://www.sufrati.com/sa/favicon.ico" />
+<link rel="shortcut icon" href="http://www.azooma.co/sa/favicon.ico" />
 <meta name="robots" content="index, follow"/>
 <link href="<?php echo base_url('css/bootstrap.css');?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url('css/bootstrap.min.css');?>" rel="stylesheet" type="text/css" />
@@ -80,8 +80,8 @@
 
 <script type='text/javascript'>
 //googletag.cmd.push(function() {
-//googletag.defineSlot('/6866964/Sufrati.com-saudi', [560, 90], 'div-gpt-ad-1344948428819-0').addService(googletag.pubads());
-//googletag.defineSlot('/6866964/Sufrati_side_banner', [267, 250], 'div-gpt-ad-1346506023410-0').addService(googletag.pubads());
+//googletag.defineSlot('/6866964/Azooma.co-saudi', [560, 90], 'div-gpt-ad-1344948428819-0').addService(googletag.pubads());
+//googletag.defineSlot('/6866964/Azooma_side_banner', [267, 250], 'div-gpt-ad-1346506023410-0').addService(googletag.pubads());
 //googletag.pubads().enableSingleRequest();
 //googletag.enableServices();
 //});

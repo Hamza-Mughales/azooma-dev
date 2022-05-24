@@ -508,11 +508,11 @@ class Home extends CI_Controller
                     $msg = $this->parser->parse('mails/firstLogin', $data, true);
                 }
                 $subject = stripslashes($rows['rest_Name']) . " has started managing his profile";
-                $this->email->from("admin@sufrati.com", "Sufrati.com");
+                $this->email->from("admin@azooma.co", "Azooma.co");
                 $this->email->to("info@azooma.co");
-                $lists = array('sales@sufrati.com', 'data@sufrati.com', 'kareem@primedigiko.com');
+                $lists = array('sales@azooma.co', 'data@azooma.co', 'kareem@primedigiko.com');
                 $this->email->cc($lists);
-                $this->email->bcc('admin@sufrati.com', 'ha@sufrati.com');
+                $this->email->bcc('admin@azooma.co', 'ha@azooma.co');
                 $this->email->subject($subject);
                 $this->email->message($msg);
                 $this->email->send();
@@ -551,15 +551,15 @@ class Home extends CI_Controller
                 $this->load->library('parser');
                 $msg = $this->parser->parse('mails/accountExpired', $data, true);
                 $emaillist = explode(",", $rows['email']);
-                $subject = "Your Account Expired at Sufrati.com";
+                $subject = "Your Account Expired at Azooma.co";
 
-                $this->email->from("info@azooma.co", "Sufrati.com");
+                $this->email->from("info@azooma.co", "Azooma.co");
                 $this->email->to($emaillist);
                 $this->email->subject($subject);
                 $this->email->message($msg);
                 $this->email->send();
 
-                $this->email->from("notifications@sufrati.com", "Sufrati ");
+                $this->email->from("notifications@azooma.co", "Azooma ");
                 $this->email->to("info@azooma.co");
                 $this->email->subject($subject);
                 $this->email->message($msg);
@@ -768,7 +768,7 @@ class Home extends CI_Controller
             $data['restname'] = stripslashes($rest['rest_Name']);
             $msg = $this->load->view('mails/restResponse', $data, true);
             $subject = stripslashes($rest['rest_Name']) . " ".lang('repy_subject');
-            $this->email->from("info@azooma.co", "Sufrati.com");
+            $this->email->from("info@azooma.co", "Azooma.co");
             $this->email->to($user_info['user_Email']);
             $this->email->bcc($this->config->item("teamemails"));
             $this->email->subject($subject);
@@ -793,7 +793,7 @@ class Home extends CI_Controller
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
             $filename = $_FILES[$name]['name'];
             $filename = str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))
                 $image_name = $uploadFile_1;
@@ -818,8 +818,8 @@ class Home extends CI_Controller
 
         $sufratiUser = array();
         $sufratiUser[] = "info@azooma.co";
-        $sufratiUser[] = "data@sufrati.com";
-        $sufratiUser[] = "fasil@sufrati.com";
+        $sufratiUser[] = "data@azooma.co";
+        $sufratiUser[] = "fasil@azooma.co";
 
         $username = $userInfo['user_NickName'];
         if ($username == "") {
@@ -837,12 +837,12 @@ class Home extends CI_Controller
         $data['review_Msg'] = $review_Msg;
         $data['user_activity_id'] = $user_activity_id;
         $msgtouser = $this->load->view('mails/commentNotifyuser', $data, true);
-        $this->email->from('info@azooma.co', "Sufrati.com");
+        $this->email->from('info@azooma.co', "Azooma.co");
         $this->email->message($msgtouser);
         if (is_array($userInfo) && $userInfo['user_Status'] == 1) {
             if ($this->MGeneral->checkNotificationStatus($user_id)) {
                 $this->email->to($userInfo['user_Email']);
-                $this->email->subject('Your Comment on ' . $rest['rest_Name'] . ' is Approved - Sufrati.com');
+                $this->email->subject('Your Comment on ' . $rest['rest_Name'] . ' is Approved - Azooma.co');
                 $this->email->send();
             }
         }
@@ -860,7 +860,7 @@ class Home extends CI_Controller
                         $msgtootheruser = $this->load->view('mails/commentNotifyotheruser', $data, true);
                         $this->email->message($msgtootheruser);
 
-                        $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' - Sufrati.com');
+                        $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' - Azooma.co');
                         $this->email->to($otheruserInfo['user_Email']);
                         $this->email->send();
                     }
@@ -880,7 +880,7 @@ class Home extends CI_Controller
             $data['review_Msg'] = $review_Msg;
             $data['user_activity_id'] = $user_activity_id;
             $msgtorest = $this->load->view('mails/commentNotifyRest', $data, true);
-            $this->email->from('info@azooma.co', "Sufrati.com");
+            $this->email->from('info@azooma.co', "Azooma.co");
             $this->email->to($rest['rest_Email']);
 
             $this->email->bcc($sufratiUser);
@@ -889,7 +889,7 @@ class Home extends CI_Controller
             //                $this->email->bcc($sufratiemail);
             //            }
 
-            $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' at www.sufrati.com');
+            $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' at www.azooma.co');
             $this->email->message($msgtorest);
             $this->email->send();
         }
@@ -937,19 +937,19 @@ class Home extends CI_Controller
 
             $sufratiUser = array();
             $sufratiUser[] = "info@azooma.co";
-            $sufratiUser[] = "data@sufrati.com";
-            $sufratiUser[] = "fasil@sufrati.com";
+            $sufratiUser[] = "data@azooma.co";
+            $sufratiUser[] = "fasil@azooma.co";
 
-            $this->email->from('info@azooma.co', 'Sufrati.com');
+            $this->email->from('info@azooma.co', 'Azooma.co');
             $this->email->to($email);
             $this->email->bcc('passwords@azooma.co');
-            $this->email->subject('Your admin password at Sufrati');
+            $this->email->subject('Your admin password at Azooma');
             $this->email->message($msg);
             $this->email->send();
 
-            $this->email->from('info@azooma.co', 'Sufrati.com');
+            $this->email->from('info@azooma.co', 'Azooma.co');
             $this->email->to($sufratiUser);
-            $this->email->subject('Restaurant updated his admin password at Sufrati');
+            $this->email->subject('Restaurant updated his admin password at Azooma');
             $this->email->message($msg);
             $this->email->send();
             $this->session->set_flashdata('message', 'Password is reset successfully. Please check your email for your password.');

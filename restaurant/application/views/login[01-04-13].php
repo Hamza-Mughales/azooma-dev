@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $sitename; ?>- Restaurant Login</title>
-<link rel="shortcut icon" href="http://www.sufrati.com/sa/favicon.ico" />
+<link rel="shortcut icon" href="http://www.azooma.co/sa/favicon.ico" />
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/login.css" type="text/css" />
@@ -29,8 +29,8 @@
 
 <script type='text/javascript'>
 //googletag.cmd.push(function() {
-//googletag.defineSlot('/6866964/Sufrati.com-saudi', [560, 90], 'div-gpt-ad-1344948428819-0').addService(googletag.pubads());
-//googletag.defineSlot('/6866964/Sufrati_side_banner', [267, 250], 'div-gpt-ad-1346506023410-0').addService(googletag.pubads());
+//googletag.defineSlot('/6866964/Azooma.co-saudi', [560, 90], 'div-gpt-ad-1344948428819-0').addService(googletag.pubads());
+//googletag.defineSlot('/6866964/Azooma_side_banner', [267, 250], 'div-gpt-ad-1346506023410-0').addService(googletag.pubads());
 //googletag.pubads().enableSingleRequest();
 //googletag.enableServices();
 //});
@@ -50,7 +50,7 @@
     
         <div class="login-head">
             <div class="left-pane">
-                <h1> <a  href="<?php echo base_url();?>" title="<?php echo $sitename;?>"> <img src="<?php if(file_exists($this->config->item('sa_url').'images/'.$logo['image'])){ echo $this->config->item('sa_url');?>images/<?php echo $logo['image']; }else{ echo "http://www.sufrati.com/sa/images/".$logo['image']; } ?>" width="365" height="75" alt="<?php echo $sitename;?>"/> </a> </h1>
+                <h1> <a  href="<?php echo base_url();?>" title="<?php echo $sitename;?>"> <img src="<?php if(file_exists($this->config->item('sa_url').'images/'.$logo['image'])){ echo $this->config->item('sa_url');?>images/<?php echo $logo['image']; }else{ echo "http://www.azooma.co/sa/images/".$logo['image']; } ?>" width="365" height="75" alt="<?php echo $sitename;?>"/> </a> </h1>
             </div>
             <div class="login-pane">
 
@@ -70,17 +70,17 @@
           <li>
             <div class="feature-icon-wrap"> <span class="deals-icon inline-block"></span> </div>
             <h3 class="red">Take Control of Your Information</h3>
-            <p class="feature-description">Verified owners and managers can edit their Sufrati.com page instantly to keep their important info up-to-date and accurate. This way our viewers can reach you without any confusion</p>
+            <p class="feature-description">Verified owners and managers can edit their Azooma.co page instantly to keep their important info up-to-date and accurate. This way our viewers can reach you without any confusion</p>
           </li>
           <li>
             <div class="feature-icon-wrap"> <span class="message-customers-icon inline-block"></span> </div>
             <h3 class="red">Promote Your Business</h3>
-            <p class="feature-description">Every month more than 600 thousand consumers decide where to eat on Sufrati.com. Claim your restaurant today and start using your Free profile page and if you decide to join one of our membership packages, we'll throw in a free 30-day ad! No credit card or any other obligation required.</p>
+            <p class="feature-description">Every month more than 600 thousand consumers decide where to eat on Azooma.co. Claim your restaurant today and start using your Free profile page and if you decide to join one of our membership packages, we'll throw in a free 30-day ad! No credit card or any other obligation required.</p>
           </li>
           <li>
             <div class="feature-icon-wrap"> <span class="message-customers-icon inline-block"></span> </div>
             <h3 class="red">Interact With Your Customers</h3>
-            <p class="feature-description">By becoming an official member you can interact with your customers and give them the latest news about your Menus, events, locations and more. Sufrati.com offers you the easiest way to promote your offers directly to millions of potential customers all year round.</p>
+            <p class="feature-description">By becoming an official member you can interact with your customers and give them the latest news about your Menus, events, locations and more. Azooma.co offers you the easiest way to promote your offers directly to millions of potential customers all year round.</p>
           </li>
         </ul>
         <div id="create-account-button-wrapper"> <a href="<? echo $this->config->item('sa_url').'suggest/'; ?>" class="btn btn-success btn-large">Create your free account now</a> </div>

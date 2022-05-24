@@ -35,7 +35,7 @@ class MGeneral extends CI_Model
 
     function getLogo()
     {
-        $this->db->where('art_work_name', 'Sufrati Logo')->where('active', 1);
+        $this->db->where('art_work_name', 'azooma Logo')->where('active', 1);
         $q = $this->db->get('art_work');
         if ($q->num_rows() > 0) {
             return $q->row_Array();
@@ -316,7 +316,7 @@ class MGeneral extends CI_Model
             $file_name = $_FILES[$name]['name'];
             $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
             $new_filename = $rand . $date . "." . $file_ext;
-            $uploadFile_1 = uniqid('sufrati') . $new_filename;
+            $uploadFile_1 = uniqid('azooma') . $new_filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1)) {
                 // successfully uploaded"

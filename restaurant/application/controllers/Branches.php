@@ -216,7 +216,7 @@ class Branches extends MY_Controller
                 list($width, $height, $type, $attr) = getimagesize($this->config->item('upload_url') . 'Gallery/' . $image);
                 $ratio = $width / $height;
                 $config['source_image'] = $this->config->item('upload_url') . 'Gallery/' . $image;
-                $config['wm_text'] = $restname . ' - Sufrati.com';
+                $config['wm_text'] = $restname . ' - Azooma.co';
                 $config['wm_type'] = 'text';
                 $config['wm_font_path'] = './css/text.ttf';
                 $config['wm_font_size'] = '13';

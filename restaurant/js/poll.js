@@ -10,7 +10,7 @@ function addmoreAr(){
     counter++;
 }
 
-$(document).on("click",".sufrati-close",function(event){
+$(document).on("click",".azooma-close",function(event){
     if(confirm("Are you sure")){
        var dismiss=$(this).attr('data-dismiss');
        $(this).parent().parent().parent().remove();

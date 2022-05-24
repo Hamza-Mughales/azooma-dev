@@ -35,7 +35,7 @@ if($this->session->flashdata('message')){
     if(count($offers)>0){
         ?>
              
-                    <table class="table table-bordered table-striped sufrati-backend-table" id="rest-results-table">
+                    <table class="table table-bordered table-striped azooma-backend-table" id="rest-results-table">
             <thead>
             <th class="span4">
                اسم العرض 
@@ -73,10 +73,10 @@ if($this->session->flashdata('message')){
                     </td>
                     <td>
                        
-                        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/offers/form/'.$offer['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="تحرير">
+                        <a class="azooma-backend-actions" href="<?php echo site_url('ar/offers/form/'.$offer['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="تحرير">
                         <i class="icon icon-edit"></i> تحرير
                     </a><br/>
-                     <a class="sufrati-backend-actions" href="<?php echo site_url('ar/offers/status/'.$offer['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="<?php echo $offer['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Offer">
+                     <a class="azooma-backend-actions" href="<?php echo site_url('ar/offers/status/'.$offer['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="<?php echo $offer['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Offer">
                         <?php
                         if($offer['status']==1){
                             ?>
@@ -87,7 +87,7 @@ if($this->session->flashdata('message')){
                         <i class="icon icon-ok"></i> تفعيل
                         <?php }?>
                     </a><br/>
-                    <a class="sufrati-backend-actions" href="<?php echo site_url('ar/offers/delete/'.$offer['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
+                    <a class="azooma-backend-actions" href="<?php echo site_url('ar/offers/delete/'.$offer['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
                         <i class="icon icon-remove"></i>
                         حذف 
                     </a>

@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 <head>
-    <link rel="shortcut icon" href="http://www.sufrati.com/sa/favicon.ico" />
+    <link rel="shortcut icon" href="http://www.azooma.co/sa/favicon.ico" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!--
  #####              ####                       #         #    
@@ -281,17 +281,17 @@
                 <div class="col-sm-4">
                     <div class="col-icons"><i class="fa fa-cog" aria-hidden="true"></i></div>
                     <h4><strong>Take control</strong> of your information</h4>
-                    <p class="">Verified owners and managers can edit their Sufrati.com page instantly to keep their important info up-to-date and accurate.<br> This way our viewers can reach you without any confusion.</p>
+                    <p class="">Verified owners and managers can edit their Azooma.co page instantly to keep their important info up-to-date and accurate.<br> This way our viewers can reach you without any confusion.</p>
                 </div>
                 <div class="col-sm-4">
                     <div class="col-icons"><i class="fa fa-bar-chart" aria-hidden="true"></i></div>
                     <h4><strong>Promote</strong> your business</h4>
-                    <p class="px-2">Every month more than 600 thousand consumers decide where to eat on Sufrati.com. Claim your restaurant today and start using your Free profile page and if you decide to join one of our membership packages, we'll throw in a free 30-day ad! No credit card or any other obligation required.</p>
+                    <p class="px-2">Every month more than 600 thousand consumers decide where to eat on Azooma.co. Claim your restaurant today and start using your Free profile page and if you decide to join one of our membership packages, we'll throw in a free 30-day ad! No credit card or any other obligation required.</p>
                 </div>
                 <div class="col-sm-4">
                     <div class="col-icons"><i class="fa fa-users" aria-hidden="true"></i></div>
                     <h4><strong>Interact</strong> with your customers</h4>
-                    <p class="px-2">By becoming an official member you can interact with your customers and give them the latest news about your Menus, events, locations and more. Sufrati.com offers you the easiest way to promote your offers directly to millions of potential customers all year round.</p>
+                    <p class="px-2">By becoming an official member you can interact with your customers and give them the latest news about your Menus, events, locations and more. Azooma.co offers you the easiest way to promote your offers directly to millions of potential customers all year round.</p>
                 </div>
             </div>
         </section>
@@ -304,7 +304,7 @@
     <script>
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-8627357-3']);
-        _gaq.push(['_setDomainName', 'sufrati.com']);
+        _gaq.push(['_setDomainName', 'azooma.co']);
         _gaq.push(['_trackPageview']);
 
         (function() {

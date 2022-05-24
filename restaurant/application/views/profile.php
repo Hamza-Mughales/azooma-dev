@@ -142,7 +142,7 @@
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-md-12 control-label" for="rest_Email"><?= lang('buss_email') ?></label>
-                                <div class="col-md-12 sufrati-backend-input-seperator" id="memberemails">
+                                <div class="col-md-12 azooma-backend-input-seperator" id="memberemails">
                                     <?php if (isset($rest)) {
                                         $rest_Emails = explode(',', $rest['rest_Email']);
                                         $count_members_details = count($rest_Emails);
@@ -381,7 +381,7 @@
                                     }
                                     ?>
                                     <div class="col-md-6">
-                                        <select name="weekdays[]" class="chzn-select form-control select2 sufrati-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
+                                        <select name="weekdays[]" class="chzn-select form-control select2 azooma-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
                                             <option value="">
                                                
                                                 <?=lang('select_days')?>
@@ -455,7 +455,7 @@
                                     </div>
                                     <div class="col-md-6">
 
-                                        <select name="weekends[]" class="chzn-select form-control select2 sufrati-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
+                                        <select name="weekends[]" class="chzn-select form-control select2 azooma-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
                                             <option value="">
                                                 <?=lang('select_days')?>
                                             </option>
@@ -529,7 +529,7 @@
                                 </select>
                                 </div>
                                 <div class="col-md-6">
-                                <select name="breakfast[]" class="chzn-select form-control select2 sufrati-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
+                                <select name="breakfast[]" class="chzn-select form-control select2 azooma-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
                                     <option value="">
                                         <?=lang('select_days')?>
                                     </option>
@@ -601,7 +601,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <select name="brunch[]" class="chzn-select form-control  select2 sufrati-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
+                                <select name="brunch[]" class="chzn-select form-control  select2 azooma-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
                                     <option value="">
                                         <?=lang('select_days')?>
                                     </option>
@@ -676,7 +676,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <select name="lunch[]" class="chzn-select form-control   select2 sufrati-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
+                                <select name="lunch[]" class="chzn-select form-control   select2 azooma-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
                                     <option value="">
                                         <?=lang('select_days')?>
                                     </option>
@@ -750,7 +750,7 @@
                                 </select>
                         </div>
                         <div class="col-md-6">
-                                <select name="dinner[]" class="chzn-select form-control  select2 sufrati-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
+                                <select name="dinner[]" class="chzn-select form-control  select2 azooma-select" data-placeholder="<?=lang('select_days')?>" multiple style="width:350px;" tabindex="4">
                                     <option value="">
                                         <?=lang('select_days')?>
                                     </option>

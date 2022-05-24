@@ -24,7 +24,7 @@ if(count($poll)>0){
         ?>
     </td>
     <td>
-        <a class="sufrati-backend-actions" href="<?php echo site_url('polls/options/'.$value['id']);?>" rel="tooltip" title="Poll options">
+        <a class="azooma-backend-actions" href="<?php echo site_url('polls/options/'.$value['id']);?>" rel="tooltip" title="Poll options">
             <i class="icon icon-eye-open"></i> View Options
         </a>
     </td>
@@ -33,10 +33,10 @@ if(count($poll)>0){
     </td>
     <td>
         
-        <a class="sufrati-backend-actions" href="<?php echo site_url('polls/form/'.$value['id']);?>" rel="tooltip" title="Update Poll">
+        <a class="azooma-backend-actions" href="<?php echo site_url('polls/form/'.$value['id']);?>" rel="tooltip" title="Update Poll">
             <i class="icon icon-edit"></i> Edit
         </a><br/>
-         <a class="sufrati-backend-actions" href="<?php echo site_url('polls/questionstatus/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="<?php echo $value['status']==1? "Deactivate ":"Activate ";?> Poll">
+         <a class="azooma-backend-actions" href="<?php echo site_url('polls/questionstatus/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="<?php echo $value['status']==1? "Deactivate ":"Activate ";?> Poll">
             <?php
             if($value['status']==1){
                 ?>
@@ -47,7 +47,7 @@ if(count($poll)>0){
             <i class="icon icon-ok"></i> Activate
             <?php }?>
         </a><br/>
-        <a class="sufrati-backend-actions" href="<?php echo site_url('polls/questiondelete/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="Delete Poll" onclick="return confirm('Do You Want to Delete?')">
+        <a class="azooma-backend-actions" href="<?php echo site_url('polls/questiondelete/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="Delete Poll" onclick="return confirm('Do You Want to Delete?')">
             <i class="icon icon-remove"></i>
             Delete 
         </a>

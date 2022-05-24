@@ -175,7 +175,7 @@ class Gallery extends MY_Controller
                     list($width, $height, $type, $attr) = getimagesize('../uploads/Gallery/' . $image);
                     $ratio = $width / $height;
                     $config['source_image']    = '../uploads/Gallery/' . $image;
-                    $config['wm_text'] = $restname . ' - Sufrati.com';
+                    $config['wm_text'] = $restname . ' - Azooma.co';
                     $config['wm_type'] = 'text';
                     $config['wm_font_path'] = './css/text.ttf';
                     $config['wm_font_size']    = '13';
@@ -223,7 +223,7 @@ class Gallery extends MY_Controller
                     list($width, $height, $type, $attr) = getimagesize('../uploads/Gallery/' . $image);
                     $ratio = $width / $height;
                     $config['source_image']    = '../uploads/Gallery/' . $image;
-                    $config['wm_text'] = $restname . ' - Sufrati.com';
+                    $config['wm_text'] = $restname . ' - Azooma.co';
                     $config['wm_type'] = 'text';
                     $config['wm_font_path'] = './css/text.ttf';
                     $config['wm_font_size']    = '13';

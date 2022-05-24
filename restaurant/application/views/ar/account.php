@@ -4,7 +4,7 @@
 <?php $this->load->view('inc/metaheader');?>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url();?>css/account/liteaccordion.css" />
 <script type="text/javascript" src="<?php echo base_url(); ?>js/account/liteaccordion.js"></script>
-<link rel="shortcut icon" href="http://www.sufrati.com/sa/favicon.ico" />
+<link rel="shortcut icon" href="http://www.azooma.co/sa/favicon.ico" />
 <script type="text/javascript" src="<?php echo base_url(); ?>js/newslider/jquery_cycle.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/newslider/structure.js"></script>
 <style>
@@ -14,7 +14,7 @@
 
 <body dir="rtl">
 <?php $this->load->view('inc/ar/header');?>
-<div class="top-nav sufrati-seperator">
+<div class="top-nav azooma-seperator">
   <div class="container hidden-overflow">
     <div class="left"> 
         <?php
@@ -42,7 +42,7 @@
 <!--          <li class="divider"></li>
           <li><a href="<?php echo site_url();?>">Restaurant Reports</a></li>-->
           <li class="divider"></li>
-          <li><a target="_blank" href="http://www.sufrati.com/saudi-arabian-dining/analytics/view/<?php echo $rest['rest_ID'];?>.html"> التقرير الشهري</a></li>
+          <li><a target="_blank" href="http://www.azooma.co/saudi-arabian-dining/analytics/view/<?php echo $rest['rest_ID'];?>.html"> التقرير الشهري</a></li>
 <!--          <li class="divider"></li>
           <li><a href="<?php echo site_url();?>">Theme selection</a></li>-->
           <li class="divider"></li>
@@ -153,13 +153,13 @@ if($this->session->flashdata('message')){
         </tr>
         <tr>
           <td>قنوات الأخبار</td>
-          <td class="center"><a data-rel="tooltip" href="#" title="Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers."><i class="icon icon-ok"></i></a></td>
-          <td class="center"><a data-rel="tooltip" href="#" title="Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers."><i class="icon icon-ok"></i></a></td>
+          <td class="center"><a data-rel="tooltip" href="#" title="Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers."><i class="icon icon-ok"></i></a></td>
+          <td class="center"><a data-rel="tooltip" href="#" title="Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers."><i class="icon icon-ok"></i></a></td>
         </tr>
         <tr>
           <td>عروض خاصة</td>
-          <td class="center"><a data-rel="tooltip" href="#" title="Display your Latest Offer on your profile page and in sufrati.com’s Special offers page instantly."> <i class="icon icon-ok"></i> </a></td>
-          <td class="center"><a data-rel="tooltip" href="#" title="Display your Latest Offer on your profile page and in sufrati.com’s Special offers page instantly."> <i class="icon icon-ok"></i> </a></td>
+          <td class="center"><a data-rel="tooltip" href="#" title="Display your Latest Offer on your profile page and in azooma.co’s Special offers page instantly."> <i class="icon icon-ok"></i> </a></td>
+          <td class="center"><a data-rel="tooltip" href="#" title="Display your Latest Offer on your profile page and in azooma.co’s Special offers page instantly."> <i class="icon icon-ok"></i> </a></td>
         </tr>
         <tr>
           <td>تعليقات الاستجابة</td>
@@ -169,7 +169,7 @@ if($this->session->flashdata('message')){
         <tr>
           <td>نادي المعجبين</td>
           <td class="center"><i class="icon icon-remove"></i></td>
-          <td class="center"><a data-rel="tooltip" href="#" title="Fans will receive instant notifications direct to their emails and sufrati.com accounts about your latest updates eg. Menu, images, offers, contact numbers."><i class="icon icon-ok"></i></a></td>
+          <td class="center"><a data-rel="tooltip" href="#" title="Fans will receive instant notifications direct to their emails and azooma.co accounts about your latest updates eg. Menu, images, offers, contact numbers."><i class="icon icon-ok"></i></a></td>
         </tr>
         <tr>
           <td>تحميل الفيديو</td>

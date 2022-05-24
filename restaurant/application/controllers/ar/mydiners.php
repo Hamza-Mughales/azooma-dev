@@ -275,9 +275,9 @@ class MyDiners extends CI_Controller {
                 $names = array();
                 $emaillist = array();
                 $ids = array();
-//                $emaillist[] = 'ha@sufrati.com';
+//                $emaillist[] = 'ha@azooma.co';
 //                $names[] = "Haroon";
-//                $emaillist[] = 'aas@sufrati.com';
+//                $emaillist[] = 'aas@azooma.co';
 //                $names[] = "Amer";
 
                 if (is_array($audiences)) {
@@ -301,13 +301,13 @@ class MyDiners extends CI_Controller {
                 $count = count($emaillist);
                 
                 /*                 * ******
-                 * Directory Local --> /Users/walidsanchez/Development/Sites/sufrati/sa/Mail
+                 * Directory Local --> /Users/walidsanchez/Development/Sites/azooma/sa/Mail
                  * 
                  * Directory online --> /home/diner/public_html/sa/Mail
                  */
                 $this->load->library('personalizedmailer', array(
                     'pmdatadir' => '/home/diner/public_html/sa/Mail',
-                    'domain' => 'sufrati.com',
+                    'domain' => 'azooma.co',
                     'silent' => TRUE
                 ));
 
@@ -315,14 +315,14 @@ class MyDiners extends CI_Controller {
                     'addresses' => $emaillist,
                     'msgtemplate' => $newsLetterMsg,
                     'subject' => $subject,
-                    'fromname' => "Sufrati Newsletter",
-                    'fromaddr' => 'noreply@newsletter.sufrati.com',
+                    'fromname' => "Azooma Newsletter",
+                    'fromaddr' => 'noreply@newsletter.azooma.co',
                     'HTML' => true,
                     'loopdelay' => 2,
                     'varsearch' => array('[name]', '[email]', '[id]'),
                     'varreplace' => array($names, $emaillist, $ids),
                     'ciemailconfig' => array(
-                        'useragent' => 'Sufrati Mailer'
+                        'useragent' => 'Azooma Mailer'
                     )
                 ));
                 
@@ -351,7 +351,7 @@ class MyDiners extends CI_Controller {
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
             $filename = $_FILES[$name]['name'];
             $filename = str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             $fileName = $_FILES[$name]['name'];
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))

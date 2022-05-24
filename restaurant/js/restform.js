@@ -41,18 +41,18 @@ $(document).ready(function(){
 
 
 function addmore() {
-  var element = '<div id="input-' + counter + '" class="input-' + counter + '" ><input type="text" name="rest_Email[]"  placeholder="Restaurant Email, Managers Email, Owner`s Email"  /><a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
+  var element = '<div id="input-' + counter + '" class="input-' + counter + '" ><input type="text" name="rest_Email[]"  placeholder="Restaurant Email, Managers Email, Owner`s Email"  /><a class="close azooma-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a></div>';
   $("#memberemails").append(element);
   counter++;
 }
 
 function addmoreAr() {
-  var element = '<div id="input-' + counter + '"><a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a><input type="text" name="rest_Email[]"  placeholder="البريد الإلكتروني"   /></div>';
+  var element = '<div id="input-' + counter + '"><a class="close azooma-close" href="javascript:void(0);" data-dismiss="input-' + counter + '">&times;</a><input type="text" name="rest_Email[]"  placeholder="البريد الإلكتروني"   /></div>';
   $("#memberemails").append(element);
   counter++;
 }
 
-$(document).on("click", ".sufrati-close", function(event) {   
+$(document).on("click", ".azooma-close", function(event) {   
     var dismiss = $(this).attr('data-dismiss');
     $(this).parent().remove();
 });

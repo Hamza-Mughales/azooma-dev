@@ -38,7 +38,7 @@ if($this->session->flashdata('message')){
     if(count($videos)>0){
         ?>
              
-                    <table class="table table-bordered table-striped sufrati-backend-table" id="rest-results-table">
+                    <table class="table table-bordered table-striped azooma-backend-table" id="rest-results-table">
             <thead>
             <th class="span4">
                اسم الفيديو 
@@ -83,10 +83,10 @@ if($this->session->flashdata('message')){
                     </td>
                     <td>
                        
-                        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/video/form/'.$video['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="تحرير">
+                        <a class="azooma-backend-actions" href="<?php echo site_url('ar/video/form/'.$video['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="تحرير">
                         <i class="icon icon-edit"></i> تحرير
                     </a><br/>
-                     <a class="sufrati-backend-actions" href="<?php echo site_url('ar/video/status/'.$video['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="<?php echo $video['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Video">
+                     <a class="azooma-backend-actions" href="<?php echo site_url('ar/video/status/'.$video['id'].'?rest='.$rest['rest_ID']);?>" rel="tooltip" title="<?php echo $video['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Video">
                         <?php
                         if($video['status']==1){
                             ?>

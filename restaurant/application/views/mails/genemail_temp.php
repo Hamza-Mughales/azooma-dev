@@ -14,17 +14,17 @@
 
 <table align="center" width="600px" style=" background-color:#FFFFFF;">
 			<tr>
-            <td align="left" style="padding-left:10px;" valign="top"><img src="<?php echo base_url();?>images/emailLogo.jpg" alt="Sufrati.com" /></td>
+            <td align="left" style="padding-left:10px;" valign="top"><img src="<?php echo base_url();?>images/emailLogo.jpg" alt="Azooma.co" /></td>
             </tr>
             
             <tr>
             <td style="font-family:Arial, Helvetica, sans-serif; font-size:12px; padding-left:10px; padding-right:10px;" >
-            <h1>Welcome To Sufrati.com</h1>            </td>
+            <h1>Welcome To Azooma.co</h1>            </td>
             </tr>
             
            <tr>
             <td style="font-family:Arial, Helvetica, sans-serif; font-size:12px; padding-left:10px; padding-right:10px;" >
-            Dear  Sufrati.com            </td>
+            Dear  Azooma.co            </td>
            </tr>
             
             <tr>
@@ -38,7 +38,7 @@
 <tr>
 				<td align="left" valign="top" height="160" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; padding-left:10px; padding-top:10px; color:#FFFFFF; background-color:#000000;">
                                 
-                                <strong>Sufrati.Com<br />
+                                <strong>Azooma.Com<br />
                                 </strong>P.O.Box 15780<br />
                                 Jeddah 21454<br />
                                 Kingdom of Saudi Arabia<br />

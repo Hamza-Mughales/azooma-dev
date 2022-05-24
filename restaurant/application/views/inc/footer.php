@@ -1,6 +1,6 @@
 <div class="footer">
 	<div class="pagesize clear">
-		<p class="bt-space15"><span class="copy"><strong>&copy; <?php echo date("Y"); ?> Copyright by  <a href="http://www.sufrati.com" target="_blank">sufrati.com</a></strong></span> </p>
+		<p class="bt-space15"><span class="copy"><strong>&copy; <?php echo date("Y"); ?> Copyright by  <a href="http://www.azooma.co" target="_blank">azooma.co</a></strong></span> </p>
 		
 	</div>
 </div>

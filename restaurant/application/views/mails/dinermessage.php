@@ -30,7 +30,7 @@
                             <td colspan="2" style="background:#E2E2E2">
                                 <center>
                                     <p style="color:#646464;margin-bottom: 10px;font-size: 11px;font-family:Arial, Helvetica, sans-serif;">
-                                        You received this email because you signed up for Sufrati newsletter.<br/>
+                                        You received this email because you signed up for Azooma newsletter.<br/>
                                         The email is not displayed properly?&nbsp;&nbsp;<a href="<?php echo base_url('newsletter/event/' . $event['id']); ?>" target="_blank" style="color:#222;padding:0;">View the online version</a>
                                     </p>
                                 </center>
@@ -61,13 +61,13 @@
                                     </tr>
                                     <tr>
                                         <td >
-                                            <a style="display: inline-block;margin-bottom: 4px;" href="https://itunes.apple.com/us/app/sufrati-lite/id709229893" title="Sufrati Lite" target="_blank"> 
-                                                <img src="http://uploads.azooma.co/newsletter/badge_app_store.png" width="120" alt="Sufrati Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
+                                            <a style="display: inline-block;margin-bottom: 4px;" href="https://itunes.apple.com/us/app/azooma-lite/id709229893" title="Azooma Lite" target="_blank"> 
+                                                <img src="http://uploads.azooma.co/newsletter/badge_app_store.png" width="120" alt="Azooma Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
                                             </a>
                                         </td>
                                         <td> 
-                                            <a href="https://play.google.com/store/apps/details?id=com.LetsEat.SufratiLite" title="Sufrati Lite" target="_blank"> 
-                                                <img src="http://uploads.azooma.co/newsletter/badge_google_play.png" width="120" alt="Sufrati Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
+                                            <a href="https://play.google.com/store/apps/details?id=com.LetsEat.AzoomaLite" title="Azooma Lite" target="_blank"> 
+                                                <img src="http://uploads.azooma.co/newsletter/badge_google_play.png" width="120" alt="Azooma Lite" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;border:none;"/> 
                                             </a>
                                         </td>
                                         <td width="15" height="20"></td>
@@ -117,7 +117,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="font-size:13px;line-height:20px;color:#646464;padding:0px 20px;line-height:21px;"> Feel free to contact us for any information at <a href="mailto:info@azooma.co" style="color:#00A2B1;">info@azooma.co</a> or call us on <span style="color:#e60683;font-size:18px;"><?php echo $settings['tel']; ?></span>.<br />
-                                            If you would like to advertise with us please contact <a href="mailto:sales@sufrati.com" style="color:#00A2B1;">sales@sufrati.com</a>
+                                            If you would like to advertise with us please contact <a href="mailto:sales@azooma.co" style="color:#00A2B1;">sales@azooma.co</a>
                                             <td>
                                                 </tr>
                                                 <tr>
@@ -132,7 +132,7 @@
                                                                     <td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td colspan="2" style="font-size:13px;line-height:20px;color:#646464;padding:0px 20px;"> Sufrati Team
+                                                                            <td colspan="2" style="font-size:13px;line-height:20px;color:#646464;padding:0px 20px;"> Azooma Team
                                                                                 <td>
                                                                                     </tr>
                                                                                     <tr>
@@ -176,16 +176,16 @@
                                                                                     <tr>
                                                                                         <td align="right">
                                                                                             <?php if ($settings['facebook'] != "") { ?>
-                                                                                                <a style="text-decoration:none;" href="<?php echo $settings['facebook']; ?>" target="_blank"> <img src="http://uploads.azooma.co/newsletter/facebook-icon.jpg" width="30" border="0" height="30" alt="Sufrati Facebook Page"/> </a>&nbsp;
+                                                                                                <a style="text-decoration:none;" href="<?php echo $settings['facebook']; ?>" target="_blank"> <img src="http://uploads.azooma.co/newsletter/facebook-icon.jpg" width="30" border="0" height="30" alt="Azooma Facebook Page"/> </a>&nbsp;
                                                                                             <?php } ?>
                                                                                             <?php if ($settings['twitter'] != "") { ?>
-                                                                                                <a style="text-decoration:none;" href="<?php echo $settings['twitter']; ?>" target="_blank"> <img src="http://uploads.azooma.co/newsletter/twitter-icon.jpg" width="30" border="0" height="30" alt="Sufrati Twitter Profile"/> </a>&nbsp;
+                                                                                                <a style="text-decoration:none;" href="<?php echo $settings['twitter']; ?>" target="_blank"> <img src="http://uploads.azooma.co/newsletter/twitter-icon.jpg" width="30" border="0" height="30" alt="Azooma Twitter Profile"/> </a>&nbsp;
                                                                                             <?php } ?>
                                                                                             <?php if ($settings['linkedin'] != "") { ?>
-                                                                                                <a style="text-decoration:none;" href="<?php echo $settings['linkedin']; ?>" target="_blank"> <img src="http://uploads.azooma.co/newsletter/linkin-icon.jpg" width="30" height="30" border="0" alt="Sufrati Linkedin Profile"/> </a>&nbsp;
+                                                                                                <a style="text-decoration:none;" href="<?php echo $settings['linkedin']; ?>" target="_blank"> <img src="http://uploads.azooma.co/newsletter/linkin-icon.jpg" width="30" height="30" border="0" alt="Azooma Linkedin Profile"/> </a>&nbsp;
                                                                                             <?php } ?>
                                                                                             <?php if ($settings['youtube'] != "") { ?>
-                                                                                                <a href="<?php echo $settings['youtube']; ?>" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/newsletter/youtube-icon.jpg" width="30" height="30" border="0" alt="Sufrati Youtube Channel"/> </a>&nbsp;
+                                                                                                <a href="<?php echo $settings['youtube']; ?>" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/newsletter/youtube-icon.jpg" width="30" height="30" border="0" alt="Azooma Youtube Channel"/> </a>&nbsp;
                                                                                             <?php } ?>
                                                                                             <?php if ($settings['instagram'] != "") { ?>
                                                                                                 <a href="<?php echo $settings['instagram']; ?>" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/newsletter/instagram-icon.png" width="32" height="32" border="0" alt="Instagram Profile"/> </a>&nbsp;
@@ -207,10 +207,10 @@
                                                                                             </p>
                                                                                             <p>
                                                                                                 To the best of our knowledge, all information and offers contained in this email are correct at the time of distribution.
-                                                                                                However, for the most up-to-date information we recommend you check <a href="<?php echo base_url(); ?>">sufrati.com</a>
+                                                                                                However, for the most up-to-date information we recommend you check <a href="<?php echo base_url(); ?>">azooma.co</a>
                                                                                             </p>
                                                                                             <p>
-                                                                                                &copy; <?php echo date('Y'); ?> Sufrati.com. All rights reserved. Sufrati , the Sufrati logo, the Chef and the Waiter images are either registered trademarks or trademarks of Sufrati.com in Saudi Arabia and/or other countries.
+                                                                                                &copy; <?php echo date('Y'); ?> Azooma.co. All rights reserved. Azooma , the Azooma logo, the Chef and the Waiter images are either registered trademarks or trademarks of Azooma.co in Saudi Arabia and/or other countries.
                                                                                             </p>
                                                                                         </td>
                                                                                         <td width="30" style="width:30px;"></td>

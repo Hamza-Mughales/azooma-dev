@@ -71,10 +71,10 @@ class Accounts extends CI_Controller {
         $data['addservices']=$this->input->post('addservices');
 	
         $sufratiUser=array();
-        //$sufratiUser[]="ha@sufrati.com";
+        //$sufratiUser[]="ha@azooma.co";
         $sufratiUser[]="info@azooma.co";
-        $sufratiUser[]="data@sufrati.com";
-        $sufratiUser[]="fasil@sufrati.com";
+        $sufratiUser[]="data@azooma.co";
+        $sufratiUser[]="fasil@azooma.co";
         $sufratiUser[]="kareem@primedigiko.com";
         
         $this->session->unset_userdata('account');

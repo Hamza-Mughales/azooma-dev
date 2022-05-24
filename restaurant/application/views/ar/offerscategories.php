@@ -42,7 +42,7 @@ if($this->session->flashdata('message')){
     if(count($offers)>0){
         ?>
              
-                    <table class="table table-bordered table-striped sufrati-backend-table" id="rest-results-table">
+                    <table class="table table-bordered table-striped azooma-backend-table" id="rest-results-table">
             <thead>
             <th class="span4">
                نوع العرض - اللغة الإنجليزية

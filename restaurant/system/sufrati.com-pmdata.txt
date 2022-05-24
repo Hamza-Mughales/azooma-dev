@@ -1,1 +1,1 @@
-{"addresses":[],"subject":"s","fromname":"Sufrati Newsletter","fromaddr":"noreply@newsletter.sufrati.com","HTML":true,"loopdelay":2,"varsearch":["[name]","[email]","[id]"],"varreplace":[[],[],[]],"ciemailconfig":{"useragent":"Sufrati Mailer","mailtype":"html"}}
+{"addresses":[],"subject":"s","fromname":"azooma Newsletter","fromaddr":"noreply@newsletter.azooma.co","HTML":true,"loopdelay":2,"varsearch":["[name]","[email]","[id]"],"varreplace":[[],[],[]],"ciemailconfig":{"useragent":"azooma Mailer","mailtype":"html"}}

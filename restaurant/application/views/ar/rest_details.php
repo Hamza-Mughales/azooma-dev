@@ -131,7 +131,7 @@ if($this->session->flashdata('message')){
       </legend>
       <div class="control-group">
           <label class="control-label" for="rest_Email">البريد الإلكتروني</label>
-          <div class="controls sufrati-backend-input-seperator" id="memberemails">
+          <div class="controls azooma-backend-input-seperator" id="memberemails">
             <?php if(isset($rest)){                        
             $rest_Emails=explode(',', $rest['rest_Email']);
             $count_members_details=count($rest_Emails);
@@ -139,7 +139,7 @@ if($this->session->flashdata('message')){
             for($i=0;$i<count($rest_Emails);$i++){
                 ?>
             <div id="input-<?php echo $i;?>" class="input-<?php echo $i;?>">
-                <a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i;?>">&times;</a>
+                <a class="close azooma-close" href="javascript:void(0);" data-dismiss="input-<?php echo $i;?>">&times;</a>
                 <input  type="text" name="rest_Email[]"  placeholder="البريد الإلكتروني" <?php echo isset($rest_Emails)?'value="'.$rest_Emails[$i].'"':""; ?> />                
             </div>
             <?php
@@ -278,7 +278,7 @@ if($this->session->flashdata('message')){
                     }
               }
               ?>
-              <select name="weekdays[]" class="chzn-select sufrati-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
+              <select name="weekdays[]" class="chzn-select azooma-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
                   <option value="">
                       إختر الأيام
                   </option>
@@ -341,7 +341,7 @@ if($this->session->flashdata('message')){
                   }
               ?>
               </select>
-              <select name="weekends[]" class="chzn-select sufrati-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
+              <select name="weekends[]" class="chzn-select azooma-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
                   <option value="">
                       إختر الأيام
                   </option>
@@ -404,7 +404,7 @@ if($this->session->flashdata('message')){
                   }
               ?>
               </select>
-              <select name="breakfast[]" class="chzn-select sufrati-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
+              <select name="breakfast[]" class="chzn-select azooma-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
                   <option value="">
                       إختر الأيام
                   </option>
@@ -468,7 +468,7 @@ if($this->session->flashdata('message')){
                   }
               ?>
               </select>
-              <select name="brunch[]" class="chzn-select sufrati-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
+              <select name="brunch[]" class="chzn-select azooma-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
                   <option value="">
                       إختر الأيام
                   </option>
@@ -533,7 +533,7 @@ if($this->session->flashdata('message')){
               ?>
               </select>
               
-              <select name="lunch[]" class="chzn-select sufrati-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
+              <select name="lunch[]" class="chzn-select azooma-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
                     <option value="">
                         إختر الأيام
                     </option>
@@ -600,7 +600,7 @@ if($this->session->flashdata('message')){
               ?>
               </select>
               
-              <select name="dinner[]" class="chzn-select sufrati-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
+              <select name="dinner[]" class="chzn-select azooma-select" data-placeholder="إختر الأيام" multiple style="width:350px;" tabindex="4">
                     <option value="">
                        إختر الأيام
                     </option>

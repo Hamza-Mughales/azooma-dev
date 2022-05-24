@@ -60,7 +60,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = 'http://restaurant.sufrati.com/js/ckfinder/userfiles/';
+$baseUrl = 'http://restaurant.azooma.co/js/ckfinder/userfiles/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -81,7 +81,7 @@ ATTENTION: The trailing slash is required.
 */
 
 $baseDir = '/home/diner/public_html/restaurant/js/ckfinder/userfiles/';
-//$baseDir = '/home/diner/public_html/localhost/Sufrati/saudi-new-backend/js/admin/ckfinder/userfiles/';
+//$baseDir = '/home/diner/public_html/localhost/Azooma/saudi-new-backend/js/admin/ckfinder/userfiles/';
 
 
 

@@ -489,8 +489,8 @@ class Home extends MY_Controller {
             $data['restname'] = stripslashes($rest['rest_Name']);
 
             $msg = $this->load->view('mails/restResponse', $data, true);
-            $subject = stripslashes($rest['rest_Name']) . " replied to your comment on sufrati.com";
-            $this->email->from("info@azooma.co", "Sufrati.com");
+            $subject = stripslashes($rest['rest_Name']) . " replied to your comment on azooma.co";
+            $this->email->from("info@azooma.co", "Azooma.co");
             $this->email->to($user_info['user_Email']);   
             $this->email->bcc($this->config->item("teamemails"));
             $this->email->subject($subject);
@@ -511,7 +511,7 @@ class Home extends MY_Controller {
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
             $filename = $_FILES[$name]['name'];
             $filename = str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))
                 $image_name = $uploadFile_1;
@@ -536,8 +536,8 @@ class Home extends MY_Controller {
 
         $sufratiUser = array();
         $sufratiUser[] = "info@azooma.co";
-        $sufratiUser[] = "data@sufrati.com";
-        $sufratiUser[] = "fasil@sufrati.com";
+        $sufratiUser[] = "data@azooma.co";
+        $sufratiUser[] = "fasil@azooma.co";
 
         $username = $userInfo['user_NickName'];
         if ($username == "") {
@@ -555,12 +555,12 @@ class Home extends MY_Controller {
         $data['review_Msg'] = $review_Msg;
         $data['user_activity_id'] = $user_activity_id;
         $msgtorest = $this->load->view('mails/commentNotifyuser', $data, true);
-        $this->email->from('info@azooma.co', "Sufrati.com");
+        $this->email->from('info@azooma.co', "Azooma.co");
         $this->email->message($msgtorest);
         if (is_array($userInfo) && $userInfo['user_Status'] == 1) {
             if ($this->MGeneral->checkNotificationStatus($user_id)) {
                 $this->email->to($userInfo['user_Email']);
-                $this->email->subject('Your Comment on ' . $rest['rest_Name'] . ' is Approved - Sufrati.com');
+                $this->email->subject('Your Comment on ' . $rest['rest_Name'] . ' is Approved - Azooma.co');
                 $this->email->send();
             }
         }
@@ -578,7 +578,7 @@ class Home extends MY_Controller {
                         $msgtootheruser = $this->load->view('mails/commentNotifyotheruser', $data, true);
                         $this->email->message($msgtootheruser);
 
-                        $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' - Sufrati.com');
+                        $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' - Azooma.co');
                         $this->email->to($otheruserInfo['user_Email']);
                         $this->email->send();
                     }
@@ -598,12 +598,12 @@ class Home extends MY_Controller {
             $data['review_Msg'] = $review_Msg;
             $data['user_activity_id'] = $user_activity_id;
             $msgtorest = $this->load->view('mails/commentNotifyRest', $data, true);
-            $this->email->from('info@azooma.co', "Sufrati.com");
+            $this->email->from('info@azooma.co', "Azooma.co");
             $this->email->to($rest['rest_Email']);
             foreach ($sufratiUser as $sufratiemail) {
                 $this->email->bcc($sufratiemail);
             }
-            $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' at www.sufrati.com');
+            $this->email->subject($username . ' Commented on ' . $rest['rest_Name'] . ' at www.azooma.co');
             $this->email->message($msgtorest);
             $this->email->send();
         }

@@ -277,7 +277,7 @@ class Offers extends CI_Controller {
                     {              
             $filename     = $_FILES[$name]['name'];
             $filename=str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1  = $uploadDir. $uploadFile_1; 
             $fileName     = $_FILES[$name]['name'];
                 if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))

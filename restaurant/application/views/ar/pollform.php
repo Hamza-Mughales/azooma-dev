@@ -92,10 +92,10 @@ if($this->session->flashdata('message')){
            foreach($options as $option){
            $j++;    ?>
                     <div id="parent-<?php echo $option['id'];?>">
-        <div class="control-group  sufrati-backend-input-seperator">
+        <div class="control-group  azooma-backend-input-seperator">
             <label class="control-label" for="field-<?php echo $option['id'];?>">اسم الخيار - اللغة إنجليزية <?php echo $j;?></label>
             <div class="controls">
-                <a class="close sufrati-close" href="javascript:void(0);" data-dismiss="input-<?php echo $j;?>">&times;</a>
+                <a class="close azooma-close" href="javascript:void(0);" data-dismiss="input-<?php echo $j;?>">&times;</a>
                 <input class="required" type="text" name="field-<?php echo $option['id'];?>" id="field-<?php echo $option['id'];?>" placeholder="اسم الخيار - اللغة إنجليزية <?php echo $j;?>" value="<?php echo $option['field'];?>"/>
             </div>
         </div>

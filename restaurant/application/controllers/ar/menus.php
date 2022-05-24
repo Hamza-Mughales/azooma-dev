@@ -336,7 +336,7 @@ class Menus extends CI_Controller {
                         }                        
                         $ratio= $width/$height;
                         $config['source_image']	= $this->config->item('upload_url').'images/menuItem/'. $image;
-                        $config['wm_text'] = $rest_data['rest_Name'].' - '.$this->input->post('menu_item').' - Sufrati.com';
+                        $config['wm_text'] = $rest_data['rest_Name'].' - '.$this->input->post('menu_item').' - Azooma.co';
                         $config['wm_type'] = 'text';
                         $config['wm_font_path'] = './css/text.ttf';
                         $config['wm_font_size']	= '13';
@@ -570,7 +570,7 @@ class Menus extends CI_Controller {
         $uploadDir = $directory;
         // ======================= upload 1 ===========================
         if ( $_FILES[$name]['name'] != '' &&  $_FILES[$name]['name'] != 'none'){					
-            $uploadFile_1 = uniqid('sufrati').  $_FILES[$name]['name'];
+            $uploadFile_1 = uniqid('azooma').  $_FILES[$name]['name'];
             $uploadFile1 = $uploadDir. $uploadFile_1; 
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1)){
                     //print "File is valid, and was successfully uploaded. \n\n ";
@@ -591,7 +591,7 @@ class Menus extends CI_Controller {
                     {              
             $filename     = $_FILES[$name]['name'];
             $filename=str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1  = $uploadDir. $uploadFile_1; 
             $fileName     = $_FILES[$name]['name'];
                 if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))

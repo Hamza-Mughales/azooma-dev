@@ -33,7 +33,7 @@ if($this->session->flashdata('message')){
         if(count($total)>0){
           echo  $this->pagination->create_links();
             ?>
-        <table class="table table-bordered table-striped sufrati-backend-table" id="table-results-table">
+        <table class="table table-bordered table-striped azooma-backend-table" id="table-results-table">
             <thead>
             <th>
             </th>

@@ -353,7 +353,7 @@ class Menus extends MY_Controller {
                         }
                         $ratio = $width / $height;
                         $config['source_image'] = $this->config->item('upload_url').'images/menuItem/' . $image;
-                        $config['wm_text'] = (($rest_data['rest_Name'])) . ' - ' . (($this->input->post('menu_item'))) . ' - Sufrati.com';
+                        $config['wm_text'] = (($rest_data['rest_Name'])) . ' - ' . (($this->input->post('menu_item'))) . ' - Azooma.co';
                         $config['wm_type'] = 'text';
                         $config['wm_font_path'] = './css/text.ttf';
                         $config['wm_font_size'] = '13';
@@ -594,13 +594,13 @@ class Menus extends MY_Controller {
         $uploadDir = $directory;
         // ======================= upload 1 ===========================
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
-            $uploadFile_1 = uniqid('sufrati') . $_FILES[$name]['name'];
+            $uploadFile_1 = uniqid('azooma') . $_FILES[$name]['name'];
             $rand = rand(0, 10000 - 1);
             $date = date('YmdHis');
             $file_name = $_FILES[$name]['name'];
             $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
             $new_filename = $rand . $date . "." . $file_ext;
-            $uploadFile_1 = uniqid('sufrati').$new_filename;
+            $uploadFile_1 = uniqid('azooma').$new_filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1)) {
                 //print "File is valid, and was successfully uploaded. \n\n ";
@@ -620,7 +620,7 @@ class Menus extends MY_Controller {
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
             $filename = $_FILES[$name]['name'];
             $filename = str_replace(' ', '_', $filename);
-            $uploadFile_1 = uniqid('sufrati') . $filename;
+            $uploadFile_1 = uniqid('azooma') . $filename;
             $uploadFile1 = $uploadDir . $uploadFile_1;
             $fileName = $_FILES[$name]['name'];
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1))

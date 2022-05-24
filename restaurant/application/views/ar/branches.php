@@ -29,7 +29,7 @@ if($this->session->flashdata('message')){
                           if(count($total)>0){
                                   ?>
                                   
-                          <table class="table table-bordered table-striped sufrati-backend-table" id="rest-results-table">
+                          <table class="table table-bordered table-striped azooma-backend-table" id="rest-results-table">
                                           <thead>
                                                   <tr>
                                                           <th>مدينة - الإنجليزية</th>
@@ -46,7 +46,7 @@ if($this->session->flashdata('message')){
                                                           <td><a href="<?=base_url()?>ar/branches/branch/<?=$p['city_ID']?>"><?php echo ($p['city_Name_ar']); ?></a></td>
                                                           <td><?php echo $this->MGeneral->convertToArabic($this->MRestBranch->getTotalBranches($restid,$p['city_ID'])); ?></td>
                                                           <td>
-                          <a class="sufrati-backend-actions" href="<?=base_url()?>ar/branches/branch/<?=$p['city_ID']?>" rel="tooltip" data-original-title="تحرير <?php echo (htmlspecialchars($rest['rest_Name_Ar'])); ?>">
+                          <a class="azooma-backend-actions" href="<?=base_url()?>ar/branches/branch/<?=$p['city_ID']?>" rel="tooltip" data-original-title="تحرير <?php echo (htmlspecialchars($rest['rest_Name_Ar'])); ?>">
                   <i class="icon icon-edit"></i> معاينة
               </a>
 

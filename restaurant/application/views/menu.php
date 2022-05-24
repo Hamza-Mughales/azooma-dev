@@ -56,7 +56,7 @@ echo message_box('success');
             ?>
             <div class="table-responsive">
 
-                <table class="table table-bordered table-striped sufrati-backend-table" id="basic-1">
+                <table class="table table-bordered table-striped azooma-backend-table" id="basic-1">
                     <thead>
                         <th class="span4">
                             <?php echo $tableheading; ?>

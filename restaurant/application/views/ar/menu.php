@@ -52,7 +52,7 @@ if($this->session->flashdata('message')){
     if(count($menus)>0){
         ?>
              
-                    <table class="table table-bordered table-striped sufrati-backend-table" id="rest-results-table">
+                    <table class="table table-bordered table-striped azooma-backend-table" id="rest-results-table">
             <thead>
             <th class="span4">
                <?php echo $tableheading; ?>
@@ -105,14 +105,14 @@ if($this->session->flashdata('message')){
                     <td>
                     
                         <?php if(!isset($cat)){ ?>
-                        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/menus'.$tmp_link);?><?php if(!isset($cat) && ( isset($menu['cat_id']) && isset($menu['menu_id']) ) ){ echo '&item='.$menu['cat_id'];} ?>" rel="tooltip" title="<?php echo $pageview; ?>">
+                        <a class="azooma-backend-actions" href="<?php echo site_url('ar/menus'.$tmp_link);?><?php if(!isset($cat) && ( isset($menu['cat_id']) && isset($menu['menu_id']) ) ){ echo '&item='.$menu['cat_id'];} ?>" rel="tooltip" title="<?php echo $pageview; ?>">
                         <i class="icon icon-list-alt"></i> <?php echo $pageview; ?>
                     </a><br/>
                     <?php }?>
-                        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/menus/form'.$tmp_link);?><?php if(isset($cat)){ echo '&cat='.$cat['cat_id'].'&item='.$menu['id'].'&menu_id='.$_GET['menu_id'];} ?>" rel="tooltip" title="تحرير">
+                        <a class="azooma-backend-actions" href="<?php echo site_url('ar/menus/form'.$tmp_link);?><?php if(isset($cat)){ echo '&cat='.$cat['cat_id'].'&item='.$menu['id'].'&menu_id='.$_GET['menu_id'];} ?>" rel="tooltip" title="تحرير">
                         <i class="icon icon-edit"></i> تحرير
                     </a><br/>
-                    <a class="sufrati-backend-actions" href="<?php echo site_url('ar/menus/delete'.$tmp_link);?><?php if(isset($cat)){ echo '&cat='.$cat['cat_id'].'&item='.$menu['id'].'&menu_id='.$_GET['menu_id'];} ?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
+                    <a class="azooma-backend-actions" href="<?php echo site_url('ar/menus/delete'.$tmp_link);?><?php if(isset($cat)){ echo '&cat='.$cat['cat_id'].'&item='.$menu['id'].'&menu_id='.$_GET['menu_id'];} ?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
                         <i class="icon icon-remove"></i>
                         حذف 
                     </a>

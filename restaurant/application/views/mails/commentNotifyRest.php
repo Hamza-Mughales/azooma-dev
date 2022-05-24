@@ -29,7 +29,7 @@ td {
                   </tr>
                     <tr>
                     <td colspan="2" height="100px" valign="top" style="padding:0 30px 20px;"><?php if($user['user_NickName']!=""){ echo $user['user_NickName']; }else{ echo $user['user_FullName']; } ?>
-                        Commented on <a href="<?php echo $this->config->item('sa_url').'rest/'.$rest['seo_url']; ?>"><?php echo $rest['rest_Name']; ?></a> on Sufrati.com <br />
+                        Commented on <a href="<?php echo $this->config->item('sa_url').'rest/'.$rest['seo_url']; ?>"><?php echo $rest['rest_Name']; ?></a> on Azooma.co <br />
                         <br />
                         <span style="font-size:17px;font-style:italic;line-height:20px;"><?php echo substr($review_Msg,0,25); ?></span>... <a href="<?php echo $this->config->item('sa_url').'rest/'.$rest['seo_url'].'/comments#comment-'.$user_activity_id;?>" style="color:#00A2B1;font-size:12px;" >Read More</a></td>
                   </tr>
@@ -51,16 +51,16 @@ td {
                       </tr>
                         <tr>
                         <td align="right"><?php if($settings['facebook']!=""){ ?>
-                            <a style="text-decoration:none;" href="<?php echo $settings['facebook'];?>" target="_blank"> <img src="http://uploads.azooma.co/stat/facebook-trans-32.png" width="32" border="0" height="32" alt="Sufrati Facebook Page"/> </a>
+                            <a style="text-decoration:none;" href="<?php echo $settings['facebook'];?>" target="_blank"> <img src="http://uploads.azooma.co/stat/facebook-trans-32.png" width="32" border="0" height="32" alt="Azooma Facebook Page"/> </a>
                             <?php } ?>
                             <?php if($settings['twitter']!=""){ ?>
-                            <a style="text-decoration:none;" href="<?php echo $settings['twitter'];?>" target="_blank"> <img src="http://uploads.azooma.co/stat/twitter-trans-32.png" width="32" border="0" height="32" alt="Sufrati Twitter Profile"/> </a>
+                            <a style="text-decoration:none;" href="<?php echo $settings['twitter'];?>" target="_blank"> <img src="http://uploads.azooma.co/stat/twitter-trans-32.png" width="32" border="0" height="32" alt="Azooma Twitter Profile"/> </a>
                             <?php } ?>
                             <?php if($settings['linkedin']!=""){ ?>
-                            <a style="text-decoration:none;" href="<?php echo $settings['linkedin'];?>" target="_blank"> <img src="http://uploads.azooma.co/stat/linkedin--trans-32.png" width="32" height="32" border="0" alt="Sufrati Linkedin Profile"/> </a>
+                            <a style="text-decoration:none;" href="<?php echo $settings['linkedin'];?>" target="_blank"> <img src="http://uploads.azooma.co/stat/linkedin--trans-32.png" width="32" height="32" border="0" alt="Azooma Linkedin Profile"/> </a>
                             <?php } ?>
                             <?php if($settings['youtube']!=""){ ?>
-                            <a href="<?php echo $settings['youtube'];?>" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/stat/youtube-trans-32.png" width="32" height="32" border="0" alt="Sufrati Youtube Channel"/> </a>
+                            <a href="<?php echo $settings['youtube'];?>" style="text-decoration:none;" target="_blank"> <img src="http://uploads.azooma.co/stat/youtube-trans-32.png" width="32" height="32" border="0" alt="Azooma Youtube Channel"/> </a>
                             <?php } ?></td>
                       </tr>
                       </table></td>

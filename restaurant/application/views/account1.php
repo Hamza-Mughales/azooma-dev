@@ -4,7 +4,7 @@
         <?php $this->load->view('inc/metaheader'); ?>
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/account/liteaccordion.css" />
         <script type="text/javascript" src="<?php echo base_url(); ?>js/account/liteaccordion.js"></script>
-        <link rel="shortcut icon" href="http://www.sufrati.com/sa/favicon.ico" />
+        <link rel="shortcut icon" href="http://www.azooma.co/sa/favicon.ico" />
         <script type="text/javascript" src="<?php echo base_url(); ?>js/newslider/jquery_cycle.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>js/newslider/structure.js"></script>
         <style>
@@ -59,7 +59,7 @@
 
     <body>
         <?php $this->load->view('inc/header'); ?>
-        <div class="top-nav sufrati-seperator">
+        <div class="top-nav azooma-seperator">
             <div class="container hidden-overflow">
                 <div class="left"> 
                     <?php
@@ -87,7 +87,7 @@
                             <!--          <li class="divider"></li>
                               <li><a href="<?php echo site_url(); ?>">Restaurant Reports</a></li>-->
                             <li class="divider"></li>
-                            <li><a target="_blank" href="http://www.sufrati.com/saudi-arabian-dining/analytics/view/<?php echo $rest['rest_ID']; ?>.html">Monthly Report</a></li>
+                            <li><a target="_blank" href="http://www.azooma.co/saudi-arabian-dining/analytics/view/<?php echo $rest['rest_ID']; ?>.html">Monthly Report</a></li>
                             <!--          <li class="divider"></li>
                               <li><a href="<?php echo site_url(); ?>">Theme selection</a></li>-->
                             <li class="divider"></li>
@@ -231,7 +231,7 @@
                                         <tr>
                                             <td>
                                                 <b> Add Special Offers</b>
-                                                <p class="small-font">Display your Latest Offer on your profile page and in sufrati.com’s Special offers page instantly.</p>
+                                                <p class="small-font">Display your Latest Offer on your profile page and in azooma.co’s Special offers page instantly.</p>
                                             </td>
                                             <td class="center"><i class="icon icon-ok"></i></td>
                                             <td class="center"><i class="icon icon-ok"></i></td>
@@ -239,7 +239,7 @@
                                         <tr>
                                             <td>
                                                 <b> E-Comment Card</b>
-                                                <p class="small-font">Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers.</p>
+                                                <p class="small-font">Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers.</p>
                                             </td>
                                             <td class="center"><i class="icon icon-ok"></i></td>
                                             <td class="center"><i class="icon icon-ok"></i></td>
@@ -363,7 +363,7 @@
 
                           <div class="row-fluid spacer accordion">
                           <article class="left span6 accordion-group">
-                          <h2 data-toggle="collapse" class="accordion-heading " data-target="#activities"> <a class="accordion-toggle" href="javascript:void(0);"> Choose the right Sufrati.com account for you <i class="icon icon-chevron-down icon-dashboard-widget right-float"></i> </a> </h2>
+                          <h2 data-toggle="collapse" class="accordion-heading " data-target="#activities"> <a class="accordion-toggle" href="javascript:void(0);"> Choose the right Azooma.co account for you <i class="icon icon-chevron-down icon-dashboard-widget right-float"></i> </a> </h2>
                           <div id="activities" class="collapse in accordion-inner">
                           <table class="table table-bordered table-striped">
                           <thead>
@@ -403,12 +403,12 @@
                           <td class="center"><i class="icon icon-ok"></i></td>
                           <td class="center"><i class="icon icon-ok"></i></td>
                           </tr>
-                          <tr data-rel="tooltip" title="Display your Latest Offer on your profile page and in sufrati.com’s Special offers page instantly.">
+                          <tr data-rel="tooltip" title="Display your Latest Offer on your profile page and in azooma.co’s Special offers page instantly.">
                           <td>Add Special Offers</td>
                           <td class="center"><i class="icon icon-ok"></i></td>
                           <td class="center"><i class="icon icon-ok"></i></td>
                           </tr>
-                          <tr data-rel="tooltip" title="Your Updates will appear on sufrati.com News Feed on home page eg. When you change your menu, images, offers, contact numbers.">
+                          <tr data-rel="tooltip" title="Your Updates will appear on azooma.co News Feed on home page eg. When you change your menu, images, offers, contact numbers.">
                           <td>E-Comment Card</td>
                           <td class="center"><i class="icon icon-ok"></i></td>
                           <td class="center"><i class="icon icon-ok"></i></td>

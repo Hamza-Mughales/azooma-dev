@@ -40,7 +40,7 @@ echo message_box('success');
                         </div>
                         <div class="form-group row">
                             <label class="control-label col-md-12" for="email"> <?=lang('contact_emails')?></label>
-                            <div class="col-md-12 sufrati-backend-input-seperator" id="account-emails">
+                            <div class="col-md-12 azooma-backend-input-seperator" id="account-emails">
                                 <?php if (isset($member)) {
                                     $memberemails = explode(',', $member['email']);
 

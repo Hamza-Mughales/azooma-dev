@@ -24,7 +24,7 @@ if(count($poll)>0){
         ?>
     </td>
     <td>
-        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/options/'.$value['id']);?>" rel="tooltip" title="Poll options">
+        <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/options/'.$value['id']);?>" rel="tooltip" title="Poll options">
             <i class="icon icon-eye-open"></i> خيارات
         </a>
     </td>
@@ -33,10 +33,10 @@ if(count($poll)>0){
     </td>
     <td>
         
-        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/form/'.$value['id']);?>" rel="tooltip" title="تحرير">
+        <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/form/'.$value['id']);?>" rel="tooltip" title="تحرير">
             <i class="icon icon-edit"></i> تحرير
         </a><br/>
-         <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/questionstatus/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="<?php echo $value['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Poll">
+         <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/questionstatus/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="<?php echo $value['status']==1? " إلغاء التنشيط ":" تنشيط ";?> Poll">
             <?php
             if($value['status']==1){
                 ?>
@@ -47,7 +47,7 @@ if(count($poll)>0){
             <i class="icon icon-ok"></i> تفعيل
             <?php }?>
         </a><br/>
-        <a class="sufrati-backend-actions" href="<?php echo site_url('ar/polls/questiondelete/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
+        <a class="azooma-backend-actions" href="<?php echo site_url('ar/polls/questiondelete/'.$value['id'].'?limit='.$limit.'&per_page='.$offset);?>" rel="tooltip" title="حذف" onclick="return confirm('Do You Want to Delete?')">
             <i class="icon icon-remove"></i>
             حذف 
         </a>

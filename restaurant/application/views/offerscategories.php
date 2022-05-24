@@ -35,7 +35,7 @@
             if (count($offers) > 0) {
             ?>
 
-                <table class="table table-bordered table-striped sufrati-backend-table" id="basic-1">
+                <table class="table table-bordered table-striped azooma-backend-table" id="basic-1">
                     <thead>
                         <th class="span4">
                            <?=lang('category_name')?>
