@@ -78,7 +78,7 @@ if($lang=="en"){
 	<?php
 }
 if(Session::get('sfcity')!=null){
-	$city=DB::connection('new-Azooma')->select('SELECT city_ID,city_Name,city_Name_ar,seo_url FROM city_list WHERE city_Status=1 AND city_ID='.Session::get('sfcity').' LIMIT 1');
+	$city=DB::connection('new-sufrati')->select('SELECT city_ID,city_Name,city_Name_ar,seo_url FROM city_list WHERE city_Status=1 AND city_ID='.Session::get('sfcity').' LIMIT 1');
 	?>
 	var city={'id':'<?php echo stripcslashes($city[0]->city_ID);?>','name':'<?php echo stripcslashes($city[0]->city_Name);?>','nameAr':'<?php echo stripcslashes($city[0]->city_Name_ar);?>','url':'<?php echo stripcslashes($city[0]->seo_url);?>'};
 	<?php
