@@ -153,7 +153,13 @@ class Rest extends AdminController {
                 if (empty($rest->cities)) {
                     $html= '-';
                 } else {
-                    $html.= str_replace(",", "<br>", $rest->cities);
+                    $cities=explode(',',"".$rest->cities);
+                    $cities_list=[];
+                    foreach($cities as $k=>$v){
+                        if(!in_array($v,$cities_list))
+                        $cities_list[]=$v;
+                    }
+                    $html.= implode(",", $cities_list);
                 }
                 return $html;
             })
@@ -369,7 +375,8 @@ class Rest extends AdminController {
                 $status = 0;
             }
             $data = array(
-                'rest_Status' => $status
+                'rest_Status' => $status,
+                "lastUpdatedOn"=>date("Y-m-d H:i:s")
             );
 
             DB::table('restaurant_info')->where('rest_ID', $id)->update($data);
