@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -177,5 +178,22 @@ if (!function_exists("menu_pdf_path")) {
             file_put_contents($filePath, $fileContent);
         endif;
         return $path;
+    }
+}
+if (!function_exists("countryName")) {
+    function countryName($id)
+    {
+        $id=intval($id);
+          $country= DB::table('aaa_country')->where('id','=',$id)->first();
+          return isset($country->name) ? $country->name :'';
+    }
+}
+if (!function_exists("cityName")) {
+    function cityName($id)
+    {
+        $id=intval($id);
+
+          $country= DB::table('city_list')->where('city_ID','=',$id)->first();
+          return isset($country->city_Name) ? $country->city_Name :'';
     }
 }

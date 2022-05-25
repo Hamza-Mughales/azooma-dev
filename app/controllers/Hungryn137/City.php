@@ -21,11 +21,12 @@ class City extends AdminController {
         $limit = 5000;
         $status = 0;
         $name = "";
+        $country_id=get('country_id');
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $name = stripslashes($_GET['name']);
         }
 
-        $lists = $this->MLocation->getAllCities($status, $limit, $name);
+        $lists = $this->MLocation->getAllCities($status, $limit, $name,$country_id);
 
         $data = array(
             'logo' => $logo,
