@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 class PhoneAuthController extends Controller
 {
 
-    public function index(){
+  public function index()
+  {
 
-      return view('welcome');
-    }
+    return view('welcome');
+  }
 }
