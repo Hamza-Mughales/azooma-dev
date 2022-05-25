@@ -369,7 +369,8 @@ class Rest extends AdminController {
                 $status = 0;
             }
             $data = array(
-                'rest_Status' => $status
+                'rest_Status' => $status,
+                "lastUpdatedOn"=>date("Y-m-d H:i:s")
             );
 
             DB::table('restaurant_info')->where('rest_ID', $id)->update($data);
