@@ -1,6 +1,7 @@
 <?php
 
-class RegisterController extends BaseController {
+class RegisterController extends BaseController
+{
 	/*
 	|--------------------------------------------------------------------------
 	| Default Register Controller
@@ -14,15 +15,15 @@ class RegisterController extends BaseController {
 	|
 	*/
 
-	public function index()	{
-		$lang=Config::get('app.locale');
-		$data['lang']=$lang;
-		$data['meta']=array(
-			'title'=>Lang::get('messages.register'),
-            'metadesc'=>Lang::get('messages.register'),
+	public function index()
+	{
+		$lang = Config::get('app.locale');
+		$data['lang'] = $lang;
+		$data['meta'] = array(
+			'title' => Lang::get('messages.register'),
+			'metadesc' => Lang::get('messages.register'),
 		);
 
-		return View::make('register',$data);
+		return View::make('register', $data);
 	}
-
 }
