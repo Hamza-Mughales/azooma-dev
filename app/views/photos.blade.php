@@ -1,6 +1,3 @@
-<?php 
-dd(1);
-?>
 <!doctype html>
 <html lang="<?php echo $lang;?>">
 <head>
@@ -107,9 +104,9 @@ dd(1);
                         {{-- Start Image --}}
                         <?php 
                         $allcountt = count($photos) / 3;
-                        if ($i == 1 || $i == ($allcountt + 1) || $i == ($allcountt *2 + 1)){ ?>
+                        //if ($i == 1 || $i == ($allcountt + 1) || $i == ($allcountt *2 + 1)){ ?>
                         <div class="column">
-                        <? } ?>
+                        <? //} ?>
                       
                      <a class="image-block ajax-link"  href="<?php echo Azooma::URL($city->seo_url.'/photo/'.$photo->image_ID);?>" title="<?php echo ($lang=='en')?stripcslashes($photo->title):stripcslashes($photo->title_ar); ?>">
                         <img src="<?php echo Azooma::CDN('Gallery/'.$photo->image_full);?>" alt="<?php echo ($lang=='en')?stripcslashes($photo->title):stripcslashes($photo->title_ar); ?>">
@@ -153,9 +150,9 @@ dd(1);
                         <?php } ?>
                         </a>      
                         
-                        <?php if ($i == $allcountt || $i == ($allcountt*2) || $i==  ($allcountt * 3)){ ?>
+                        <?php // if ($i == $allcountt || $i == ($allcountt*2) || $i==  ($allcountt * 3)){ ?>
                             </div>
-                        <? } ?>
+                        <? //} ?>
                         {{-- End Image --}}
                         <?php } } ?>
                  </div>

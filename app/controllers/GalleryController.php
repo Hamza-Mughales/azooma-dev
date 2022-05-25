@@ -44,7 +44,7 @@ class GalleryController extends BaseController {
 	
 		$sort="latest";
 		$data['lang']=$lang;
-		$limit=24;
+		$limit=9;
 		$offset=0;
 		$city=MGeneral::getCityURL($cityurl,true);
 		
@@ -57,9 +57,9 @@ class GalleryController extends BaseController {
 			if(Input::has('sort')){
 				$sort=Input::get('sort');
 			}
-			if(Input::has('limit')){
-				$limit=Input::get('limit');
-			}
+			// if(Input::has('limit')){
+			// 	$limit=Input::get('limit');
+			// }
 			if(Input::has('page')){
 				$offset=$limit*(Input::get('page')-1);
 				$page=Input::get('page');
