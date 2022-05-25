@@ -34,17 +34,20 @@ class GalleryController extends BaseController {
 	}
 
 	public function photos(){
+		
 		$lang=Config::get('app.locale');
 		if($lang=="ar"){
 			$cityurl=Request::segment(2);
 		}else{
 			$cityurl=Request::segment(1);
 		}
+	
 		$sort="latest";
 		$data['lang']=$lang;
 		$limit=24;
 		$offset=0;
 		$city=MGeneral::getCityURL($cityurl,true);
+		
 		if(count($city)>0){
 			$cityname=($lang=="en")?stripcslashes($city->city_Name):stripcslashes($city->city_Name_ar);
 			$cityid=$city->city_ID;
@@ -63,6 +66,7 @@ class GalleryController extends BaseController {
 			}
 			$data['photos']=$this->MGallery->getPhotos($cityid,0,$limit,$offset,FALSE,$sort);
 			$total=$this->MGallery->getPhotos($cityid,0,$limit,$offset,TRUE,$sort);
+		
 			$data['sort']=$sort;
 			$data['paginator']=Paginator::make($data['photos'],$total,$limit);
 			$data['originallink']=Azooma::URL($city->seo_url.'/photos');
@@ -79,12 +83,14 @@ class GalleryController extends BaseController {
 				'limit'=>$limit,
 				'sort'=>$sort,
 			);
+			
 			$data['meta']=array(
 				'title'=>Lang::choice('messages.restaurants',1).' '.Lang::get('messages.photos').' '.Lang::get('messages.inplace2',array('name'=>$cityname)),
 				'metadesc'=>Lang::get('metadesc.photogallery',array('name'=>$cityname)),
 				'metakey'=>Lang::get('metakey.photogallery',array('name'=>$cityname))
 			);
-			return View::make('photos',$data);
+		
+			return view('photos',$data);
 		}else{
 			App::abort(404);
 		}
