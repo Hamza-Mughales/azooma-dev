@@ -153,7 +153,13 @@ class Rest extends AdminController {
                 if (empty($rest->cities)) {
                     $html= '-';
                 } else {
-                    $html.= str_replace(",", "<br>", $rest->cities);
+                    $cities=explode(',',"".$rest->cities);
+                    $cities_list=[];
+                    foreach($cities as $k=>$v){
+                        if(!in_array($v,$cities_list))
+                        $cities_list[]=$v;
+                    }
+                    $html.= implode(",", $cities_list);
                 }
                 return $html;
             })
