@@ -1,7 +1,10 @@
+<?php 
+dd(1);
+?>
 <!doctype html>
 <html lang="<?php echo $lang;?>">
 <head>
-    @include('inc.metaheader',$meta)
+   @include('inc.metaheader',$meta)
     <?php
     if(isset($metastring)){
         echo $metastring;
@@ -15,7 +18,7 @@
 <?php } ?>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="<?php if($lang == 'ar'){ echo 'rtl'; } ?>">
-    @include('inc.header')
+  @include('inc.header')
     {{-- Breadcrumb Section Start --}}
     <section class="Breadcrumb">
         <div class="container">
@@ -163,7 +166,7 @@
                    
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    @include('inc.rightcol')
+                  @include('inc.rightcol')
                 </div>
             </div>
     
@@ -171,7 +174,7 @@
     </section>
     {{-- Gallary Photos End --}}
 
-    @include('inc.footer')
+  @include('inc.footer')
    
 </body>
 </html>

@@ -164,9 +164,10 @@
 									<div class="container-fluid mb-4" style="height: 100%">
 									
 										<div class="row" style="height: 62%">
-											{{-- 04 Meduim Box --}}
+									
 											<div class="col-lg-12 wow fadeInUp" data-wow-duration="3s">
 												<?php 
+												
 												if(count($countries) > 0 && isset($countries[key($countries) + 1]) ){
 													// Get First Country
 													reset($countries);
@@ -359,14 +360,14 @@
 											</div>
 										</div>
 										<div class="row" style="height: 62%">
-											{{-- 04 Meduim Box --}}4
+											{{-- 04 Meduim Box --}}
 											<div class="col-lg-12 wow fadeInUp" data-wow-duration="3s">
 												<?php 
 												if(count($countries) > 0 && isset($countries[key($countries) + 4]) ){
 													// Get First Country
 													reset($countries);
 													$firstKey = key($countries);
-													dd( key($countries));
+													
 
 													$country = $countries[$firstKey + 4]; {
 														?>

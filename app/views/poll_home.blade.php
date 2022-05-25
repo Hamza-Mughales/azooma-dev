@@ -138,7 +138,8 @@
                     <div class="Azooma-main-col-2">
                     </div>
                     <div class="Azooma-main-col-3 Azooma-white-box">
-                        @include('inc.rightcol')
+                    @include('inc.rightcol')
+
                     </div>
                 </div>
             </div>

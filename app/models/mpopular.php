@@ -4,6 +4,7 @@ class MPopular extends Eloquent{
 
     function getPopularResults($action="",$city = 0, $cuisine = "", $menu = "", $wheelchair = "", $price = "", $sort = "", $limit = "", $offset = "", $latitude = "", $longitude = "", $count = false,$min=false) {
         $mainselect=$select=$where=$join=$orderby=$groupby=$limitq="";
+       
         $where = "WHERE 1=1 ";
         $mainselect=" * ";
         if(!$min){
@@ -24,10 +25,12 @@ class MPopular extends Eloquent{
         if($sort=="recent"){
             $join.=" JOIN review ON review.rest_ID=restaurant_info.rest_ID AND review.review_Status=1";    
         }
-      
+        
         if ($cuisine != "") {
             $join.=' JOIN restaurant_cuisine ON restaurant_cuisine.rest_ID=restaurant_info.rest_ID ';
             $ia = 0;
+           
+            if(is_array($cuisine)){
             foreach ($cuisine as $cue) {
                 if(count($cuisine) == 1){
                     $where.=' AND restaurant_cuisine.cuisine_ID IN( ' . $cue. ' ) ';
@@ -43,6 +46,7 @@ class MPopular extends Eloquent{
                 }
                 $ia++;
             } 
+        }
         }
         if ($menu != "") {
             $join.=' JOIN menuall ON menuall.rest_ID=restaurant_info.rest_ID';
@@ -482,6 +486,7 @@ class MPopular extends Eloquent{
 
     public static function getRestaurantFeatures($city=0,$cuisine=0, $menu=0,$wheelchair=0, $price=0,$sort="", $limit=20,$offset=0, $latitude=0, $longitude=0, $count=true,$min=false,$category="",$feature=""){
         $mainselect=$select=$where=$join=$orderby=$groupby=$limitq="";
+        
         $where = "WHERE 1=1 ";
         $mainselect=" * ";
         if(!$min){

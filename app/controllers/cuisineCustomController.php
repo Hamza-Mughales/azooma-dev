@@ -19,9 +19,12 @@ class cuisineCustomController extends BaseController {
 			$cityname=($lang=="en")?stripcslashes($city->city_Name):stripcslashes($city->city_Name_ar);
 			$cityid=$city->city_ID;
 			$data['cuisines']=$this->MListings->getCustomCuisines($cityid,$mycuisine);
+			
 			$mycusii = $data['cuisines'];
-			$mycusii = $mycusii[0];
-            $data['mycuisine']= ($lang=="en")?stripcslashes($mycusii->cuisine_Name):stripcslashes($mycusii->cuisine_Name_ar);
+			$mycusii = isset($mycusii[0])?$mycusii[0] :[] ;
+			$data['mycuisine']='';
+			if($mycusii)
+            $data['mycuisine']= ($lang=="en") ?stripcslashes($mycusii->cuisine_Name):stripcslashes($mycusii->cuisine_Name_ar);
             $data['city']=$city;
 			$data['cityurl']=$cityurl;
 			$data['lang']=$lang;

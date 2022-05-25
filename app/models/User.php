@@ -442,6 +442,7 @@ class User extends Eloquent{
 
 	public static function likeSuggestions($user=0,$limit=3,$offset=0){
 		$cityid=0;
+	
 		if($user == null){
 			if(Session::has('sfcity')){
 				$cityid=Session::get('sfcity');
@@ -449,9 +450,11 @@ class User extends Eloquent{
 			$q='SELECT DISTINCT ri.rest_ID,ri.rest_Name,ri.rest_Name_Ar,ri.seo_url,ri.rest_Logo,getCuisineName(ri.rest_ID,"en") as cuisine,getCuisineName(ri.rest_ID,"ar") as cuisineAr,(SELECT COUNT(id) FROM likee_info WHERE likee_info.rest_ID=ri.rest_ID AND likee_info.status=1) as totallikes FROM restaurant_info ri JOIN rest_branches rb ON rb.rest_fk_id=ri.rest_ID AND rb.city_ID=:cityid WHERE ri.rest_Status=1 ORDER BY ri.rest_Subscription DESC LIMIT '.$offset.', '.$limit;
 			return DB::select(DB::raw($q),array('cityid'=>$cityid));
 		}else{
-			$user= DB::select(DB::raw('SELECT user_ID,user_City FROM user WHERE user_ID=:userid'),array('userid'=>$user));;
+			$user= DB::select(DB::raw('SELECT user_ID,user_City FROM user WHERE user_ID=:userid'),array('userid'=>$user));
 			 $user=$user[0];
+		
 			if(count($user)>0){
+			
 				$userid=$user->user_ID;
 				if(($user->user_City!=NULL)&&(is_numeric($user->user_City))){
 					$cityid=$user->user_City;

@@ -6,6 +6,7 @@ class PollController extends BaseController {
 	}
 
 	public function index($poll=0){
+		
 		$lang=Config::get('app.locale');
 		$data['lang']=$lang;
 		$cityid=1;
@@ -36,16 +37,19 @@ class PollController extends BaseController {
 		$data['totalvotes']=MPoll::getTotalVotes($latestpoll->id);
 		$data['polls']=$polls;
 		$data['city']=$city;
+		
 		$cityname=($lang=="en")?stripcslashes($city->city_Name):stripcslashes($city->city_Name_Ar);
 		$data['cityname']=$cityname;
 		$data['checkuservoted']=MPoll::checkUserVoted($latestpoll->id);
 		$data['paginator']=Paginator::make($data['polls'],$total,$limit);
+		
 		$data['meta']=array(
 			'title'=>Lang::get('messages.poll'),
 			'metadesc'=>($lang=="en")?stripcslashes($latestpoll->question):stripcslashes($latestpoll->question_ar).'. '.Lang::get('messages.poll').' '.Lang::get('messages.azooma'),
 			'metakey'=>''
 		);
-		return View::make('poll_home',$data);
+		
+		return view('poll_home',$data);
 	}
 
 
