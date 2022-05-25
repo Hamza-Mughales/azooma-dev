@@ -287,8 +287,12 @@ class AjaxController extends BaseController
 				User::addList(Session::get('userid'), Input::get('new-user-list'), $rest->rest_ID, $city->country);
 			}
 			$lists = Input::get('userlist');
-			foreach ($lists as $list) {
-				User::addToList($list, $rest->rest_ID, Session::get('userid'), $city->country);
+			// dd(Input::get('userlist'));
+			if (isset($lists)) {
+			
+				foreach ($lists as $list) {
+					User::addToList($list, $rest->rest_ID, Session::get('userid'), $city->country);
+				}
 			}
 			return Redirect::to($cityurl . '/' . $rest->seo_url . '#n');
 		} else {

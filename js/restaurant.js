@@ -200,7 +200,7 @@ $("#add-to-list-btn").click(function(e){
 	e.preventDefault();
 	if(loggedinuser){
 		sufratipopupinitialize();
-		sufratipopup(_.template($("#add-to-list-form-tpl").html()),function(){
+		sufratipopup(_.template($("#addToList-tpl").html()),function(){
             
         });
 
@@ -328,7 +328,12 @@ function downloadMenu(menu){
 }
 $(document).on("click","#save-to-list-btn",function(e){
 	e.preventDefault();
-	$("#add-to-list-form form").submit();
+	if(loggedinuser){
+		$("#addToList form").submit();
+	}else{
+		sufratiloginpopup("Azooma-login-form");
+		$("#addToList").hide();
+	}
 });
 $(document).on("submit","#claim-rest-form",function(e){
 	var k=true;
