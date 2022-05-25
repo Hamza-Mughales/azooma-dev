@@ -1,9 +1,10 @@
 <?php
-class AdminController extends BaseController {
-	
+class AdminController extends BaseController
+{
 
-	function __construct() {
+
+	function __construct()
+	{
 		$this->beforeFilter('admin-user');
 	}
-
 }
