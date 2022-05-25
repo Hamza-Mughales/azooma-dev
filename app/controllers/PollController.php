@@ -71,7 +71,7 @@ class PollController extends BaseController {
 			$data=array(
 				'poll_id'=>$poll,
 				'user_ID'=>$userid,
-				'option_id'=>$option,
+				'option_id'=>intval($option),
 				'ip'=>$ip,
 				'country'=>$city->country
 			);
