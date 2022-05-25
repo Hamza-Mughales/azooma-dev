@@ -7,7 +7,7 @@
                 <h4><?php echo Lang::get('messages.coming_soon');?></h4>
                 <div class="back-btns d-flex justify-content-center align-items-center">
                     <a href="<?php echo Azooma::URL('');?>" class="big-main-btn"><?php echo Lang::get('messages.back_to_home');?></a>
-                    <a href="<?php echo Azooma::URL('/contact-us');?>" class="big-trans-btn"><?php echo Lang::get('messages.contact_us');?></a>
+                    <a href="<?php echo Azooma::URL('contact-us');?>" class="big-trans-btn"><?php echo Lang::get('messages.contact_us');?></a>
 
                 </div>
           </div>
