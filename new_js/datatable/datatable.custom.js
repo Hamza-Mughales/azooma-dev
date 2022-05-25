@@ -41,6 +41,7 @@ function startDataTable(table_id, url, config = {}, full_config = false) {
 
 
             },
+            "dom": '<"wrapper"lfiptip>',
             "searching": true,
             "sort": true,
             "pageLength": length,
