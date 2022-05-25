@@ -6,6 +6,7 @@ function startDataTable(table_id, url, config = {}, full_config = false) {
     var lengthMenu = [5, 10, 25, 50, 100, 150, 200];
     var length = 10;
     var data = {};
+    var dom='<"wrapper"lfiptip>';
     //['colvis','copy', 'excel', 'pdf']
     var buttons = ['colvis'];
     if (config.columns) {
@@ -26,7 +27,9 @@ function startDataTable(table_id, url, config = {}, full_config = false) {
     if (config.data) {
         data = config.data
     }
-
+    if (config.dom) {
+        dom = config.dom
+    }
     if (full_config == false) {
 
         table = $("#" + table_id).DataTable({
@@ -38,10 +41,8 @@ function startDataTable(table_id, url, config = {}, full_config = false) {
                 data: data,
                 pages: 1,
                 length:length
-
-
             },
-            "dom": '<"wrapper"lfiptip>',
+            "dom": dom,
             "searching": true,
             "sort": true,
             "pageLength": length,

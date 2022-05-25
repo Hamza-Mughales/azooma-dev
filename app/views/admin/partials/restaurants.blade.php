@@ -139,6 +139,7 @@
         {data:"lastUpdatedOn"},
         {data:"action",searchable:false,sortable:false}],
         order:[[4,'desc']],
+        
          data:function(d){
                     return $.extend({},d,{
                         "status":$('#status').val(),
