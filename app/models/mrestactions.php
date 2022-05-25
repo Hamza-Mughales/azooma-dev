@@ -456,6 +456,7 @@ class MRestActions extends Eloquent {
         $data = array(
             'rest_Email' => $emails,
             'your_Name' => (Input::get('full_name')),
+            'lastUpdatedOn' => date('Y-m-d H:i:s'),
             'your_Contact' => (Input::get('phone'))
         );
         DB::table('restaurant_info')->where('rest_ID', $rest_ID)->update($data);
@@ -474,6 +475,7 @@ class MRestActions extends Eloquent {
                 $data = array(
                     'email' => $emails,
                     'full_name' => (Input::get('your_Name')),
+                    'date_upd' => date('Y-m-d H:i:s'),
                     'phone' => (Input::get('your_Contact'))
                 );
                 DB::table('booking_management')->where('rest_id', $rest_ID)->where('id_user', $memberINfo->id_user)->update($data);
@@ -483,7 +485,8 @@ class MRestActions extends Eloquent {
 
     function updateMembershipStatus($id, $status = 0) {
         $data = array(
-            'status' => $status
+            'status' => $status,
+            'date_upd' => date('Y-m-d H:i:s'),
         );
         DB::table('booking_management')->where('rest_id', $id)->update($data);
     }
@@ -851,7 +854,8 @@ class MRestActions extends Eloquent {
 
     function read($rest = 0) {
         $data = array(
-            'is_read' => 1
+            'is_read' => 1,
+            'lastUpdatedOn' => date('Y-m-d H:i:s')
         );
         DB::table('restaurant_info')->where('rest_ID', $rest)->update($data);
     }
@@ -1167,6 +1171,7 @@ class MRestActions extends Eloquent {
                 'status' => $status,
                 'width' => $width,
                 'ratio' => $ratio,
+                'updatedAt' => date('Y-m-d H:i:s'),
             );
         }
         if (($ratio == 0) && ($width == 0)) {
@@ -1177,7 +1182,8 @@ class MRestActions extends Eloquent {
                 'branch_ID' => (Input::get('br_id')),
                 'image_full' => $image,
                 'image_thumb' => $image,
-                'status' => $status
+                'status' => $status,
+                'updatedAt' => date('Y-m-d H:i:s')
             );
         }
         return DB::table('image_gallery')->insertGetId($data);
@@ -1405,7 +1411,8 @@ class MRestActions extends Eloquent {
 
     function updateMenuCats($rest_ID, $menu_id) {
         $data = array(
-            'menu_id' => $menu_id
+            'menu_id' => $menu_id,
+            'updatedAt' => date('Y-m-d H:i:s'),
         );
         DB::table('menu_cat')->where('rest_ID', '=', $rest_ID)->where('menu_id', '=', '0')->update($data);
     }
@@ -1591,15 +1598,24 @@ class MRestActions extends Eloquent {
     function makeFeaturedImage($image, $rest) {
         $alldefault = DB::table('image_gallery')->where('rest_ID', '=', $rest)->where('is_featured', '=', 1)->count();
         if ($alldefault > 0) {
-            $data = array('is_featured' => 0, 'updatedAt' => date('Y-m-d H:i:s'));
+            $data = array(
+                'is_featured' => 0, 
+                'updatedAt' => date('Y-m-d H:i:s')
+            );
             DB::table('image_gallery')->where('rest_ID', '=', $rest)->where('is_featured', '=', 1)->update($data);
         }
-        $data = array('is_featured' => 1, 'updatedAt' => date('Y-m-d H:i:s'));
+        $data = array(
+            'is_featured' => 1, 
+            'updatedAt' => date('Y-m-d H:i:s')
+        );
         DB::table('image_gallery')->where('image_ID', '=', $image)->where('rest_ID', '=', $rest)->update($data);
     }
 
     function unsetFeaturedImage($image, $rest) {
-        $data = array('is_featured' => 0, 'updatedAt' => date('Y-m-d H:i:s'));
+        $data = array(
+            'is_featured' => 0, 
+            'updatedAt' => date('Y-m-d H:i:s')
+        );
         DB::table('image_gallery')->where('rest_ID', '=', $rest)->where('image_ID', '=', $image)->update($data);
     }
 
@@ -1815,6 +1831,7 @@ class MRestActions extends Eloquent {
             'status' => $status,
             'hotel_logo' => $logo,
             'image' => $image,
+            'updatedAt' => date('Y-m-d H:i:s'),
             'url' => $url,
         );
         return DB::table('hotel_info')->insertGetId($data);
@@ -2041,7 +2058,8 @@ class MRestActions extends Eloquent {
         $max = DB::table('restaurant_info')->max('sufrati_favourite');
         $max = $max + 1;
         $data = array(
-            'sufrati_favourite' => $max
+            'sufrati_favourite' => $max,
+            'lastUpdatedOn' => date('Y-m-d H:i:s')
         );
         DB::table('restaurant_info')->where('rest_ID', '=', $id)->update($data);
     }
@@ -2125,7 +2143,8 @@ class MRestActions extends Eloquent {
             }
         }
         $data = array(
-            $type => $check
+            $type => $check,
+            'lastUpdatedOn' => date('Y-m-d H:i:s'),
         );
         DB::table('restaurant_info')->where('rest_ID', $id)->update($data);
     }
@@ -2133,7 +2152,8 @@ class MRestActions extends Eloquent {
     function updateFavoriteRest() {
         $data = array(
             'fav_desc' => htmlentities(input::get('fav_desc')),
-            'fav_desc_ar' => (input::get('fav_desc_ar'))
+            'fav_desc_ar' => (input::get('fav_desc_ar')),
+            'lastUpdatedOn' => date('Y-m-d H:i:s'),
         );
         DB::table('restaurant_info')->where('rest_ID', input::get('rest_ID'))->update($data);
     }
