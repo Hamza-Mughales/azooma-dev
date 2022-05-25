@@ -152,7 +152,7 @@ $checklanding=TRUE;
                   foreach ($countries as $country) {
                   $tcities= $country->cities;
                   ?>
-                  <li data-bs-target="<?php echo stripcslashes($country->name); ?>"
+                  <li data-target="<?php echo stripcslashes($country->name); ?>"
                     class="<?php if($selectedCountry == $country->name) echo "active"; ?>">
                     <?php echo ($lang=="en")?stripcslashes($country->name):stripcslashes($country->nameAr); ?>
                     <i class="fa fa-angle-<?php if($lang=="en"){ echo "right"; }else{ echo "left"; } ?>">
@@ -184,9 +184,8 @@ $checklanding=TRUE;
                     foreach ($citysplitted as $cities) {
                     foreach ($cities as $city) {
                     $cityname=($lang=="en")?stripcslashes($city->city_Name):stripcslashes($city->city_Name_ar);
-                    
                     ?>
-                  <li data-bs-target="<?php echo stripcslashes($country->name); ?>"   class="<?php if($selectedCity == $city->city_Name) echo "active"; ?>"
+                  <li data-target="<?php echo stripcslashes($country->name); ?>"   class="<?php if($selectedCity == $city->city_Name) echo "active"; ?>"
                     style="<?php if($selectedCountry == $country->name) echo "display: list-item;"; ?>">
                     <a href="<?php echo Azooma::URL($city->seo_url);?>"
                       title="<?php echo Lang::choice('messages.restaurants',2).' '.Lang::get('messages.inplace',array('name'=>$cityname));?>">
@@ -204,7 +203,7 @@ $checklanding=TRUE;
       </div>
       {{-- Mobile Menu Button --}}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="navbarSupportedContent">
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="mobile-nav-bar"></span>
         <span class="mobile-nav-bar"></span>
       </button>
