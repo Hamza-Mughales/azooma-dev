@@ -1,5 +1,6 @@
 <?php
-class UpdateDbController extends BaseController {
+class UpdateDbController extends BaseController
+{
 
 	/*
 	|--------------------------------------------------------------------------
@@ -13,23 +14,24 @@ class UpdateDbController extends BaseController {
 	|	Route::get('/', 'HomeController@showWelcome');
 	|
 	*/
-/******
+	/******
 	TODO
 	1. Update DB
 	2. User 130 profile photo
 
 
 
-*******/
+	 *******/
 
 
-	public function index()	{
+	public function index()
+	{
 		ignore_user_abort(true);
-        set_time_limit(0);
-        $k=ini_set('memory_limit', '1024M');
-        ///$v=ini_set('max_execution_time', 6000);
-        echo $k.'<br/>';
-        /*
+		set_time_limit(0);
+		$k = ini_set('memory_limit', '1024M');
+		///$v=ini_set('max_execution_time', 6000);
+		echo $k . '<br/>';
+		/*
         $totalcolumns=DB::connection('sufrati-sa')->table('branch_views')->count();
         echo $totalcolumns.'<br/>';
         $allcolumns=DB::connection('sufrati-sa')->select('SELECT * FROM `branch_views` LIMIT 0,750000');
@@ -55,7 +57,7 @@ class UpdateDbController extends BaseController {
 		//5. Delete some of the useless tables
 		// DROP TABLE `all_ip`
 		// DROP TABLE `article_rating`
-		
+
 		// DROP TABLE `coming_soon`
 		// DROP TABLE `complains`
 		// DROP TABLE `favourite_list`
@@ -88,47 +90,47 @@ class UpdateDbController extends BaseController {
 			}
 		}
 		*/
-		
-		$alltables=DB::connection('new-sufrati')->select('show tables');
-		$i=0;
+
+		$alltables = DB::connection('new-sufrati')->select('show tables');
+		$i = 0;
 
 		foreach ($alltables as $table) {
 			//$karr=array('newsletter','newsletter_stats','menu_downloads','photolike','searchanalytics','review','user_devices_list');
-			$karr=array('activity_info','admin','analytics','answer','answeragree','answercomments','article','articlecomment','article_slide','artrating','art_work','askedtoanswer','banner','bannerClicks','bestfor_list','birthday','booking','booking_branches','booking_management','booking_users');
-			if(!in_array($table->Tables_in_diner_sufrati_db,$karr)){
-			if($table->Tables_in_diner_sufrati_db!="aaa_country"&&$table->Tables_in_diner_sufrati_db!="menuall"&&$table->Tables_in_diner_sufrati_db!="settings"&&$table->Tables_in_diner_sufrati_db!="banner"&&$table->Tables_in_diner_sufrati_db!="bannerClicks"&&$table->Tables_in_diner_sufrati_db!="analytics"&&$table->Tables_in_diner_sufrati_db!="admin"){
-				if($table->Tables_in_diner_sufrati_db!="mobile_analytics"&&$table->Tables_in_diner_sufrati_db!="recent_viewed"&&$table->Tables_in_diner_sufrati_db!="subscribers"){
-				//Above if are large tables skip and add them later each seperately
-				//Table present copy data
-			//if($table->Tables_in_diner_sufrati_db=="subscribers"){
-					$currenttable=$table->Tables_in_diner_sufrati_db;
-					echo $currenttable.' ---- processing...<br/>';
-					$kq=DB::connection('sufrati-sa')->select('SHOW TABLES LIKE "'.$currenttable.'"');
-					if(count($kq)>0){
-						//$currentcolumns=DB::connection('new-sufrati')->select('SELECT COUNT(*) as totalcolumns FROM `'.$currenttable.'`');
-						//if(count($currentcolumns)>0&&$currentcolumns[0]->totalcolumns<=0){
-							$totalcolumns=DB::connection('sufrati-sa')->table($currenttable)->count();
-							for($i=0;$i<$totalcolumns;$i=$i+10000){
-								$allcolumns=DB::connection('sufrati-sa')->select('SELECT * FROM `'.$currenttable.'` LIMIT '.$i.',10000');
-								if(count($allcolumns)>0){
-									echo count($allcolumns).' total columns -<br/>';
-									foreach($allcolumns as $columns){
-										$data=array();
+			$karr = array('activity_info', 'admin', 'analytics', 'answer', 'answeragree', 'answercomments', 'article', 'articlecomment', 'article_slide', 'artrating', 'art_work', 'askedtoanswer', 'banner', 'bannerClicks', 'bestfor_list', 'birthday', 'booking', 'booking_branches', 'booking_management', 'booking_users');
+			if (!in_array($table->Tables_in_diner_sufrati_db, $karr)) {
+				if ($table->Tables_in_diner_sufrati_db != "aaa_country" && $table->Tables_in_diner_sufrati_db != "menuall" && $table->Tables_in_diner_sufrati_db != "settings" && $table->Tables_in_diner_sufrati_db != "banner" && $table->Tables_in_diner_sufrati_db != "bannerClicks" && $table->Tables_in_diner_sufrati_db != "analytics" && $table->Tables_in_diner_sufrati_db != "admin") {
+					if ($table->Tables_in_diner_sufrati_db != "mobile_analytics" && $table->Tables_in_diner_sufrati_db != "recent_viewed" && $table->Tables_in_diner_sufrati_db != "subscribers") {
+						//Above if are large tables skip and add them later each seperately
+						//Table present copy data
+						//if($table->Tables_in_diner_sufrati_db=="subscribers"){
+						$currenttable = $table->Tables_in_diner_sufrati_db;
+						echo $currenttable . ' ---- processing...<br/>';
+						$kq = DB::connection('sufrati-sa')->select('SHOW TABLES LIKE "' . $currenttable . '"');
+						if (count($kq) > 0) {
+							//$currentcolumns=DB::connection('new-sufrati')->select('SELECT COUNT(*) as totalcolumns FROM `'.$currenttable.'`');
+							//if(count($currentcolumns)>0&&$currentcolumns[0]->totalcolumns<=0){
+							$totalcolumns = DB::connection('sufrati-sa')->table($currenttable)->count();
+							for ($i = 0; $i < $totalcolumns; $i = $i + 10000) {
+								$allcolumns = DB::connection('sufrati-sa')->select('SELECT * FROM `' . $currenttable . '` LIMIT ' . $i . ',10000');
+								if (count($allcolumns) > 0) {
+									echo count($allcolumns) . ' total columns -<br/>';
+									foreach ($allcolumns as $columns) {
+										$data = array();
 										foreach ($columns as $key => $value) {
-											$data[$key]=$value;
+											$data[$key] = $value;
 										}
-										$data['country']=1;
+										$data['country'] = 1;
 										DB::connection('new-sufrati')->table($currenttable)->insert($data);
 									}
 								}
 							}
-						//}
+							//}
+						}
 					}
 				}
 			}
 		}
-		}
-/*
+		/*
 		$usertables=DB::connection('sufrati-users')->select('show tables');
 		if(count($usertables)>0){
 			foreach ($usertables as $table) {
@@ -211,12 +213,12 @@ class UpdateDbController extends BaseController {
 			booking_management
 	
 		*/
-//// bestfor_list birthday cuisine_list welcome_message features_services categories city_list
+		//// bestfor_list birthday cuisine_list welcome_message features_services categories city_list
 
 		//copy bestfor_list
 
 		//ALTER TABLE  `bestfor_list` ADD  `oldID` INT NOT NULL DEFAULT 0 AFTER  `updatedAt`
-	/*	$allcolumns=DB::connection('sufrati-lb-temp')->select('SELECT * FROM `bestfor_list`');
+		/*	$allcolumns=DB::connection('sufrati-lb-temp')->select('SELECT * FROM `bestfor_list`');
 		foreach($allcolumns as $columns){
 			$name=$columns->bestfor_Name;
 			$check=DB::connection('new-sufrati')->select('SELECT * FROM bestfor_list WHERE bestfor_Name =?',array($name));
@@ -302,7 +304,7 @@ class UpdateDbController extends BaseController {
 		}
 	*/
 		//ALTER TABLE  `restaurant_info` ADD  `panoramafile` VARCHAR( 400 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `panorama`
-/*
+		/*
  -> On Lebn temp
 ALTER TABLE `restaurant_info`
   DROP `rest_InfoPage`,
@@ -597,136 +599,139 @@ ALTER TABLE `restaurant_info`
 
 
 
-	public function delete(){
-		$alltables=array(
-			'restaurant_info','restaurant_cuisine','restaurant_bestfor','rest_branches','review','image_gallery','booking_management','subscription','rest_menu','menu_cat','rest_menu_pdf','menu_cat','rating_info'
+	public function delete()
+	{
+		$alltables = array(
+			'restaurant_info', 'restaurant_cuisine', 'restaurant_bestfor', 'rest_branches', 'review', 'image_gallery', 'booking_management', 'subscription', 'rest_menu', 'menu_cat', 'rest_menu_pdf', 'menu_cat', 'rating_info'
 		);
 		foreach ($alltables as $table) {
-			$q=" DELETE FROM `".$table."` WHERE `country`=2";
+			$q = " DELETE FROM `" . $table . "` WHERE `country`=2";
 			DB::connection('new-sufrati')->statement($q);
 		}
 	}
 
 
 
-	public function userimage(){
+	public function userimage()
+	{
 		ignore_user_abort(true);
-        set_time_limit(6000);
-        ini_set('memory_limit', '1024M');
-        ini_set('max_execution_time', 6000);
-		$users=DB::select('SELECT * FROM user');
-		if(count($users)>0){
+		set_time_limit(6000);
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 6000);
+		$users = DB::select('SELECT * FROM user');
+		if (count($users) > 0) {
 			foreach ($users as $user) {
-				if($user->image!=""){
-					if(!file_exists(public_path()."/uploads/images/userx130/")){
-						$layer=PHPImageWorkshop\ImageWorkshop::initFromPath(public_path() . "/uploads/images/".$user->image);
+				if ($user->image != "") {
+					if (!file_exists(public_path() . "/uploads/images/userx130/")) {
+						$layer = PHPImageWorkshop\ImageWorkshop::initFromPath(public_path() . "/uploads/images/" . $user->image);
 						$layer->cropMaximumInPixel(0, 0, "MM");
 						$layer->resizeInPixel(130, 130);
-			            $layer->save(public_path()."/uploads/images/userx130/",$image,true,null,95);
-			        }
+						$layer->save(public_path() . "/uploads/images/userx130/", $image, true, null, 95);
+					}
 				}
 			}
 		}
 	}
 
-	public function updateMenuImage(){
+	public function updateMenuImage()
+	{
 		//copy folder
 		ignore_user_abort(true);
-        set_time_limit(6000);
-        ini_set('memory_limit', '1024M');
-        ini_set('max_execution_time', 6000);
-		$src=public_path().'/../sa/images/menuItem';
-		$dest=public_path().'/../uploads/images/menuItem';
-		$files=glob($src.'*/*');
+		set_time_limit(6000);
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 6000);
+		$src = public_path() . '/../sa/images/menuItem';
+		$dest = public_path() . '/../uploads/images/menuItem';
+		$files = glob($src . '*/*');
 		foreach ($files as $file) {
-			$file_to_go = str_replace($src,$dest,$file);
-			if(!file_exists($file_to_go)){
-				echo $file.'<br/>';
-				copy($file,$file_to_go);
+			$file_to_go = str_replace($src, $dest, $file);
+			if (!file_exists($file_to_go)) {
+				echo $file . '<br/>';
+				copy($file, $file_to_go);
 			}
 		}
-		$src=public_path().'/../lb/images/menuItem/';
-		$dest=public_path().'/../uploads/images/menuItem/';
-		$files=glob($src.'*/*');
+		$src = public_path() . '/../lb/images/menuItem/';
+		$dest = public_path() . '/../uploads/images/menuItem/';
+		$files = glob($src . '*/*');
 		foreach ($files as $file) {
-			$file_to_go = str_replace($src,$dest,$file);
-			if(!file_exists($file_to_go)){
-				echo $file.'<br/>';
-				copy($file,$file_to_go);
+			$file_to_go = str_replace($src, $dest, $file);
+			if (!file_exists($file_to_go)) {
+				echo $file . '<br/>';
+				copy($file, $file_to_go);
 			}
 		}
-		$src=public_path().'/../sa/images/offers/';
-		$dest=public_path().'/../uploads/images/offers/';
-		$files=glob($src.'*/*');
+		$src = public_path() . '/../sa/images/offers/';
+		$dest = public_path() . '/../uploads/images/offers/';
+		$files = glob($src . '*/*');
 		foreach ($files as $file) {
-			$file_to_go = str_replace($src,$dest,$file);
-			if(!file_exists($file_to_go)){
-				echo $file.'<br/>';
-				copy($file,$file_to_go);
+			$file_to_go = str_replace($src, $dest, $file);
+			if (!file_exists($file_to_go)) {
+				echo $file . '<br/>';
+				copy($file, $file_to_go);
 			}
 		}
-		$src=public_path().'/../lb/images/offers/';
-		$dest=public_path().'/../uploads/images/offers/';
-		$files=glob($src.'*/*');
+		$src = public_path() . '/../lb/images/offers/';
+		$dest = public_path() . '/../uploads/images/offers/';
+		$files = glob($src . '*/*');
 		foreach ($files as $file) {
-			$file_to_go = str_replace($src,$dest,$file);
-			if(!file_exists($file_to_go)){
-				echo $file.'<br/>';
-				copy($file,$file_to_go);
+			$file_to_go = str_replace($src, $dest, $file);
+			if (!file_exists($file_to_go)) {
+				echo $file . '<br/>';
+				copy($file, $file_to_go);
 			}
 		}
-		$pdfs=DB::connection('sufrati-sa')->table('rest_menu_pdf')->select('menu','menu_ar')->where('status',1)->get();
-		$src=public_path().'/../sa/images/';
-		$dest=public_path().'/../uploads/images/menuItem/';
-		if(count($pdfs)>0){
+		$pdfs = DB::connection('sufrati-sa')->table('rest_menu_pdf')->select('menu', 'menu_ar')->where('status', 1)->get();
+		$src = public_path() . '/../sa/images/';
+		$dest = public_path() . '/../uploads/images/menuItem/';
+		if (count($pdfs) > 0) {
 			foreach ($pdfs as $pdf) {
-				if(!file_exists($dest.$pdf->menu)){
-					echo $pdf.'<br/>';
-					copy($src.$pdf->menu, $dest.$pdf->menu);
+				if (!file_exists($dest . $pdf->menu)) {
+					echo $pdf . '<br/>';
+					copy($src . $pdf->menu, $dest . $pdf->menu);
 				}
-				if(!file_exists($dest.$pdf->menu_ar)){
-					echo $pdf.'<br/>';
-					copy($src.$pdf->menu_ar, $dest.$pdf->menu_ar);
+				if (!file_exists($dest . $pdf->menu_ar)) {
+					echo $pdf . '<br/>';
+					copy($src . $pdf->menu_ar, $dest . $pdf->menu_ar);
 				}
 			}
 		}
-
 	}
 
-	public function updateCity(){
-		$reviews= DB::select('SELECT * FROM review WHERE country=1 AND review_Status=1 AND rest_ID=101');
-		$t=0;
-		if(count($reviews)>0){
+	public function updateCity()
+	{
+		$reviews = DB::select('SELECT * FROM review WHERE country=1 AND review_Status=1 AND rest_ID=101');
+		$t = 0;
+		if (count($reviews) > 0) {
 			foreach ($reviews as $review) {
-				$user=DB::table('user')->where('user_ID',$review->user_ID)->first();
-				if(count($user)>0){
-					if($user->user_City!=""&&(is_numeric($user->user_City))){
-						DB::table('review')->where('review_ID',$review->review_ID)->update(array('city_ID'=>$user->user_City));
-					}else{
-						$branchq="SELECT COUNT(rb.br_id) as total FROM rest_branches rb JOIN district_list dl ON dl.district_ID=rb.district_ID AND dl.district_Status=1 JOIN city_list cl ON cl.city_ID=rb.city_ID AND cl.city_Status=1 WHERE rb.rest_fk_id=:restid AND rb.status=1";
-						$branch=DB::select(DB::raw($branchq),array('restid'=>$review->review_ID));
-						if($branch[0]->total==1){
+				$user = DB::table('user')->where('user_ID', $review->user_ID)->first();
+				if (count($user) > 0) {
+					if ($user->user_City != "" && (is_numeric($user->user_City))) {
+						DB::table('review')->where('review_ID', $review->review_ID)->update(array('city_ID' => $user->user_City));
+					} else {
+						$branchq = "SELECT COUNT(rb.br_id) as total FROM rest_branches rb JOIN district_list dl ON dl.district_ID=rb.district_ID AND dl.district_Status=1 JOIN city_list cl ON cl.city_ID=rb.city_ID AND cl.city_Status=1 WHERE rb.rest_fk_id=:restid AND rb.status=1";
+						$branch = DB::select(DB::raw($branchq), array('restid' => $review->review_ID));
+						if ($branch[0]->total == 1) {
 							$t++;
 						}
 					}
-				}else{
-					echo 'review: '.$review->review_ID.'<br/>';
+				} else {
+					echo 'review: ' . $review->review_ID . '<br/>';
 				}
 			}
 		}
-		echo count($reviews).'<br/>'.$t;
+		echo count($reviews) . '<br/>' . $t;
 	}
 
 
-	public function updateRatings(){
-		$ratings= DB::select('SELECT * FROM rating_info WHERE country=1 ');
-		$t=0;
-		if(count($ratings)>0){
+	public function updateRatings()
+	{
+		$ratings = DB::select('SELECT * FROM rating_info WHERE country=1 ');
+		$t = 0;
+		if (count($ratings) > 0) {
 			foreach ($ratings as $rating) {
-				$rest=DB::select('SELECT DISTINCT rb.city_ID, ri.rest_Name,');
+				$rest = DB::select('SELECT DISTINCT rb.city_ID, ri.rest_Name,');
 			}
 		}
-		echo count($reviews).'<br/>'.$t;
+		echo count($reviews) . '<br/>' . $t;
 	}
-
 }
