@@ -128,7 +128,7 @@ if(!isset($side_menu)){
             <ul class="sidebar-submenu <?=menu($side_menu,"Users") ? "d-block":""?>">
               <li><a class="<?=menu($side_menu,"Administrators") ? "active":""?>" href="<?= url('hungryn137/admins'); ?>"><?=__('Administrators')?></a></li>
               <li><a class="<?=menu($side_menu,"General Users") ? "active":""?>" href="<?= url('hungryn137/adminusers'); ?>"><?=__('General Users')?></a></li>
-              <li><a class="<?=menu($side_menu,"Restaurant managers") ? "active":""?>" href="<?= url('hungryn137/adminrestmanagers'); ?>"><?=__('Restaurant managers')?></a></li>
+              {{-- <li><a class="<?=menu($side_menu,"Restaurant managers") ? "active":""?>" href="<?= url('hungryn137/adminrestmanagers'); ?>"><?=__('Restaurant managers')?></a></li> --}}
             </ul>
           </li>
 
