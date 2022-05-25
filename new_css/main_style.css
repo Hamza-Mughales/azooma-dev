@@ -296,6 +296,13 @@ table.dataTable.table thead th.sorting:after{
     content: unset !important;
 }
 
+.span-collaps {
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
 
 @media (max-width: 767px)
 {
