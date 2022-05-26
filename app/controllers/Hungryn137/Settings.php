@@ -1,8 +1,10 @@
 <?php
 
-class Settings extends AdminController {
+class Settings extends AdminController
+{
 
-    public function index($id = 0) {
+    public function index($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -28,7 +30,8 @@ class Settings extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.forms.settings', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $data = array(
             'name' => mysql_real_escape_string(Input::get('name')),
             'nameAr' => Input::get('nameAr'),
@@ -53,5 +56,4 @@ class Settings extends AdminController {
         }
         return Redirect::route('adminsettings')->with('message', "Your data has been save successfully.");
     }
-
 }

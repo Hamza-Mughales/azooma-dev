@@ -1,11 +1,13 @@
 <?php
 
-class Subscriptions extends AdminController {
+class Subscriptions extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
@@ -13,7 +15,8 @@ class Subscriptions extends AdminController {
         $this->MClients = new MClients();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -27,18 +30,19 @@ class Subscriptions extends AdminController {
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array("#",'Subscription Title', 'Country', 'Last Update on', 'Actions'),
+            'headings' => array("#", 'Subscription Title', 'Country', 'Last Update on', 'Actions'),
             'pagetitle' => 'List of All Subscriptions',
             'title' => 'All Subscriptions',
             'action' => 'adminsubscriptions',
             'lists' => $lists,
-            'side_menu' => array('Subscriptions','Subscription Types'),
+            'side_menu' => array('Subscriptions', 'Subscription Types'),
         );
 
         return view('admin.partials.subscriptions', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -52,14 +56,14 @@ class Subscriptions extends AdminController {
                 'pagetitle' => $page->accountName,
                 'title' => $page->accountName,
                 'page' => $page,
-            'side_menu' => array('Subscriptions','Subscription Types'),
+                'side_menu' => array('Subscriptions', 'Subscription Types'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Subscription',
                 'title' => 'New Subscription',
-            'side_menu' => array('Subscriptions','Subscription Types'),
+                'side_menu' => array('Subscriptions', 'Subscription Types'),
             );
         }
 
@@ -67,7 +71,8 @@ class Subscriptions extends AdminController {
         return view('admin.forms.subscription', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $permissions = "";
         if (isset($_POST['features']) && is_array($_POST['features'])) {
             $permissions = implode(',', Input::get('features'));
@@ -89,19 +94,21 @@ class Subscriptions extends AdminController {
         } else {
             DB::table('subscriptiontypes')->insert($data);
         }
-        return returnMsg('success','adminsubscriptions', "Your data has been save successfully.");
+        return returnMsg('success', 'adminsubscriptions', "Your data has been save successfully.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $page = $this->MClients->getSubscriptionType($id);
         if (count($page) > 0) {
             DB::table('subscriptiontypes')->where('id', '=', $id)->delete($id);
-            return returnMsg('success','adminsubscriptions', "Your data has been save successfully.");
+            return returnMsg('success', 'adminsubscriptions', "Your data has been save successfully.");
         }
-        return returnMsg('error','adminsubscriptions',"something went wrong, Please try again.");
+        return returnMsg('error', 'adminsubscriptions', "something went wrong, Please try again.");
     }
 
-    public function compare() {
+    public function compare()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -126,15 +133,14 @@ class Subscriptions extends AdminController {
                     'action' => 'adminsubscriptions',
                     'lists1' => $lists1,
                     'lists2' => $lists2,
-                    'side_menu' => array('Subscriptions','Subscription Types'),
+                    'side_menu' => array('Subscriptions', 'Subscription Types'),
                 );
                 return view('admin.partials.subscriptioncompare', $data);
             } else {
-                return returnMsg('error','adminsubscriptions', "something went wrong, Please try again.");
+                return returnMsg('error', 'adminsubscriptions', "something went wrong, Please try again.");
             }
         } else {
-            return returnMsg('error','adminsubscriptions',"something went wrong, Please try again.");
+            return returnMsg('error', 'adminsubscriptions', "something went wrong, Please try again.");
         }
     }
-
 }

@@ -1,12 +1,14 @@
 <?php
 
-class RestOffer extends AdminController {
+class RestOffer extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
     protected $MOffers;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
@@ -14,7 +16,8 @@ class RestOffer extends AdminController {
         $this->MOffers = new MOffers();
     }
 
-    public function index($restID = 0) {
+    public function index($restID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -42,13 +45,14 @@ class RestOffer extends AdminController {
             'lists' => $lists,
             'rest_ID' => $restID,
             'rest' => $rest,
-            'side_menu' => ['adminrestaurants','Add Restaurants'],
+            'side_menu' => ['adminrestaurants', 'Add Restaurants'],
         );
 
         return view('admin.partials.restaurantoffer', $data);
     }
 
-    public function form($offer_ID = 0) {
+    public function form($offer_ID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -57,7 +61,6 @@ class RestOffer extends AdminController {
         if (Input::has('rest_ID')) {
             $rest_ID = Input::get('rest_ID');
         } else {
-            
         }
         $country = Session::get('admincountry');
         if (empty($country)) {
@@ -76,12 +79,12 @@ class RestOffer extends AdminController {
                 'rest' => $rest,
                 'offercategories' => $offercategories,
                 'restbranches' => $restbranches,
-                "restoffercategory"=>[],
-                "restofferbranches"=>[],
+                "restoffercategory" => [],
+                "restofferbranches" => [],
                 'rest_ID' => $rest_ID,
                 'js' => 'admin/jquery-ui,chosen.jquery',
                 'css' => 'chosen,admin/jquery-ui',
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         } else {
             $offer = $this->MOffers->getOffer($offer_ID);
@@ -96,19 +99,20 @@ class RestOffer extends AdminController {
                 'rest' => $rest,
                 'offercategories' => $offercategories,
                 'restbranches' => $restbranches,
-                "restoffercategory"=>$restoffercategory,
-                "restofferbranches"=>$restofferbranches,
+                "restoffercategory" => $restoffercategory,
+                "restofferbranches" => $restofferbranches,
                 'offer' => $offer,
                 'rest_ID' => $rest_ID,
                 'js' => 'admin/jquery-ui,chosen.jquery',
                 'css' => 'chosen,admin/jquery-ui',
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         }
         return view('admin.forms.restoffer', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $rest = Input::get('rest_ID');
         $restaurant = $this->MRestActions->getRest($rest);
         $restname = stripslashes($restaurant->rest_Name);
@@ -134,7 +138,7 @@ class RestOffer extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
-                    return returnMsg('error','adminrestoffer/form/','Image is very small. Please upload image which must be bigger than 200*200 width and height.', array('id' => intval(get('id')), 'rest_ID' => $rest));
+                    return returnMsg('error', 'adminrestoffer/form/', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.', array('id' => intval(get('id')), 'rest_ID' => $rest));
                 }
                 //WaterMark on the Image
                 $text_font = $restaurant->rest_Name . '-' . Input::get('offerName') . '- azooma.co';
@@ -170,7 +174,7 @@ class RestOffer extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
-                    return returnMsg('error','adminrestoffer/form/','Image is very small. Please upload image which must be bigger than 200*200 width and height.', array('id' =>intval(get('id')), 'rest_ID' => $rest));
+                    return returnMsg('error', 'adminrestoffer/form/', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.', array('id' => intval(get('id')), 'rest_ID' => $rest));
                 }
                 //WaterMark on the Image
                 $text_font = $restaurant->rest_Name . '-' . Input::get('offerName') . '- azooma.co';
@@ -200,33 +204,30 @@ class RestOffer extends AdminController {
                 $this->MRestActions->updateRestLastUpdatedOn($rest);
                 $this->MAdmins->addActivity('Updated Offer ' . Input::get('offerName') . ' ' . $restname);
                 $this->MAdmins->addRestActivity('Updated his offer.', $restaurant->rest_ID, Input::get('id'));
-                return returnMsg('success','adminrestoffer/','Offer updated Successfully.', array( $rest));
-
+                return returnMsg('success', 'adminrestoffer/', 'Offer updated Successfully.', array($rest));
             } else {
                 $last_inserted_id = $this->MOffers->addOffer($image, $imageAr);
                 $this->MRestActions->updateRestLastUpdatedOn($rest);
                 $this->MAdmins->addActivity('Added Offer ' . stripslashes(htmlspecialchars(Input::get('offerName'))) . ' ' . stripslashes(htmlspecialchars($restname)));
                 $this->MAdmins->addRestActivity('Added a New offer.', $restaurant->rest_ID, $last_inserted_id);
-                return returnMsg('success','adminrestoffer/','Offer added Successfully.', array( $rest));
+                return returnMsg('success', 'adminrestoffer/', 'Offer added Successfully.', array($rest));
             }
         } else {
-            return returnMsg('error','adminrestoffer/','something went wrong, Please try again.', array( $rest));
-
+            return returnMsg('error', 'adminrestoffer/', 'something went wrong, Please try again.', array($rest));
         }
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
         } else {
-            return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
+            return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
         }
         $this->MOffers->deleteOffer($id);
         $this->MRestActions->updateRestLastUpdatedOn($rest);
         $this->MAdmins->addActivity('Image deleted ' . stripslashes(($rest_data->rest_Name)));
-        return returnMsg('success','adminrestoffer/',  "Image deleted succesfully",[$rest]);
-
+        return returnMsg('success', 'adminrestoffer/',  "Image deleted succesfully", [$rest]);
     }
-
 }

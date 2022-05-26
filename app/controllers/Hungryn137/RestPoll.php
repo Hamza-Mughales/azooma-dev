@@ -1,12 +1,14 @@
 <?php
 
-class RestPoll extends AdminController {
+class RestPoll extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
     protected $MPoll;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
@@ -14,7 +16,8 @@ class RestPoll extends AdminController {
         $this->MPoll = new MPoll();
     }
 
-    public function index($restID = 0) {
+    public function index($restID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -38,7 +41,7 @@ class RestPoll extends AdminController {
                 'title' => 'All Polls',
                 'action' => 'adminrestgallery',
                 'lists' => $lists,
-                'side_menu' => ['Miscellaneous','Manage Polls'],
+                'side_menu' => ['Miscellaneous', 'Manage Polls'],
             );
             return view('admin.partials.poll', $data);
         } else {
@@ -54,14 +57,15 @@ class RestPoll extends AdminController {
                 'lists' => $lists,
                 'rest_ID' => $restID,
                 'rest' => $rest,
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
 
             return view('admin.partials.restaurantpoll', $data);
         }
     }
 
-    public function form($poll_ID = 0) {
+    public function form($poll_ID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -87,7 +91,7 @@ class RestPoll extends AdminController {
                 'MPoll' => $this->MPoll,
                 'sitename' => $settings['name'],
                 'js' => 'admin/poll',
-                'side_menu' => array('Miscellaneous','Manage Polls'),
+                'side_menu' => array('Miscellaneous', 'Manage Polls'),
             );
         } else {
             $options = $this->MPoll->getPollOptions($poll_ID);
@@ -118,7 +122,8 @@ class RestPoll extends AdminController {
         return view('admin.forms.restpoll', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $rest = Input::get('rest_ID');
         if (!empty($rest)) {
             $restaurant = $this->MRestActions->getRest($rest);
@@ -145,11 +150,9 @@ class RestPoll extends AdminController {
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
                     if (!empty($rest)) {
-                        return returnMsg('error','adminrestaurants/polls/','Image is very small. Please upload image which must be bigger than 200*200 width and height.',[$rest]);
-
+                        return returnMsg('error', 'adminrestaurants/polls/', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.', [$rest]);
                     } else {
-                        return returnMsg('error','adminpolls','Image is very small. Please upload image which must be bigger than 200*200 width and height.',[$rest]);
-
+                        return returnMsg('error', 'adminpolls', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.', [$rest]);
                     }
                 }
                 if (!empty($rest)) {
@@ -171,7 +174,6 @@ class RestPoll extends AdminController {
                 $changelayer = clone $layer;
                 $changelayer->resizeInPixel(100, 100);
                 $changelayer->save(Config::get('settings.uploadpath') . "/images/poll/thumb/", $save_name, true, null, 95);
-
             } else {
                 if (Input::has('imageOld')) {
                     $image = Input::get('imageOld');
@@ -211,11 +213,9 @@ class RestPoll extends AdminController {
                 if (!empty($rest)) {
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addRestActivity('Poll is updated.', $restaurant->rest_ID, Input::get('id'));
-                    return returnMsg('success','adminrestaurants/polls/',"Poll updated Successfully.",[$rest]);
-
+                    return returnMsg('success', 'adminrestaurants/polls/', "Poll updated Successfully.", [$rest]);
                 } else {
-                    return returnMsg('success','adminpolls',"Poll updated Successfully.");
-
+                    return returnMsg('success', 'adminpolls', "Poll updated Successfully.");
                 }
             } else {
                 $last_inserted_id = $poll = $this->MPoll->addPollQuestion($image);
@@ -234,11 +234,9 @@ class RestPoll extends AdminController {
                 if (!empty($rest)) {
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addRestActivity('A new Poll is added.', $restaurant->rest_ID, $last_inserted_id);
-                    return returnMsg('success','adminrestaurants/polls/',"Poll updated Successfully.",[$rest]);
-
+                    return returnMsg('success', 'adminrestaurants/polls/', "Poll updated Successfully.", [$rest]);
                 } else {
-                    return returnMsg('success','adminpolls',"Poll updated Successfully.");
-                   
+                    return returnMsg('success', 'adminpolls', "Poll updated Successfully.");
                 }
             }
         } else {
@@ -246,7 +244,8 @@ class RestPoll extends AdminController {
         }
     }
 
-    public function delete($poll = 0) {
+    public function delete($poll = 0)
+    {
         $pollObj = $this->MPoll->getPoll($poll);
         // dd('ffffffff', $poll, $pollObj);
         $this->MAdmins->addActivity('Poll Deleted ' . stripslashes($pollObj->question));
@@ -255,14 +254,14 @@ class RestPoll extends AdminController {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
             $this->MRestActions->updateRestLastUpdatedOn($rest);
-            return returnMsg('success','adminrestaurants/polls/','Poll Deleted succesfully',[$rest]);
+            return returnMsg('success', 'adminrestaurants/polls/', 'Poll Deleted succesfully', [$rest]);
         } else {
-            return returnMsg('success','adminpolls','Poll Deleted succesfully');
-
+            return returnMsg('success', 'adminpolls', 'Poll Deleted succesfully');
         }
     }
 
-    public function status($poll = 0) {
+    public function status($poll = 0)
+    {
         $pollObj = $this->MPoll->getPoll($poll);
         $message = "";
         if ($pollObj->status == 1) {
@@ -278,15 +277,14 @@ class RestPoll extends AdminController {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
             $this->MRestActions->updateRestLastUpdatedOn($rest);
-            return returnMsg('success','adminrestaurants/polls/', $message,[$rest]);
-
+            return returnMsg('success', 'adminrestaurants/polls/', $message, [$rest]);
         } else {
-            return returnMsg('success','adminpolls',$message);
-
+            return returnMsg('success', 'adminpolls', $message);
         }
     }
 
-    public function options($pollID = 0) {
+    public function options($pollID = 0)
+    {
         $rest_ID = 0;
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest_ID = $_REQUEST['rest_ID'];
@@ -321,7 +319,7 @@ class RestPoll extends AdminController {
             'options' => $lists,
             'poll' => $poll,
             'pollID' => $pollID,
-            'side_menu' => ['Miscellaneous','Manage Polls'],
+            'side_menu' => ['Miscellaneous', 'Manage Polls'],
         );
 
         if ($rest_ID != 0) {
@@ -338,7 +336,8 @@ class RestPoll extends AdminController {
         }
     }
 
-    function optionform($id = 0) {
+    function optionform($id = 0)
+    {
         $status = 0;
         $rest_ID = 0;
         $poll = 0;
@@ -356,21 +355,17 @@ class RestPoll extends AdminController {
                 $this->MPoll->updatePollAnswer($field, $field_ar, $status, $poll, Input::get('id'));
                 $this->MAdmins->addActivity('Updated Poll ' . stripslashes((Input::get('question'))));
                 if ($rest_ID == 0) {
-                    return returnMsg('success','adminpolloptions/', "Poll option updated succesfully",[ $poll]);
-
+                    return returnMsg('success', 'adminpolloptions/', "Poll option updated succesfully", [$poll]);
                 } else {
-                    return returnMsg('success','adminrestaurants/polls/', "Poll option updated succesfully",[ $rest_ID]);
-
+                    return returnMsg('success', 'adminrestaurants/polls/', "Poll option updated succesfully", [$rest_ID]);
                 }
             } else {
                 $this->MPoll->addPollAnswer($field, $field_ar, $status, $poll);
                 $this->MAdmins->addActivity('Added Poll ' . stripslashes((Input::get('question'))));
                 if ($rest_ID == 0) {
-                    return returnMsg('success','adminpolloptions/', "Poll option added succesfully",[ $poll]);
-
+                    return returnMsg('success', 'adminpolloptions/', "Poll option added succesfully", [$poll]);
                 } else {
-                    return returnMsg('success','adminrestaurants/polls/', "Poll option added succesfully",[ $rest_ID]);
-
+                    return returnMsg('success', 'adminrestaurants/polls/', "Poll option added succesfully", [$rest_ID]);
                 }
             }
         } else {
@@ -434,7 +429,8 @@ class RestPoll extends AdminController {
         }
     }
 
-    function optionstatus($poll = 0) {
+    function optionstatus($poll = 0)
+    {
         $rest_ID = 0;
         if (Input::has('rest_ID')) {
             $rest_ID = Input::get('rest_ID');
@@ -448,15 +444,14 @@ class RestPoll extends AdminController {
             $this->MAdmins->addActivity('Activated Poll ' . stripslashes(($cuisine->field)));
         }
         if ($rest_ID == 0) {
-            return returnMsg('success','adminpolloptions/', "Poll option status changed succesfully",[  $cuisine->poll_id]);
-
+            return returnMsg('success', 'adminpolloptions/', "Poll option status changed succesfully", [$cuisine->poll_id]);
         } else {
-            return returnMsg('success','adminrestaurants/polls/', "Poll option status changed succesfully",[ $rest_ID]);
-
+            return returnMsg('success', 'adminrestaurants/polls/', "Poll option status changed succesfully", [$rest_ID]);
         }
     }
 
-    function optiondelete($id = 0) {
+    function optiondelete($id = 0)
+    {
         $rest_ID = 0;
         // dd('fffffffff' , Input::has('rest_ID'), $id,Input::get('poll'));
         if (Input::has('rest_ID')) {
@@ -469,12 +464,10 @@ class RestPoll extends AdminController {
         $this->MPoll->deleteAnswer($id);
         $this->MAdmins->addActivity('Deleted Poll ' . stripslashes(($cuisine->field)));
         if (isset($pool_id) && !empty($pool_id)) {
-            return returnMsg('success','adminpolloptions/', "Poll option status changed succesfully",$pool_id);
+            return returnMsg('success', 'adminpolloptions/', "Poll option status changed succesfully", $pool_id);
         } else {
-            
-            return returnMsg('success','adminrestaurants/polls/', "Poll option deleted succesfully",$rest_ID);
 
+            return returnMsg('success', 'adminrestaurants/polls/', "Poll option deleted succesfully", $rest_ID);
         }
     }
-
 }
