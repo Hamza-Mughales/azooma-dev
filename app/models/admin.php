@@ -48,7 +48,7 @@ class Admin extends Eloquent
         if (empty($country)) {
             $country = 1;
         }
-      
+
         $data = array(
             'fullname' => (Input::get('fullname')),
             'country' => $country,
