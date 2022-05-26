@@ -2,16 +2,19 @@
 
 use Yajra\DataTables\Facades\DataTables;
 
-class Occasions extends AdminController {
+class Occasions extends AdminController
+{
 
     protected $MAdmins;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -46,7 +49,7 @@ class Occasions extends AdminController {
             'title' => 'All Occasions Services',
             'action' => 'admincompetitions',
             'lists' => $lists,
-            'side_menu' => array('Competitions','Occasions Services'),
+            'side_menu' => array('Competitions', 'Occasions Services'),
         );
         return view('admin.partials.occasions', $data);
     }
@@ -60,26 +63,24 @@ class Occasions extends AdminController {
         if (Input::has('status')) {
             $query->where("status", '=', intval(get('status')));
         }
-        
+
         return  DataTables::of($query)
             ->addColumn('action', function ($list) {
-                $btns ='';
-                    $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="'. route('adminoccasions/view/',$list->id) .'" title="View All Details for <?php echo $list->name; ?>"><i class="fa fa-info"></i></a>';
+                $btns = '';
+                $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="' . route('adminoccasions/view/', $list->id) . '" title="View All Details for <?php echo $list->name; ?>"><i class="fa fa-info"></i></a>';
 
-                    if ($list->status == 0) {
-                        $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminoccasions/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
-                        
-                    } elseif ($list->status == 1) {
-                        $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminoccasions/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
-                        
-                    } elseif ($list->status == 2) {
-                        $btns .='<span class="btn btn-xs btn-info"><i class="fa fa-minus"></i> Cancelled</span>';
-                    } elseif ($list->status == 3) {
-                        $btns .='<span class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Approved</span>';
-                    }
-                    if ($list->status == 0 || $list->status == 1) {
-                        $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="'. route('adminoccasions/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
-                        }
+                if ($list->status == 0) {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminoccasions/status/', $list->id) . '" title="Activate "><i class="fa fa-minus"></i></a>';
+                } elseif ($list->status == 1) {
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminoccasions/status/', $list->id) . '" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                } elseif ($list->status == 2) {
+                    $btns .= '<span class="btn btn-xs btn-info"><i class="fa fa-minus"></i> Cancelled</span>';
+                } elseif ($list->status == 3) {
+                    $btns .= '<span class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Approved</span>';
+                }
+                if ($list->status == 0 || $list->status == 1) {
+                    $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="' . route('adminoccasions/delete/', $list->id) . '" title="Delete"><i class="fa fa-trash"></i></a>';
+                }
                 return $btns;
             })
             ->editColumn('name', function ($list) {
@@ -100,7 +101,7 @@ class Occasions extends AdminController {
                 return  stripslashes($user->user_Mobile);
             })
             ->editColumn('createdAt', function ($list) {
-               return date('d/m/Y', strtotime($list->date));
+                return date('d/m/Y', strtotime($list->date));
             })
             ->editColumn('budget', function ($list) {
                 return  stripslashes($list->budget);
@@ -118,7 +119,8 @@ class Occasions extends AdminController {
             ->make(true);
     }
 
-    public function view($id = 0) {
+    public function view($id = 0)
+    {
         if ($id != 0) {
             if (Session::get('admincountryName') != "") {
                 $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -137,7 +139,7 @@ class Occasions extends AdminController {
                 'title' => $page->name,
                 'catering' => $page,
                 'user' => $user,
-                'side_menu' => array('Competitions','Occasions Services'),
+                'side_menu' => array('Competitions', 'Occasions Services'),
             );
             return view('admin.forms.occasions', $data);
         } else {
@@ -145,7 +147,8 @@ class Occasions extends AdminController {
         }
     }
 
-    public function forwardrest($id = 0) {
+    public function forwardrest($id = 0)
+    {
         if ($id != 0) {
             if (Session::get('admincountryName') != "") {
                 $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -175,7 +178,8 @@ class Occasions extends AdminController {
         }
     }
 
-    public function sendtorest() {
+    public function sendtorest()
+    {
         $data = array();
         $countryID = Session::get('admincountry');
         if (empty($countryID)) {
@@ -238,14 +242,14 @@ class Occasions extends AdminController {
                         if ($allemails == "") {
                             $allemails = $rest->email;
                         } else {
-                            $allemails.="," . $rest->email;
+                            $allemails .= "," . $rest->email;
                         }
                     }
                     if (!empty($rest->your_Email)) {
                         if ($allemails == "") {
                             $allemails = $rest->your_Email;
                         } else {
-                            $allemails.="," . $rest->your_Email;
+                            $allemails .= "," . $rest->your_Email;
                         }
                     }
 
@@ -256,7 +260,7 @@ class Occasions extends AdminController {
                             $data['restname'] = stripslashes($rest->your_Name);
                             $user_Email = "";
                             $user_Email = $arr;
-                            Mail::queue('emails.restaurant.cateringinfo', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
+                            Mail::queue('emails.restaurant.cateringinfo', $data, function ($message) use ($subject, $user_Email, $sufratiUser) {
                                 $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
                                 #$message->to($userEmails, 'Azooma.co')->subject($subject);
                                 #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
@@ -266,15 +270,16 @@ class Occasions extends AdminController {
                 }
             }
             $this->MAdmins->addActivity('Quotation sent to restaurant for event of ' . stripslashes($catering->name));
-            
-            return returnMsg('success','adminoccasions',"Email Sent successfully.");
+
+            return returnMsg('success', 'adminoccasions', "Email Sent successfully.");
         } else {
-            
-            return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
+
+            return returnMsg('error', 'adminoccasions', "Something went wrong, Please try again.");
         }
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = MOccasions::getCateringEvent($id);
         $dispMsg = "";
@@ -288,14 +293,15 @@ class Occasions extends AdminController {
             }
             MOccasions::changeCateringEventStatus($id, $status);
             $this->MAdmins->addActivity($dispMsg);
-            
-            return returnMsg('success','adminoccasions',$dispMsg);
+
+            return returnMsg('success', 'adminoccasions', $dispMsg);
         }
-        
-        return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminoccasions', "Something went wrong, Please try again.");
     }
 
-    public function approved($id = 0) {
+    public function approved($id = 0)
+    {
         $catering = $page = MOccasions::getCateringEvent($id);
         if (count($page) > 0) {
             $status = 3;
@@ -332,21 +338,22 @@ class Occasions extends AdminController {
             $user_Email = "";
             $user_Email = $user->user_Email;
             if ($user->user_Status == 1) {
-                Mail::queue('emails.user.cateringapproved', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
+                Mail::queue('emails.user.cateringapproved', $data, function ($message) use ($subject, $user_Email, $sufratiUser) {
                     $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
                     #$message->to($userEmails, 'Azooma.co')->subject($subject);
                     #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
                 });
             }
             $this->MAdmins->addActivity(stripslashes($page->name) . ' Approved successfully');
-            
-            return returnMsg('success','adminoccasions',stripslashes($page->name) . ' Approved successfully');
+
+            return returnMsg('success', 'adminoccasions', stripslashes($page->name) . ' Approved successfully');
         }
-        
-        return returnMsg('error','adminoccasions',"something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminoccasions', "something went wrong, Please try again.");
     }
 
-    public function cancel($id = 0) {
+    public function cancel($id = 0)
+    {
         $catering = $page = MOccasions::getCateringEvent($id);
         if (count($page) > 0) {
             $status = 2;
@@ -383,35 +390,36 @@ class Occasions extends AdminController {
             $user_Email = "";
             $user_Email = $user->user_Email;
             if ($user->user_Status == 1) {
-                Mail::queue('emails.user.cateringcancelled', $data, function($message) use ($subject, $user_Email, $sufratiUser) {
+                Mail::queue('emails.user.cateringcancelled', $data, function ($message) use ($subject, $user_Email, $sufratiUser) {
                     $message->to("ha@azooma.co", 'Azooma.co')->subject($subject);
                     #$message->to($userEmails, 'Azooma.co')->subject($subject);
                     #$message->bcc($sufratiUser, 'Azooma.co')->subject($subject);
                 });
             }
             $this->MAdmins->addActivity(stripslashes($page->name) . ' cancelled successfully');
-            
-            return returnMsg('success','adminoccasions',stripslashes($page->name) . ' cancelled successfully');
+
+            return returnMsg('success', 'adminoccasions', stripslashes($page->name) . ' cancelled successfully');
         }
-        
-        return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminoccasions', "Something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = MOccasions::getCateringEvent($id);
         if (count($page) > 0) {
             MOccasions::deleteCateringEvent($id);
             $this->MAdmins->addActivity(stripslashes($page->name) . ' deleted successfully.');
-            
-            return returnMsg('success','adminoccasions',stripslashes($page->name) . ' deleted successfully.');
+
+            return returnMsg('success', 'adminoccasions', stripslashes($page->name) . ' deleted successfully.');
         }
-        
-        return returnMsg('error','adminoccasions',"Something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminoccasions', "Something went wrong, Please try again.");
     }
 
-    public function read($id = 0) {
+    public function read($id = 0)
+    {
         MOccasions::read($id);
     }
-
 }
