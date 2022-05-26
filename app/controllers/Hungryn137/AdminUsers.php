@@ -52,6 +52,7 @@ class AdminUsers extends AdminController
         return  DataTables::of($query)
         ->addcolumn('action',function($row){
             $btns=' <a class="btn btn-xs btn-info mytooltip m-1" href="'.route('adminusers/view/',$row->user_ID).'" title="view"><i class="fa fa-eye"></i></a>';
+            $btns .= '<a class="btn btn-xs btn-danger mytooltip mx-1 cofirm-delete-button" href="#" link="'. route('adminusers/delete/', $row->user_ID) .'" title="Delete"><i class="fa fa-trash"></i></a>';
             return $btns;
         })
         ->editcolumn('user_RegisDate',function($row){
@@ -84,5 +85,18 @@ class AdminUsers extends AdminController
             );
         }
         return view( 'admin.forms.user', $data);
+    }
+
+    
+    public function userDelete($id = 0) {
+        $user = User::getUser($id);
+
+        if (count($user) > 0) {
+            DB::table('user')->where('user_ID', $id)->delete();
+            
+            return returnMsg('success','adminusers','User deleted succesfully.');
+        }
+        
+        return returnMsg('error','adminusers','Something went wrong, Please try again.');
     }
 }
