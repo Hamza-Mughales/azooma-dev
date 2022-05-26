@@ -15,7 +15,7 @@
     <article>    
         <fieldset>
             <legend>
-                {{ $pagetitle }}
+                {{ $pagetitle }} {{countryName(get('country_id'))}}
                 <a href="{{ route('admincity/form'); }}" class="btn btn-info btn-sm pull-right">Add new </a>
             </legend>        
         </fieldset>
@@ -75,6 +75,8 @@
                                     }
                                     ?>
                                     <a class="btn btn-xs btn-danger mytooltip cofirm-delete-btn" href="#" link="{{ route('admincity/delete/',$list->city_ID) }}" title="Delete"><i data-feather="trash-2"></i></a>
+                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('admindistrict',['city_id'=>$list->city_ID]) }}" title="View City Districts "><i data-feather="eye"></i></a>
+
                                 </td>
                             </tr>
                             <?php

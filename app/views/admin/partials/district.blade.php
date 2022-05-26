@@ -15,7 +15,7 @@
     <article>
         <fieldset>
             <legend>
-                {{ $pagetitle }}
+                {{ $pagetitle }} {{cityName(get('city_id'))}}
                 <a href="{{ route('admindistrict/form'); }}" class="btn btn-info btn-sm pull-right">Add new </a>
             </legend>        
         </fieldset>
@@ -56,7 +56,8 @@
                                     <?php
                                     $arr = "";
                                     $arr = $Mcity->getCity($list->city_ID);
-                                    echo $arr->city_Name;
+                                    $city= isset($arr->city_Name) ?$arr->city_Name:"" ;
+                                    echo $city;
                                     ?>
                                 </td>
                                 <td><?php echo date('d/m/Y', strtotime($list->updatedAt)); ?></td>

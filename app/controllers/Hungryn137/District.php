@@ -32,7 +32,8 @@ class District extends AdminController
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $name = stripslashes($_GET['name']);
         }
-        $lists = $this->MLocation->getAllDistricts($country, $status, $limit, $name);
+        $city_id=get('city_id');
+        $lists = $this->MLocation->getAllDistricts($country,$status, $limit, $name,  $city_id);
         // dd($lists, $country, $status, $limit, $name);
         $data = array(
             'sitename' => $settings['name'],

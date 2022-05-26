@@ -63,6 +63,8 @@
                                     }*/
                                     ?>
                                     <a class="btn btn-xs btn-danger mytooltip  cofirm-delete-btn" href="#" link="{{ route('admincountry/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
+                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincity',['country_id'=>$list->id]) }}" title="View Country Cities "><i data-feather="eye"></i></a>
+
                                 </td>
                             </tr>
                             <?php
