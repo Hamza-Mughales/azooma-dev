@@ -1,17 +1,20 @@
 <?php
 
-class Testimonials extends AdminController {
+class Testimonials extends AdminController
+{
 
     protected $MAdmins;
     protected $MTestimonials;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MTestimonials = new MTestimonials();
     }
 
-    public function index() {
+    public function index()
+    {
         $status = "";
         $sort = "";
         if (isset($_GET['status'])) {
@@ -31,7 +34,7 @@ class Testimonials extends AdminController {
         }
         $MTestimonials = DB::table('testimonials');
         if (isset($_GET['name']) && !empty($_GET['name'])) {
-            $MTestimonials->where('name', 'LIKE', "%".stripslashes($_GET['name']) . '%');
+            $MTestimonials->where('name', 'LIKE', "%" . stripslashes($_GET['name']) . '%');
         }
         if (!empty($sort)) {
             switch ($sort) {
@@ -62,12 +65,13 @@ class Testimonials extends AdminController {
             'deletelink' => 'admintestimonials/delete',
             'addlink' => 'admintestimonials/form',
             'lists' => $lists,
-            'side_menu' => array('Corporate Pages','Testimonials'),
+            'side_menu' => array('Corporate Pages', 'Testimonials'),
         );
         return view('admin.partials.restTeam', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -81,39 +85,41 @@ class Testimonials extends AdminController {
                 'pagetitle' => $page->name,
                 'title' => $page->name,
                 'page' => $page,
-                'side_menu' => array('Corporate Pages','Testimonials'),
+                'side_menu' => array('Corporate Pages', 'Testimonials'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Static Testimonial',
                 'title' => 'New Static Testimonial',
-                'side_menu' => array('Corporate Pages','Testimonials'),
+                'side_menu' => array('Corporate Pages', 'Testimonials'),
             );
         }
         return view('admin.forms.testimonial', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::get('id')) {
             $id = Input::get('id');
             $this->MTestimonials->updateTestimonial();
             $obj = MTestimonials::find($id);
             $this->MAdmins->addActivity('Testimonial updated Succesfully ' . $obj->name);
-            
-            return returnMsg('success','admintestimonials',"Testimonial updated Succesfully.");
+
+            return returnMsg('success', 'admintestimonials', "Testimonial updated Succesfully.");
         } else {
             $id = $this->MTestimonials->addTestimonial();
             $obj = MTestimonials::find($id);
             $this->MAdmins->addActivity('Testimonial added Succesfully ' . $obj->name);
-            
-            return returnMsg('success','admintestimonials',"Testimonial added Succesfully.");
+
+            return returnMsg('success', 'admintestimonials', "Testimonial added Succesfully.");
         }
-        
-        return returnMsg('success','admintestimonials',"something went wrong, Please try again.");
+
+        return returnMsg('success', 'admintestimonials', "something went wrong, Please try again.");
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $obj = MTestimonials::find($id);
         if (count($obj) > 0) {
@@ -129,24 +135,24 @@ class Testimonials extends AdminController {
 
             DB::table('testimonials')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Testimonial status Changed Succesfully ' . $obj->name);
-            
-            return returnMsg('success','admintestimonials',"Your data has been save successfully.");
+
+            return returnMsg('success', 'admintestimonials', "Your data has been save successfully.");
         }
-        
-        return returnMsg('error','admintestimonials',"something went wrong, Please try again.");
+
+        return returnMsg('error', 'admintestimonials', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $obj = MTestimonials::find($id);
         if (count($obj) > 0) {
             MTestimonials::destroy($id);
             $this->MAdmins->addActivity('Testimonial deleted Succesfully ' . $obj->name);
-            
-            return returnMsg('success','admintestimonials',"Testimonial deleted succesfully.");
-        }
-        
-        return returnMsg('success','admintestimonials',"something went wrong, Please try again.");
-    }
 
+            return returnMsg('success', 'admintestimonials', "Testimonial deleted succesfully.");
+        }
+
+        return returnMsg('success', 'admintestimonials', "something went wrong, Please try again.");
+    }
 }

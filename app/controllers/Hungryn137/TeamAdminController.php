@@ -2,16 +2,19 @@
 
 use Yajra\DataTables\Facades\DataTables;
 
-class TeamAdminController extends AdminController {
+class TeamAdminController extends AdminController
+{
 
     protected $MTeam;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MTeam = new Team();
     }
 
-    public function index() {
+    public function index()
+    {
         $status = "";
         $sort = "";
         if (isset($_GET['status'])) {
@@ -63,12 +66,13 @@ class TeamAdminController extends AdminController {
             'deletelink' => 'adminteam/delete',
             'addlink' => 'adminteam/form',
             'lists' => $lists,
-            'side_menu' => array('Corporate Pages','Team'),
+            'side_menu' => array('Corporate Pages', 'Team'),
         );
         return view('admin.partials.restTeam', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -82,20 +86,21 @@ class TeamAdminController extends AdminController {
                 'pagetitle' => $page->name,
                 'title' => $page->name,
                 'page' => $page,
-                'side_menu' => array('Corporate Pages','Team'),
+                'side_menu' => array('Corporate Pages', 'Team'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Static Page',
                 'title' => 'New Static Page',
-                'side_menu' => array('Corporate Pages','Team'),
+                'side_menu' => array('Corporate Pages', 'Team'),
             );
         }
         return view('admin.forms.team', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $status = 0;
         $url = "";
         $filename = "";
@@ -115,7 +120,6 @@ class TeamAdminController extends AdminController {
             $changelayer = clone $layer;
             $changelayer->resizeInPixel(150, 150);
             $changelayer->save(Config::get('settings.uploadpath') . "/images/team/", $save_name, true, null, 95);
-            
         } elseif (isset($_POST['image_old'])) {
             $filename = Input::get('image_old');
         }
@@ -146,11 +150,12 @@ class TeamAdminController extends AdminController {
         } else {
             DB::table('ourteam')->insert($data);
         }
-        
-        return returnMsg('success','adminteam',"Your data has been save successfully.");
+
+        return returnMsg('success', 'adminteam', "Your data has been save successfully.");
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = Team::find($id);
         if (count($page) > 0) {
@@ -165,23 +170,23 @@ class TeamAdminController extends AdminController {
             );
 
             DB::table('ourteam')->where('id', $id)->update($data);
-            
-            return returnMsg('success','adminteam',"Your data has been save successfully.");
+
+            return returnMsg('success', 'adminteam', "Your data has been save successfully.");
         }
-        
-        return returnMsg('error','adminteam',"something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminteam', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = Team::find($id);
         if (count($page) > 0) {
             Team::destroy($id);
-            
-            return returnMsg('success','adminteam',"Your data has been save successfully.");
-        }
-        
-        return returnMsg('error','adminteam',"something went wrong, Please try again.");
-    }
 
+            return returnMsg('success', 'adminteam', "Your data has been save successfully.");
+        }
+
+        return returnMsg('error', 'adminteam', "something went wrong, Please try again.");
+    }
 }

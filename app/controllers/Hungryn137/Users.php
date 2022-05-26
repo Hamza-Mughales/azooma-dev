@@ -1,28 +1,30 @@
 <?php
 
-class Users extends AdminController {
+class Users extends AdminController
+{
 
     protected $MAdmins;
     protected $MLocation;
     protected $MGeneral;
     protected $MUser;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
         $this->MRestActions = new MRestActions();
         $this->MUser = new User();
-        
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
-        $status=0;
+        $status = 0;
         $country = Session::get('admincountry');
         if (empty($country)) {
             $country = 1;
@@ -30,12 +32,12 @@ class Users extends AdminController {
         if (isset($_GET['status']) && ($_GET['status'] != "")) {
             $status = mysql_real_escape_string($_GET['status']);
         }
-        
-        
-        $lists = $this->MUser->getAllUsers($country,$status);
+
+
+        $lists = $this->MUser->getAllUsers($country, $status);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Email', 'Country', 'Nationality', 'Joined Date','No of Activities','Action'),
+            'headings' => array('Name', 'Email', 'Country', 'Nationality', 'Joined Date', 'No of Activities', 'Action'),
             'pagetitle' => 'List of All Azooma Users',
             'title' => 'All Azooma Users',
             'action' => 'adminusers',
@@ -44,7 +46,8 @@ class Users extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.partials.users', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -70,8 +73,9 @@ class Users extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.forms.admins', $data);
     }
 
-    public function Save() {
-        $MAdmins = New Admin();
+    public function Save()
+    {
+        $MAdmins = new Admin();
         if (Input::get('id')) {
             $id = Input::get('id');
             $MAdmins->updateAdmin();
@@ -89,8 +93,9 @@ class Users extends AdminController {
         }
     }
 
-    public function status($id = 0) {
-        $MAdmins = New Admin();
+    public function status($id = 0)
+    {
+        $MAdmins = new Admin();
         $status = 0;
         $admin = Admin::find($id);
         if (count($admin) > 0) {
@@ -109,8 +114,9 @@ class Users extends AdminController {
         return Redirect::route('admins')->with('error', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
-        $MAdmins = New Admin();
+    public function delete($id = 0)
+    {
+        $MAdmins = new Admin();
         $status = 0;
         $admin = Admin::find($id);
         if (count($admin) > 0) {
@@ -121,7 +127,8 @@ class Users extends AdminController {
         return Redirect::route('admins')->with('error', "something went wrong, Please try again.");
     }
 
-    function password($id = 0) {
+    function password($id = 0)
+    {
         $settings = Settings::where('id', '=', '1')->first();
         Session::put('sitename', $settings['name']);
         $logo = ArtWork::where('art_work_name', '=', 'Azooma Logo')->orderBy('createdAt', 'DESC')->first();
@@ -138,8 +145,9 @@ class Users extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.forms.adminpassword', $data);
     }
 
-    function savePassword() {
-        $MAdmins = New Admin();
+    function savePassword()
+    {
+        $MAdmins = new Admin();
         if (Input::get('id')) {
             $id = Input::get('id');
             $admin = Admin::find($id);
@@ -149,8 +157,9 @@ class Users extends AdminController {
         }
     }
 
-    function permissions($id = 0) {
-        $MAdmins = New Admin();
+    function permissions($id = 0)
+    {
+        $MAdmins = new Admin();
         $settings = Settings::where('id', '=', '1')->first();
         Session::put('sitename', $settings['name']);
         $logo = ArtWork::where('art_work_name', '=', 'Azooma Logo')->orderBy('createdAt', 'DESC')->first();
@@ -176,8 +185,9 @@ class Users extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.forms.adminpermissions', $data);
     }
 
-    function savePermissions() {
-        $MAdmins = New Admin();
+    function savePermissions()
+    {
+        $MAdmins = new Admin();
         $MAdmins->updatePermissions();
         $id = Input::get('id');
         $admin = Admin::find($id);
@@ -185,8 +195,9 @@ class Users extends AdminController {
         return Redirect::route('admins')->with('message', "Administrator Permissions updated succesfully");
     }
 
-    function activity($id = 0) {
-        $MAdmins = New Admin();
+    function activity($id = 0)
+    {
+        $MAdmins = new Admin();
         $settings = Settings::where('id', '=', '1')->first();
         Session::put('sitename', $settings['name']);
         $logo = ArtWork::where('art_work_name', '=', 'Azooma Logo')->orderBy('createdAt', 'DESC')->first();
@@ -205,5 +216,4 @@ class Users extends AdminController {
         );
         return View::make('admin.index', $data)->nest('content', 'admin.partials.adminActivities', $data);
     }
-
 }

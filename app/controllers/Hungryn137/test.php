@@ -21,18 +21,18 @@ $languages = array('ar');
 $country = Request::segment(1);
 
 if (in_array($country, $countries)) {
-    Route::group(array('prefix' => $country), function() {
+    Route::group(array('prefix' => $country), function () {
         $languages = array('en', 'ar');
         $locale = Request::segment(2);
 
         if (in_array($locale, $languages)) {
             Cookie::forever('lang', $locale);
-            Route::group(array('prefix' => $locale), function() {
+            Route::group(array('prefix' => $locale), function () {
                 Route::get('/', array('as' => 'home', 'uses' => 'home@index'));
             });
         }
 
-        Route::group(array('prefix' => 'hungryn137'), function() {
+        Route::group(array('prefix' => 'hungryn137'), function () {
 
             Route::get('/', array('as' => 'adminhome', 'uses' => 'DashboardAdmin@index'));
             Route::get('adminlogin', array('as' => 'adminlogin', 'uses' => 'LoginAdmin@index'));
@@ -194,7 +194,7 @@ if (in_array($country, $countries)) {
         $locale = null;
         App::setLocale('en');
     }
-    Route::group(array('prefix' => $locale), function() {
+    Route::group(array('prefix' => $locale), function () {
         $locale = Config::get('app.locale');
         $var1 = Request::segment(1);
         if ($locale == "ar") {
@@ -243,7 +243,7 @@ if (in_array($country, $countries)) {
             }
             if (in_array($var1, $sufraticities)) {
                 $city = $var1;
-                Route::group(array('prefix' => $city), function() use ($scity, $city, $locale) {
+                Route::group(array('prefix' => $city), function () use ($scity, $city, $locale) {
                     $currentcityid = $scity[$city];
                     Config::set('session.lifetime', 365 * 12 * 3600);
                     Session::put('sfcity', $currentcityid);
@@ -292,7 +292,7 @@ if (in_array($country, $countries)) {
                             if ($arg3 == "") {
                                 $restaurant = DB::connection('new-sufrati')->select('SELECT DISTINCT ri.rest_ID FROM restaurant_info ri JOIN rest_branches rb ON rb.rest_fk_id=ri.rest_ID AND rb.city_ID=' . $currentcityid . ' WHERE ri.rest_Status=1 AND rb.status=1 AND ri.seo_url="' . $arg2 . '"');
                                 if (count($restaurant) > 0) {
-                                    Route::group(array('prefix' => $arg2), function() {
+                                    Route::group(array('prefix' => $arg2), function () {
                                         Route::get('', array('as' => 'restaurant', 'uses' => 'RestaurantController@index'));
                                     });
                                 }
@@ -300,12 +300,11 @@ if (in_array($country, $countries)) {
                                 if ($arg3 == "restaurants") {
                                     $cuisine = DB::connection('new-sufrati')->select('SELECT DISTINCT cu.seo_url FROM cuisine_list cu JOIN rest_branches rb ON rb.city_ID=' . $currentcityid . ' AND rb.status=1 JOIN restaurant_cuisine rc ON rc.cuisine_ID=cu.cuisine_ID AND rc.rest_ID=rb.rest_fk_id WHERE cu.cuisine_Status=1 AND cu.seo_url="' . $arg2 . '"');
                                     if (count($cuisine) > 0) {
-                                        Route::group(array('prefix' => $arg2), function() {
+                                        Route::group(array('prefix' => $arg2), function () {
                                             Route::get('restaurants/', array('as' => 'cuisine', 'uses' => 'CityCuisineController@index'));
                                         });
                                     }
                                 } else {
-                                    
                                 }
                             }
                         }
