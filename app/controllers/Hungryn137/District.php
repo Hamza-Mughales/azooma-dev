@@ -1,17 +1,20 @@
 <?php
 
-class District extends AdminController {
+class District extends AdminController
+{
 
     protected $MAdmins;
     protected $MLocation;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MLocation = new MLocation();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -20,7 +23,7 @@ class District extends AdminController {
 
         $limit = 5000;
         $status = 0;
-        $country=1;
+        $country = 1;
         $country = Session::get('admincountry');
         if (empty($country)) {
             $country = 1;
@@ -29,7 +32,7 @@ class District extends AdminController {
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $name = stripslashes($_GET['name']);
         }
-        $lists = $this->MLocation->getAllDistricts($country,$status, $limit, $name);
+        $lists = $this->MLocation->getAllDistricts($country, $status, $limit, $name);
         // dd($lists, $country, $status, $limit, $name);
         $data = array(
             'sitename' => $settings['name'],
@@ -38,13 +41,14 @@ class District extends AdminController {
             'title' => 'Districts',
             'action' => 'admindistrict',
             'lists' => $lists,
-            'side_menu' => array('Locations','District List'),
+            'side_menu' => array('Locations', 'District List'),
         );
 
         return view('admin.partials.district', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -60,7 +64,7 @@ class District extends AdminController {
                 'pagetitle' => $page->district_Name,
                 'title' => $page->district_Name,
                 'page' => $page,
-                'side_menu' => array('Locations','District List'),
+                'side_menu' => array('Locations', 'District List'),
             );
         } else {
             $data = array(
@@ -68,32 +72,34 @@ class District extends AdminController {
                 'cities' => $cities,
                 'pagetitle' => 'New District Name',
                 'title' => 'New District Name',
-                'side_menu' => array('Locations','District List'),
+                'side_menu' => array('Locations', 'District List'),
             );
         }
         return view('admin.forms.district', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::get('district_ID')) {
             $id = Input::get('district_ID');
             $this->MLocation->updateDistrict();
             $obj = $this->MLocation->getDistrict($id);
             $this->MAdmins->addActivity('District updated Succesfully ' . $obj->city_Name);
-            
-            return returnMsg('success','admindistrict','District updated Succesfully.');
+
+            return returnMsg('success', 'admindistrict', 'District updated Succesfully.');
         } else {
             $id = $this->MLocation->addDistrict();
             $obj = $this->MLocation->getDistrict($id);
             $this->MAdmins->addActivity('District added Succesfully ' . $obj->city_Name);
-            
-            return returnMsg('success','admindistrict','District added Succesfully.');
+
+            return returnMsg('success', 'admindistrict', 'District added Succesfully.');
         }
-        
-        return returnMsg('error','admindistrict','something went wrong, Please try again.');
+
+        return returnMsg('error', 'admindistrict', 'something went wrong, Please try again.');
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = $this->MLocation->getDistrict($id);
         if (count($page) > 0) {
@@ -108,24 +114,24 @@ class District extends AdminController {
             );
             DB::table('district_list')->where('district_ID', $id)->update($data);
             $this->MAdmins->addActivity('District Status changed successfully.' . $page->city_Name);
-            
-            return returnMsg('success','admindistrict','District Status changed successfully.');
+
+            return returnMsg('success', 'admindistrict', 'District Status changed successfully.');
         }
-        
-        return returnMsg('error','admindistrict','Something went wrong, Please try again.');
+
+        return returnMsg('error', 'admindistrict', 'Something went wrong, Please try again.');
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = $this->MLocation->getDistrict($id);
         if (count($page) > 0) {
             $this->MLocation->deleteDistrict($id);
             $this->MAdmins->addActivity('District deleted successfully.' . $page->city_Name);
-            
-            return returnMsg('success','admindistrict','District deleted successfully.');
-        }
-        
-        return returnMsg('error','admindistrict','Something went wrong, Please try again.');
-    }
 
+            return returnMsg('success', 'admindistrict', 'District deleted successfully.');
+        }
+
+        return returnMsg('error', 'admindistrict', 'Something went wrong, Please try again.');
+    }
 }

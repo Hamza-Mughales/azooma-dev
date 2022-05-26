@@ -2,19 +2,22 @@
 
 use Yajra\DataTables\Facades\DataTables;
 
-class Competition extends AdminController {
+class Competition extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
         $this->MRestActions = new MRestActions();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -44,12 +47,12 @@ class Competition extends AdminController {
         // $lists = MCompetition::getAllCompetition($country, $status, $limit, $searchname);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Title', 'Title Arabic','Participants', 'Last Updated', 'Actions'),
+            'headings' => array('Title', 'Title Arabic', 'Participants', 'Last Updated', 'Actions'),
             'pagetitle' => 'List of All Competition',
             'title' => 'All Competition',
             'action' => 'admincompetitions',
             // 'lists' => $lists,
-            'side_menu' => array('Competitions','Events & Competitions'),
+            'side_menu' => array('Competitions', 'Events & Competitions'),
         );
         return view('admin.partials.competition', $data);
     }
@@ -60,20 +63,20 @@ class Competition extends AdminController {
         if (!in_array(0, adminCountry())) {
             $query->whereIn("country",  adminCountry());
         }
-        
+
         return  DataTables::of($query)
             ->addColumn('action', function ($list) {
                 $btns = '';
-                    $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="'. route('admincompetitions/participants/',$list->id) .'" title="View All Participants"><i class="fa fa-info"></i></a>';
-                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/form/',$list->id) .'" title="Edit Content"><i class="fa fa-edit"></i></a>';
+                $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="' . route('admincompetitions/participants/', $list->id) . '" title="View All Participants"><i class="fa fa-info"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admincompetitions/form/', $list->id) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
                 if ($list->status == 0) {
-                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admincompetitions/status/', $list->id) . '" title="Activate "><i class="fa fa-minus"></i></a>';
                 } else {
-                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admincompetitions/status/', $list->id) . '" title="Deactivate"><i class="fa fa-plus"></i></a>';
                 }
 
-                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="'. route('admincompetitions/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="#" link="' . route('admincompetitions/delete/', $list->id) . '" title="Delete"><i class="fa fa-trash"></i></a>';
                 return $btns;
             })
             ->editColumn('title', function ($list) {
@@ -92,7 +95,7 @@ class Competition extends AdminController {
                 $btn .= "Total: " . $list->participants;
                 return $btn;
             })
-            
+
             ->editColumn('createdAt', function ($list) {
                 if (!empty($list->updatedAt)) {
                     return date('d/m/Y', strtotime($list->updatedAt));
@@ -103,7 +106,8 @@ class Competition extends AdminController {
             ->make(true);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -124,7 +128,7 @@ class Competition extends AdminController {
                 'cities' => $cities,
                 'css' => 'admin/jquery-ui,chosen',
                 'js' => 'admin/jquery-ui,chosen.jquery',
-                'side_menu' => array('Competitions','Events & Competitions'),
+                'side_menu' => array('Competitions', 'Events & Competitions'),
             );
         } else {
             $data = array(
@@ -134,13 +138,14 @@ class Competition extends AdminController {
                 'css' => 'admin/jquery-ui,chosen',
                 'cities' => $cities,
                 'js' => 'admin/jquery-ui,chosen.jquery',
-                'side_menu' => array('Competitions','Events & Competitions'),
+                'side_menu' => array('Competitions', 'Events & Competitions'),
             );
         }
         return view('admin.forms.competition', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::get('title')) {
             $image = "";
             $actualWidth = "";
@@ -162,7 +167,7 @@ class Competition extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
-                    return returnMsg('error','admincompetitions',"Image is very small. Please upload image which must be bigger than 200*200 width and height.");
+                    return returnMsg('error', 'admincompetitions', "Image is very small. Please upload image which must be bigger than 200*200 width and height.");
                 }
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/competition/", $save_name, true, null, 95);
                 if (($actualWidth > 800) || ($actualHeight > 500)) {
@@ -199,8 +204,8 @@ class Competition extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 200 && $actualHeight < 200) {
-                    
-                    return returnMsg('error','adminrestaurants',"Image is very small. Please upload image which must be bigger than 200*200 width and height.");
+
+                    return returnMsg('error', 'adminrestaurants', "Image is very small. Please upload image which must be bigger than 200*200 width and height.");
                 }
 
                 $largeLayer->save(Config::get('settings.uploadpath') . "/images/competition", $save_name, true, null, 95);
@@ -232,21 +237,22 @@ class Competition extends AdminController {
                 $rest = $_POST['id'];
                 MCompetition::updateCompetition($image, $logo);
                 $this->MAdmins->addActivity('Competition Updated ' . Input::get('title'));
-                
-                return returnMsg('success','admincompetitions',"Competition Updated succesfully");
+
+                return returnMsg('success', 'admincompetitions', "Competition Updated succesfully");
             } else {
                 $rest = MCompetition::addCompetition($image, $logo);
                 $this->MAdmins->addActivity('Competition Added ' . Input::get('title'));
-                
-                return returnMsg('success','admincompetitions',"Competition Added succesfully");
+
+                return returnMsg('success', 'admincompetitions', "Competition Added succesfully");
             }
         } else {
-            
-            return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
+
+            return returnMsg('error', 'admincompetitions', "something went wrong, Please try again.");
         }
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = MCompetition::getCompetition($id);
         if (count($page) > 0) {
@@ -260,27 +266,29 @@ class Competition extends AdminController {
             );
             DB::table('competition')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Competition Status changed successfully.' . $page->title);
-            
-            return returnMsg('success','admincompetitions',"Competition Status changed successfully.");
+
+            return returnMsg('success', 'admincompetitions', "Competition Status changed successfully.");
         }
-        
-        return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
+
+        return returnMsg('error', 'admincompetitions', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = MCompetition::getCompetition($id);
         if (count($page) > 0) {
             MCompetition::deleteCompetition($id);
             $this->MAdmins->addActivity($page->title . ' deleted successfully.');
-            
-            return returnMsg('success','admincompetitions', $page->title . ' deleted successfully.');
+
+            return returnMsg('success', 'admincompetitions', $page->title . ' deleted successfully.');
         }
-        
-        return returnMsg('success','admincompetitions',"Something went wrong, Please try again.");
+
+        return returnMsg('success', 'admincompetitions', "Something went wrong, Please try again.");
     }
 
-    public function participants($id) {
+    public function participants($id)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -301,7 +309,7 @@ class Competition extends AdminController {
             'page' => $page,
             'lists' => $lists,
             'id' => $id,
-            'side_menu' => array('Competitions','Events & Competitions'),
+            'side_menu' => array('Competitions', 'Events & Competitions'),
         );
         return view('admin.partials.participants', $data);
     }
@@ -312,29 +320,29 @@ class Competition extends AdminController {
         if (!in_array(0, adminCountry())) {
             $query->whereIn("country",  adminCountry());
         }
-        
+
         return  DataTables::of($query)
             ->addColumn('action', function ($list) {
                 $btns = '';
-                    $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="'. route('admincompetitions/participantstatus/',$list->id).'?type=1&event_id='.$list->event_id .'" title="Attending"><i class="fa fa-plus"></i></a>';
-                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('admincompetitions/participantstatus/',$list->id).'?type=2&event_id='.$list->event_id .'" title="Canceled"><i class="fa fa-minus"></i></a>';
+                $btns = '<a class="btn btn-xs btn-primary mytooltip m-1" href="' . route('admincompetitions/participantstatus/', $list->id) . '?type=1&event_id=' . $list->event_id . '" title="Attending"><i class="fa fa-plus"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('admincompetitions/participantstatus/', $list->id) . '?type=2&event_id=' . $list->event_id . '" title="Canceled"><i class="fa fa-minus"></i></a>';
                 return $btns;
             })
             ->editColumn('name', function ($list) {
-                return  stripslashes($list->name).' '.  stripslashes($list->parent_name);
+                return  stripslashes($list->name) . ' ' .  stripslashes($list->parent_name);
             })
             ->editColumn('birthday', function ($list) {
                 return  stripslashes($list->birthday);
             })
             ->editColumn('number', function ($list) {
-                return  stripslashes($list->number).'<br>'.$list->email;
+                return  stripslashes($list->number) . '<br>' . $list->email;
             })
             ->editColumn('status', function ($list) {
-                if($list->status==0){
+                if ($list->status == 0) {
                     return 'pending';
-                }elseif($list->status==1){
+                } elseif ($list->status == 1) {
                     return 'Attending';
-                }elseif($list->status==2){
+                } elseif ($list->status == 2) {
                     return 'Canceled';
                 }
             })
@@ -348,7 +356,8 @@ class Competition extends AdminController {
             ->make(true);
     }
 
-    public function participantstatus($id = 0) {
+    public function participantstatus($id = 0)
+    {
         $event_id = 0;
         $status = 0;
         if (isset($_GET['event_id']) && ($_GET['event_id'] != "")) {
@@ -359,15 +368,15 @@ class Competition extends AdminController {
         }
 
         if ($event_id === 0 || $id === 0 || $status === 0) {
-            
-            return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
+
+            return returnMsg('error', 'admincompetitions', "something went wrong, Please try again.");
         }
         $participants = MCompetition::getParticipants($id, $event_id);
         if ($status == 0) {
             MCompetition::participantsStatus($id, $event_id, $status);
             $this->MAdmins->addActivity('Participants Pending ' . $participants->name);
-            
-            return returnMsg('success','admincompetitions',"Participant Pending succesfully");
+
+            return returnMsg('success', 'admincompetitions', "Participant Pending succesfully");
         } elseif ($status == 1) {
 
             MCompetition::participantsStatus($id, $event_id, $status);
@@ -382,16 +391,15 @@ class Competition extends AdminController {
             ##EMAIL FUNCTION
 
             $this->MAdmins->addActivity('Participants Attending ' . $participants->name);
-            
-            return returnMsg('success','admincompetitions',"Participant Attending succesfully");
+
+            return returnMsg('success', 'admincompetitions', "Participant Attending succesfully");
         } elseif ($status == 2) {
             MCompetition::participantsStatus($id, $event_id, $status);
             $this->MAdmins->addActivity('Participants Canceled ' . $participants->name);
-            
-            return returnMsg('success','admincompetitions',"Participant Canceled succesfully");
-        }
-        
-        return returnMsg('error','admincompetitions',"something went wrong, Please try again.");
-    }
 
+            return returnMsg('success', 'admincompetitions', "Participant Canceled succesfully");
+        }
+
+        return returnMsg('error', 'admincompetitions', "something went wrong, Please try again.");
+    }
 }

@@ -1,17 +1,20 @@
 <?php
 
-class CountryController extends AdminController {
+class CountryController extends AdminController
+{
 
     protected $MAdmins;
     protected $MLocation;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MLocation = new MLocation();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -34,13 +37,14 @@ class CountryController extends AdminController {
             'title' => 'Countries',
             'action' => 'admincountry',
             'lists' => $lists,
-            'side_menu' => array('Locations','Country List'),
+            'side_menu' => array('Locations', 'Country List'),
         );
 
         return view('admin.partials.country', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -54,20 +58,21 @@ class CountryController extends AdminController {
                 'pagetitle' => $page->name,
                 'title' => $page->name,
                 'page' => $page,
-                'side_menu' => array('Locations','Country List'),
+                'side_menu' => array('Locations', 'Country List'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Country Name',
                 'title' => 'New Country Name',
-                'side_menu' => array('Locations','Country List'),
+                'side_menu' => array('Locations', 'Country List'),
             );
         }
         return view('admin.forms.country', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $filename = "";
         if (Input::hasFile('countryflag')) {
             $file = Input::file('countryflag');
@@ -100,19 +105,20 @@ class CountryController extends AdminController {
             $obj = $this->MLocation->getCountry($id);
             $this->MAdmins->addActivity('Country updated Succesfully ' . $obj->city_Name);
 
-            return returnMsg('success','admincountry','Country updated Succesfully.');
+            return returnMsg('success', 'admincountry', 'Country updated Succesfully.');
         } else {
             $id = $this->MLocation->addCountry($filename);
             $obj = $this->MLocation->getCountry($id);
             $this->MAdmins->addActivity('Country added Succesfully ' . $obj->city_Name);
 
-            return returnMsg('success','admincountry','Country added Succesfully.');
+            return returnMsg('success', 'admincountry', 'Country added Succesfully.');
         }
-        
-        return returnMsg('error','admincountry','Something went wrong, Please try again.');
+
+        return returnMsg('error', 'admincountry', 'Something went wrong, Please try again.');
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = $this->MLocation->getCountry($id);
         if (count($page) > 0) {
@@ -126,24 +132,24 @@ class CountryController extends AdminController {
             );
             DB::table('countries')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Country Status changed successfully.' . $page->city_Name);
-            
-            return returnMsg('success','admincountry','Country Status changed successfully.');
+
+            return returnMsg('success', 'admincountry', 'Country Status changed successfully.');
         }
-        
-        return returnMsg('error','admincountry','Something went wrong, Please try again.');
+
+        return returnMsg('error', 'admincountry', 'Something went wrong, Please try again.');
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = $this->MLocation->getCountry($id);
         if (count($page) > 0) {
             $this->MLocation->deleteCountry($id);
             $this->MAdmins->addActivity('Country deleted successfully.' . $page->city_Name);
-            
-            return returnMsg('success','admincountry','Country deleted successfully.');
+
+            return returnMsg('success', 'admincountry', 'Country deleted successfully.');
         }
         return Redirect::route('admincountry')->with('', "something went wrong, Please try again.");
-            return returnMsg('error','admincountry','something went wrong, Please try again.');
+        return returnMsg('error', 'admincountry', 'something went wrong, Please try again.');
     }
-
 }
