@@ -3,18 +3,21 @@
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class Admins extends AdminController {
+class Admins extends AdminController
+{
 
     protected $MAdmins;
     protected $MLocation;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MLocation = new MLocation();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -25,7 +28,7 @@ class Admins extends AdminController {
             $country = 1;
         }
         $MAdmins = Admin::orderBy('lastlogin', 'DESC');
-        $MAdmins = Admin::where('country', '=',$country);
+        $MAdmins = Admin::where('country', '=', $country);
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $MAdmins = Admin::where('fullname', 'LIKE', stripslashes($_GET['name']) . '%');
         }
@@ -40,12 +43,13 @@ class Admins extends AdminController {
             'title' => 'Administrators',
             'action' => 'admins',
             'lists' => $lists,
-            'side_menu' => array('Users','Administrators'),
+            'side_menu' => array('Users', 'Administrators'),
         );
         return view('admin.partials.admins', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -60,69 +64,73 @@ class Admins extends AdminController {
                 'pagetitle' => $admin->fullname,
                 'title' => $admin->fullname,
                 'admin' => $admin,
-            'side_menu' => array('Users','Administrators'),
+                'side_menu' => array('Users', 'Administrators'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Administrator',
                 'title' => 'Administrator',
-            'side_menu' => array('Users','Administrators'),
+                'side_menu' => array('Users', 'Administrators'),
             );
         }
         return view('admin.forms.admins', $data);
     }
 
-    public function Save() {
+    public function Save()
+    {
         Input::flash();
-        $MAdmins = New Admin();
+        $MAdmins = new Admin();
         if (Input::get('id')) {
-            $id=intval(Input::get('id'));
-            $validator = Validator::make($_POST,
-            array(
-                'user' => 'required|min:5|unique:admin,user,'.$id,
-                'email' => 'required|email|unique:admin,email,'.$id,
+            $id = intval(Input::get('id'));
+            $validator = Validator::make(
+                $_POST,
+                array(
+                    'user' => 'required|min:5|unique:admin,user,' . $id,
+                    'email' => 'required|email|unique:admin,email,' . $id,
 
-            )
-        );
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-             return returnMsg('error','admins/form/',$message,[$id]);
+                )
+            );
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    return returnMsg('error', 'admins/form/', $message, [$id]);
+                }
             }
-        }
             $id = Input::get('id');
             $MAdmins->updateAdmin();
             $admin = Admin::find($id);
             $MAdmins->addActivity('Administrator updated Succesfully ' . $admin->fullname);
-            return returnMsg('success','admins',"Administrator updated Succesfully.");
+            return returnMsg('success', 'admins', "Administrator updated Succesfully.");
         } else {
-            $validator = Validator::make($_POST,
-            array(
-                'user' => 'required|min:5|unique:admin',
-                'email' => 'required|email|unique:admin',
-                'pass' => 'required|min:5',
+            $validator = Validator::make(
+                $_POST,
+                array(
+                    'user' => 'required|min:5|unique:admin',
+                    'email' => 'required|email|unique:admin',
+                    'pass' => 'required|min:5',
 
-            )
-        );
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-             return returnMsg('error','admins/form',$message);
+                )
+            );
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    return returnMsg('error', 'admins/form', $message);
+                }
             }
-        }
             $id = $MAdmins->addAdmin();
             $admin = Admin::find($id);
             $MAdmins->addActivity('Administrator added Succesfully ' . $admin->fullname);
             if (Input::get('admin') == 0) {
-                return returnMsg('error','admins/permissions/' . $admin->id, "Admin added succesfully, please specify Permissions");
+                return returnMsg('error', 'admins/permissions/' . $admin->id, "Admin added succesfully, please specify Permissions");
             }
-            return returnMsg("success",'admins', "Administrator added Succesfully.");
+            return returnMsg("success", 'admins', "Administrator added Succesfully.");
         }
     }
 
-    public function status($id = 0) {
-        $MAdmins = New Admin();
+    public function status($id = 0)
+    {
+        $MAdmins = new Admin();
         $status = 0;
         $admin = Admin::find($id);
         if (count($admin) > 0) {
@@ -136,24 +144,26 @@ class Admins extends AdminController {
             );
             DB::table('admin')->where('id', $id)->update($data);
             $MAdmins->addActivity('Status Changed Succesfully ' . $admin->fullname);
-            return returnMsg('success','admins', "Status Changed Succesfully.");
+            return returnMsg('success', 'admins', "Status Changed Succesfully.");
         }
-        return returnMsg('error','admins',"something went wrong, Please try again.");
+        return returnMsg('error', 'admins', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
-        $MAdmins = New Admin();
+    public function delete($id = 0)
+    {
+        $MAdmins = new Admin();
         $status = 0;
         $admin = Admin::find($id);
         if (count($admin) > 0) {
             Admin::destroy($id);
             $MAdmins->addActivity('Administrator deleted Succesfully ' . $admin->fullname);
-            return returnMsg('success','admins',"Administrator deleted Succesfully.");
+            return returnMsg('success', 'admins', "Administrator deleted Succesfully.");
         }
-        return returnMsg('error','admins',"something went wrong, Please try again.");
+        return returnMsg('error', 'admins', "something went wrong, Please try again.");
     }
 
-    function password($id = 0) {
+    function password($id = 0)
+    {
         $settings = settings::where('id', '=', '1')->first();
         Session::put('sitename', $settings['name']);
         $logo = ArtWork::where('art_work_name', '=', 'Azooma Logo')->orderBy('createdAt', 'DESC')->first();
@@ -166,35 +176,38 @@ class Admins extends AdminController {
             'pagetitle' => $admin->fullname,
             'title' => $admin->fullname,
             'admin' => $admin,
-            'side_menu' => array('Users','Administrators'),
+            'side_menu' => array('Users', 'Administrators'),
         );
         return view('admin.forms.adminpassword', $data);
     }
 
-    function savePassword() {
-        $MAdmins = New Admin();
+    function savePassword()
+    {
+        $MAdmins = new Admin();
         if (Input::get('id')) {
             $id = Input::get('id');
             $admin = Admin::find($id);
-            $validator = Validator::make($_POST,
-            array(
-                'pass' => 'required|min:5',
-            )
-        );
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-             return returnMsg('error','admins/password/',$message,[$id]);
+            $validator = Validator::make(
+                $_POST,
+                array(
+                    'pass' => 'required|min:5',
+                )
+            );
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    return returnMsg('error', 'admins/password/', $message, [$id]);
+                }
             }
-        }
             $MAdmins->changePassword();
             $MAdmins->addActivity('Password Changed Succesfully ' . $admin->fullname);
-            return returnMsg('success','admins', "Password Changed succesfully");
+            return returnMsg('success', 'admins', "Password Changed succesfully");
         }
     }
 
-    function permissions($id = 0) {
-        $MAdmins = New Admin();
+    function permissions($id = 0)
+    {
+        $MAdmins = new Admin();
         $settings = settings::where('id', '=', '1')->first();
         Session::put('sitename', $settings['name']);
         $logo = ArtWork::where('art_work_name', '=', 'Azooma Logo')->orderBy('createdAt', 'DESC')->first();
@@ -212,7 +225,7 @@ class Admins extends AdminController {
             'title' => $admin->fullname,
             'permissions' => $permissions,
             'admin' => $admin,
-            'side_menu' => array('Users','Administrators'),
+            'side_menu' => array('Users', 'Administrators'),
         );
         $entry = Session::get('entry');
         if (isset($entry) && ($entry == 1)) {
@@ -221,17 +234,19 @@ class Admins extends AdminController {
         return view('admin.forms.adminpermissions', $data);
     }
 
-    function savePermissions() {
-        $MAdmins = New Admin();
+    function savePermissions()
+    {
+        $MAdmins = new Admin();
         $MAdmins->updatePermissions();
         $id = Input::get('id');
         $admin = Admin::find($id);
         $MAdmins->addActivity('Updated permissions for Administrator - ' . $admin->fullname);
-        return returnMsg('success','admins',"Administrator Permissions updated succesfully");
+        return returnMsg('success', 'admins', "Administrator Permissions updated succesfully");
     }
 
-    function activity($id = 0) {
-        $MAdmins = New Admin();
+    function activity($id = 0)
+    {
+        $MAdmins = new Admin();
         $settings = settings::where('id', '=', '1')->first();
         Session::put('sitename', $settings['name']);
         $logo = ArtWork::where('art_work_name', '=', 'Azooma Logo')->orderBy('createdAt', 'DESC')->first();
@@ -245,18 +260,17 @@ class Admins extends AdminController {
             'pagetitle' => "List of all Activities of " . $admin->fullname,
             'title' => 'Activities',
             'admin' => $admin,
-            "user_id"=>$admin->user,
-            'side_menu' => array('Users','Administrators'),
+            "user_id" => $admin->user,
+            'side_menu' => array('Users', 'Administrators'),
         );
         return view('admin.partials.adminActivities', $data);
     }
-    public function getAdminActivity($user){
-   
+    public function getAdminActivity($user)
+    {
+
         $query = DB::table('activity_info')
-        ->where('user', $user);
-   
+            ->where('user', $user);
+
         return  DataTables::of($query)->make(true);
-
     }
-
 }

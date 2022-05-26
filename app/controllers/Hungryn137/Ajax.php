@@ -1,41 +1,44 @@
 <?php
 
-class Ajax extends AdminController {
+class Ajax extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
     protected $mSearch;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
         $this->mSearch = new mSearch();
     }
 
-    public function index() {
-        
+    public function index()
+    {
     }
-	public function adminsearch()	{
-		$lang=Config::get('app.locale');
-		$search= "";
-        $city="";
-        $data=array();
-     
-		if(Input::has('search')){
-			$search=Input::get('search');
-		}
-		// echo $query2[1];
-   
+    public function adminsearch()
+    {
+        $lang = Config::get('app.locale');
+        $search = "";
+        $city = "";
+        $data = array();
+
+        if (Input::has('search')) {
+            $search = Input::get('search');
+        }
+        // echo $query2[1];
+
         $restresults =  $this->mSearch->getRestaurantsAll($search);
 
-        $data['restaurants']=$restresults;
-        $data['search']=$search;
-        $data['lang']=$lang;
+        $data['restaurants'] = $restresults;
+        $data['search'] = $search;
+        $data['lang'] = $lang;
         return Response::json($data);
-		
-	}
-    public function getCitiesList($countryID) {
+    }
+    public function getCitiesList($countryID)
+    {
         if (!empty($countryID)) {
             $this->MLocation = new MLocation();
             $iselected = "";
@@ -46,8 +49,8 @@ class Ajax extends AdminController {
             if (isset($_GET['name']) && !empty($_GET['name'])) {
                 $name = $_GET['name'];
             }
-            $cats = $this->MLocation->getAllCities(1, '', '',$countryID);            
-            $html = $this->MGeneral->generateSelect($cats, $name, 'required chzn-select', $iselected,'','city_Name','city_ID','multiple');
+            $cats = $this->MLocation->getAllCities(1, '', '', $countryID);
+            $html = $this->MGeneral->generateSelect($cats, $name, 'required chzn-select', $iselected, '', 'city_Name', 'city_ID', 'multiple');
             $data['html'] = $html;
             $data['total'] = count($cats);
             return Response::json($data);
@@ -56,8 +59,8 @@ class Ajax extends AdminController {
         }
     }
 
-    public function missingMethod($parameters = array()) {
+    public function missingMethod($parameters = array())
+    {
         return Redirect::route('adminaccess')->with('message', "something went wrong, Please try again.");
     }
-
 }

@@ -31,7 +31,7 @@ class AdminUsers extends AdminController
         if (empty($country)) {
             $country = 1;
         }
-      
+
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Name', 'Email', 'Country', 'Nationality', 'Joined Date', 'No of Activities', 'Action'),
@@ -48,23 +48,23 @@ class AdminUsers extends AdminController
         if (!in_array(0, adminCountry())) {
             $query->whereIn("sufrati",  adminCountry());
         }
-   
+
         return  DataTables::of($query)
-        ->addcolumn('action',function($row){
-            $btns=' <a class="btn btn-xs btn-info mytooltip m-1" href="'.route('adminusers/view/',$row->user_ID).'" title="view"><i class="fa fa-eye"></i></a>';
-            $btns .= '<a class="btn btn-xs btn-danger mytooltip mx-1 cofirm-delete-button" href="#" link="'. route('adminusers/delete/', $row->user_ID) .'" title="Delete"><i class="fa fa-trash"></i></a>';
-            return $btns;
-        })
-        ->editcolumn('user_RegisDate',function($row){
-            return date('d/m/Y', strtotime($row->user_RegisDate));
-        })
-        ->editcolumn('user_FullName',function($row){
-            return stripslashes($row->user_FullName); 
-        })
-        ->editcolumn('user_Email',function($row){
-            return stripslashes($row->user_Email); 
-        })
-        ->make(true);
+            ->addcolumn('action', function ($row) {
+                $btns = ' <a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminusers/view/', $row->user_ID) . '" title="view"><i class="fa fa-eye"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip mx-1 cofirm-delete-button" href="#" link="' . route('adminusers/delete/', $row->user_ID) . '" title="Delete"><i class="fa fa-trash"></i></a>';
+                return $btns;
+            })
+            ->editcolumn('user_RegisDate', function ($row) {
+                return date('d/m/Y', strtotime($row->user_RegisDate));
+            })
+            ->editcolumn('user_FullName', function ($row) {
+                return stripslashes($row->user_FullName);
+            })
+            ->editcolumn('user_Email', function ($row) {
+                return stripslashes($row->user_Email);
+            })
+            ->make(true);
     }
     public function view($id = 0)
     {
@@ -84,19 +84,20 @@ class AdminUsers extends AdminController
 
             );
         }
-        return view( 'admin.forms.user', $data);
+        return view('admin.forms.user', $data);
     }
 
-    
-    public function userDelete($id = 0) {
+
+    public function userDelete($id = 0)
+    {
         $user = User::getUser($id);
 
         if (count($user) > 0) {
             DB::table('user')->where('user_ID', $id)->delete();
-            
-            return returnMsg('success','adminusers','User deleted succesfully.');
+
+            return returnMsg('success', 'adminusers', 'User deleted succesfully.');
         }
-        
-        return returnMsg('error','adminusers','Something went wrong, Please try again.');
+
+        return returnMsg('error', 'adminusers', 'Something went wrong, Please try again.');
     }
 }

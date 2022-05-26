@@ -1,17 +1,20 @@
 <?php
 
-class City extends AdminController {
+class City extends AdminController
+{
 
     protected $MAdmins;
     protected $MLocation;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MLocation = new MLocation();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -35,13 +38,14 @@ class City extends AdminController {
             'title' => 'Cities',
             'action' => 'admincity',
             'lists' => $lists,
-            'side_menu' => array('Locations','City List'),
+            'side_menu' => array('Locations', 'City List'),
         );
 
         return view('admin.partials.city', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -54,20 +58,21 @@ class City extends AdminController {
                 'pagetitle' => $page->city_Name,
                 'title' => $page->city_Name,
                 'page' => $page,
-            'side_menu' => array('Locations','City List'),
+                'side_menu' => array('Locations', 'City List'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New City Name',
                 'title' => 'New City Name',
-            'side_menu' => array('Locations','City List'),
+                'side_menu' => array('Locations', 'City List'),
             );
         }
         return view('admin.forms.city', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $filename = "";
         if (Input::hasFile('city_thumbnail')) {
             $file = Input::file('city_thumbnail');
@@ -107,19 +112,20 @@ class City extends AdminController {
             $obj = $this->MLocation->getCity($id);
             $this->MAdmins->addActivity('City updated Succesfully ' . $obj->city_Name);
 
-            return returnMsg('success','admincity','City updated Succesfully.');
+            return returnMsg('success', 'admincity', 'City updated Succesfully.');
         } else {
             $id = $this->MLocation->addCity($filename);
             $obj = $this->MLocation->getCity($id);
             $this->MAdmins->addActivity('City added Succesfully ' . $obj->city_Name);
-            
-            return returnMsg('success','admincity','City added Succesfully.');
+
+            return returnMsg('success', 'admincity', 'City added Succesfully.');
         }
-        
-        return returnMsg('error','admincity','Something went wrong, Please try again..');
+
+        return returnMsg('error', 'admincity', 'Something went wrong, Please try again..');
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = $this->MLocation->getCity($id);
         if (count($page) > 0) {
@@ -133,24 +139,24 @@ class City extends AdminController {
             );
             DB::table('city_list')->where('city_ID', $id)->update($data);
             $this->MAdmins->addActivity('City Status changed successfully.' . $page->city_Name);
-            
-            return returnMsg('success','admincity','City Status changed successfully.');
+
+            return returnMsg('success', 'admincity', 'City Status changed successfully.');
         }
-        
-        return returnMsg('error','admincity','Something went wrong, Please try again.');
+
+        return returnMsg('error', 'admincity', 'Something went wrong, Please try again.');
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = $this->MLocation->getCity($id);
         if (count($page) > 0) {
             $this->MLocation->deleteCity($id);
             $this->MAdmins->addActivity('City deleted successfully.' . $page->city_Name);
-            
-            return returnMsg('success','admincity','City deleted successfully.');
-        }
-        
-        return returnMsg('error','admincity','Something went wrong, Please try again.');
-    }
 
+            return returnMsg('success', 'admincity', 'City deleted successfully.');
+        }
+
+        return returnMsg('error', 'admincity', 'Something went wrong, Please try again.');
+    }
 }

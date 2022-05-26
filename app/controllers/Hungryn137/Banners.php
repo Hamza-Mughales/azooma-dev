@@ -22,11 +22,11 @@ class Banners extends AdminController
         } else {
             $settings = Config::get('settings.default');
         }
-    
+
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Banner', 'Type', 'City', 'Clicked', 'Impressions', 'Start date',"End date", "Status",'Actions'),
+            'headings' => array('Banner', 'Type', 'City', 'Clicked', 'Impressions', 'Start date', "End date", "Status", 'Actions'),
             'pagetitle' => 'List of All Banners',
             'title' => ' All Banners',
             'action' => 'adminbanners',
@@ -38,8 +38,8 @@ class Banners extends AdminController
     public function getBannerData()
     {
         $query = DB::table('banner')
-            ->select(['banner.*','city_list.city_Name'])
-            ->LeftJoin('city_list',"banner.city_ID","=","city_list.city_ID");	
+            ->select(['banner.*', 'city_list.city_Name'])
+            ->LeftJoin('city_list', "banner.city_ID", "=", "city_list.city_ID");
 
         if (!in_array(0, adminCountry())) {
             $query->whereIn("banner.country",  adminCountry());
@@ -80,19 +80,19 @@ class Banners extends AdminController
 
 
             ->addColumn('image', function ($row) {
-                    $html = '<img src="' . upload_url('banner/' . $row->image) . '" border="0" width="100" >';
-             
+                $html = '<img src="' . upload_url('banner/' . $row->image) . '" border="0" width="100" >';
+
                 return $html;
             })
             ->editColumn('banner_type', function ($row) {
                 $bannerTypes = Config::get('settings.bannertypes');
-                $banner_type=isset($bannerTypes[$row->banner_type]) ? $bannerTypes[$row->banner_type] :"";
+                $banner_type = isset($bannerTypes[$row->banner_type]) ? $bannerTypes[$row->banner_type] : "";
                 return  $banner_type;
             })
             ->addColumn('status_html', function ($row) {
                 return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
             })
-            
+
 
             ->make(true);
     }
@@ -301,11 +301,11 @@ class Banners extends AdminController
         } else {
             $settings = Config::get('settings.default');
         }
-   
+
 
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Banner', 'Title', 'Title Arabic', 'City', "Status",'Actions'),
+            'headings' => array('Banner', 'Title', 'Title Arabic', 'City', "Status", 'Actions'),
             'pagetitle' => 'List of All Home Page Categories',
             'title' => ' All Home Page Categories',
             'action' => 'admincategoryartwork',
@@ -317,9 +317,9 @@ class Banners extends AdminController
     public function getCategoryData()
     {
         $query = DB::table('art_work')
-            ->select(['art_work.*','city_list.city_Name'])
-            ->LeftJoin('city_list',"art_work.city_ID","=","city_list.city_ID")
-            ->where('art_work_name','=','Home Page Category');
+            ->select(['art_work.*', 'city_list.city_Name'])
+            ->LeftJoin('city_list', "art_work.city_ID", "=", "city_list.city_ID")
+            ->where('art_work_name', '=', 'Home Page Category');
 
         if (!in_array(0, adminCountry())) {
             $query->whereIn("art_work.country",  adminCountry());
@@ -330,36 +330,36 @@ class Banners extends AdminController
         if (get('city_ID')) {
             $query->where('art_work.city_ID', '=', get('city_ID'));
         }
-     
-     
+
+
         return  DataTables::of($query)
             ->addColumn('action', function ($row) {
                 $btns = '';
 
-                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admincategoryartwork/form/',$row->id) . '" title="Edit"><i class="fa fa-edit"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admincategoryartwork/form/', $row->id) . '" title="Edit"><i class="fa fa-edit"></i></a>';
 
                 if ($row->active == 0) {
 
-                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' .route('admincategoryartwork/status/',$row->id) .  '" title="Activate "><i class="fa fa-check"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admincategoryartwork/status/', $row->id) .  '" title="Activate "><i class="fa fa-check"></i></a>';
                 } else {
-                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' .route('admincategoryartwork/status/',$row->id). '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('admincategoryartwork/status/', $row->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
                 }
-                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('admincategoryartwork/delete/',$row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('admincategoryartwork/delete/', $row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
 
                 return $btns;
             })
 
 
             ->addColumn('image', function ($row) {
-                    $html = '<img src="' . upload_url('images/' . $row->image) . '" border="0" width="100" >';
-             
+                $html = '<img src="' . upload_url('images/' . $row->image) . '" border="0" width="100" >';
+
                 return $html;
             })
-         
+
             ->addColumn('status_html', function ($row) {
                 return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
             })
-            
+
 
             ->make(true);
     }
@@ -489,7 +489,7 @@ class Banners extends AdminController
                 DB::table('art_work')->insert($data);
             }
         }
-        return returnMsg('success','admincategoryartwork', 'Your data has been save successfully.',array('type' => get('art_work_name')));
+        return returnMsg('success', 'admincategoryartwork', 'Your data has been save successfully.', array('type' => get('art_work_name')));
     }
 
     public function categorystatus($id = 0)
@@ -509,9 +509,9 @@ class Banners extends AdminController
                 'active' => $status
             );
             DB::table('art_work')->where('id', $id)->update($data);
-            return returnMsg('success','admincategoryartwork', $message);
+            return returnMsg('success', 'admincategoryartwork', $message);
         }
-        return returnMsg('error','admincategoryartwork','something went wrong, Please try again.');
+        return returnMsg('error', 'admincategoryartwork', 'something went wrong, Please try again.');
     }
 
     public function categorydelete($id = 0)
@@ -520,8 +520,8 @@ class Banners extends AdminController
         $page = Ads::getHomePageCategory($id);
         if (count($page) > 0) {
             Ads::deleteHomePageCategory($id);
-            return returnMsg('success','admincategoryartwork', 'Home Page Category deleted successfully.');
+            return returnMsg('success', 'admincategoryartwork', 'Home Page Category deleted successfully.');
         }
-        return returnMsg('error','admincategoryartwork','something went wrong, Please try again.');
+        return returnMsg('error', 'admincategoryartwork', 'something went wrong, Please try again.');
     }
 }

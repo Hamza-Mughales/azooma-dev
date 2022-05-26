@@ -22,7 +22,7 @@ class ArtWorkController extends AdminController
         } else {
             $settings = Config::get('settings.default');
         }
-   
+
         $type = "Home Page Artwork";
 
         if (isset($_GET['name']) && !empty($_GET['name'])) {
@@ -36,7 +36,7 @@ class ArtWorkController extends AdminController
         }
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Title', 'Artwork',"Status", 'Last Update on', 'Actions'),
+            'headings' => array('Title', 'Artwork', "Status", 'Last Update on', 'Actions'),
             'pagetitle' => 'List of All ' . $type . ' Artworks',
             'title' => $type . ' Artworks',
             'action' => 'adminartkwork',
@@ -48,67 +48,67 @@ class ArtWorkController extends AdminController
     public function getArtworkData()
     {
         $query = DB::table('art_work')
-        ->select(['art_work.*']);
-    if (!in_array(0, adminCountry())) {
-        $query->whereIn("country",  adminCountry());
-    }
-    if (get('status') or get('status')==='0') {
-        $query->where('active', intval(get('status')));
-    }
-    if (get('city_ID')) {
-        $query->where('city_ID', '=',get('city_ID'));
-    }
-    if (get('type')) {
-        $query->where('art_work_name', '=',get('type'));
-    }
-    
-    return  DataTables::of($query)
-        ->addColumn('action', function ($row) {
-            $type=get('type');
-            $btns ='';
-        
-                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' .route('adminartkwork/form/',$row->id).'?type='.$type
-                . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+            ->select(['art_work.*']);
+        if (!in_array(0, adminCountry())) {
+            $query->whereIn("country",  adminCountry());
+        }
+        if (get('status') or get('status') === '0') {
+            $query->where('active', intval(get('status')));
+        }
+        if (get('city_ID')) {
+            $query->where('city_ID', '=', get('city_ID'));
+        }
+        if (get('type')) {
+            $query->where('art_work_name', '=', get('type'));
+        }
 
-            if ($row->active == 0) {
+        return  DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                $type = get('type');
+                $btns = '';
 
-                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminartkwork/status/',$row->id).  '" title="Activate "><i class="fa fa-check"></i></a>';
-            } else {
-                $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminartkwork/status/',$row->id). '" title="Deactivate"><i class="fa fa-ban"></i></a>';
-            }
-            $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('adminartkwork/delete/',$row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminartkwork/form/', $row->id) . '?type=' . $type
+                    . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
-            return $btns;
-        })
- 
- 
-        ->addColumn('image', function ($row) {
-            $html='';
-            $type=get('type');
-            if ($type == "Azooma Logo") {
+                if ($row->active == 0) {
 
-                $html='<img src="'.upload_url('sufratilogo/' . $row->image).'" border="0" width="100" >';
-            } else {
-           
-                $html=' <img src="'.upload_url('images/' . $row->image).'" border="0" width="100" >';
-            }
-             return $html;
-        })
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminartkwork/status/', $row->id) .  '" title="Activate "><i class="fa fa-check"></i></a>';
+                } else {
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminartkwork/status/', $row->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                }
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('adminartkwork/delete/', $row->id)  . '" title="Delete"><i class="fa fa-trash"></i></a>';
+
+                return $btns;
+            })
 
 
-        ->addColumn('status_html', function ($row) {
-            return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
-        })
+            ->addColumn('image', function ($row) {
+                $html = '';
+                $type = get('type');
+                if ($type == "Azooma Logo") {
 
-        ->editColumn('updatedAt', function ($row) {
-            if ($row->updatedAt == "" || $row->updatedAt == "0000-00-00 00:00:00") {
-                return date('d/m/Y', strtotime($row->createdAt));
-            } else {
-                return date('d/m/Y', strtotime($row->updatedAt));
-            }
-        })
-  
-        ->make(true);
+                    $html = '<img src="' . upload_url('sufratilogo/' . $row->image) . '" border="0" width="100" >';
+                } else {
+
+                    $html = ' <img src="' . upload_url('images/' . $row->image) . '" border="0" width="100" >';
+                }
+                return $html;
+            })
+
+
+            ->addColumn('status_html', function ($row) {
+                return  $row->active == 1 ? '<span class="label label-success p-1">' . __('Active') . '</span>' : '<span class="label p-1 label-danger">' . __("Inactive") . '</span>';
+            })
+
+            ->editColumn('updatedAt', function ($row) {
+                if ($row->updatedAt == "" || $row->updatedAt == "0000-00-00 00:00:00") {
+                    return date('d/m/Y', strtotime($row->createdAt));
+                } else {
+                    return date('d/m/Y', strtotime($row->updatedAt));
+                }
+            })
+
+            ->make(true);
     }
     public function form($id = 0)
     {
@@ -132,7 +132,7 @@ class ArtWorkController extends AdminController
                 'page' => $page,
                 'js' => 'chosen.jquery',
                 'css' => 'chosen',
-                'side_menu' => array('Art Work',  $type ),
+                'side_menu' => array('Art Work',  $type),
             );
         } else {
             $data = array(
@@ -142,7 +142,7 @@ class ArtWorkController extends AdminController
                 'title' => 'New Artwork',
                 'js' => 'chosen.jquery',
                 'css' => 'chosen',
-                'side_menu' => array('Art Work',  $type ),
+                'side_menu' => array('Art Work',  $type),
             );
         }
         return view('admin.forms.artwork', $data);
