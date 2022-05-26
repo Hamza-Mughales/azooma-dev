@@ -1,17 +1,20 @@
 <?php
 
-class Messages extends AdminController {
+class Messages extends AdminController
+{
 
     protected $MAdmins;
     protected $MWelcomeMessage;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MWelcomeMessage = new WelcomeMessage();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -26,7 +29,7 @@ class Messages extends AdminController {
         if (empty($country)) {
             $country = 1;
         }
-        $lists = $this->MWelcomeMessage->getAllMessage($country,$limit, $name, 0);
+        $lists = $this->MWelcomeMessage->getAllMessage($country, $limit, $name, 0);
 
         $data = array(
             'sitename' => $settings['name'],
@@ -40,7 +43,8 @@ class Messages extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.partials.messages', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -65,7 +69,8 @@ class Messages extends AdminController {
         return View::make('admin.index', $data)->nest('content', 'admin.forms.messages', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::get('id')) {
             $id = Input::get('id');
             $this->MWelcomeMessage->updateMessage();
@@ -81,7 +86,8 @@ class Messages extends AdminController {
         return Redirect::route('adminmessages')->with('error', "something went wrong, Please try again.");
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = WelcomeMessage::find($id);
         if (count($page) > 0) {
@@ -101,7 +107,8 @@ class Messages extends AdminController {
         return Redirect::route('adminmessages')->with('error', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = WelcomeMessage::find($id);
         if (count($page) > 0) {
@@ -111,5 +118,4 @@ class Messages extends AdminController {
         }
         return Redirect::route('adminmessages')->with('error', "something went wrong, Please try again.");
     }
-
 }

@@ -2,14 +2,16 @@
 
 use Yajra\DataTables\Facades\DataTables;
 
-class Favorites extends AdminController {
+class Favorites extends AdminController
+{
 
     protected $MAdmins;
     protected $MRestaurant;
     protected $MGeneral;
     protected $MRestActions;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MRestaurant = new MRestaurant();
@@ -17,7 +19,8 @@ class Favorites extends AdminController {
         $this->MGeneral = new MGeneral();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -33,7 +36,7 @@ class Favorites extends AdminController {
         $name = "";
         $status = "";
         $sort = "";
-        $sortview="";
+        $sortview = "";
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $name = stripslashes($_GET['name']);
         }
@@ -49,8 +52,8 @@ class Favorites extends AdminController {
         if (isset($_GET['sortview']) && !empty($_GET['sortview'])) {
             $sortview = stripslashes($_GET['sortview']);
         }
-        
-        
+
+
         $data = array(
             'sitename' => $settings['name'],
             'headings' => array('Restaurant Name', 'Restaurant Name Arabic', 'Total Views', 'Action'),
@@ -58,9 +61,9 @@ class Favorites extends AdminController {
             'title' => 'Azooma Favourites Reaturants',
             'action' => 'adminfavorites',
             'country' => $country,
-            'side_menu' => array('Categories / Lists','Favorites'),
+            'side_menu' => array('Categories / Lists', 'Favorites'),
         );
-        
+
         return view('admin.partials.favourites', $data);
     }
 
@@ -77,43 +80,45 @@ class Favorites extends AdminController {
                 $query->orderBy('sufrati_favourite', 'ASC');
             }
         }
-        return  DataTables::of( $query)
+        return  DataTables::of($query)
             ->addColumn('action', function ($list) {
                 $btns =
-                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminfavorites/form/',$list->rest_ID) .'" title="Edit Content"><i class="fa fa-edit"></i></a>';
+                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminfavorites/form/', $list->rest_ID) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
-                    $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-btn" href="#" link="'. route('adminfavorites/remove/',$list->rest_ID) .'" title="Remove"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-btn" href="#" link="' . route('adminfavorites/remove/', $list->rest_ID) . '" title="Remove"><i class="fa fa-trash"></i></a>';
                 return $btns;
             })
-            
+
             ->editColumn('name', function ($style) {
                 return  stripslashes($style->rest_Name);
             })
-            
+
             ->editColumn('nameAr', function ($style) {
                 return  stripslashes($style->rest_Name_Ar);
             })
-            
+
             ->editColumn('totalViews', function ($style) {
-              return  stripslashes($style->total_view);
+                return  stripslashes($style->total_view);
             })
             ->make(true);
     }
 
-    public function remove($id = 0) {
+    public function remove($id = 0)
+    {
         $rest = MRestaurant::where('rest_ID', '=', $id)->first();
         $this->MRestActions->removeFavorite($id);
         $this->MAdmins->addActivity('Removed - ' . $rest->rest_Name . '  from Favorites ');
-        if(isset($_REQUEST['rest']) && $_REQUEST['rest']=="1"){
-            
-            return returnMsg('success','adminrestaurants', $rest->rest_Name . '  remove from Favorites');
-        }else{
-            
-            return returnMsg('success','adminfavorites', $rest->rest_Name . '  remove from Favorites');
+        if (isset($_REQUEST['rest']) && $_REQUEST['rest'] == "1") {
+
+            return returnMsg('success', 'adminrestaurants', $rest->rest_Name . '  remove from Favorites');
+        } else {
+
+            return returnMsg('success', 'adminfavorites', $rest->rest_Name . '  remove from Favorites');
         }
     }
 
-    function form($id = 0) {
+    function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -127,14 +132,14 @@ class Favorites extends AdminController {
                 'pagetitle' => $rest->rest_Name,
                 'title' => $rest->rest_Name,
                 'page' => $rest,
-                'side_menu' => array('Categories / Lists','Favorites'),
+                'side_menu' => array('Categories / Lists', 'Favorites'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'Edit Azooma Favorites',
                 'title' => 'Edit Azooma Favorites',
-                'side_menu' => array('Categories / Lists','Favorites'),
+                'side_menu' => array('Categories / Lists', 'Favorites'),
             );
         }
         return view('admin.forms.favorites', $data);
@@ -151,26 +156,27 @@ class Favorites extends AdminController {
         $this->load->view('admin/template', $data);
     }
 
-    function save($option = "") {
+    function save($option = "")
+    {
         if (Input::get('rest_ID')) {
             $id = (Input::get('rest_ID'));
             $this->MRestActions->updateFavoriteRest();
             $obj = $this->MRestActions->getRest($id);
             $this->MAdmins->addActivity('favourite Restaurant ' . $obj->rest_Name . ' updated Succesfully ');
-            
-            return returnMsg('success','adminfavorites','favourite Restaurant ' . $obj->rest_Name . ' updated Succesfully.');
+
+            return returnMsg('success', 'adminfavorites', 'favourite Restaurant ' . $obj->rest_Name . ' updated Succesfully.');
         } else {
-            
-            return returnMsg('error','adminfavorites','Something went wrong, please try again.');
+
+            return returnMsg('error', 'adminfavorites', 'Something went wrong, please try again.');
         }
     }
 
-    public function favourite($id = 0) {
+    public function favourite($id = 0)
+    {
         $rest = $this->MRestActions->getRest($id);
         $this->MRestActions->addFavorite($id);
         $this->MAdmins->addActivity(stripslashes(($rest->rest_Name)) . ' added to favorites');
-        
-            return returnMsg('success','adminrestaurants',stripslashes(($rest->rest_Name)) . ' added to Favourites Succesfully.');
-    }
 
+        return returnMsg('success', 'adminrestaurants', stripslashes(($rest->rest_Name)) . ' added to Favourites Succesfully.');
+    }
 }

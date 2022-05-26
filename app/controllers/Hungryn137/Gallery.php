@@ -325,10 +325,10 @@ class Gallery extends AdminController
         if (empty($country)) {
             $country = 1;
         }
-  
+
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Thumb', 'Restaurant','Status', 'Last Update on', 'Actions'),
+            'headings' => array('Name', 'Thumb', 'Restaurant', 'Status', 'Last Update on', 'Actions'),
             'pagetitle' => 'List of All Videos',
             'title' => 'All Videos',
             'action' => 'admingallery',
@@ -340,7 +340,7 @@ class Gallery extends AdminController
     public function getVideosData()
     {
         $query = DB::table('rest_video')
-            ->select(['rest_video.*','restaurant_info.rest_Name'])
+            ->select(['rest_video.*', 'restaurant_info.rest_Name'])
             ->leftJoin("restaurant_info", "rest_video.rest_ID", "=", "restaurant_info.rest_ID");
 
         if (!in_array(0, adminCountry())) {
@@ -353,21 +353,21 @@ class Gallery extends AdminController
         if (get('rest')) {
             $query->where('rest_video.rest_ID', intval(get('rest')));
         }
-     
+
         return  DataTables::of($query)
             ->addColumn('action', function ($rest_video) {
                 $type = get('type');
                 $btns =
-                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/videoform/',$rest_video->id)  . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/videoform/', $rest_video->id)  . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
 
                 if ($rest_video->status == 0) {
 
-                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/videostatus/',$rest_video->id) . '" title="Activate "><i class="fa fa-check"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('admingallery/videostatus/', $rest_video->id) . '" title="Activate "><i class="fa fa-check"></i></a>';
                 } else {
-                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' .route('admingallery/videostatus/',$rest_video->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('admingallery/videostatus/', $rest_video->id) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
                 }
-                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' .route('admingallery/videodelete/',$rest_video->id) . '" title="Delete"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-button" href="#" link="' . route('admingallery/videodelete/', $rest_video->id) . '" title="Delete"><i class="fa fa-trash"></i></a>';
 
                 return $btns;
             })
@@ -377,9 +377,9 @@ class Gallery extends AdminController
                 if (isset($var['v'])) {
                     $youtube = $var['v'];
                 }
-                return  ' <img src="http://i.ytimg.com/vi/'.$youtube.'/default.jpg" alt="'.$rest_video->name_en.'" width="120" height="90"/>';
+                return  ' <img src="http://i.ytimg.com/vi/' . $youtube . '/default.jpg" alt="' . $rest_video->name_en . '" width="120" height="90"/>';
             })
-    
+
 
 
             ->addColumn('status_html', function ($rest_video) {
@@ -387,13 +387,12 @@ class Gallery extends AdminController
             })
 
             ->editColumn('updatedAt', function ($rest_video) {
-             
+
                 if ($rest_video->updatedAt == "") {
                     return date('d/m/Y', strtotime($rest_video->add_date));
                 } else {
                     return date('d/m/Y', strtotime($rest_video->updatedAt));
                 }
-                
             })
             ->make(true);
     }
@@ -443,16 +442,14 @@ class Gallery extends AdminController
             $this->Gallery->updateVideo();
             $obj = $this->Gallery->getRestVideo($id);
             $this->MAdmins->addActivity('Video updated Succesfully - ' . $obj->name_en);
-            return returnMsg('success','admingallery/videos',"Video updated Succesfully.");
+            return returnMsg('success', 'admingallery/videos', "Video updated Succesfully.");
         } else {
             $id = $this->Gallery->addVideo();
             $obj = $this->Gallery->getRestVideo($id);
             $this->MAdmins->addActivity('Video Added Succesfully - ' . $obj->name_en);
-            return returnMsg('success','admingallery/videos',"Video Added Succesfully.");
-
+            return returnMsg('success', 'admingallery/videos', "Video Added Succesfully.");
         }
-        return returnMsg('error','admingallery/videos',"something went wrong, Please try again.");
-
+        return returnMsg('error', 'admingallery/videos', "something went wrong, Please try again.");
     }
 
     public function videostatus($id = 0)
@@ -471,11 +468,9 @@ class Gallery extends AdminController
             );
             DB::table('rest_video')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Video Status changed successfully.' . $page->name_en);
-            return returnMsg('success','admingallery/videos',"Video Status changed successfully.");
-
+            return returnMsg('success', 'admingallery/videos', "Video Status changed successfully.");
         }
-        return returnMsg('error','admingallery/videos',"something went wrong, Please try again.");
-
+        return returnMsg('error', 'admingallery/videos', "something went wrong, Please try again.");
     }
 
     public function videodelete($id = 0)
@@ -485,11 +480,8 @@ class Gallery extends AdminController
         if (count($page) > 0) {
             DB::table('rest_video')->where('id', $id)->delete();
             $this->MAdmins->addActivity('Video Deleted successfully.' . $page->name_en);
-            return returnMsg('success','admingallery/videos',"Video Deleted successfully.");
-
-
+            return returnMsg('success', 'admingallery/videos', "Video Deleted successfully.");
         }
-        return returnMsg('error','admingallery/videos',"something went wrong, Please try again.");
-
+        return returnMsg('error', 'admingallery/videos', "something went wrong, Please try again.");
     }
 }

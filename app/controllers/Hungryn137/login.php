@@ -2,20 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
-class Login extends AdminController {
+class Login extends AdminController
+{
 
     public $data;
     protected $MAdmins;
     protected $MGeneral;
 
-    function __construct() {
-      
-      
+    function __construct()
+    {
+
+
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::has('adminid')) {
             return Redirect::route('adminhome');
         }
@@ -36,7 +39,8 @@ class Login extends AdminController {
         // return view('admin.login');
     }
 
-    public function postSubmit() {
+    public function postSubmit()
+    {
         if (Session::has('adminid')) {
             return Redirect::route('adminhome');
         }
@@ -56,16 +60,15 @@ class Login extends AdminController {
                 Session::put('permissions', $user->permissions);
                 Session::put('email', $user->email);
                 if (isset($_POST['remember_me']) && post('remember_me') == 'on') {
-                    setcookie('remember_me_user_name',post('User'));
-                    setcookie('remember_me_password',post('Password'));
-                    setcookie('remember_me_country_id',post('country_ID'));
-                    setcookie('remember_me','on');
- 
+                    setcookie('remember_me_user_name', post('User'));
+                    setcookie('remember_me_password', post('Password'));
+                    setcookie('remember_me_country_id', post('country_ID'));
+                    setcookie('remember_me', 'on');
                 } else {
-                    setcookie('remember_me_user_name',null);
-                    setcookie('remember_me_password',null);
-                    setcookie('remember_me_country_id',null);
-                    setcookie('remember_me',null);
+                    setcookie('remember_me_user_name', null);
+                    setcookie('remember_me_password', null);
+                    setcookie('remember_me_country_id', null);
+                    setcookie('remember_me', null);
                     unset($_COOKIE['remember_me_user_name']);
                     unset($_COOKIE['remember_me_password']);
                     unset($_COOKIE['remember_me_country_id']);
@@ -80,8 +83,9 @@ class Login extends AdminController {
         }
     }
 
-    public function logout() {
-      
+    public function logout()
+    {
+
         Session::forget('admincountry');
         Session::forget('adminid');
         Session::forget('fullname');
@@ -92,8 +96,8 @@ class Login extends AdminController {
         return Redirect::route('adminlogin');
     }
 
-    public function missingMethod($parameters=[]) {
+    public function missingMethod($parameters = [])
+    {
         return 'Abay Teri Maa ki Kir Kiri';
     }
-
 }

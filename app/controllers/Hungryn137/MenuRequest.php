@@ -1,17 +1,20 @@
 <?php
 
-class MenuRequest extends AdminController {
+class MenuRequest extends AdminController
+{
 
     protected $Art_Work;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->Art_Work = new ArtWork();
         $this->MGeneral = new MGeneral();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -61,12 +64,13 @@ class MenuRequest extends AdminController {
             'new' => FALSE,
             'lists' => $lists,
             'country' => $country,
-            'side_menu' => array('Miscellaneous','All Menu Request'),
+            'side_menu' => array('Miscellaneous', 'All Menu Request'),
         );
         return view('admin.partials.maincommonpage', $data);
     }
 
-    public function view($id = 0) {
+    public function view($id = 0)
+    {
         if ($id != 0) {
             $rest_ID = 0;
             if (isset($_GET['rest_ID']) && !empty($_GET['rest_ID'])) {
@@ -82,11 +86,11 @@ class MenuRequest extends AdminController {
                 $settings = Config::get('settings.default');
             }
             $rest = MRestActions::getRest($rest_ID);
-            $page = MComments::getMenuRequest($id,$rest_ID);
+            $page = MComments::getMenuRequest($id, $rest_ID);
             $data = array(
                 'sitename' => $settings['name'],
-                'pagetitle' => "View Menu Request From ".  stripslashes($rest->rest_Name),
-                'title' => "Menu Request From ".  stripslashes($rest->rest_Name),
+                'pagetitle' => "View Menu Request From " .  stripslashes($rest->rest_Name),
+                'title' => "Menu Request From " .  stripslashes($rest->rest_Name),
                 'lists' => $page,
                 'rest' => $rest,
             );
@@ -94,8 +98,8 @@ class MenuRequest extends AdminController {
         }
     }
 
-    public function read($id = 0) {
+    public function read($id = 0)
+    {
         MComments::readArticleComment($id);
     }
-
 }

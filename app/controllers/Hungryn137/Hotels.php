@@ -81,10 +81,10 @@ class Hotels extends AdminController
         }
         return view('admin.forms.hotels', $data);
     }
-    
+
     public function getHotelData()
     {
-    
+
         $query = DB::table('hotel_info');
         if (!in_array(0, adminCountry())) {
             $query->whereIn("country",  adminCountry());
