@@ -180,10 +180,12 @@ Route::group(array('prefix' => $locale), function () {
         }
     }
 
-    $normalpages = array('privacy-terms', 'login', 'videos', 'video', 'user', 'add', 'settings', 'userhelp', 'updatedb', 'blog',
-     'recipes', 'article', 'locations', 'forgot', 'reset', 'resetpassword', 'logout', 'step', 'reactivate', 'welcome', 'preference',
-      'ajax', 'press', 'clearnotifications', 'clearnotif', 'ads', 'contact-us', 'page', 'poll', 'usersuggestions', 'likesuggestions',
-       'userpreference', 'aj', 'invite', 'catering-terms', 'style', 'updatemenuimage', 'sitemap', 'test');
+    $normalpages = array(
+        'privacy-terms', 'login', 'videos', 'video', 'user', 'add', 'settings', 'userhelp', 'updatedb', 'blog',
+        'recipes', 'article', 'locations', 'forgot', 'reset', 'resetpassword', 'logout', 'step', 'reactivate', 'welcome', 'preference',
+        'ajax', 'press', 'clearnotifications', 'clearnotif', 'ads', 'contact-us', 'page', 'poll', 'usersuggestions', 'likesuggestions',
+        'userpreference', 'aj', 'invite', 'catering-terms', 'style', 'updatemenuimage', 'sitemap', 'test'
+    );
     if (in_array($var1, $normalpages)) {
         if ($var1 != "" && $var1 != "ar") {
             if (!Session::has('sfcity')) {
