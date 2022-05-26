@@ -2,19 +2,22 @@
 
 use Yajra\DataTables\Facades\DataTables;
 
-class RestGroup extends AdminController {
+class RestGroup extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
         $this->MRestActions = new MRestActions();
     }
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -47,11 +50,11 @@ class RestGroup extends AdminController {
             'headings' => array('Group Name', 'Last Updated', 'Actions'),
             'pagetitle' => 'List of All Group of Restaurants',
             'title' => 'All Group of Restaurants',
-            'action' => 'adminrestaurantsgroup',    
+            'action' => 'adminrestaurantsgroup',
             // 'lists' => $lists,
-            'side_menu' => array('Restaurant Mgmt','Group of Restaurants'),
+            'side_menu' => array('Restaurant Mgmt', 'Group of Restaurants'),
         );
-        
+
         return view('admin.partials.restaurantsgroup', $data);
     }
 
@@ -67,22 +70,22 @@ class RestGroup extends AdminController {
         return  DataTables::of($query)
             ->addColumn('action', function ($list) {
                 $btns =
-                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminrestaurantsgroup/form/',$list->id) .'" title="Edit Content"><i class="fa fa-edit"></i></a>';
+                    $btns = '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminrestaurantsgroup/form/', $list->id) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
 
                 if ($list->status == 0) {
 
-                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminrestaurantsgroup/status/',$list->id) .'" title="Activate "><i class="fa fa-minus"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminrestaurantsgroup/status/', $list->id) . '" title="Activate "><i class="fa fa-minus"></i></a>';
                 } else {
-                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="'. route('adminrestaurantsgroup/status/',$list->id) .'" title="Deactivate"><i class="fa fa-plus"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info mytooltip m-1" href="' . route('adminrestaurantsgroup/status/', $list->id) . '" title="Deactivate"><i class="fa fa-plus"></i></a>';
                 }
 
-                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="'. route('adminrestaurantsgroup/delete/',$list->id) .'" title="Delete"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a class="btn btn-xs btn-danger mytooltip m-1 cofirm-delete-button" href="' . route('adminrestaurantsgroup/delete/', $list->id) . '" title="Delete"><i class="fa fa-trash"></i></a>';
                 return $btns;
             })
             ->editColumn('name', function ($list) {
-                return  stripslashes($list->name).' - '.  stripslashes($list->name_ar);
+                return  stripslashes($list->name) . ' - ' .  stripslashes($list->name_ar);
             })
-            
+
             ->editColumn('updatedAt', function ($list) {
                 if ($list->updatedAt == "") {
                     return date('d/m/Y', strtotime($list->createdAt));
@@ -93,7 +96,8 @@ class RestGroup extends AdminController {
             ->make(true);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -108,7 +112,7 @@ class RestGroup extends AdminController {
                 'restgroup' => $page,
                 'css' => 'chosen',
                 'js' => 'chosen.jquery',
-                'side_menu' => array('Restaurant Mgmt','Group of Restaurants'),
+                'side_menu' => array('Restaurant Mgmt', 'Group of Restaurants'),
             );
         } else {
             $data = array(
@@ -117,59 +121,60 @@ class RestGroup extends AdminController {
                 'title' => 'New Restaurant Group',
                 'css' => 'chosen',
                 'js' => 'chosen.jquery',
-                'side_menu' => array('Restaurant Mgmt','Group of Restaurants'),
+                'side_menu' => array('Restaurant Mgmt', 'Group of Restaurants'),
             );
         }
         return view('admin.forms.restaurantgroup', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::get('name')) {
             $image = "";
             $logo = "";
             $actualWidth = "";
             $ratio = "0";
             if (Input::hasFile('logo')) {
-                  $file = Input::file('logo');
-                  $temp_name = $_FILES['logo']['tmp_name'];
-                  $filename = $file->getClientOriginalName();
-                  $logo = $save_name = uniqid(Config::get('settings.sitename')) . $filename;
-                  $thumbHeight = null;
-                  $conserveProportion = true;
-                  $positionX = 0; // px
-                  $positionY = 0; // px
-                  $position = 'MM';
-                  $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath($temp_name);
-                  //get Size of the Image and reSize
-                  $actualWidth = $largeLayer->getWidth();
-                  $actualHeight = $largeLayer->getHeight();
-                  $ratio = $actualWidth / $actualHeight;
-                  if ($actualWidth < 150 && $actualHeight < 150) {
-                  return Redirect::route('adminrestaurants')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
-                  }
-                  $largeLayer->save(Config::get('settings.uploadpath') . "/logos/", $save_name, true, null, 95);
+                $file = Input::file('logo');
+                $temp_name = $_FILES['logo']['tmp_name'];
+                $filename = $file->getClientOriginalName();
+                $logo = $save_name = uniqid(Config::get('settings.sitename')) . $filename;
+                $thumbHeight = null;
+                $conserveProportion = true;
+                $positionX = 0; // px
+                $positionY = 0; // px
+                $position = 'MM';
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath($temp_name);
+                //get Size of the Image and reSize
+                $actualWidth = $largeLayer->getWidth();
+                $actualHeight = $largeLayer->getHeight();
+                $ratio = $actualWidth / $actualHeight;
+                if ($actualWidth < 150 && $actualHeight < 150) {
+                    return Redirect::route('adminrestaurants')->with('message', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
+                }
+                $largeLayer->save(Config::get('settings.uploadpath') . "/logos/", $save_name, true, null, 95);
 
-                  $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/logos/".$save_name);
-                  $layer->cropMaximumInPixel(0, 0, "MM");
-                  $changelayer=clone $layer;
-                  $changelayer->resizeInPixel(200, 200);
-                  $changelayer->save(Config::get('settings.uploadpath') . "/logos/", $save_name, true, null, 95);
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/logos/" . $save_name);
+                $layer->cropMaximumInPixel(0, 0, "MM");
+                $changelayer = clone $layer;
+                $changelayer->resizeInPixel(200, 200);
+                $changelayer->save(Config::get('settings.uploadpath') . "/logos/", $save_name, true, null, 95);
 
-                  $changelayer=clone $layer;
-                  $changelayer->resizeInPixel(45, 45);
-                  $changelayer->save(Config::get('settings.uploadpath')  . "/logos/45/", $save_name, true, null, 95);
+                $changelayer = clone $layer;
+                $changelayer->resizeInPixel(45, 45);
+                $changelayer->save(Config::get('settings.uploadpath')  . "/logos/45/", $save_name, true, null, 95);
 
-                  $changelayer=clone $layer;
-                  $changelayer->resizeInPixel(40, 40);
-                  $changelayer->save(Config::get('settings.uploadpath')  . "/logos/40/", $save_name, true, null, 95);
+                $changelayer = clone $layer;
+                $changelayer->resizeInPixel(40, 40);
+                $changelayer->save(Config::get('settings.uploadpath')  . "/logos/40/", $save_name, true, null, 95);
 
-                  $changelayer=clone $layer;
-                  $changelayer->resizeInPixel(70, 70);
-                  $changelayer->save(Config::get('settings.uploadpath')  . "/logos/70/", $save_name, true, null, 95);
+                $changelayer = clone $layer;
+                $changelayer->resizeInPixel(70, 70);
+                $changelayer->save(Config::get('settings.uploadpath')  . "/logos/70/", $save_name, true, null, 95);
 
-                  $changelayer=clone $layer;
-                  $changelayer->resizeInPixel(100, 100);
-                  $changelayer->save(Config::get('settings.uploadpath')  . "/logos/thumb/", $save_name, true, null, 95);
+                $changelayer = clone $layer;
+                $changelayer->resizeInPixel(100, 100);
+                $changelayer->save(Config::get('settings.uploadpath')  . "/logos/thumb/", $save_name, true, null, 95);
             } else {
                 if (Input::has('logo_old')) {
                     $logo = Input::get('logo_old');
@@ -220,21 +225,22 @@ class RestGroup extends AdminController {
                 $rest = $_POST['id'];
                 $this->MRestActions->updateGroupRestaurant($logo, $image);
                 $this->MAdmins->addActivity('Group of Restaurants Updated ' . Input::get('name'));
-                
-                return returnMsg('success','adminrestaurantsgroup',"Group of Restaurants Updated succesfully.");
+
+                return returnMsg('success', 'adminrestaurantsgroup', "Group of Restaurants Updated succesfully.");
             } else {
                 $rest = $this->MRestActions->addGroupRestaurant($logo, $image);
                 $this->MAdmins->addActivity('Group of Restaurants Added ' . Input::get('name'));
-                
-                return returnMsg('success','adminrestaurantsgroup',"Group of Restaurants Added succesfully.");
+
+                return returnMsg('success', 'adminrestaurantsgroup', "Group of Restaurants Added succesfully.");
             }
         } else {
-            
-            return returnMsg('error','adminrestaurants',"Something went wrong, Please try again.");
+
+            return returnMsg('error', 'adminrestaurants', "Something went wrong, Please try again.");
         }
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = $this->MRestActions->getGroupRestaurant($id);
         if (count($page) > 0) {
@@ -248,26 +254,28 @@ class RestGroup extends AdminController {
             );
             DB::table('restaurant_groups')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Group of Restaurant Status changed successfully.' . $page->name);
-            
-            return returnMsg('success','adminrestaurantsgroup',"Group of Restaurant Status changed successfully.");
+
+            return returnMsg('success', 'adminrestaurantsgroup', "Group of Restaurant Status changed successfully.");
         }
-        
-        return returnMsg('error','adminrestaurantsgroup',"Something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminrestaurantsgroup', "Something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = $this->MRestActions->getGroupRestaurant($id);
         if (count($page) > 0) {
             $this->MRestActions->deleteGroupRestaurant($id);
             $this->MAdmins->addActivity($page->name . ' deleted successfully.');
 
-            return returnMsg('success','adminrestaurantsgroup',$page->name . ' deleted successfully.');
+            return returnMsg('success', 'adminrestaurantsgroup', $page->name . ' deleted successfully.');
         }
-        return returnMsg('error','adminrestaurantsgroup',"Something went wrong, Please try again.");
+        return returnMsg('error', 'adminrestaurantsgroup', "Something went wrong, Please try again.");
     }
 
-    function deleteImage($id = 0) {
+    function deleteImage($id = 0)
+    {
         $type = "";
         if (isset($_GET['type']) && ($_GET['type'] != "")) {
             $type = ($_GET['type']);
@@ -275,8 +283,7 @@ class RestGroup extends AdminController {
         $cuisine = $this->MRestActions->getGroupRestaurant($id);
         $this->MRestActions->deleteGroupRestaurantImage($id, $type);
         $this->MAdmins->addActivity('Deleted Restaurant Group ' . $type . ' ' . stripslashes(($cuisine->name)));
-        
-        return returnMsg('success','adminrestaurantsgroup/form/', $cuisine->id, 'Restaurant Group ' . $type . ' deleted succesfully');
-    }
 
+        return returnMsg('success', 'adminrestaurantsgroup/form/', $cuisine->id, 'Restaurant Group ' . $type . ' deleted succesfully');
+    }
 }

@@ -1,17 +1,20 @@
 <?php
 
-class Press extends AdminController {
+class Press extends AdminController
+{
 
     protected $MAdmins;
     protected $MPress;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MPress = new MPress();
     }
 
-    public function index() {
+    public function index()
+    {
         $status = "";
         $sort = "";
         if (isset($_GET['status'])) {
@@ -63,13 +66,14 @@ class Press extends AdminController {
             'deletelink' => 'adminpress/delete',
             'addlink' => 'adminpress/form',
             'lists' => $lists,
-            'side_menu' => array('Corporate Pages','Press'),
+            'side_menu' => array('Corporate Pages', 'Press'),
         );
 
         return view('admin.partials.restTeam', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -83,20 +87,21 @@ class Press extends AdminController {
                 'pagetitle' => $page->short,
                 'title' => $page->short,
                 'page' => $page,
-                'side_menu' => array('Corporate Pages','Press'),
+                'side_menu' => array('Corporate Pages', 'Press'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Press',
                 'title' => 'New Press',
-                'side_menu' => array('Corporate Pages','Press'),
+                'side_menu' => array('Corporate Pages', 'Press'),
             );
         }
         return view('admin.forms.press', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $filename = "";
         if (Input::hasFile('image')) {
             $file = Input::file('image');
@@ -122,20 +127,21 @@ class Press extends AdminController {
             $this->MPress->updatePress($filename);
             $obj = MPress::find($id);
             $this->MAdmins->addActivity('Press updated Succesfully ' . $obj->short);
-            
-            return returnMsg('success','adminpress','Press updated Succesfully.');
+
+            return returnMsg('success', 'adminpress', 'Press updated Succesfully.');
         } else {
             $id = $this->MPress->addPress($filename);
             $obj = MPress::find($id);
             $this->MAdmins->addActivity('Press added Succesfully ' . $obj->short);
-            
-            return returnMsg('success','adminpress','Press added Succesfully.');
+
+            return returnMsg('success', 'adminpress', 'Press added Succesfully.');
         }
-        
-        return returnMsg('error','adminpress','something went wrong, Please try again.');
+
+        return returnMsg('error', 'adminpress', 'something went wrong, Please try again.');
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = MPress::find($id);
         if (count($page) > 0) {
@@ -151,24 +157,24 @@ class Press extends AdminController {
 
             DB::table('press')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Press Status changed successfully.' . $page->short);
-            
-            return returnMsg('success','adminpress','Press Status changed successfully.');
+
+            return returnMsg('success', 'adminpress', 'Press Status changed successfully.');
         }
-        
-        return returnMsg('error','adminpress','something went wrong, Please try again.');
+
+        return returnMsg('error', 'adminpress', 'something went wrong, Please try again.');
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = MPress::find($id);
         if (count($page) > 0) {
             MPress::destroy($id);
             $this->MAdmins->addActivity('Press Status changed successfully.' . $page->short);
-            
-            return returnMsg('success','adminpress','Your data has been save successfully.');
-        }
-        
-        return returnMsg('error','adminpress','something went wrong, Please try again.');
-    }
 
+            return returnMsg('success', 'adminpress', 'Your data has been save successfully.');
+        }
+
+        return returnMsg('error', 'adminpress', 'something went wrong, Please try again.');
+    }
 }

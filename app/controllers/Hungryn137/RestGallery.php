@@ -1,12 +1,14 @@
 <?php
 
-class RestGallery extends AdminController {
+class RestGallery extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
     protected $MGallery;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
@@ -14,7 +16,8 @@ class RestGallery extends AdminController {
         $this->MGallery = new MGallery();
     }
 
-    public function index($restID = 0) {
+    public function index($restID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -42,13 +45,14 @@ class RestGallery extends AdminController {
             'lists' => $lists,
             'rest_ID' => $restID,
             'rest' => $rest,
-            'side_menu' => ['adminrestaurants','Add Restaurants'],
+            'side_menu' => ['adminrestaurants', 'Add Restaurants'],
         );
 
         return view('admin.partials.restaurantgallery', $data);
     }
 
-    public function form($image_ID = 0) {
+    public function form($image_ID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -57,7 +61,6 @@ class RestGallery extends AdminController {
         if (Input::has('rest_ID')) {
             $rest_ID = Input::get('rest_ID');
         } else {
-            
         }
         $country = Session::get('admincountry');
         if (empty($country)) {
@@ -74,7 +77,7 @@ class RestGallery extends AdminController {
                 'rest' => $rest,
                 'rest_ID' => $rest_ID,
                 'js' => 'chosen.jquery,admin/branchform',
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         } else {
             $image = $this->MRestActions->getRestImage($image_ID);
@@ -88,13 +91,14 @@ class RestGallery extends AdminController {
                 'image' => $image,
                 'rest_ID' => $rest_ID,
                 'js' => 'chosen.jquery,admin/branchform',
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         }
         return view('admin.forms.restgallery', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $rest = Input::get('rest_ID');
         $restaurant = $this->MRestActions->getRest($rest);
         $restname = stripslashes($restaurant->rest_Name);
@@ -127,9 +131,9 @@ class RestGallery extends AdminController {
                 $largeLayer->addLayerOnTop($textLayer, 20, 40, "RB");
                 if (($actualWidth > 800)) {
                     $largeLayer->resizeInPixel(800, null, $conserveProportion, $positionX, $positionY, $position);
-                }else{
-                    if($actualHeight>500){
-                        $largeLayer->resizeInPixel(null, 500, $conserveProportion, $positionX, $positionY, $position);  
+                } else {
+                    if ($actualHeight > 500) {
+                        $largeLayer->resizeInPixel(null, 500, $conserveProportion, $positionX, $positionY, $position);
                     }
                 }
 
@@ -137,69 +141,68 @@ class RestGallery extends AdminController {
 
                 $height1 = round($actualHeight * (200 / $actualWidth));
                 $height2 = round($actualHeight * (230 / $actualWidth));
-                
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $layer->cropMaximumInPixel(0, 0, "MM");
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $expectedWidth = 200;
                 $expectedHeight = $height1;
                 ($expectedWidth > $expectedHeight) ? $largestSide = $expectedWidth : $largestSide = $expectedHeight;
                 $changelayer->resizeInPixel($largestSide, $largestSide);
                 $changelayer->cropInPixel($expectedWidth, $expectedHeight, 0, 0, 'MM');
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/200/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $expectedWidth = 230;
                 $expectedHeight = $height2;
                 ($expectedWidth > $expectedHeight) ? $largestSide = $expectedWidth : $largestSide = $expectedHeight;
                 $changelayer->resizeInPixel($largestSide, $largestSide);
                 $changelayer->cropInPixel($expectedWidth, $expectedHeight, 0, 0, 'MM');
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/230/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(45, 45);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/45/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(200, 200);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/200x200/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(150, 150);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/150x150/", $save_name, true, null, 95);
                 $theight = $actualHeight * (400 / $actualWidth);
                 $expectedWidth = 400;
                 $expectedHeight = $theight;
                 ($expectedWidth > $expectedHeight) ? $largestSide = $expectedWidth : $largestSide = $expectedHeight;
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel($largestSide, $largestSide);
                 $changelayer->cropInPixel($expectedWidth, $expectedHeight, 0, 0, 'MM');
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/400x/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(100, 100);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/thumb/", $save_name, true, null, 95);
 
-                
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $largeLayer->resizeInPixel(200, $height1, $conserveProportion, $positionX, $positionY, $position);
 
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/200/", $save_name, true, null, 95);
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $largeLayer->resizeInPixel(230, $height2, $conserveProportion, $positionX, $positionY, $position);
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/230/", $save_name, true, null, 95);
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $largeLayer->resizeInPixel(45, 45, $conserveProportion, $positionX, $positionY, $position);
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/45/", $save_name, true, null, 95);
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $largeLayer->resizeInPixel(200, 200, false);
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/200x200/", $save_name, true, null, 95);
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $largeLayer->resizeInPixel(150, 150, $conserveProportion, $positionX, $positionY, $position);
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/150x150/", $save_name, true, null, 95);
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $theight = $actualHeight * (400 / $actualWidth);
                 $largeLayer->resizeInPixel(400, $theight, FALSE, $positionX, $positionY, $position);
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/400x/", $save_name, true, null, 95);
-                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+                $largeLayer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $thumbLayer->resizeInPixel(100, $thumbHeight, $conserveProportion, $positionX, $positionY, $position);
                 $thumbLayer->save(Config::get('settings.uploadpath')  . "/Gallery/thumb", $save_name, true, null, 95);
-                
             } else {
                 if (Input::has('image_full_old')) {
                     $image = Input::get('image_full_old');
@@ -230,7 +233,8 @@ class RestGallery extends AdminController {
         }
     }
 
-    public function delete($image_ID = 0) {
+    public function delete($image_ID = 0)
+    {
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
@@ -243,7 +247,8 @@ class RestGallery extends AdminController {
         return Redirect::route('adminrestgallery/', $rest)->with('message', "Image deleted succesfully");
     }
 
-    function makeFeaturedImage($image = 0) {
+    function makeFeaturedImage($image = 0)
+    {
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
@@ -260,7 +265,8 @@ class RestGallery extends AdminController {
         }
     }
 
-    function unsetFeaturedImage($image = 0) {
+    function unsetFeaturedImage($image = 0)
+    {
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
@@ -276,8 +282,9 @@ class RestGallery extends AdminController {
             return Redirect::route('adminrestgallery/', $rest)->with('error', "Some error happened Please try again");
         }
     }
-    
-    public function videos($restID = 0) {
+
+    public function videos($restID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -291,7 +298,7 @@ class RestGallery extends AdminController {
         }
         $country = 1;
         $rest = $this->MRestActions->getRest($restID);
-        $lists = $lists = $this->MGallery->getAllVideos($country, $restID, 0, "",5000);
+        $lists = $lists = $this->MGallery->getAllVideos($country, $restID, 0, "", 5000);
 
         $data = array(
             'sitename' => $settings['name'],
@@ -303,14 +310,15 @@ class RestGallery extends AdminController {
             'lists' => $lists,
             'rest_ID' => $restID,
             'rest' => $rest,
-            'side_menu' => ['adminrestaurants','Add Restaurants'],
+            'side_menu' => ['adminrestaurants', 'Add Restaurants'],
         );
 
         // dd($data);
         return view('admin.partials.restaurantvideos', $data);
     }
-    
-    public function videoform($video_ID = 0) {
+
+    public function videoform($video_ID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -319,7 +327,6 @@ class RestGallery extends AdminController {
         if (Input::has('rest_ID')) {
             $rest_ID = Input::get('rest_ID');
         } else {
-            
         }
         $country = Session::get('admincountry');
         if (empty($country)) {
@@ -336,7 +343,7 @@ class RestGallery extends AdminController {
                 'action' => 'admingallery',
                 'rest' => $rest,
                 'rest_ID' => $rest_ID,
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         } else {
             $video = $this->MGallery->getRestVideo($video_ID);
@@ -350,13 +357,14 @@ class RestGallery extends AdminController {
                 'action' => 'admingallery',
                 'video' => $video,
                 'rest_ID' => $rest_ID,
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         }
         return view('admin.forms.restvideo', $data);
     }
-    
-    public function videosave() {
+
+    public function videosave()
+    {
         $rest = Input::get('rest_ID');
         $restaurant = $this->MRestActions->getRest($rest);
         $restname = stripslashes($restaurant->rest_Name);
@@ -366,42 +374,41 @@ class RestGallery extends AdminController {
                 $this->MRestActions->updateRestLastUpdatedOn($rest);
                 $this->MAdmins->addActivity('Video updated ' . $restname);
                 $this->MAdmins->addRestActivity('A new Video is added.', $restaurant->rest_ID, Input::get('id'));
-                return returnMsg('success','adminrestaurants/videos/','Video updated Successfully.',[$rest]);
+                return returnMsg('success', 'adminrestaurants/videos/', 'Video updated Successfully.', [$rest]);
             } else {
                 $last_inserted_id = $this->MGallery->addVideo();
                 $this->MRestActions->updateRestLastUpdatedOn($rest);
                 $this->MAdmins->addRestActivity('A new Video is added.', $restaurant->rest_ID, $last_inserted_id);
                 $this->MAdmins->addActivity('Video Added ' . $restname);
-                return returnMsg('success','adminrestaurants/videos/','Video Added Successfully.',[$rest]);
-
+                return returnMsg('success', 'adminrestaurants/videos/', 'Video Added Successfully.', [$rest]);
             }
         } else {
             show_404();
         }
     }
-    
-    public function videodelete($video_ID = 0) {
+
+    public function videodelete($video_ID = 0)
+    {
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
         } else {
-            return returnMsg('success','adminrestaurants', "something went wrong, Please try again.");
-
+            return returnMsg('success', 'adminrestaurants', "something went wrong, Please try again.");
         }
         $this->MGallery->deleteVideo($video_ID);
         $this->MRestActions->updateRestLastUpdatedOn($rest);
         $this->MAdmins->addActivity('Video deleted for ' . stripslashes(($rest_data->rest_Name)));
-        return returnMsg('success','adminrestaurants/videos/','Video deleted Successfully.',[$rest]);
-
+        return returnMsg('success', 'adminrestaurants/videos/', 'Video deleted Successfully.', [$rest]);
     }
-    
-    public function videostatus($id = 0) {
+
+    public function videostatus($id = 0)
+    {
         $status = 0;
         if (isset($_REQUEST['rest_ID']) && !empty($_REQUEST['rest_ID'])) {
             $rest = $_REQUEST['rest_ID'];
             $rest_data = $this->MRestActions->getRest($rest);
         } else {
-            return returnMsg('success','adminrestaurants', "something went wrong, Please try again.");
+            return returnMsg('success', 'adminrestaurants', "something went wrong, Please try again.");
         }
         $page = $this->MGallery->getRestVideo($id);
         if (count($page) > 0) {
@@ -416,11 +423,8 @@ class RestGallery extends AdminController {
 
             DB::table('rest_video')->where('id', $id)->update($data);
             $this->MAdmins->addActivity('Video Status changed successfully.' . $page->name_en);
-            return returnMsg('success','adminrestaurants/videos/','Video Status changed successfully.',[$rest]);
-
+            return returnMsg('success', 'adminrestaurants/videos/', 'Video Status changed successfully.', [$rest]);
         }
-        return returnMsg('error','adminrestaurants/videos/','something went wrong, Please try again.',[$rest]);
-
+        return returnMsg('error', 'adminrestaurants/videos/', 'something went wrong, Please try again.', [$rest]);
     }
-
 }

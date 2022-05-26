@@ -2,30 +2,32 @@
 
 use Yajra\DataTables\Facades\DataTables;
 
-class Rest extends AdminController {
+class Rest extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
-     
+
         $this->MGeneral = new MGeneral();
         $this->MRestActions = new MRestActions();
-      
+
         $this->MClients = new MClients();
-       
     }
 
-    public function index() {
-        
+    public function index()
+    {
+
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
-      
+
         $country = Session::get('admincountry');
         if (empty($country)) {
             $country = 1;
@@ -39,19 +41,20 @@ class Rest extends AdminController {
             'title' => 'All Restaurants',
             'action' => 'adminrestaurants',
             'country' => $country,
-            'side_menu' => array('Restaurant Mgmt','Restaurants'),
+            'side_menu' => array('Restaurant Mgmt', 'Restaurants'),
         );
 
         // dump($data);die;
         return view('admin.partials.restaurants', $data);
     }
-    public function getRestData(){
-         $district = "";
+    public function getRestData()
+    {
+        $district = "";
         $query = DB::table('restaurant_info');
-        $query->select('restaurant_info.*', "subscriptiontypes.accountName",DB::Raw('(select status FROM booking_management WHERE rest_id=restaurant_info.rest_ID Limit 1 ) AS membershipstatus'), DB::Raw("( SELECT getCuisineName(restaurant_info.rest_ID,'en') ) as cuisines"), DB::Raw("( SELECT getCityName(restaurant_info.rest_ID,'en') ) as cities"))
-        ->LeftJoin("subscriptiontypes","restaurant_info.rest_Subscription","=","subscriptiontypes.id");
+        $query->select('restaurant_info.*', "subscriptiontypes.accountName", DB::Raw('(select status FROM booking_management WHERE rest_id=restaurant_info.rest_ID Limit 1 ) AS membershipstatus'), DB::Raw("( SELECT getCuisineName(restaurant_info.rest_ID,'en') ) as cuisines"), DB::Raw("( SELECT getCityName(restaurant_info.rest_ID,'en') ) as cities"))
+            ->LeftJoin("subscriptiontypes", "restaurant_info.rest_Subscription", "=", "subscriptiontypes.id");
 
-      
+
         if (!in_array(0, adminCountry())) {
             $query->whereIn("restaurant_info.country",  adminCountry());
         }
@@ -59,16 +62,15 @@ class Rest extends AdminController {
             $query->where('restaurant_info.rest_Status', intval(get('status')));
         }
         if (get('city')) {
-            $query->join('rest_branches', function($join) {
+            $query->join('rest_branches', function ($join) {
                 $join->on('rest_branches.rest_fk_id', '=', 'restaurant_info.rest_ID');
             });
             $query->where('rest_branches.city_ID', '=', get('city'));
-           
         }
         if (get('rest_viewed') && get('rest_viewed') != 0) {
             $query->where('restaurant_info.rest_Viewed > ', get('rest_viewed'));
         }
-        if (get('cuisine')>0) {
+        if (get('cuisine') > 0) {
             $query->join('restaurant_cuisine', 'restaurant_cuisine.rest_ID', '=', 'restaurant_info.rest_ID');
             $query->where('restaurant_cuisine.cuisine_ID', '=', intval(get('cuisine')));
         }
@@ -82,114 +84,110 @@ class Rest extends AdminController {
         if (get('price')) {
             $query->where('restaurant_info.price_range', get('price'));
         }
-  
-         $sort=get('sort');
+
+        $sort = get('sort');
         if ($sort != "") {
             switch ($sort) {
-              
+
                 case 'latest':
                     $query->orderBy('restaurant_info.rest_RegisDate', 'DESC');
                     break;
                 case 'popular':
-                    $query->select('restaurant_info.*',DB::raw('(SELECT COUNT(likee_info.id) FROM likee_info WHERE likee_info.rest_ID=restaurant_info.rest_ID AND likee_info.status=1) as likes'), DB::Raw('(select status FROM booking_management WHERE rest_id=restaurant_info.rest_ID Limit 1 ) AS membershipstatus'), DB::Raw("( SELECT getCuisineName(restaurant_info.rest_ID,'en') ) as cuisines"), DB::Raw("( SELECT getCityName(restaurant_info.rest_ID,'en') ) as cities"));
+                    $query->select('restaurant_info.*', DB::raw('(SELECT COUNT(likee_info.id) FROM likee_info WHERE likee_info.rest_ID=restaurant_info.rest_ID AND likee_info.status=1) as likes'), DB::Raw('(select status FROM booking_management WHERE rest_id=restaurant_info.rest_ID Limit 1 ) AS membershipstatus'), DB::Raw("( SELECT getCuisineName(restaurant_info.rest_ID,'en') ) as cuisines"), DB::Raw("( SELECT getCityName(restaurant_info.rest_ID,'en') ) as cities"));
                     $query->orderBy('likes', 'DESC');
                     break;
                 case 'favorite':
-                    $query->where('restaurant_info.sufrati_favourite','>=', 1);
+                    $query->where('restaurant_info.sufrati_favourite', '>=', 1);
                     break;
             }
-        } 
-    
-  
+        }
+
+
         return  DataTables::of($query)
             ->addColumn('action', function ($rest) {
                 $btns =
-                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/form/',$rest->rest_ID).'" title="Edit Content"><i class="fa fa-edit"></i></a>';
-                    
+                    $btns = '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminrestaurants/form/', $rest->rest_ID) . '" title="Edit Content"><i class="fa fa-edit"></i></a>';
+
 
                 if ($rest->rest_Status == 0) {
 
-                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/status/',$rest->rest_ID).'" title="Activate "><i class="fa fa-check"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminrestaurants/status/', $rest->rest_ID) . '" title="Activate "><i class="fa fa-check"></i></a>';
                 } else {
-                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="'.route('adminrestaurants/status/',$rest->rest_ID).'" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminrestaurants/status/', $rest->rest_ID) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
                 }
-                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-btn" href="#" link="'.route('adminrestaurants/delete/',$rest->rest_ID).'" title="Delete"><i class="fa fa-trash"></i></a>';
+                $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-btn" href="#" link="' . route('adminrestaurants/delete/', $rest->rest_ID) . '" title="Delete"><i class="fa fa-trash"></i></a>';
                 if ($rest->rest_Status == 1) {
                     if ($rest->sufrati_favourite == 0) {
-                                                      
-                           $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminfavorites/favourite/', $rest->rest_ID).'" rel="tooltip" title="Add to Azooma Favourites">
+
+                        $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminfavorites/favourite/', $rest->rest_ID) . '" rel="tooltip" title="Add to Azooma Favourites">
                             <i class="fa fa-star"></i>
                         </a>';
-                     } else { 
-                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminfavorites/remove/', $rest->rest_ID) . '?rest=1'.'" rel="tooltip" title="Remove from Azooma Favourites">
+                    } else {
+                        $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminfavorites/remove/', $rest->rest_ID) . '?rest=1' . '" rel="tooltip" title="Remove from Azooma Favourites">
                             <i class="fa fa-heart"></i>
                         </a>';
-                    
                     }
-                    if (!isset($rest->membershipstatus) OR $rest->membershipstatus == "") {
-                        
-                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminrestaurants/newmember/',$rest->rest_ID).'" title="Make Azooma Member">
-                            <i class="fa '.($rest->rest_Subscription == "" ? 'fa-arrow-up' : 'fa-info').'"></i>
+                    if (!isset($rest->membershipstatus) or $rest->membershipstatus == "") {
+
+                        $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminrestaurants/newmember/', $rest->rest_ID) . '" title="Make Azooma Member">
+                            <i class="fa ' . ($rest->rest_Subscription == "" ? 'fa-arrow-up' : 'fa-info') . '"></i>
                         </a>';
-                       
                     } elseif (isset($rest->membershipstatus) && $rest->membershipstatus > 0) {
-                        
-                        $btns .='<a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminmembers/contacts/',$rest->rest_ID).'" title="Update Membership Contacts "><i class="fa fa-book"></i></a>
-                        <a class="btn btn-xs btn-info m-1 mytooltip" href="'.route('adminmembers/details/',$rest->rest_ID).'" title="Update Membership Details"><i class="fa fa-briefcase"></i></a>';
-                            
-                        }
+
+                        $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminmembers/contacts/', $rest->rest_ID) . '" title="Update Membership Contacts "><i class="fa fa-book"></i></a>
+                        <a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminmembers/details/', $rest->rest_ID) . '" title="Update Membership Details"><i class="fa fa-briefcase"></i></a>';
                     }
+                }
                 return $btns;
             })
             ->editColumn('rest_Name', function ($rest) {
-                $html='
-                <span class="'.($rest->rest_Status == 0?"line-through":"").' 
-                ' .($rest->is_read == 0? "new-row":"").'" >';
-                $html.=  stripslashes($rest->rest_Name) .'</span>';
+                $html = '
+                <span class="' . ($rest->rest_Status == 0 ? "line-through" : "") . ' 
+                ' . ($rest->is_read == 0 ? "new-row" : "") . '" >';
+                $html .=  stripslashes($rest->rest_Name) . '</span>';
                 return $html;
             })
             ->editColumn('cities', function ($rest) {
-                $html= '';
+                $html = '';
                 if (empty($rest->cities)) {
-                    $html= '-';
+                    $html = '-';
                 } else {
-                    $cities=explode(',',"".$rest->cities);
-                    $cities_list=[];
-                    foreach($cities as $k=>$v){
-                        if(!in_array($v,$cities_list))
-                        $cities_list[]=$v;
+                    $cities = explode(',', "" . $rest->cities);
+                    $cities_list = [];
+                    foreach ($cities as $k => $v) {
+                        if (!in_array($v, $cities_list))
+                            $cities_list[] = $v;
                     }
-                    $html.= implode(",", $cities_list);
+                    $html .= implode(",", $cities_list);
                 }
                 return $html;
             })
             ->editColumn('rest_Subscription', function ($rest) {
-                $html= '<span class="label p-1 ';
+                $html = '<span class="label p-1 ';
                 if ($rest->rest_Subscription == 0) {
-                    $html.= ' label-danger">Not a Member';
+                    $html .= ' label-danger">Not a Member';
                 } else {
                     switch ($rest->rest_Subscription) {
                         case 0:
-                            $html.= ' label-default">Free member';
+                            $html .= ' label-default">Free member';
                             break;
                         case 1;
-                        $html.= ' label-success">Bronze member';
+                            $html .= ' label-success">Bronze member';
                             break;
                         case 2:
-                            $html.= ' label-info">Silver member';
+                            $html .= ' label-info">Silver member';
                             break;
                         case 3:
-                            $html.= ' label-warning">Gold Member';
+                            $html .= ' label-warning">Gold Member';
                             break;
-                            default:
-                            $html .=  ' label-success p-1">'.$rest->accountName;                   
-                            
+                        default:
+                            $html .=  ' label-success p-1">' . $rest->accountName;
                     }
                 }
-                $html.= "</span>";
+                $html .= "</span>";
                 return $html;
             })
-    
+
 
             ->editColumn('lastUpdatedOn', function ($rest) {
                 if ($rest->lastUpdatedOn == "" || $rest->lastUpdatedOn == "0000-00-00 00:00:00") {
@@ -201,8 +199,9 @@ class Rest extends AdminController {
             ->make(true);
     }
 
-    public function form($id = 0) {
-        $id=intval($id);
+    public function form($id = 0)
+    {
+        $id = intval($id);
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -233,7 +232,7 @@ class Rest extends AdminController {
                 'bestfor' => $bestfor,
                 'css' => 'chosen',
                 'js' => 'chosen.jquery',
-                'side_menu' => ['Restaurant Mgmt','Restaurants'],
+                'side_menu' => ['Restaurant Mgmt', 'Restaurants'],
             );
             $data['restcuisines'] = $restcuisines = $this->MGeneral->getRestaurantCuisines($id);
             $data['restbestfors'] = $restbestfors = $this->MGeneral->getRestaurantBestFors($id);
@@ -253,14 +252,15 @@ class Rest extends AdminController {
                 'bestfor' => $bestfor,
                 'css' => 'chosen',
                 'js' => 'chosen.jquery',
-                'side_menu' => array('Restaurant Mgmt','Add Restaurants'),
+                'side_menu' => array('Restaurant Mgmt', 'Add Restaurants'),
             );
         }
 
         return view('admin.forms.restaurant', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         if (Input::get('rest_Name')) {
             $image = "";
             $actualWidth = "";
@@ -282,7 +282,7 @@ class Rest extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth < 150 && $actualHeight < 150) {
-                    return returnMsg('error','adminrestaurants','Image is very small. Please upload image which must be bigger than 200*200 width and height.');
+                    return returnMsg('error', 'adminrestaurants', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.');
                 }
                 $largeLayer->save(Config::get('settings.uploadpath') . "/logos/", $save_name, true, null, 95);
 
@@ -340,9 +340,9 @@ class Rest extends AdminController {
                 if (Input::get('ref')) {
                     $per_page = Input::get('per_page');
                     $limit = Input::get('limit');
-                    return returnMsg('success','adminrestaurants', stripslashes((post('rest_Name'))) . ' Restaurant Updated succesfully',[$rest]);
+                    return returnMsg('success', 'adminrestaurants', stripslashes((post('rest_Name'))) . ' Restaurant Updated succesfully', [$rest]);
                 } else {
-                    return returnMsg('success','adminrestaurants/form/', stripslashes((post('rest_Name'))) . ' Restaurant Updated succesfully',[$rest]);
+                    return returnMsg('success', 'adminrestaurants/form/', stripslashes((post('rest_Name'))) . ' Restaurant Updated succesfully', [$rest]);
                 }
             } else {
                 $rest = $this->MRestActions->addRestaurant($logo);
@@ -356,16 +356,15 @@ class Rest extends AdminController {
                     $this->MRestActions->addGroupRest($rest);
                 }
                 $this->MAdmins->addActivity('Added Restaurant ' . stripslashes(Input::get('rest_Name')));
-                return returnMsg('success','adminrestaurants/branches', stripslashes((post('rest_Name'))) . ' Restaurant added succesfully',[$rest]);
-
+                return returnMsg('success', 'adminrestaurants/branches', stripslashes((post('rest_Name'))) . ' Restaurant added succesfully', [$rest]);
             }
         } else {
-            return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
-
+            return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
         }
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = $this->MRestActions->getRest($id);
         if (count($page) > 0) {
@@ -376,29 +375,30 @@ class Rest extends AdminController {
             }
             $data = array(
                 'rest_Status' => $status,
-                "lastUpdatedOn"=>date("Y-m-d H:i:s")
+                "lastUpdatedOn" => date("Y-m-d H:i:s")
             );
 
             DB::table('restaurant_info')->where('rest_ID', $id)->update($data);
             $this->MAdmins->addActivity('Welcome Message Status changed successfully.' . $page->rest_Name);
-            return returnMsg('success','adminrestaurants',  "Welcome Message Status changed successfully.");
-
+            return returnMsg('success', 'adminrestaurants',  "Welcome Message Status changed successfully.");
         }
-        return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
+        return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = $this->MRestActions->getRest($id);
         if (count($page) > 0) {
             $this->MRestActions->deleteRest($id);
             $this->MAdmins->addActivity($page->rest_Name . ' deleted successfully.');
-            return returnMsg('success','adminrestaurants', $page->rest_Name . ' deleted successfully.');
+            return returnMsg('success', 'adminrestaurants', $page->rest_Name . ' deleted successfully.');
         }
-        return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
+        return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
     }
 
-    function comments($id = 0) {
+    function comments($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -424,12 +424,13 @@ class Rest extends AdminController {
             'overallcomments' => $overallcomments,
             'rating' => $rating,
             'lists' => $lists,
-            'side_menu' => ['adminrestaurants','Add Restaurants'],
+            'side_menu' => ['adminrestaurants', 'Add Restaurants'],
         );
         return view('admin.partials.restcommentspolls', $data);
     }
 
-    function emails() {
+    function emails()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -461,7 +462,7 @@ class Rest extends AdminController {
             'action' => 'adminrestaurants/emails',
             'MGeneral' => $this->MGeneral,
             // 'lists' => $lists,
-            'side_menu' => array('Restaurant Mgmt','Restaurant Emails'),
+            'side_menu' => array('Restaurant Mgmt', 'Restaurant Emails'),
         );
 
         return view('admin.partials.restemails', $data);
@@ -471,8 +472,8 @@ class Rest extends AdminController {
     {
         $query = DB::table('restaurant_info');
         // $query = MRestActions::select('rest_Name', 'lastUpdatedOn', 'your_Name', 
-            // DB::raw('( SELECT booking_management.email FROM booking_management WHERE booking_management.rest_id=restaurant_info.rest_ID) as booking'), 
-            // DB::raw('CONCAT(rest_Email, " ", your_Email) AS email'));
+        // DB::raw('( SELECT booking_management.email FROM booking_management WHERE booking_management.rest_id=restaurant_info.rest_ID) as booking'), 
+        // DB::raw('CONCAT(rest_Email, " ", your_Email) AS email'));
         if (!in_array(0, adminCountry())) {
             $query->where('rest_Email', '!=', '')->where('rest_Status', '=', '1')->orderBy('rest_Subscription', 'DESC');
         }
@@ -492,7 +493,7 @@ class Rest extends AdminController {
             ->editColumn('manager_emails', function ($list) {
                 return  trim(str_replace(" ", "<br>", str_replace(",", "<br>", $list->your_Email)));
             })
-            
+
             ->editColumn('updatedAt', function ($list) {
                 if ($list->lastUpdatedOn == "") {
                     return date('d/m/Y', strtotime($list->createdAt));
@@ -503,7 +504,8 @@ class Rest extends AdminController {
             ->make(true);
     }
 
-    function mostview() {
+    function mostview()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -521,7 +523,7 @@ class Rest extends AdminController {
             'title' => 'Most Restaurants Views',
             'action' => 'adminrestaurants/mostview',
             'MGeneral' => $this->MGeneral,
-            'side_menu' => array('Categories / Lists','Most Viewed'),
+            'side_menu' => array('Categories / Lists', 'Most Viewed'),
         );
         return view('admin.partials.restmostview', $data);
     }
@@ -532,59 +534,60 @@ class Rest extends AdminController {
         if (!in_array(0, adminCountry())) {
             $query->whereIn("country",  adminCountry());
         }
-        return  DataTables::of( $query)
+        return  DataTables::of($query)
             ->addColumn('restaurant', function ($list) {
                 $btns = '';
-                    $btns = stripslashes($list->rest_Name) . ' - ' . stripslashes($list->rest_Name_Ar);
+                $btns = stripslashes($list->rest_Name) . ' - ' . stripslashes($list->rest_Name_Ar);
 
                 return $btns;
             })
-           
+
             ->addColumn('total', function ($list) {
                 $btns = '<span class="label';
-                    if ($list->rest_Subscription == 0) {
-                        $btns .= ' label-danger">Not a Member';
-                    } else {
-                        switch ($list->rest_Subscription) {
-                            case 0:
-                                $btns .= ' label-default">Free member';
-                                break;
-                            case 1;
-                                $btns .= ' lable-success">Bronze member';
-                                break;
-                            case 2:
-                                $btns .= ' label-info">Silver member';
-                                break;
-                            case 3:
-                                $btns .= ' label-warning">Gold Member';
-                                break;
-                        }
+                if ($list->rest_Subscription == 0) {
+                    $btns .= ' label-danger">Not a Member';
+                } else {
+                    switch ($list->rest_Subscription) {
+                        case 0:
+                            $btns .= ' label-default">Free member';
+                            break;
+                        case 1;
+                            $btns .= ' lable-success">Bronze member';
+                            break;
+                        case 2:
+                            $btns .= ' label-info">Silver member';
+                            break;
+                        case 3:
+                            $btns .= ' label-warning">Gold Member';
+                            break;
                     }
-                    $btns .= "</span>";
-                    
+                }
+                $btns .= "</span>";
+
                 return $btns;
             })
 
             ->addColumn('membership_status', function ($list) {
-                
+
                 $btns = stripslashes(($list->rest_Viewed));
                 return $btns;
             })
 
             ->addColumn('last_update', function ($list) {
-                    if ($list->lastUpdatedOn == "") {
-                        $btns = date('d/m/Y', strtotime($list->createdAt));
-                    } else {
-                        $btns = date('d/m/Y', strtotime($list->lastUpdatedOn));
-                    }
+                if ($list->lastUpdatedOn == "") {
+                    $btns = date('d/m/Y', strtotime($list->createdAt));
+                } else {
+                    $btns = date('d/m/Y', strtotime($list->lastUpdatedOn));
+                }
 
                 return $btns;
             })
-            
+
             ->make(true);
     }
 
-    function newmember($id = 0) {
+    function newmember($id = 0)
+    {
         if ($id != 0) {
             $check = $this->MRestActions->check_user($id);
             if ($check == TRUE) {
@@ -621,16 +624,16 @@ class Rest extends AdminController {
             );
             return view('admin.partials.creatememberdetails', $data);
         } else {
-            return returnMsg('error','adminrestaurants',"something went wrong, Please try again.");
+            return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
         }
     }
 
-    function savemember($id = 0) {
+    function savemember($id = 0)
+    {
         if (Input::has('rest_ID')) {
             $check = $this->MRestActions->check_user($_POST['rest_ID']);
             if ($check == TRUE) {
-                return returnMsg('error','adminrestaurants/newmember/', "This restaurant has already an account",[post('rest_ID')]);
-
+                return returnMsg('error', 'adminrestaurants/newmember/', "This restaurant has already an account", [post('rest_ID')]);
             }
             $countryID = Session::get('admincountry');
             if (empty($countryID)) {
@@ -638,7 +641,7 @@ class Rest extends AdminController {
             }
             $country = MGeneral::getCountry($countryID);
             $rest = $this->MRestActions->getRest(Input::get('rest_ID'));
-            DB::table('restaurant_info')->where('rest_ID', '=', intval(Input::get('rest_ID')))->update(['rest_Status'=>1]);
+            DB::table('restaurant_info')->where('rest_ID', '=', intval(Input::get('rest_ID')))->update(['rest_Status' => 1]);
             $pass = "";
             $ref = "";
             $restname = stripslashes($rest->rest_Name);
@@ -704,34 +707,30 @@ class Rest extends AdminController {
                 $data['title'] = "Admin account";
                 $data['sitename'] = $settings['name'];
                 $subject = "Your admin account at Azooma";
-                try{
-                Mail::queue('emails.restaurant.memberaccountnew', $data, function($message) use ($subject, $userEmails, $sufratiUser) {
-                    $message->to($userEmails[0], 'Azooma')->subject($subject);
-                    $counter = 0;
-                    $ccemail = array();
-                    if (count($userEmails) > 1) {
-                        foreach ($userEmails as $emaillist) {
-                            if ($counter == 0) {
+                try {
+                    Mail::queue('emails.restaurant.memberaccountnew', $data, function ($message) use ($subject, $userEmails, $sufratiUser) {
+                        $message->to($userEmails[0], 'Azooma')->subject($subject);
+                        $counter = 0;
+                        $ccemail = array();
+                        if (count($userEmails) > 1) {
+                            foreach ($userEmails as $emaillist) {
+                                if ($counter == 0) {
+                                    $counter++;
+                                    continue;
+                                }
                                 $counter++;
-                                continue;
+                                $ccemail[] = $emaillist;
                             }
-                            $counter++;
-                            $ccemail[] = $emaillist;
+                            $message->cc($ccemail, 'Azooma')->subject($subject);
                         }
-                        $message->cc($ccemail, 'Azooma')->subject($subject);
-                    }
-                });
-                }
-                catch(Exception $e){
-                    return returnMsg('error','adminrestaurants', $e->getMessage());
-
+                    });
+                } catch (Exception $e) {
+                    return returnMsg('error', 'adminrestaurants', $e->getMessage());
                 }
 
-                return returnMsg('success','adminrestaurants', "Congratulation! " . stripslashes($_POST['rest_Name']) . ' is now Azooma Free Member, Email is sent to restaurant successfully');
+                return returnMsg('success', 'adminrestaurants', "Congratulation! " . stripslashes($_POST['rest_Name']) . ' is now Azooma Free Member, Email is sent to restaurant successfully');
             }
-            return returnMsg('error','adminrestaurants', "something went wrong, Please try again.");
-
+            return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
         }
     }
-
 }

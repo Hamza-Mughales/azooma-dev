@@ -2,19 +2,22 @@
 
 use Illuminate\Support\Facades\Input;
 
-class RestBranches extends AdminController {
+class RestBranches extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
         $this->MRestActions = new MRestActions();
     }
 
-    public function index($restID = 0) {
+    public function index($restID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -48,7 +51,7 @@ class RestBranches extends AdminController {
         $lists = $this->MRestActions->getAllBranches($restID, $city, $limit, $offset, false, $status);
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('District - City', 'Location', 'Number',"Status" ,'Last Updated', 'Actions'),
+            'headings' => array('District - City', 'Location', 'Number', "Status", 'Last Updated', 'Actions'),
             'pagetitle' => 'List of All Branches of ' . $rest->rest_Name,
             'title' => 'Branches of ' . $rest->rest_Name,
             'action' => 'adminrestaurants',
@@ -59,7 +62,8 @@ class RestBranches extends AdminController {
         return view('admin.partials.restaurantbranches', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -94,7 +98,7 @@ class RestBranches extends AdminController {
                 'moodsAtmosphere' => $moodsAtmosphere,
                 'css' => 'chosen',
                 'js' => 'chosen.jquery,admin/branchform',
-                'side_menu' => array('Restaurant Mgmt','Restaurants')
+                'side_menu' => array('Restaurant Mgmt', 'Restaurants')
             );
         } else {
             $data = array(
@@ -116,8 +120,9 @@ class RestBranches extends AdminController {
         return view('admin.forms.branch', $data);
     }
 
-    public function save() {
-       
+    public function save()
+    {
+
         if (Input::get('rest_Name')) {
             $rest = Input::get('rest_fk_id');
             if (Input::get('br_id')) {
@@ -135,11 +140,9 @@ class RestBranches extends AdminController {
                 if (Input::get('ref')) {
                     $per_page = Input::get('per_page');
                     $limit = Input::get('limit');
-                    return returnMsg('success','adminrestaurants/branches',"Branch added succesfully", [$rest]);
-
+                    return returnMsg('success', 'adminrestaurants/branches', "Branch added succesfully", [$rest]);
                 } else {
-                    return returnMsg('success','adminrestaurants/branches',"Branch updated succesfully", [$rest]);
-
+                    return returnMsg('success', 'adminrestaurants/branches', "Branch updated succesfully", [$rest]);
                 }
             } else {
                 $branch = $this->MRestActions->addBranch();
@@ -149,15 +152,15 @@ class RestBranches extends AdminController {
                 }
                 $this->MAdmins->addActivity('Branch Added ' . stripslashes(Input::get('rest_Name')));
                 $this->MAdmins->addRestActivity('We have opened our new branch.', $rest, $branch);
-                return returnMsg('success','adminrestaurants/branches',"Branch added succesfully", [$rest]);
-
+                return returnMsg('success', 'adminrestaurants/branches', "Branch added succesfully", [$rest]);
             }
         } else {
-            return returnMsg('error','adminrestaurants',"something went wrong, Please try again.");
+            return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
         }
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $rest = 0;
         if (isset($_REQUEST['rest_ID'])) {
@@ -176,25 +179,24 @@ class RestBranches extends AdminController {
             );
             DB::table('rest_branches')->where('br_id', $id)->update($data);
             $this->MAdmins->addActivity('Branch Status changed successfully.' . $page->br_loc);
-            return returnMsg('success','adminrestaurants/branches',  "Branch Status changed successfully.",[$rest]);
-
+            return returnMsg('success', 'adminrestaurants/branches',  "Branch Status changed successfully.", [$rest]);
         }
-        return returnMsg('error','adminrestaurants/branches',  "something went wrong, Please try again.",[get('rest_ID')]);
-
+        return returnMsg('error', 'adminrestaurants/branches',  "something went wrong, Please try again.", [get('rest_ID')]);
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
 
-            $saved=DB::table('rest_branches')->where('br_id', intval($id))->delete();
-            if($saved)
-            return returnMsg('success','adminrestaurants/branches', "Branch deleted successfully.",[get('rest_ID')]);
+        $saved = DB::table('rest_branches')->where('br_id', intval($id))->delete();
+        if ($saved)
+            return returnMsg('success', 'adminrestaurants/branches', "Branch deleted successfully.", [get('rest_ID')]);
 
-        
-        return returnMsg('error','adminrestaurants/branches',  "something went wrong, Please try again.",[get('rest_ID')]);
 
+        return returnMsg('error', 'adminrestaurants/branches',  "something went wrong, Please try again.", [get('rest_ID')]);
     }
 
-    public function images($br_id = 0) {
+    public function images($br_id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -240,7 +242,8 @@ class RestBranches extends AdminController {
         return view('admin.partials.brancheimages', $data);
     }
 
-    public function imageform($id = 0) {
+    public function imageform($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -292,7 +295,8 @@ class RestBranches extends AdminController {
         return view('admin.forms.branchimage', $data);
     }
 
-    public function imagesave() {
+    public function imagesave()
+    {
         Input::flash();
         $rest_ID = Input::get('rest_fk_id');
         $br_id = Input::get('br_id');
@@ -320,8 +324,7 @@ class RestBranches extends AdminController {
                 $actualHeight = $largeLayer->getHeight();
                 $ratio = $actualWidth / $actualHeight;
                 if ($actualWidth <= 400 && $actualHeight <= 400) {
-                    return returnMsg('error','adminrestaurants/branches/imageform',  'Image is very small. Please upload image which must be bigger than 200*200 width and height.',array('br_id' => $br_id, 'rest_ID' => $rest_ID));
-
+                    return returnMsg('error', 'adminrestaurants/branches/imageform',  'Image is very small. Please upload image which must be bigger than 200*200 width and height.', array('br_id' => $br_id, 'rest_ID' => $rest_ID));
                 }
                 $largeLayer->save(Config::get('settings.uploadpath')  . "/Gallery/fullsize/", $save_name, true, null, 80);
                 $text_font = $restData->rest_Name . '-' . Input::get('title') . '- azooma.co';
@@ -330,9 +333,9 @@ class RestBranches extends AdminController {
                 $largeLayer->addLayerOnTop($textLayer, 20, 40, "RB");
                 if (($actualWidth > 800)) {
                     $largeLayer->resizeInPixel(800, null, $conserveProportion, $positionX, $positionY, $position);
-                }else{
-                    if($actualHeight>500){
-                        $largeLayer->resizeInPixel(null, 500, $conserveProportion, $positionX, $positionY, $position);  
+                } else {
+                    if ($actualHeight > 500) {
+                        $largeLayer->resizeInPixel(null, 500, $conserveProportion, $positionX, $positionY, $position);
                     }
                 }
 
@@ -340,44 +343,43 @@ class RestBranches extends AdminController {
 
                 $height1 = round($actualHeight * (200 / $actualWidth));
                 $height2 = round($actualHeight * (230 / $actualWidth));
-                
-                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath')."/Gallery/".$save_name);
+
+                $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/Gallery/" . $save_name);
                 $layer->cropMaximumInPixel(0, 0, "MM");
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $expectedWidth = 200;
                 $expectedHeight = $height1;
                 ($expectedWidth > $expectedHeight) ? $largestSide = $expectedWidth : $largestSide = $expectedHeight;
                 $changelayer->resizeInPixel($largestSide, $largestSide);
                 $changelayer->cropInPixel($expectedWidth, $expectedHeight, 0, 0, 'MM');
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/200/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $expectedWidth = 230;
                 $expectedHeight = $height2;
                 ($expectedWidth > $expectedHeight) ? $largestSide = $expectedWidth : $largestSide = $expectedHeight;
                 $changelayer->resizeInPixel($largestSide, $largestSide);
                 $changelayer->cropInPixel($expectedWidth, $expectedHeight, 0, 0, 'MM');
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/230/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(45, 45);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/45/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(200, 200);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/200x200/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(150, 150);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/150x150/", $save_name, true, null, 95);
                 $theight = $actualHeight * (400 / $actualWidth);
                 $expectedWidth = 400;
                 $expectedHeight = $theight;
                 ($expectedWidth > $expectedHeight) ? $largestSide = $expectedWidth : $largestSide = $expectedHeight;
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel($largestSide, $largestSide);
                 $changelayer->cropInPixel($expectedWidth, $expectedHeight, 0, 0, 'MM');
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/400x/", $save_name, true, null, 95);
-                $changelayer=clone $layer;
+                $changelayer = clone $layer;
                 $changelayer->resizeInPixel(100, 100);
                 $changelayer->save(Config::get('settings.uploadpath')  . "/Gallery/thumb/", $save_name, true, null, 95);
-                
             } elseif (isset($_POST['branch_image_old'])) {
                 $image = Input::get('branch_image_old');
             }
@@ -394,21 +396,20 @@ class RestBranches extends AdminController {
                 $image_ID = Input::get('image_ID');
                 $this->MRestActions->updateBranchImage($image_ID, $image, $title, $title_ar, $ratio, $actualWidth);
                 $this->MRestActions->updateRestLastUpdatedOn($rest_ID);
-                return returnMsg('success','adminrestaurants/branches/images/', 'Branch Image updated succesfully',array('id' => $br_id, 'rest_ID' => $rest_ID));
-
+                return returnMsg('success', 'adminrestaurants/branches/images/', 'Branch Image updated succesfully', array('id' => $br_id, 'rest_ID' => $rest_ID));
             } else {
                 $this->MRestActions->addBranchImage($image, $title, $title_ar, $ratio, $actualWidth);
                 $this->MRestActions->updateRestLastUpdatedOn($rest_ID);
-                return returnMsg('success','adminrestaurants/branches/images/', 'Branch Image Added succesfully',array('id' => $br_id, 'rest_ID' => $rest_ID));
-
+                return returnMsg('success', 'adminrestaurants/branches/images/', 'Branch Image Added succesfully', array('id' => $br_id, 'rest_ID' => $rest_ID));
             }
-            return returnMsg('error','adminrestaurants/branches/imageform',  "something went wrong, Please try again.",array('br_id' => $br_id, 'rest_ID' => $rest_ID));
+            return returnMsg('error', 'adminrestaurants/branches/imageform',  "something went wrong, Please try again.", array('br_id' => $br_id, 'rest_ID' => $rest_ID));
         } else {
-            return returnMsg('error','adminrestaurants/branches/imageform',  "something went wrong, Please try again.",array('br_id' => $br_id, 'rest_ID' => $rest_ID));
+            return returnMsg('error', 'adminrestaurants/branches/imageform',  "something went wrong, Please try again.", array('br_id' => $br_id, 'rest_ID' => $rest_ID));
         }
     }
 
-    public function imagestatus($id = 0) {
+    public function imagestatus($id = 0)
+    {
         $status = 0;
         $rest = 0;
         $br_id = 0;
@@ -431,13 +432,13 @@ class RestBranches extends AdminController {
             );
             DB::table('image_gallery')->where('image_ID', $id)->update($data);
             $this->MAdmins->addActivity('Branch Image Status changed successfully.' . $page->title);
-            return returnMsg('success','adminrestaurants/branches/images/', "Branch Status changed successfully.",array('id' => $br_id, 'rest_ID' => $rest));
-
+            return returnMsg('success', 'adminrestaurants/branches/images/', "Branch Status changed successfully.", array('id' => $br_id, 'rest_ID' => $rest));
         }
-        return returnMsg('error','adminrestaurants/branches/images/', "something went wrong, Please try again.",array('id' => $br_id, 'rest_ID' => $rest));
+        return returnMsg('error', 'adminrestaurants/branches/images/', "something went wrong, Please try again.", array('id' => $br_id, 'rest_ID' => $rest));
     }
 
-    public function imagedelete($id = 0) {
+    public function imagedelete($id = 0)
+    {
         $rest = 0;
         $br_id = 0;
         if (isset($_REQUEST['rest_ID'])) {
@@ -450,11 +451,8 @@ class RestBranches extends AdminController {
         if (count($page) > 0) {
             $this->MRestActions->deleteImage($id);
             $this->MAdmins->addActivity('Welcome Message deleted successfully.' . $page->title);
-            return returnMsg('success','adminrestaurants/branches/images/', "Branch Image deleted successfully.",array('id' => $br_id, 'rest_ID' => $rest));
-
+            return returnMsg('success', 'adminrestaurants/branches/images/', "Branch Image deleted successfully.", array('id' => $br_id, 'rest_ID' => $rest));
         }
-        return returnMsg('error','adminrestaurants/branches/images/', "something went wrong, Please try again.",array('id' => $br_id, 'rest_ID' => $rest));
-
+        return returnMsg('error', 'adminrestaurants/branches/images/', "something went wrong, Please try again.", array('id' => $br_id, 'rest_ID' => $rest));
     }
-
 }

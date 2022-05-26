@@ -1,8 +1,10 @@
 <?php
 
-class Pages extends AdminController {
+class Pages extends AdminController
+{
 
-    public function index() {
+    public function index()
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -57,13 +59,14 @@ class Pages extends AdminController {
             'deletelink' => 'adminpages/delete',
             'addlink' => 'adminpages/form',
             'lists' => $lists,
-            'side_menu' => array('Corporate Pages','Information Pages'),
+            'side_menu' => array('Corporate Pages', 'Information Pages'),
         );
 
         return view('admin.partials.restTeam', $data);
     }
 
-    public function form($id = 0) {
+    public function form($id = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -77,14 +80,14 @@ class Pages extends AdminController {
                 'pagetitle' => $page->title,
                 'title' => $page->title,
                 'page' => $page,
-                'side_menu' => array('Corporate Pages','Information Pages'),
+                'side_menu' => array('Corporate Pages', 'Information Pages'),
             );
         } else {
             $data = array(
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Static Page',
                 'title' => 'New Static Page',
-                'side_menu' => array('Corporate Pages','Information Pages'),
+                'side_menu' => array('Corporate Pages', 'Information Pages'),
             );
         }
 
@@ -92,7 +95,8 @@ class Pages extends AdminController {
         return view('admin.forms.page', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $status = 0;
         $url = "";
         $url = Str::slug(Input::get('title'));
@@ -121,11 +125,12 @@ class Pages extends AdminController {
         } else {
             DB::table('contents')->insert($data);
         }
-        
-        return returnMsg('success','adminpages',"Your data has been save successfully.");
+
+        return returnMsg('success', 'adminpages', "Your data has been save successfully.");
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $page = Contents::find($id);
         if (count($page) > 0) {
@@ -140,23 +145,23 @@ class Pages extends AdminController {
             );
 
             DB::table('contents')->where('id', $id)->update($data);
-            
-            return returnMsg('success','adminpages',"Your data has been save successfully.");
+
+            return returnMsg('success', 'adminpages', "Your data has been save successfully.");
         }
-        
-        return returnMsg('error','adminpages',"something went wrong, Please try again.");
+
+        return returnMsg('error', 'adminpages', "something went wrong, Please try again.");
     }
 
-    public function delete($id = 0) {
+    public function delete($id = 0)
+    {
         $status = 0;
         $page = Contents::find($id);
         if (count($page) > 0) {
             Contents::destroy($id);
-            
-            return returnMsg('success','adminpages',"Your data has been save successfully.");
-        }
-        
-        return returnMsg('success','adminpages',"something went wrong, Please try again.");
-    }
 
+            return returnMsg('success', 'adminpages', "Your data has been save successfully.");
+        }
+
+        return returnMsg('success', 'adminpages', "something went wrong, Please try again.");
+    }
 }

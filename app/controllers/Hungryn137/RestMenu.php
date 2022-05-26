@@ -1,18 +1,21 @@
 <?php
 
-class RestMenu extends AdminController {
+class RestMenu extends AdminController
+{
 
     protected $MAdmins;
     protected $MGeneral;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->MAdmins = new Admin();
         $this->MGeneral = new MGeneral();
         $this->MRestActions = new MRestActions();
     }
 
-    public function index($restID = 0) {
+    public function index($restID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -59,7 +62,7 @@ class RestMenu extends AdminController {
                 'lists' => $lists,
                 'menu_id' => $menu_id,
                 'rest' => $rest,
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         } else {
             $lists = $this->MRestActions->getAllMenu($restID, $limit);
@@ -72,13 +75,14 @@ class RestMenu extends AdminController {
                 'menuAction' => 'menu',
                 'lists' => $lists,
                 'rest' => $rest,
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         }
         return view('admin.partials.restaurantmenu', $data);
     }
 
-    public function form($rest_ID = 0) {
+    public function form($rest_ID = 0)
+    {
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -105,7 +109,7 @@ class RestMenu extends AdminController {
             'sitename' => $settings['name'],
             'rest' => $rest,
             'js' => 'chosen.jquery,admin/branchform',
-            'side_menu' => ['adminrestaurants','Add Restaurants']
+            'side_menu' => ['adminrestaurants', 'Add Restaurants']
         );
 
         if (isset($_GET['cat']) && ($_GET['cat'] != "")) {
@@ -119,7 +123,7 @@ class RestMenu extends AdminController {
                 $data['pagetitle'] = 'New - ' . stripslashes($cat->cat_name);
                 $data['title'] = 'New - ' . stripslashes($cat->cat_name);
             }
-        } elseif (isset($_GET['menu_id']) && ($_GET['menu_id'] != "") && ( isset($_GET['cat_id']) && ( $_GET['cat_id'] != "" || $_GET['cat_id'] == "0" ) )) {
+        } elseif (isset($_GET['menu_id']) && ($_GET['menu_id'] != "") && (isset($_GET['cat_id']) && ($_GET['cat_id'] != "" || $_GET['cat_id'] == "0"))) {
             $data['category'] = 1;
             $data['menuList'] = $this->MRestActions->getAllMenu($rest_ID);
             if (isset($_GET['cat_id']) && (empty($_GET['cat_id']))) {
@@ -144,7 +148,8 @@ class RestMenu extends AdminController {
         return view('admin.forms.menu', $data);
     }
 
-    public function save() {
+    public function save()
+    {
         $option = Input::get('menuActionSave');
         if ($option == "menu") {
             $rest = Input::get('rest_ID');
@@ -154,15 +159,14 @@ class RestMenu extends AdminController {
                     $this->MRestActions->updateMenu();
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu Type updated for ' . stripslashes(($rest_data->rest_Name)));
-                    return returnMsg('success','adminrestmenu/', 'Menu Type updated successfully',[ $rest]);
+                    return returnMsg('success', 'adminrestmenu/', 'Menu Type updated successfully', [$rest]);
                 } else {
                     $last_insert_id = $this->MRestActions->addMenu();
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MRestActions->updateMenuCats($rest, $last_insert_id);
                     $this->MAdmins->addActivity('Menu Type added for ' . stripslashes(($rest_data->rest_Name)));
                     $this->MAdmins->addRestActivity('A New Menu Type is added.', $rest_data->rest_ID, $last_insert_id);
-                    return returnMsg('success','adminrestmenu/', 'Menu Type added successfully',[ $rest]);
-
+                    return returnMsg('success', 'adminrestmenu/', 'Menu Type added successfully', [$rest]);
                 }
             } else {
                 show_404();
@@ -176,19 +180,16 @@ class RestMenu extends AdminController {
                     $this->MRestActions->updateMenuCat();
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu Category updated for ' . stripslashes(($rest_data->rest_Name)));
-                    return returnMsg('success','adminrestmenu/', 'Menu Category updated successfully',array('id' => $rest, 'cat_id' => post('cat_id'), 'menu_id' => post('menu_id')));
-
+                    return returnMsg('success', 'adminrestmenu/', 'Menu Category updated successfully', array('id' => $rest, 'cat_id' => post('cat_id'), 'menu_id' => post('menu_id')));
                 } else {
                     $last_inserted_id = $this->MRestActions->addMenuCat();
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu Category added for ' . stripslashes(($rest_data->rest_Name)));
                     $this->MAdmins->addRestActivity('A New Menu Category is added', $rest_data->rest_ID, $last_inserted_id);
-                    return returnMsg('success','adminrestmenu/', 'Menu Category added successfully',array('id' => $rest, 'cat_id' => $last_inserted_id, 'menu_id' => post('menu_id')));
-
+                    return returnMsg('success', 'adminrestmenu/', 'Menu Category added successfully', array('id' => $rest, 'cat_id' => $last_inserted_id, 'menu_id' => post('menu_id')));
                 }
             } else {
-                return returnMsg('error','adminrestmenu/',  "something went wrong, Please try again.",array( $rest));
-
+                return returnMsg('error', 'adminrestmenu/',  "something went wrong, Please try again.", array($rest));
             }
         }
         if ($option == "menuitem") {
@@ -213,29 +214,27 @@ class RestMenu extends AdminController {
                     $actualWidth = $largeLayer->getWidth();
                     $actualHeight = $largeLayer->getHeight();
                     if ($actualWidth < 200 && $actualHeight < 200) {
-                        return returnMsg('error','adminrestmenu/', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.',array('id' => $rest, 'cat_id' => $cat,'menu_id' => $menu_id, 'item' => $cat));
-
+                        return returnMsg('error', 'adminrestmenu/', 'Image is very small. Please upload image which must be bigger than 200*200 width and height.', array('id' => $rest, 'cat_id' => $cat, 'menu_id' => $menu_id, 'item' => $cat));
                     }
-                    
-                    
-                    
+
+
+
                     $text_font = $rest_data->rest_Name . '-' . Input::get('menu_item') . '- azooma.co';
                     $textLayer = PHPImageWorkshop\ImageWorkshop::initTextLayer($text_font, public_path() . '/fonts/text.ttf', 13, 'ffffff', 0);
                     $textLayer->opacity(75);
                     $largeLayer->addLayerOnTop($textLayer, 20, 40, "RB");
                     $largeLayer->save(Config::get('settings.uploadpath') . "/images/menuItem/", $save_name, true, null, 80);
-                    
+
                     $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/images/menuItem/" . $save_name);
                     $changelayer = clone $layer;
                     $changelayer->resizeInPixel(500, null);
                     $changelayer->save(Config::get('settings.uploadpath') . "/images/menuItem/", $save_name, true, null, 95);
-                    
+
                     $layer = PHPImageWorkshop\ImageWorkshop::initFromPath(Config::get('settings.uploadpath') . "/images/menuItem/" . $save_name);
                     $layer->cropMaximumInPixel(0, 0, "MM");
                     $changelayer = clone $layer;
                     $changelayer->resizeInPixel(100, 100);
                     $changelayer->save(Config::get('settings.uploadpath') . "/images/menuItem/thumb/", $save_name, true, null, 95);
-
                 } else {
                     $image = (Input::get('menuItem_image_old'));
                 }
@@ -244,23 +243,22 @@ class RestMenu extends AdminController {
                     $this->MRestActions->updateMenuItem($image);
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu updated for ' . stripslashes(($rest_data->rest_Name)));
-                    return returnMsg('success','adminrestmenu/', 'Menu Item Updated successfully',array('id' => $rest, 'cat_id' => $cat,'menu_id' => $menu_id, 'item' => $cat));
-
+                    return returnMsg('success', 'adminrestmenu/', 'Menu Item Updated successfully', array('id' => $rest, 'cat_id' => $cat, 'menu_id' => $menu_id, 'item' => $cat));
                 } else {
                     $last_inserted_id = $this->MRestActions->addMenuItem($image);
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu added for ' . stripslashes(($rest_data->rest_Name)));
                     $this->MAdmins->addRestActivity('A New Menu Item is added.', $rest_data->rest_ID, $last_inserted_id);
-                    return returnMsg('success','adminrestmenu/', 'Menu Item Added successfully',array('id' => $rest, 'cat_id' => $cat,'menu_id' => $menu_id, 'item' => $cat));
-
+                    return returnMsg('success', 'adminrestmenu/', 'Menu Item Added successfully', array('id' => $rest, 'cat_id' => $cat, 'menu_id' => $menu_id, 'item' => $cat));
                 }
             } else {
-                return returnMsg('error','adminrestmenu/',  "something went wrong, Please try again.",array( $rest));
+                return returnMsg('error', 'adminrestmenu/',  "something went wrong, Please try again.", array($rest));
             }
         }
     }
 
-    public function status($id = 0) {
+    public function status($id = 0)
+    {
         $status = 0;
         $rest = 0;
         if (isset($_REQUEST['rest_ID'])) {
@@ -279,48 +277,45 @@ class RestMenu extends AdminController {
             );
             DB::table('rest_branches')->where('br_id', $id)->update($data);
             $this->MAdmins->addActivity('Branch Status changed successfully.' . $page->br_loc);
-            return returnMsg('success','adminrestmenu/',  "Branch Status changed successfully.",array( $rest));
-
+            return returnMsg('success', 'adminrestmenu/',  "Branch Status changed successfully.", array($rest));
         }
-        return returnMsg('error','adminrestmenu/',  "something went wrong, Please try again.",array( $rest));
-
+        return returnMsg('error', 'adminrestmenu/',  "something went wrong, Please try again.", array($rest));
     }
 
-    public function delete($rest = 0) {
+    public function delete($rest = 0)
+    {
         if (!empty($rest)) {
             $rest_data = $this->MRestActions->getRest($rest);
         } else {
-            return returnMsg('error','adminrestmenu/',  "something went wrong, Please try again.",array( $rest));
+            return returnMsg('error', 'adminrestmenu/',  "something went wrong, Please try again.", array($rest));
         }
 
         if (isset($_GET['menu_id']) && !isset($_GET['cat_id']) && !isset($_GET['item'])) {
             $this->MRestActions->deleteMenu(($_GET['menu_id']), $rest);
             $this->MRestActions->updateRestLastUpdatedOn($rest);
             $this->MAdmins->addActivity('Menu deleted for ' . stripslashes(($rest_data->rest_Name)));
-            return returnMsg('success','adminrestmenu/',  "Menu deleted successfully",array( $rest));
-
+            return returnMsg('success', 'adminrestmenu/',  "Menu deleted successfully", array($rest));
         } elseif (isset($_GET['menu_id']) && isset($_GET['cat_id'])) {
             $cat_id = ($_GET['cat_id']);
             $menu_id = ($_GET['menu_id']);
             $this->MRestActions->deleteMenuCat($cat_id, $menu_id, $rest);
             $this->MRestActions->updateRestLastUpdatedOn($rest);
             $this->MAdmins->addActivity('Menu deleted for ' . stripslashes(($rest_data->rest_Name)));
-            return returnMsg('success','adminrestmenu/', "Menu Category deleted successfully",array('id' => $rest, 'cat_id' => $cat_id, 'menu_id' => $menu_id));
-
+            return returnMsg('success', 'adminrestmenu/', "Menu Category deleted successfully", array('id' => $rest, 'cat_id' => $cat_id, 'menu_id' => $menu_id));
         } elseif (isset($_GET['cat'])) {
             $this->MRestActions->deleteMenuItem(($_GET['item']));
             $this->MRestActions->updateRestLastUpdatedOn($rest);
             $this->MAdmins->addActivity('Menu item deleted for ' . stripslashes(($rest_data->rest_Name)));
-            return returnMsg('success','adminrestmenu/', "Menu item deleted successfully",array('id' => $rest, 'item' => get('cat'), 'cat_id' =>get('cat'), 'menu_id' => get('menu_id')));
-
+            return returnMsg('success', 'adminrestmenu/', "Menu item deleted successfully", array('id' => $rest, 'item' => get('cat'), 'cat_id' => get('cat'), 'menu_id' => get('menu_id')));
         } else {
             redirect('hungryn137/menu?rest=' . $rest);
         }
     }
 
-    public function pdf($rest_ID = 0) {
+    public function pdf($rest_ID = 0)
+    {
         if (empty($rest_ID)) {
-            return returnMsg('success','adminrestaurants',"something went wrong, Please try again.");
+            return returnMsg('success', 'adminrestaurants', "something went wrong, Please try again.");
         }
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -338,17 +333,18 @@ class RestMenu extends AdminController {
             'menuRequest' => $this->MRestActions->getNewMenuRequest($rest_ID, 1),
             'rest_ID' => $rest_ID,
             'rest' => $rest,
-            'side_menu' => ['adminrestaurants','Add Restaurants']
+            'side_menu' => ['adminrestaurants', 'Add Restaurants']
         );
 
         return view('admin.partials.menupdf', $data);
     }
 
-    public function formpdf($pdf = 0) {
+    public function formpdf($pdf = 0)
+    {
         if (isset($_GET['rest']) && ($_GET['rest'] != "")) {
             $rest_ID = ($_GET['rest']);
         } else {
-            return returnMsg('error','adminrestaurants',"something went wrong, Please try again.");
+            return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
         }
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
@@ -366,7 +362,7 @@ class RestMenu extends AdminController {
                 'rest_ID' => $rest_ID,
                 'rest' => $rest,
                 'js' => 'chosen.jquery,admin/branchform',
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         } else {
             $data = array(
@@ -379,13 +375,14 @@ class RestMenu extends AdminController {
                 'rest_ID' => $rest_ID,
                 'menupdf' => $this->MRestActions->getPDFMenu($pdf),
                 'js' => 'chosen.jquery,admin/branchform',
-                'side_menu' => ['adminrestaurants','Add Restaurants'],
+                'side_menu' => ['adminrestaurants', 'Add Restaurants'],
             );
         }
         return view('admin.forms.menupdf', $data);
     }
 
-    public function savepdf() {
+    public function savepdf()
+    {
         if (Input::get('rest_ID')) {
             $rest = Input::get('rest_ID');
             if (Input::get('title')) {
@@ -412,8 +409,7 @@ class RestMenu extends AdminController {
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu updated for ' . stripslashes((Input::get('rest_Name'))));
                     $this->MAdmins->addRestActivity('A New PDF Menu is Added.', $rest, Input::get('id'));
-                    return returnMsg('success','adminrestmenu/pdf/',"Menu updated successfully",[$rest]);
-
+                    return returnMsg('success', 'adminrestmenu/pdf/', "Menu updated successfully", [$rest]);
                 } else {
                     if (is_uploaded_file($_FILES['menu']['tmp_name'])) {
                         $menu = $this->upload_pdf('menu', menu_pdf_path());
@@ -428,17 +424,16 @@ class RestMenu extends AdminController {
                     $this->MRestActions->updateRestLastUpdatedOn($rest);
                     $this->MAdmins->addActivity('Menu Added for ' . stripslashes((Input::get('rest_Name'))));
                     $this->MAdmins->addRestActivity('A New PDF Menu is added.', $rest, $last_inserted_id);
-                    return returnMsg('success','adminrestmenu/pdf/',"Menu Added successfully",[$rest]);
-
+                    return returnMsg('success', 'adminrestmenu/pdf/', "Menu Added successfully", [$rest]);
                 }
             }
         } else {
-            return returnMsg('success','adminrestaurants',"something went wrong, Please try again.");
-
+            return returnMsg('success', 'adminrestaurants', "something went wrong, Please try again.");
         }
     }
 
-    public function notified() {
+    public function notified()
+    {
         if (isset($_GET['rest']) && ($_GET['rest'] != "")) {
             $rest = ($_GET['rest']);
             $is_pdf = 0;
@@ -485,7 +480,6 @@ class RestMenu extends AdminController {
                 $this->MRestActions->updateNewMenuRequest($rest);
                 $this->session->set_flashdata('message', 'Notification send successfully');
                 redirect('hungryn137/menu?rest=' . $rest);
-
             } else {
                 $this->session->set_flashdata('message', 'Some error happen please try again');
                 redirect('hungryn137/menu?rest=' . $rest);
@@ -496,26 +490,25 @@ class RestMenu extends AdminController {
         }
     }
 
-    public function deletepdf($pdf = 0) {
+    public function deletepdf($pdf = 0)
+    {
         if (isset($_GET['rest']) && ($_GET['rest'] != "")) {
             $rest = ($_GET['rest']);
         } else {
-            return returnMsg('success','adminrestaurants',"something went wrong, Please try again.");
-
+            return returnMsg('success', 'adminrestaurants', "something went wrong, Please try again.");
         }
         $this->MRestActions->deleteMenuPDF($pdf);
         $rest_data = $this->MRestActions->getRest($rest);
         $this->MAdmins->addActivity('Menu deleted for ' . stripslashes(($rest_data->rest_Name)));
-        return returnMsg('success','adminrestmenu/pdf/',"PDF Menu deleted successfully",[$rest]);
-
-        
+        return returnMsg('success', 'adminrestmenu/pdf/', "PDF Menu deleted successfully", [$rest]);
     }
 
-    function upload_pdf($name, $directory) {
+    function upload_pdf($name, $directory)
+    {
         $uploadDir = $directory;
         // ======================= upload 1 ===========================
         if ($_FILES[$name]['name'] != '' && $_FILES[$name]['name'] != 'none') {
-            $uploadFile_1 = uniqid('sufrati') . "_menu".time().rand(1,99).'.'.pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
+            $uploadFile_1 = uniqid('sufrati') . "_menu" . time() . rand(1, 99) . '.' . pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
             $uploadFile1 = $uploadDir . $uploadFile_1;
             if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploadFile1)) {
                 //print "File is valid, and was successfully uploaded. \n\n ";
@@ -527,7 +520,8 @@ class RestMenu extends AdminController {
             return null;
     }
 
-    public function savePdfAsImage($fname, $directory, $savedir) {
+    public function savePdfAsImage($fname, $directory, $savedir)
+    {
         $filename = $directory . $fname;
         if ($fname != "" && file_exists($filename)) {
             $pdf = $filename;
@@ -546,7 +540,8 @@ class RestMenu extends AdminController {
         }
     }
 
-    public function getNumPagesPdf($filepath) {
+    public function getNumPagesPdf($filepath)
+    {
 
         $fp = @fopen(preg_replace("/\[(.*?)\]/i", "", $filepath), "r");
         if ($fp) {
@@ -560,7 +555,7 @@ class RestMenu extends AdminController {
                 }
             }
             fclose($fp);
-        }else {
+        } else {
             // return 2;
         }
         if ($max == 0) {
@@ -570,5 +565,4 @@ class RestMenu extends AdminController {
 
         return $max;
     }
-
 }
