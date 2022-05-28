@@ -572,6 +572,7 @@ Route::group(array('prefix' => 'hungryn137'), function () {
 
     Route::get('adminusers/view/{id}', array('as' => 'adminusers/view/', 'uses' => 'AdminUsers@view'));
     Route::get('adminusers/delete/{id}', array('as' => 'adminusers/delete/', 'uses' => 'AdminUsers@userDelete'));
+    Route::post('adminusers/multiDelete', array('as' => 'adminusersMultiDelete', 'uses' => 'AdminUsers@multiDelete'));
 
     Route::get('adminrestmanagers', array('as' => 'adminrestmanagers', 'uses' => 'Rest@emails'));
 

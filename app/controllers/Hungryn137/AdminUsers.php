@@ -64,6 +64,10 @@ class AdminUsers extends AdminController
             ->editcolumn('user_Email', function ($row) {
                 return stripslashes($row->user_Email);
             })
+            ->editcolumn('select', function ($row) {
+                $select = '<input type="checkbox" class="check-class" name="ids[]" value="'.$row->user_ID.'">';
+                return $select;
+            })
             ->make(true);
     }
     public function view($id = 0)
@@ -96,6 +100,24 @@ class AdminUsers extends AdminController
             DB::table('user')->where('user_ID', $id)->delete();
 
             return returnMsg('success', 'adminusers', 'User deleted succesfully.');
+        }
+
+        return returnMsg('error', 'adminusers', 'Something went wrong, Please try again.');
+    }
+
+
+    public function multiDelete()
+    {
+        if (post('ids')) {
+            
+            $users = intval(DB::table('user')->whereIn('user_ID', post('ids'))->count());
+            
+            if ($users > 0) {
+                
+                DB::table('user')->whereIN('user_ID', post('ids'))->delete();
+                
+                return returnMsg('success', 'adminusers', 'User deleted succesfully.');
+            }
         }
 
         return returnMsg('error', 'adminusers', 'Something went wrong, Please try again.');

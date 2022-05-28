@@ -18,43 +18,55 @@
 
 <div class="well-white">
     <article>    
-        <fieldset>
-            <legend>
+        <div class="">
+            <h4 class="d-inline-block">
                 {{ $pagetitle }}
-                
-            </legend>        
-        </fieldset>
+            </h4>
+            <!-- Button trigger modal -->
+            <button class="btn btn-outline-secondary btn-md mx-5" type="button" id="pulck-delete-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
+                Pulck Delete 
+                <i class="fa fa-trash"></i>
+            </button>    
+            
+        </div>
 
         <div class="panel">
-            
-            <table id="users-table" class="table table-hover">
-                <thead>
-                    <tr>
-                        <?php
-                        foreach ($headings as $key => $value) {
-                            if ($value == 'Description') {
-                                ?>
-                                <th class="col-md-4">{{ $value }}</th>
-                                <?php
-                            } else {
-                                ?>
-                                <th class="col-md-2">{{ $value }}</th>
-                                <?php
+            <form id="multi-delete" method="POST" >
+
+                <table id="users-table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="select-all" name="select-all" id="">
+                            </th>
+                            <?php
+                            foreach ($headings as $key => $value) {
+                                if ($value == 'Description') {
+                                    ?>
+                                    <th class="col-md-4">{{ $value }}</th>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <th class="col-md-2">{{ $value }}</th>
+                                    <?php
+                                }
                             }
-                        }
-                        ?>
-                    </tr>
-                </thead>
-                <tbody>
-          
-                </tbody>
-            </table>
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                    </tbody>
+                </table>
+           </form>
  
         </div>
+        
     </article>
 </div>
 <script type="text/javascript">
     var tab_config= {columns:[
+        {data:"select", sortable:false, searchable:false},
         {data:"user_FullName"},
         {data:"user_Email"},
         {data:"user_Country"},
@@ -66,13 +78,51 @@
        
         order:[[4,'desc']],
     
-         
-
     };
 
-    $(document).ready(function(){
-  
-    startDataTable("users-table","<?=route('getusersdata')?>",tab_config);
-    });
-    </script>
+        $(document).ready(function(){
+            startDataTable("users-table","<?=route('getusersdata')?>",tab_config);
+        });
+
+
+        $('.select-all').click( function() {
+            
+            if ($(this).is(':checked')) {
+                
+                $('.check-class').map(function () {
+                    $(this).prop('checked', true);
+                    
+                });
+            
+            } else{
+                $('.check-class').map(function () {
+                    $(this).prop('checked', false);
+                    
+                });
+            }
+        });
+
+
+        $('#pulck-delete-user').click( function() {
+
+            let selected = false;
+
+            $('.check-class').map(function () {
+               if ($(this).is(':checked')) {
+                   selected = true;
+               }
+               
+            });
+            
+            if (selected == false) {
+                infoMsg('Please select one record at least!');
+                return false;
+            }
+
+            confirmAction($('#multi-delete'), "<?= route('adminusersMultiDelete') ?> ");
+
+        });
+
+
+</script>
 @endsection

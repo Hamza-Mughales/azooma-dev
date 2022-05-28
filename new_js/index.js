@@ -24,8 +24,8 @@ $(document).ready(function () {
     $("body").on("click", ".cofirm-delete-button", function () {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn-primary p-0 mx-2',
-                cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-danger p-0',
+                cancelButton: 'btn btn-primary mx-2'
             },
             buttonsStyling: false
         })
@@ -35,7 +35,7 @@ $(document).ready(function () {
             text: "You can't undo it. ",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: ' <a class="btn btn-primary text-white" href="' + url + '">Yes !</a> ',
+            confirmButtonText: ' <a class="btn btn-danger text-white" href="' + url + '">Yes</a> ',
             cancelButtonText: 'Cancel',
             reverseButtons: true
         }).then((result) => {
@@ -47,3 +47,49 @@ $(document).ready(function () {
     });
 
 });
+
+function errorMsg(message, title = 'Error') {
+    Swal.fire({
+            title: title,
+            text: message,
+            icon: 'error',
+        });
+}
+
+function infoMsg(message, title = 'info') {
+    Swal.fire({
+            title: title,
+            text: message,
+            icon: 'warning',
+        });
+}
+
+function confirmAction(form_id, url= '', title='You really want to delete?', message='You can\'t undo it') {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-primary mx-2'
+        },
+        buttonsStyling: false
+    })
+
+    form_id.attr('action', url);
+    
+    swalWithBootstrapButtons.fire({
+        title: title,
+        text: message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value == true) {
+            form_id.submit();
+        }
+        if (result.value != true)
+            (
+                result.dismiss === Swal.DismissReason.cancel
+            )
+    });
+}
