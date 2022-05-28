@@ -1,6 +1,12 @@
 @extends('admin.index')
 @section('content')
 
+<style>
+    .table th:first{
+        width: 0 !important;
+    }
+</style>
+
 <div class="overflow row">
     <div class="col-md-8">
         <ol class="breadcrumb">
@@ -89,12 +95,19 @@
 </div>
 
 <div class="well-white">
-    <article>    
-        <fieldset>
-            <legend>
+    <article>
+        <fieldset class="border-bottom mb-3">
+            <h5 class="d-inline-block">
                 {{ $pagetitle }}
-                <a href="{{ route('adminrestaurants/form'); }}" class="btn btn-info btn-sm pull-right">Add new </a>
-            </legend>        
+            </h5>
+            <a href="{{ route('adminrestaurants/form'); }}" class="btn btn-info btn-sm pull-right">Add new </a>
+            
+            <!-- Multi Button -->
+            <button class="btn btn-outline-secondary btn-md mx-5" type="button" id="pulck-delete-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
+                Pulck Delete 
+                <i class="fa fa-trash"></i>
+            </button>    
+                 
         </fieldset>
 
         <div class="panel">
@@ -102,28 +115,33 @@
            
             </div>
             <div class="table-responsive">
-            <table class="table  table-bordered" id="rest-table">
-                <thead>
-                    <tr class="text-center">
-                        <?php
-                        foreach ($headings as $key => $value) {
-                            if ($value == 'Actions') {
-                                ?>
-                                <th style="width:10%;" class="col-md-1">{{ $value }}</th>
+                <form id="multi-delete" method="POST" >
+                    <table class="table  table-bordered" id="rest-table">
+                        <thead>
+                            <tr class="text-center">
+                                <th style="width:5% !important;">
+                                    <input type="checkbox" class="select-all" name="select-all">
+                                </th>
                                 <?php
-                            } else {
+                                foreach ($headings as $key => $value) {
+                                    if ($value == 'Actions') {
+                                        ?>
+                                        <th style="width:10%;" class="col-md-1">{{ $value }}</th>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <th class="col-md-1">{{ $value }}</th>
+                                        <?php
+                                    }
+                                }
                                 ?>
-                                <th class="col-md-1">{{ $value }}</th>
-                                <?php
-                            }
-                        }
-                        ?>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    
-                </tbody>
-            </table>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            
+                        </tbody>
+                    </table>
+                </form>
             </div>
      
         </div>
@@ -132,13 +150,14 @@
 <script type="text/javascript">
     var rest_table;
     var tab_config= {columns:[
+        {data:"select",searchable:false,sortable:false},
         {data:"rest_Name"},
         {data:"cities",searchable:false},
         {data:"cuisines",searchable:false},
         {data:"rest_Subscription"},
         {data:"lastUpdatedOn"},
         {data:"action",searchable:false,sortable:false}],
-        order:[[4,'desc']],
+        order:[[5,'desc']],
         
          data:function(d){
                     return $.extend({},d,{
@@ -156,9 +175,10 @@
     };
     
     function reloadTable(table_id){
-   
+        
         reloadDataTable(table_id);
     }
+
     $(document).ready(function(){
   
         rest_table=startDataTable("rest-table","<?=route('get_rest_data')?>",tab_config);
@@ -187,6 +207,45 @@
             });
         });
 
+        $('table tr td').css('width', '20px');
+
     });
+    
+    $('.select-all').click( function() {
+            
+        if ($(this).is(':checked')) {
+            
+            $('.check-class').map(function () {
+                $(this).prop('checked', true);
+                
+            });
+        
+        } else{
+            $('.check-class').map(function () {
+                $(this).prop('checked', false);
+                
+            });
+        }
+    });
+
+    $('#pulck-delete-user').click( function() {
+
+        let selected = false;
+
+        $('.check-class').map(function () {
+            if ($(this).is(':checked')) {
+                selected = true;
+            }
+            
+        });
+        
+        if (selected == false) {
+            infoMsg('Choose at least one item');
+            return false;
+        }
+
+        confirmAction($('#multi-delete'), "<?= route('multiDeleteRestaurants') ?> ");
+    });
+
 </script>
 @endsection

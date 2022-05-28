@@ -196,6 +196,10 @@ class Rest extends AdminController
                     return date('d/m/Y', strtotime($rest->lastUpdatedOn));
                 }
             })
+            ->editcolumn('select', function ($row) {
+                $select = '<input type="checkbox" class="check-class" name="ids[]" value="'.$row->rest_ID.'">';
+                return $select;
+            })
             ->make(true);
     }
 
@@ -395,6 +399,24 @@ class Rest extends AdminController
             return returnMsg('success', 'adminrestaurants', $page->rest_Name . ' deleted successfully.');
         }
         return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
+    }
+
+    public function multiDeleteRestaurants()
+    {
+        // dd(post('ids'));
+        if (post('ids')) {
+            
+            $users = intval(DB::table('restaurant_info')->whereIn('rest_ID', post('ids'))->count());
+            
+            if ($users > 0) {
+                
+                DB::table('restaurant_info')->whereIN('rest_ID', post( 'ids'))->delete();
+                
+                return returnMsg('success', 'adminrestaurants', 'User deleted succesfully.');
+            }
+        }
+
+        return returnMsg('error', 'adminrestaurants', 'Something went wrong, Please try again.');
     }
 
     function comments($id = 0)

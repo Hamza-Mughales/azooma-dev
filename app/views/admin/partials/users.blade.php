@@ -22,7 +22,8 @@
             <h4 class="d-inline-block">
                 {{ $pagetitle }}
             </h4>
-            <!-- Button trigger modal -->
+
+            <!-- Multi Button -->
             <button class="btn btn-outline-secondary btn-md mx-5" type="button" id="pulck-delete-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
                 Pulck Delete 
                 <i class="fa fa-trash"></i>
@@ -76,7 +77,7 @@
         {data:"action",searchable:false,sortable:false},
     ],
        
-        order:[[4,'desc']],
+        order:[[5,'desc']],
     
     };
 
@@ -102,7 +103,6 @@
             }
         });
 
-
         $('#pulck-delete-user').click( function() {
 
             let selected = false;
@@ -115,12 +115,11 @@
             });
             
             if (selected == false) {
-                infoMsg('Please select one record at least!');
+                infoMsg('Choose at least one item');
                 return false;
             }
 
             confirmAction($('#multi-delete'), "<?= route('adminusersMultiDelete') ?> ");
-
         });
 
 
