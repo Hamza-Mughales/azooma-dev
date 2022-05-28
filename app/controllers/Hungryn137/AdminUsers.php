@@ -122,4 +122,5 @@ class AdminUsers extends AdminController
 
         return returnMsg('error', 'adminusers', 'Something went wrong, Please try again.');
     }
+    
 }

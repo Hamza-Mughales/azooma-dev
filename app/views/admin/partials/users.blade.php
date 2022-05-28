@@ -23,11 +23,11 @@
                 {{ $pagetitle }}
             </h4>
 
-            <!-- Multi Button -->
+            <!-- Pluck Buttons -->
             <button class="btn btn-outline-secondary btn-md mx-5" type="button" id="pulck-delete-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
                 Pulck Delete 
                 <i class="fa fa-trash"></i>
-            </button>    
+            </button>  
             
         </div>
 

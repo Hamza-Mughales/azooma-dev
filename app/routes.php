@@ -409,6 +409,8 @@ Route::group(array('prefix' => 'hungryn137'), function () {
     Route::get('adminrestaurants/form', array('as' => 'adminrestaurants/form', 'uses' => 'Rest@form'));
     Route::get('adminrestaurants/form/{id}', array('as' => 'adminrestaurants/form/', 'uses' => 'Rest@form'));
     Route::get('adminrestaurants/status/{id}', array('as' => 'adminrestaurants/status/', 'uses' => 'Rest@status'));
+    Route::post('adminrestaurants/status/active', array('as' => 'multiActiveRest', 'uses' => 'Rest@multiActiveRest'));
+    Route::post('adminrestaurants/status/deactive', array('as' => 'multiDeActiveRest', 'uses' => 'Rest@multiDeActiveRest'));
     Route::get('adminrestaurants/delete/{id}', array('as' => 'adminrestaurants/delete/', 'uses' => 'Rest@delete'));
     Route::post('adminrestaurants/multiDelete', array('as' => 'multiDeleteRestaurants', 'uses' => 'Rest@multiDeleteRestaurants'));
     Route::post('adminrestaurants/save', array('as' => 'adminrestaurants/save', 'uses' => 'Rest@save'));

@@ -102,11 +102,21 @@
             </h5>
             <a href="{{ route('adminrestaurants/form'); }}" class="btn btn-info btn-sm pull-right">Add new </a>
             
-            <!-- Multi Button -->
-            <button class="btn btn-outline-secondary btn-md mx-5" type="button" id="pulck-delete-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
+            <!-- Pluck Buttons -->
+            <button class="btn btn-outline-secondary btn-md ms-5" type="button" id="pulck-delete-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
                 Pulck Delete 
                 <i class="fa fa-trash"></i>
-            </button>    
+            </button>
+
+            <button class="btn btn-square btn-outline-primary btn-md mx-1" type="button" id="pulck-active-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
+                Active Restaurants 
+                <i class="fa fa-plus"></i>
+            </button>  
+
+            <button class="btn btn-square btn-outline-warning btn-md mx-1" type="button" id="pulck-deactive-user" data-bs-original-title="btn btn-outline-secondary btn-md" data-original-title="btn btn-outline-secondary btn-md">
+                Deactive Restaurants 
+                <i class="fa fa-minus"></i>
+            </button>  
                  
         </fieldset>
 
@@ -115,7 +125,7 @@
            
             </div>
             <div class="table-responsive">
-                <form id="multi-delete" method="POST" >
+                <form id="multi-action" method="POST" >
                     <table class="table  table-bordered" id="rest-table">
                         <thead>
                             <tr class="text-center">
@@ -240,11 +250,49 @@
         });
         
         if (selected == false) {
-            infoMsg('Choose at least one item');
+            infoMsg('Choose at least one item!');
             return false;
         }
 
-        confirmAction($('#multi-delete'), "<?= route('multiDeleteRestaurants') ?> ");
+        confirmAction($('#multi-action'), "<?= route('multiDeleteRestaurants') ?> ");
+    });
+
+    $('#pulck-active-user').click( function() {
+
+        let selected = false;
+
+        $('.check-class').map(function () {
+            if ($(this).is(':checked')) {
+                selected = true;
+            }
+            
+        });
+        
+        if (selected == false) {
+            infoMsg('Choose at least one item!');
+            return false;
+        }
+
+        confirmAction($('#multi-action'), "<?= route('multiActiveRest') ?> ", 'You really want to active?','');
+    });
+
+    $('#pulck-deactive-user').click( function() {
+
+        let selected = false;
+
+        $('.check-class').map(function () {
+            if ($(this).is(':checked')) {
+                selected = true;
+            }
+            
+        });
+        
+        if (selected == false) {
+            infoMsg('Choose at least one item!');
+            return false;
+        }
+
+        confirmAction($('#multi-action'), "<?= route('multiDeActiveRest') ?> ",'You really want to Deactive?','');
     });
 
 </script>

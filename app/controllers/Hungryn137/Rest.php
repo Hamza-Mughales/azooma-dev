@@ -47,6 +47,7 @@ class Rest extends AdminController
         // dump($data);die;
         return view('admin.partials.restaurants', $data);
     }
+
     public function getRestData()
     {
         $district = "";
@@ -111,9 +112,9 @@ class Rest extends AdminController
 
                 if ($rest->rest_Status == 0) {
 
-                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminrestaurants/status/', $rest->rest_ID) . '" title="Activate "><i class="fa fa-check"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-info m-1 mytooltip" href="' . route('adminrestaurants/status/', $rest->rest_ID) . '" title="Activate "><i class="fa fa-plus"></i></a>';
                 } else {
-                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminrestaurants/status/', $rest->rest_ID) . '" title="Deactivate"><i class="fa fa-ban"></i></a>';
+                    $btns .= '<a class="btn btn-xs btn-danger m-1 mytooltip" href="' . route('adminrestaurants/status/', $rest->rest_ID) . '" title="Deactivate"><i class="fa fa-minus"></i></a>';
                 }
                 $btns .= '<a  class="btn btn-xs btn-danger m-1 mytooltip cofirm-delete-btn" href="#" link="' . route('adminrestaurants/delete/', $rest->rest_ID) . '" title="Delete"><i class="fa fa-trash"></i></a>';
                 if ($rest->rest_Status == 1) {
@@ -387,6 +388,48 @@ class Rest extends AdminController
             return returnMsg('success', 'adminrestaurants',  "Welcome Message Status changed successfully.");
         }
         return returnMsg('error', 'adminrestaurants', "something went wrong, Please try again.");
+    }
+
+    public function multiActiveRest()
+    {
+        if (post('ids')) {
+
+            $users = intval(DB::table('restaurant_info')->whereIn('rest_ID', post('ids'))->count());
+            
+            if ($users > 0) {
+                $data = array(
+                    'rest_Status' => 1,
+                    "lastUpdatedOn" => date("Y-m-d H:i:s")
+                );
+
+                DB::table('restaurant_info')->whereIN('rest_ID', post('ids'))->update($data);
+                
+                return returnMsg('success', 'adminrestaurants', ' Active status changed successfully.');
+            }
+        }
+
+        return returnMsg('error', 'adminrestaurants', 'Something went wrong, Please try again.');
+    }
+
+    public function multiDeActiveRest()
+    {
+        if (post('ids')) {
+
+            $users = intval(DB::table('restaurant_info')->whereIn('rest_ID', post('ids'))->count());
+            
+            if ($users > 0) {
+                $data = array(
+                    'rest_Status' => 0,
+                    "lastUpdatedOn" => date("Y-m-d H:i:s")
+                );
+
+                DB::table('restaurant_info')->whereIN('rest_ID', post('ids'))->update($data);
+                
+                return returnMsg('success', 'adminrestaurants', ' Active status changed successfully.');
+            }
+        }
+
+        return returnMsg('error', 'adminrestaurants', 'Something went wrong, Please try again.');
     }
 
     public function delete($id = 0)
