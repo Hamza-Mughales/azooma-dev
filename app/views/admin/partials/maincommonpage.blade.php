@@ -189,25 +189,6 @@
                     ?> --}}
                 </tbody>
             </table>
-            <?php
-            if (count($lists) > 0) {
-                $get = array();
-                if (count($_GET) > 0) {
-                    foreach ($_GET as $key => $val) {
-                        if ($key == "page") {
-                            continue;
-                        } else {
-                            $get[$key] = $val;
-                        }
-                    }
-                }
-                if (count($get) > 0) {
-                    echo $lists->appends($get)->links();
-                } else {
-                    echo $lists->links();
-                }
-            }
-            ?>
         </div>
     </article>
 </div>

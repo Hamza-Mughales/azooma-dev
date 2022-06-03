@@ -49,7 +49,7 @@
 
 
 <div class=" mb-2">
-  <span class="">Your'r in <span class="h4 text-start"><?= (MDashboard::getAdminCountry($country)) ? MDashboard::getAdminCountry($country)[0]->name : '' ;?> Dashboard</span></span>
+  <span class="">You are in <span class="h4 text-start"><?= (MDashboard::getAdminCountry($country)) ? MDashboard::getAdminCountry($country)[0]->name : '' ;?> Dashboard</span></span>
 </div>
 
 {{-- Start Section --}}
@@ -255,21 +255,23 @@
     </a>
   </div>
   <div class="col-sm-6 col-lg-3">
-    <div class="card o-hidden">
-      <div class="b-r-4 card-body text-white" style="background-color: #989898">
-        <div class="media static-top-widget">
-          <div class="align-self-center text-center">
-            <i data-feather="database"></i>
-          </div>
-          <div class="media-body"><span class="m-0"><?= __('MENU REQUESTS') ?></span>
-            <h4 class="mb-0 counter"><?= MDashboard::getTotalMenuRequest($country);?></h4>
-            <i data-feather="database" class="feather feather-shopping-bag icon-bg"></i>
-            <?php $menurequest = MDashboard::getTotalMenuRequest($country, 1); ?>
-                <div class="stat"><b>New</b> {{ $menurequest }}</div>
+    <a href="<?= url('hungryn137/adminmenurequest'); ?>">
+      <div class="card o-hidden">
+        <div class="b-r-4 card-body text-white" style="background-color: #989898">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <i data-feather="database"></i>
+            </div>
+            <div class="media-body"><span class="m-0"><?= __('MENU REQUESTS') ?></span>
+              <h4 class="mb-0 counter"><?= MDashboard::getTotalMenuRequest($country);?></h4>
+              <i data-feather="database" class="feather feather-shopping-bag icon-bg"></i>
+              <?php $menurequest = MDashboard::getTotalMenuRequest($country, 1); ?>
+                  <div class="stat"><b>New</b> {{ $menurequest }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
   <div class="col-sm-6 col-lg-3">
     <a href="<?=url("hungryn137/adminhotels")?>">
@@ -322,8 +324,10 @@
         <h4 class="counter"><?= MDashboard::getTotalGroupofRestaurants($country); ?></h4>
       </div>
       <div class="col">
-        <h6><?= __('Recipes')?></h6>
-        <h4><span class="counter"><?= MDashboard::getTotalRecipes($country); ?></span></h4>
+        <a href="hungryn137/adminrecipe">
+          <h6><?= __('Recipes')?></h6>
+          <h4><span class="counter"><?= MDashboard::getTotalRecipes($country); ?></span></h4>
+        </a>
       </div>
       <div class="col">
         <h6><?= __('Known For')?></h6>
