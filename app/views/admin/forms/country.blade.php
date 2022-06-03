@@ -1,9 +1,9 @@
-@extends('admin.index')
+@extends('admin.owner.index')
 @section('content')
 
 
 <ol class="breadcrumb">
-    <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
+    <li><a href="<?= route('ownerhome'); ?>">Dashboard</a></li>  
     <li><a href="<?= route('admincountry'); ?>">Country List</a></li>  
     <li class="active">{{ $title }}</li>
 </ol>

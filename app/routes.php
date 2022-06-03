@@ -396,6 +396,9 @@ Route::group(array('prefix' => 'hungryn137'), function () {
     //Route::post('get_data', array('as' => 'get_data', 'uses' => 'Rest@get_data'));
 
     Route::get('/', array('as' => 'adminhome', 'uses' => 'Dashboard@index'));
+    Route::get('/ownerhome', array('as' => 'ownerhome', 'uses' => 'Dashboard@ownerHome'));
+    Route::get('countrydashboard/{id}', array('as' => 'countrydashboard', 'uses' => 'Dashboard@countryDashboard'));
+    
     Route::post('adminsearch', array('as' => 'adminsearch', 'uses' => 'Dashboard@search'));
     Route::get('adminlogin', array('as' => 'adminlogin', 'uses' => 'Login@index'));
     Route::post('adminlogin', array('uses' => 'Login@postSubmit'));

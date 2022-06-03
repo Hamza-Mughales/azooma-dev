@@ -106,6 +106,7 @@ class MLocation extends Eloquent {
 
     function getAllCities($status = 0, $limit = 0, $name = "", $country_ID = 0) {
         $this->table = "city_list";
+
         $mcity = MLocation::select('*');
         if ($status != 0) {
             $mcity->where('city_list.city_Status', 1);
@@ -114,8 +115,10 @@ class MLocation extends Eloquent {
         if ($name != "") {
             $mcity->where('city_Name', 'LIKE', $name . '%');
         }
-        if (!empty($country_ID)) {
-            $mcity->where('country', '=', $country_ID);
+    
+        if (!empty($country_ID) OR !empty(userCountry())) {
+            $mcity->where('country', '=', userCountry());
+           
         }
         if ($limit != "") {
             $lists = $mcity->paginate($limit);

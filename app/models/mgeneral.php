@@ -361,6 +361,9 @@ class MGeneral extends Eloquent{
     }
 
     public function getAdminCountryName($id, $lang = 'en') {
+        if($id==0){
+            return "Owner";
+        }
         $this->table = "aaa_country";
         $mcountry = MGeneral::select('*');
         $mcountry->where('id', '=', $id);
@@ -690,7 +693,7 @@ class MGeneral extends Eloquent{
 
     public static function generate_list($lists, $id, $name, $displayID, $displayName) {
         $html = "";
-        if (count($lists) > 0) {
+        if ($lists && count($lists) > 0) {
             $html.= '<select class="form-control" name="' . $displayName . '" id="' . $displayID . '">';
             $html.='<option value="">please select ' . ucfirst($displayName) . '</option>';
             foreach ($lists as $list) {

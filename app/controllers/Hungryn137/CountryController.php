@@ -15,6 +15,9 @@ class CountryController extends AdminController
 
     public function index()
     {
+        if(!is_owner()){
+         return   Redirect::route('adminhome');
+        }
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -45,12 +48,16 @@ class CountryController extends AdminController
 
     public function form($id = 0)
     {
+        if(!is_owner()){
+            return   Redirect::route('adminhome');
+           }
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
-
+        $countries = DB::table('aaa_country')
+        ->get();
         if ($id != 0) {
             $page = $this->MLocation->getCountry($id);
             $data = array(
@@ -58,6 +65,7 @@ class CountryController extends AdminController
                 'pagetitle' => $page->name,
                 'title' => $page->name,
                 'page' => $page,
+                "countries"=> $countries ,
                 'side_menu' => array('Locations', 'Country List'),
             );
         } else {

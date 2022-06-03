@@ -21,7 +21,7 @@
             }
         </style>
         <link href="<?= asset(css_path() . 'css/font-awesome.min.css' )?>"  rel="stylesheet">
-        <link href="<?= asset(css_path() . 'login.css' )?>"  rel="stylesheet">
+        <link href="<?= asset(css_path() . 'login.css?2' )?>"  rel="stylesheet">
         <link rel="shortcut icon" href="{{url('favicon_en.png')}}" type="image/png"/>      
 
     </head>
@@ -43,34 +43,13 @@
                 <?php
                     $message = Session::get('message');
                     if ($message) {
-                        echo '<div class="alert alert-error"><a class="close" data-dismiss="alert">x</a><strong>' . $message . '</strong></div>';
+                        echo '<div class="alert alert-error"><strong>' . $message . '</strong></div>';
                     }
                 ?>
                 <input type="text" value="<?=isset($_COOKIE['remember_me_user_name']) ? $_COOKIE['remember_me_user_name'] :""?>" name="User" placeholder="<?= __('Username')?>" value="<?php echo Input::old('User'); ?>" required>
                 <i class="typcn typcn-eye" id="eye"></i>
                 <input type="password" name="Password" placeholder="Passsword" id="Password" value="<?=isset($_COOKIE['remember_me_password']) ? $_COOKIE['remember_me_password'] :""?>" required>
-                <select name="country_ID" id="country_ID" class="select_country" style="width: 335px;" tabindex="30" >
-                    <option value=""><?= __('Select Country')?></option>
-                    <?php
-                    if (is_object($countries)) {
-                        foreach ($countries as $country) {
-                            $selected = "";
-                            if (isset($usercountry) && $usercountry->id == $country->id) {
-                                $selected = 'selected="selected="';
-                            }
-                            if (Input::old('country_ID') == $country->id) {
-                                $selected = 'selected="selected="';
-                            }
-                            $selected =isset($_COOKIE['remember_me_country_id']) && $_COOKIE['remember_me_country_id']==$country->id ? "selected":"";
-                            ?>
-                            <option value="<?php echo $country->id; ?>" <?php echo $selected; ?> >
-                                <?php echo $country->name; ?>
-                            </option>
-                            <?php
-                        }
-                    }
-                    ?>                
-                </select>
+           
                  <label>
                     <input name="remember_me" value="on" type="checkbox" <?=isset($_COOKIE['remember_me']) && $_COOKIE['remember_me']=='on' ? "checked":""?> >
                     <span></span>

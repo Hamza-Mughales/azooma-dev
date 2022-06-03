@@ -197,3 +197,28 @@ if (!function_exists("cityName")) {
           return isset($country->city_Name) ? $country->city_Name :'';
     }
 }
+if (!function_exists("is_owner")) {
+    function is_owner()
+    {
+        $id=Session::get('adminid');
+   
+        $id=intval($id);
+       
+          $user= DB::table('admin')->where('id','=',$id)->first();
+          return isset($user->admin) && $user->admin==1 ? true :false;
+    }
+}
+if (!function_exists('userCountry')) {
+    function userCountry()
+    {
+
+        $country = Session::get('admincountry');
+        if (empty($country)) {
+            $country =1;
+            return $country;
+        }
+      
+        return $country;
+        
+    }
+}

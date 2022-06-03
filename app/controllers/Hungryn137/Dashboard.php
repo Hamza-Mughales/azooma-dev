@@ -46,7 +46,38 @@ class Dashboard extends AdminController
 
         return view('admin.partials.dashboard', $data);
     }
+    public function ownerHome()
+    {
+        if (Session::get('admincountryName') != "") {
+            $settings = Config::get('settings.' . Session::get('admincountryName'));
+        } else {
+            $settings = Config::get('settings.default');
+        }
+     
+        $countries = DB::table('aaa_country')
+            ->get();
+    
+        $data = array(
+            'sitename' => $settings['name'],
+            'pagetitle' => 'Owner Dashboard',
+            'title' => 'Dashboard',
+            'action' => 'dashboard',
+            'partials_name' => 'coursescatpage',
+            "countries"=>$countries,
+            'side_menu' => array('home'),
+        );
 
+        return view('admin.owner.home', $data);
+    }
+public function countryDashboard($id){
+    
+    Session::forget('admincountry');
+    Session::put('admincountry', $id);
+    $this->MGeneral = new MGeneral();
+    Session::put('admincountryName', Str::slug($this->MGeneral->getAdminCountryName($id), '-', TRUE));
+    return Redirect::route('adminhome');
+
+}
     public function visitors_chart()
     {
         $year = '';

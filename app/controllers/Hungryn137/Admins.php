@@ -18,6 +18,9 @@ class Admins extends AdminController
 
     public function index()
     {
+        if(!is_owner()){
+            return   Redirect::route('adminhome');
+           }
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
@@ -27,7 +30,9 @@ class Admins extends AdminController
         if (empty($country)) {
             $country = 1;
         }
-        $MAdmins = Admin::orderBy('lastlogin', 'DESC');
+        $MAdmins = Admin::orderBy('id', 'asc');
+      //  $MAdmins = Admin::orderBy('lastlogin', 'DESC');
+        if(!is_owner())
         $MAdmins = Admin::where('country', '=', $country);
         if (isset($_GET['name']) && !empty($_GET['name'])) {
             $MAdmins = Admin::where('fullname', 'LIKE', stripslashes($_GET['name']) . '%');
@@ -38,7 +43,7 @@ class Admins extends AdminController
         $lists = $MAdmins->get();
         $data = array(
             'sitename' => $settings['name'],
-            'headings' => array('Name', 'Email', 'Country', 'Last Login', 'Actions'),
+            'headings' => array('Name',"User name", 'Email', 'Country', 'Last Login', 'Actions'),
             'pagetitle' => 'List of All Administrators',
             'title' => 'Administrators',
             'action' => 'admins',
@@ -50,13 +55,17 @@ class Admins extends AdminController
 
     public function form($id = 0)
     {
+        if(!is_owner()){
+            return   Redirect::route('adminhome');
+           }
         if (Session::get('admincountryName') != "") {
             $settings = Config::get('settings.' . Session::get('admincountryName'));
         } else {
             $settings = Config::get('settings.default');
         }
 
-
+        $countries = DB::table('aaa_country')
+        ->get();
         if ($id != 0) {
             $admin = Admin::find($id);
             $data = array(
@@ -64,6 +73,7 @@ class Admins extends AdminController
                 'pagetitle' => $admin->fullname,
                 'title' => $admin->fullname,
                 'admin' => $admin,
+                "countries"=>   $countries ,
                 'side_menu' => array('Users', 'Administrators'),
             );
         } else {
@@ -71,6 +81,8 @@ class Admins extends AdminController
                 'sitename' => $settings['name'],
                 'pagetitle' => 'New Administrator',
                 'title' => 'Administrator',
+                "countries"=>   $countries ,
+
                 'side_menu' => array('Users', 'Administrators'),
             );
         }
@@ -130,6 +142,9 @@ class Admins extends AdminController
 
     public function status($id = 0)
     {
+        if(!is_owner()){
+            return   Redirect::route('adminhome');
+           }
         $MAdmins = new Admin();
         $status = 0;
         $admin = Admin::find($id);
@@ -151,6 +166,9 @@ class Admins extends AdminController
 
     public function delete($id = 0)
     {
+        if(!is_owner()){
+            return   Redirect::route('adminhome');
+           }
         $MAdmins = new Admin();
         $status = 0;
         $admin = Admin::find($id);
@@ -183,6 +201,9 @@ class Admins extends AdminController
 
     function savePassword()
     {
+        if(!is_owner()){
+            return   Redirect::route('adminhome');
+           }
         $MAdmins = new Admin();
         if (Input::get('id')) {
             $id = Input::get('id');
