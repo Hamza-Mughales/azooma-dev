@@ -308,4 +308,12 @@ class MDashboard extends Eloquent {
         return $mRest->get(); 
     }
 
+    public static function getAdminCountry($country_id) {
+        $mRest = DB::table('aaa_country');
+        $mRest->select('*');
+        $mRest->where('id', $country_id);
+        
+        return $mRest->get(); 
+    }
+
 }
