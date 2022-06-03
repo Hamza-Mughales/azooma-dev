@@ -49,7 +49,7 @@
 
 
 <div class=" mb-2">
-  <span class="">Your'r in <span class="h4 text-start"><?= (MDashboard::getCountry($country)) ? MDashboard::getCountry($country)[0]->country : '' ;?> Dashboard</span></span>
+  <span class="">Your'r in <span class="h4 text-start"><?= (MDashboard::getCountry($country)) ? MDashboard::getCountry($country)[0]->name : '' ;?> Dashboard</span></span>
 </div>
 
 {{-- Start Section --}}
