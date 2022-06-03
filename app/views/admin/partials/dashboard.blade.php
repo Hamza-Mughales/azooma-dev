@@ -320,8 +320,10 @@
 
     <div class="card-body row py-4">
       <div class="col">
-        <h6><?= __('Group of Restaurants')?></h6>
-        <h4 class="counter"><?= MDashboard::getTotalGroupofRestaurants($country); ?></h4>
+        <a href="hungryn137/adminrestaurantsgroup">
+          <h6><?= __('Group of Restaurants')?></h6>
+          <h4 class="counter"><?= MDashboard::getTotalGroupofRestaurants($country); ?></h4>
+        </a>
       </div>
       <div class="col">
         <a href="hungryn137/adminrecipe">
@@ -330,16 +332,22 @@
         </a>
       </div>
       <div class="col">
-        <h6><?= __('Known For')?></h6>
-        <h4><span class="counter"><?= MDashboard::getTotalKnownFor($country); ?></span></h4>
+        <a href="hungryn137/adminknownfor">
+          <h6><?= __('Known For')?></h6>
+          <h4><span class="counter"><?= MDashboard::getTotalKnownFor($country); ?></span></h4>
+        </a>
       </div>
       <div class="col">
-        <h6><?= __('Suggested')?></h6>
-        <h4><span class="counter"><?= MDashboard::getTotalSuggested($country); ?></span></h4>
+        <a href="hungryn137/adminsuggested">
+          <h6><?= __('Suggested')?></h6>
+          <h4><span class="counter"><?= MDashboard::getTotalSuggested($country); ?></span></h4>
+        </a>
       </div>
       <div class="col">
-        <h6><?= __('Photos Likes')?></h6>
-        <h4><span class="counter"><?= MDashboard::getTotalPhotoLike($country); ?></span></h4>
+        <a href="hungryn137/admingallery">
+          <h6><?= __('Photos Likes')?></h6>
+          <h4><span class="counter"><?= MDashboard::getTotalPhotoLike($country); ?></span></h4>
+        </a>
       </div>
     </div>
 
@@ -356,14 +364,16 @@
     <div class="media card-body align-items-center">
       <div class="media-img col-md-3"><img src="<?= asset('img/01.png') ?>" alt=""></div>
       <div class="mx-4 w-100 col-md-9 text-sm-center">
-        <div class="d-flex w-100">
-          <h6 class="mx-3"><?= __('GOLD MEMBERS')?></h6>
-          <h6><span ><?= MDashboard::getTotalMembers($country, 3); ?></span></h6>
-        </div>
-        <div class="d-flex w-100 align-items-center">
-          <h5 class="mx-3"> New </h5>
-          <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 3, 1); ?></span></h6>
-        </div>
+        <a href="hungryn137/adminmembers" class="text-dark">
+          <div class="d-flex w-100">
+            <h6 class="mx-3"><?= __('GOLD MEMBERS')?></h6>
+            <h6><span ><?= MDashboard::getTotalMembers($country, 3); ?></span></h6>
+          </div>
+          <div class="d-flex w-100 align-items-center">
+            <h5 class="mx-3"> New </h5>
+            <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 3, 1); ?></span></h6>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -373,14 +383,16 @@
     <div class="media card-body align-items-center">
       <div class="media-img col-md-3"><img src="<?= asset('img/02.png') ?>" alt=""></div>
       <div class="mx-4 w-100 col-md-9 text-sm-center">
-        <div class="d-flex w-100">
-          <h6 class="mx-3"><?= __('SILVER MEMBERS')?></h6>
-          <h6><span ><?= MDashboard::getTotalMembers($country, 2); ?></span></h6>
-        </div>
-        <div class="d-flex w-100 align-items-center">
-          <h5 class="mx-3"> New </h5>
-          <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 2, 1); ?></span></h6>
-        </div>
+        <a href="hungryn137/adminmembers" class="text-dark">
+          <div class="d-flex w-100">
+            <h6 class="mx-3"><?= __('SILVER MEMBERS')?></h6>
+            <h6><span ><?= MDashboard::getTotalMembers($country, 2); ?></span></h6>
+          </div>
+          <div class="d-flex w-100 align-items-center">
+            <h5 class="mx-3"> New </h5>
+            <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 2, 1); ?></span></h6>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -390,14 +402,16 @@
     <div class="media card-body align-items-center">
       <div class="media-img col-md-3"><img src="<?= asset('img/03.png') ?>" alt=""></div>
       <div class="mx-4 w-100 col-md-9 text-sm-center">
-        <div class="d-flex w-100">
-          <h6 class="mx-3"><?= __('FREE MEMBERS')?></h6>
-          <h6><span ><?= MDashboard::getTotalMembers($country, 0);?></span></h6>
-        </div>
-        <div class="d-flex w-100 align-items-center">
-          <h5 class="mx-3"> New </h5>
-          <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 0, 1); ?></span></h6>
-        </div>
+        <a href="hungryn137/adminmembers" class="text-dark">
+          <div class="d-flex w-100">
+            <h6 class="mx-3"><?= __('FREE MEMBERS')?></h6>
+            <h6><span ><?= MDashboard::getTotalMembers($country, 0);?></span></h6>
+          </div>
+          <div class="d-flex w-100 align-items-center">
+            <h5 class="mx-3"> New </h5>
+            <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 0, 1); ?></span></h6>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -418,7 +432,9 @@
             </span>
             <div class="media-body align-self-center"><span class="mb-1"><?= __('COMMENTS')?></span></div>
             <div class="media-body text-center">
-              <h5 class="mb-0"><span class="counter"><?= MDashboard::getTotalReviews($country); ?></span></h5>
+              <a href="hungryn137/admincomments">
+                <h5 class="mb-0"><span class="counter"><?= MDashboard::getTotalReviews($country); ?></span></h5>
+              </a>
             </div>
           </div>
 
@@ -464,7 +480,9 @@
             </span>
             <div class="media-body align-self-center"><span class="mb-1"><?= __('PHOTOS UPLOADED')?></span></div>
             <div class="media-body text-center">
-              <h5 class="mb-0"><span class="counter"><?= MDashboard::getTotalPhotos($country, 0, 1); ?></span></h5>
+              <a href="hungryn137/admingallery?type=Users">
+                <h5 class="mb-0"><span class="counter"><?= MDashboard::getTotalPhotos($country, 0, 1); ?></span></h5>
+              </a>
             </div>
           </div>
 
@@ -649,7 +667,7 @@
         ?>
     </div>
 
-    <legend>Popular Sections</legend>
+    <legend>TRENDING ON AZOOMA</legend>
     <div class="row">
         <div class="left col-lg-4">
             <h4>Restaurants</h4>
