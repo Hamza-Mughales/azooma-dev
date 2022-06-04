@@ -367,11 +367,11 @@
         <a href="hungryn137/adminmembers" class="text-dark">
           <div class="d-flex w-100">
             <h6 class="mx-3"><?= __('GOLD MEMBERS')?></h6>
-            <h6><span ><?= MDashboard::getTotalMembers($country, 3); ?></span></h6>
+            <h6><span ><?= MDashboard::getTotalMembers($country, 1); ?></span></h6>
           </div>
           <div class="d-flex w-100 align-items-center">
             <h5 class="mx-3"> New </h5>
-            <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 3, 1); ?></span></h6>
+            <h6><span class="mr-2"><?= MDashboard::getTotalMembers($country, 1, 1); ?></span></h6>
           </div>
         </a>
       </div>
@@ -421,7 +421,7 @@
 {{-- Start Section --}}
 <div class="col-xl-6 xl-100 box-col-12 userActivities">
   <div class="widget-joins card widget-arrow">
-    <span class="h4 mt-3 px-3"><?= __('User\'s Activities')?></span>
+    <span class="h4 mt-3 px-3"><?= __('TRENDING USERS')?></span>
     <div class="row">
       
       <div class="col-sm-4 pe-0">

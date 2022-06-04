@@ -43,9 +43,9 @@
                                     }
                                 }
                                 ?>>Silver</option>
-                                <option value="3" <?php
+                                <option value="1" <?php
                                 if (isset($rest)) {
-                                    if ($rest->rest_Subscription == 3) {
+                                    if ($rest->rest_Subscription == 1) {
                                         echo 'selected="selected"';
                                     }
                                 }

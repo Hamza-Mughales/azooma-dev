@@ -680,9 +680,9 @@ class MGeneral extends Eloquent{
 
     public static function getAllSubscriptionTypes($country = 0) {
         $MSubscription = DB::table('subscriptiontypes');
-        if (!empty($country)) {
-            $MSubscription->where('country', '=', $country);
-        }
+        // if (!empty($country)) {
+        //     $MSubscription->where('country', '=', $country);
+        // }
         $MSubscription->orderBy('date_add', 'DESC');
         $lists = $MSubscription->get();
         return $lists;
