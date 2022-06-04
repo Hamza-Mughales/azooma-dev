@@ -20,7 +20,7 @@ if(!isset($side_menu)){
         <ul class="sidebar-links" id="simple-bar">
             <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
           
-          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"home") ? "active":""?>" href="<?=url("hungryn137")?>"><i data-feather="home"></i><span><?=__('Dashboard')?></span></a></li>
+          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"home") ? "active":""?>" href="<?=route("ownerhome")?>"><i data-feather="home"></i><span><?=__('Dashboard')?></span></a></li>
      
      
   

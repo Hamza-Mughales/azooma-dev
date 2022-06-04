@@ -94,9 +94,19 @@ Route::filter('guest', function()
 Route::filter('admin-user', function()
 {
 	if (Auth::check()){
+		
+			
 		return Redirect::to('/');
+		
 	}elseif (Session::has('adminid')) {
-		//
+		
+		if (Session::get('admincountry') == 0) {
+			Session::forget('admincountry');
+			Session::put('admincountryName', "Saudi Arabia");
+
+			Session::put('admincountry',1);
+		}
+		
 	}else {			
 		return Redirect::route('adminlogin');
 	}
