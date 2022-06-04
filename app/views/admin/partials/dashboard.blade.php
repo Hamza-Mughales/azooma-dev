@@ -897,9 +897,9 @@
         <div class="row">
           <div class="col">
             <div class="cal-info text-center">
-              <h2>24</h2>
-              <div class="d-inline-block mt-2"><span class="b-r-dark pe-3">March</span><span class="ps-3">2018</span></div>
-              <p class="mt-4 f-16 text-muted">There is no minimum donation, any sum is appreciated</p>
+              <h2><?= date('d')?></h2>
+              <div class="d-inline-block mt-2"><span class="b-r-dark pe-3"><?= date('M')?></span><span class="ps-3"><?= date('Y')?></span></div>
+              <p class="mt-4 f-16 text-muted">"This time will pass"</p>
             </div>
           </div>
         </div>
