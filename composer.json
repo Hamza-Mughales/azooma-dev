@@ -18,6 +18,7 @@
         "classmap": [
             "app/commands",
             "app/controllers",
+            "app/controllers/Owner",
             "app/controllers/Hungryn137",
             "app/models",
             "app/database/migrations",

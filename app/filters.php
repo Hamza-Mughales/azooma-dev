@@ -90,6 +90,11 @@ Route::filter('guest', function()
 	if (Auth::check()) return Redirect::to('/');
 });
 
+Route::filter('owner-auth', function()
+{
+	if (!is_owner()) return Redirect::route('adminlogin');
+});
+
 
 Route::filter('admin-user', function()
 {
@@ -97,15 +102,13 @@ Route::filter('admin-user', function()
 		
 			
 		return Redirect::to('/');
-		
+
 	}elseif (Session::has('adminid')) {
 		
 		if (Session::get('admincountry') == 0) {
-			Session::forget('admincountry');
-			Session::put('admincountryName', "Saudi Arabia");
-
-			Session::put('admincountry',1);
+			return Redirect::route('ownerhome');
 		}
+		
 		
 	}else {			
 		return Redirect::route('adminlogin');

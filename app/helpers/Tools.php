@@ -205,7 +205,7 @@ if (!function_exists("is_owner")) {
         $id=intval($id);
        
           $user= DB::table('admin')->where('id','=',$id)->first();
-          return isset($user->admin) && $user->admin==1 ? true :false;
+          return (isset($user->admin) && $user->admin==1) ? true :false;
     }
 }
 if (!function_exists('userCountry')) {

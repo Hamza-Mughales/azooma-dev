@@ -24,8 +24,8 @@ if(!isset($side_menu)){
      
      
   
-          <li><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"Country List") ? "active":""?>" href="<?=url("hungryn137/admincountry")?>"><i data-feather="map"></i>  <?=__('Country List')?></a></li>
-          <li><a class="sidebar-link sidebar-title link-nav   <?=menu($side_menu,"Administrators") ? "active":""?>" href="<?= url('hungryn137/admins'); ?>"><i data-feather="user"></i> <?=__('Administrators')?></a></li>
+          <li><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"Country List") ? "active":""?>" href="<?=route("admincountry")?>"><i data-feather="map"></i>  <?=__('Country List')?></a></li>
+          <li><a class="sidebar-link sidebar-title link-nav   <?=menu($side_menu,"Administrators") ? "active":""?>" href="<?= route('admins'); ?>"><i data-feather="user"></i> <?=__('Administrators')?></a></li>
 
     
           

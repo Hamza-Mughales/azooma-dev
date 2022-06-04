@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class Admins extends AdminController
+class Admins extends OwnerBaseController
 {
 
     protected $MAdmins;
@@ -11,7 +11,6 @@ class Admins extends AdminController
 
     public function __construct()
     {
-        parent::__construct();
         $this->MAdmins = new Admin();
         $this->MLocation = new MLocation();
     }

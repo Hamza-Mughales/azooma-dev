@@ -389,6 +389,33 @@ Route::group(array('prefix' => $locale), function () {
     }
 });
 
+Route::group(array('prefix' => 'owner', 'before' => 'owner-auth'), function () {
+    Route::get('/ownerhome', array('as' => 'ownerhome', 'uses' => 'OwnerController@ownerHome'));
+
+    Route::get('countrydashboard/{id}', array('as' => 'countrydashboard', 'uses' => 'OwnerController@countryDashboard'));
+    
+    Route::get('admincountry', array('as' => 'admincountry', 'uses' => 'CountryController@index'));
+    Route::get('admincountry/form', array('as' => 'admincountry/form', 'uses' => 'CountryController@form'));
+    Route::get('admincountry/form/{id}', array('as' => 'admincountry/form/', 'uses' => 'CountryController@form'));
+    Route::post('admincountry/save', array('as' => 'admincountry/save', 'uses' => 'CountryController@save'));
+    Route::get('admincountry/status/{id}', array('as' => 'admincountry/status/', 'uses' => 'CountryController@status'));
+    Route::get('admincountry/delete/{id}', array('as' => 'admincountry/delete/', 'uses' => 'CountryController@delete'));
+
+    
+    Route::get('admins', array('as' => 'admins', 'uses' => 'Admins@index'));
+    Route::get('admins/form', array('as' => 'admins/form', 'uses' => 'Admins@form'));
+    Route::get('admins/form/{id}', array('as' => 'admins/form/', 'uses' => 'Admins@form'));
+    Route::get('admins/status/{id}', array('as' => 'admins/status/', 'uses' => 'Admins@status'));
+    Route::get('admins/delete/{id}', array('as' => 'admins/delete/', 'uses' => 'Admins@delete'));
+    Route::post('admins/save', array('as' => 'admins/save', 'uses' => 'Admins@save'));
+    Route::get('admins/password/{id}', array('as' => 'admins/password/', 'uses' => 'Admins@password'));
+    Route::post('admins/savePassword', array('as' => 'admins/savePassword', 'uses' => 'Admins@savePassword'));
+    Route::get('admins/permissions/{id}', array('as' => 'admins/permissions/', 'uses' => 'Admins@permissions'));
+    Route::post('admins/savePermissions', array('as' => 'admins/savePermissions', 'uses' => 'Admins@savePermissions'));
+    Route::get('admins/activity/{id}', array('as' => 'admins/activity/', 'uses' => 'Admins@activity'));
+    Route::get('admins/activitydata/{id}', array('as' => 'adminsactivitydata', 'uses' => 'Admins@getAdminActivity'));
+});
+
 Route::group(array('prefix' => 'hungryn137'), function () {
 
     Route::get('te_d', array('as' => 'te_d', 'uses' => 'Rest@te_d'));
@@ -396,9 +423,6 @@ Route::group(array('prefix' => 'hungryn137'), function () {
     //Route::post('get_data', array('as' => 'get_data', 'uses' => 'Rest@get_data'));
 
     Route::get('/', array('as' => 'adminhome', 'uses' => 'Dashboard@index'));
-    Route::get('/ownerhome', array('as' => 'ownerhome', 'uses' => 'Dashboard@ownerHome'));
-    Route::get('countrydashboard/{id}', array('as' => 'countrydashboard', 'uses' => 'Dashboard@countryDashboard'));
-    
     Route::post('adminsearch', array('as' => 'adminsearch', 'uses' => 'Dashboard@search'));
     Route::get('adminlogin', array('as' => 'adminlogin', 'uses' => 'Login@index'));
     Route::post('adminlogin', array('uses' => 'Login@postSubmit'));
@@ -582,18 +606,6 @@ Route::group(array('prefix' => 'hungryn137'), function () {
 
     Route::get('adminrestmanagers', array('as' => 'adminrestmanagers', 'uses' => 'Rest@emails'));
 
-    Route::get('admins', array('as' => 'admins', 'uses' => 'Admins@index'));
-    Route::get('admins/form', array('as' => 'admins/form', 'uses' => 'Admins@form'));
-    Route::get('admins/form/{id}', array('as' => 'admins/form/', 'uses' => 'Admins@form'));
-    Route::get('admins/status/{id}', array('as' => 'admins/status/', 'uses' => 'Admins@status'));
-    Route::get('admins/delete/{id}', array('as' => 'admins/delete/', 'uses' => 'Admins@delete'));
-    Route::post('admins/save', array('as' => 'admins/save', 'uses' => 'Admins@save'));
-    Route::get('admins/password/{id}', array('as' => 'admins/password/', 'uses' => 'Admins@password'));
-    Route::post('admins/savePassword', array('as' => 'admins/savePassword', 'uses' => 'Admins@savePassword'));
-    Route::get('admins/permissions/{id}', array('as' => 'admins/permissions/', 'uses' => 'Admins@permissions'));
-    Route::post('admins/savePermissions', array('as' => 'admins/savePermissions', 'uses' => 'Admins@savePermissions'));
-    Route::get('admins/activity/{id}', array('as' => 'admins/activity/', 'uses' => 'Admins@activity'));
-    Route::get('admins/activitydata/{id}', array('as' => 'adminsactivitydata', 'uses' => 'Admins@getAdminActivity'));
 
     Route::get('adminsettings/', array('as' => 'adminsettings', 'uses' => 'AdminSettings@index'));
     Route::post('adminsettings/save', array('as' => 'adminsettings/save', 'uses' => 'AdminSettings@save'));
@@ -701,13 +713,6 @@ Route::group(array('prefix' => 'hungryn137'), function () {
     Route::get('adminofferscategoires/status/{id}', array('as' => 'adminofferscategoires/status/', 'uses' => 'OfferCategories@status'));
     Route::get('adminofferscategoires/delete/{id}', array('as' => 'adminofferscategoires/delete/', 'uses' => 'OfferCategories@delete'));
 
-
-    Route::get('admincountry', array('as' => 'admincountry', 'uses' => 'CountryController@index'));
-    Route::get('admincountry/form', array('as' => 'admincountry/form', 'uses' => 'CountryController@form'));
-    Route::get('admincountry/form/{id}', array('as' => 'admincountry/form/', 'uses' => 'CountryController@form'));
-    Route::post('admincountry/save', array('as' => 'admincountry/save', 'uses' => 'CountryController@save'));
-    Route::get('admincountry/status/{id}', array('as' => 'admincountry/status/', 'uses' => 'CountryController@status'));
-    Route::get('admincountry/delete/{id}', array('as' => 'admincountry/delete/', 'uses' => 'CountryController@delete'));
 
     Route::get('admincity', array('as' => 'admincity', 'uses' => 'City@index'));
     Route::get('admincity/form', array('as' => 'admincity/form', 'uses' => 'City@form'));

@@ -1,6 +1,6 @@
 <?php
 
-class CountryController extends AdminController
+class CountryController extends OwnerBaseController
 {
 
     protected $MAdmins;
@@ -8,7 +8,6 @@ class CountryController extends AdminController
 
     public function __construct()
     {
-        parent::__construct();
         $this->MAdmins = new Admin();
         $this->MLocation = new MLocation();
     }
