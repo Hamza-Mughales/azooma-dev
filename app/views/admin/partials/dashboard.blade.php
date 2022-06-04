@@ -421,7 +421,7 @@
 {{-- Start Section --}}
 <div class="col-xl-6 xl-100 box-col-12 userActivities">
   <div class="widget-joins card widget-arrow">
-    <span class="h4 mt-3 px-3"><?= __('TRENDING USERS')?></span>
+    <span class="h4 mt-3 px-3"><?= __('USERS ACTIVITIES')?></span>
     <div class="row">
       
       <div class="col-sm-4 pe-0">
