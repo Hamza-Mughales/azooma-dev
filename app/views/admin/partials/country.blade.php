@@ -1,10 +1,10 @@
-@extends('admin.index')
+@extends('admin.owner.index')
 @section('content')
 
 <div class="overflow row">
     <div class="col-md-8">
         <ol class="breadcrumb">
-            <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
+            <li><a href="<?= route('ownerhome'); ?>">Dashboard</a></li>  
             <li class="active">{{ $title }}</li>
         </ol>
     </div>
@@ -63,8 +63,8 @@
                                     }*/
                                     ?>
                                     <a class="btn btn-xs btn-danger mytooltip  cofirm-delete-btn" href="#" link="{{ route('admincountry/delete/',$list->id) }}" title="Delete"><i data-feather="trash-2"></i></a>
-                                    <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincity',['country_id'=>$list->id]) }}" title="View Country Cities "><i data-feather="eye"></i></a>
-
+<!--                                     <a class="btn btn-xs btn-info mytooltip" href="{{ route('admincity',['country_id'=>$list->id]) }}" title="View Country Cities "><i data-feather="eye"></i></a>
+ -->
                                 </td>
                             </tr>
                             <?php

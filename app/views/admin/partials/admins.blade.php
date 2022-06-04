@@ -1,11 +1,11 @@
-@extends('admin.index')
+@extends('admin.owner.index')
 @section('content')
 
 
 <div class="overflow">
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="<?= route('adminhome'); ?>">Dashboard</a></li>  
+            <li><a href="<?= route('ownerhome'); ?>">Dashboard</a></li>  
             <li class="active">{{ $title }}</li>
         </ol>
     </div>
@@ -26,6 +26,7 @@
             <table id="data-table-one" class="table table-striped">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <?php
                         foreach ($headings as $key => $value) {
                             if ($value == 'Description') {
@@ -43,6 +44,7 @@
                 </thead>
                 <tbody>
                     <?php
+                    $i=1;
                     if (count($lists) > 0) {
                         $countries = Config::get('settings.countries');
                         foreach ($lists as $list) {
@@ -51,14 +53,16 @@
                             }
                             ?>
                             <tr>
+                                <td><?= $i++ ?></td>
                                 <td><?php echo stripslashes($list->fullname); ?></td>
+                                <td><?php echo stripslashes($list->user); ?></td>     
                                 <td><?php echo stripslashes($list->email); ?></td>     
                                 <td>
                                     <?php
                                     if ($list->country != 0) {
                                         echo $countries[$list->country];
                                     } else {
-                                        echo 'Unknow';
+                                        echo 'All';
                                     }
                                     ?>
                                 </td>
@@ -66,6 +70,8 @@
                                 <td class="Azooma-action">
                                     <a class="btn btn-xs btn-info m-1" href="{{ route('admins/form/',$list->id) }}" title="Edit {{ $title }}"><i data-feather="edit"></i></a>
                                     <?php
+                                    if ($list->id != 1) {
+                                        
                                     if ($list->status == 0) {
                                         ?>
                                         <a class="btn btn-xs btn-info m-1" href="{{ route('admins/status/',$list->id) }}" title="Activate "><i data-feather="minus-circle"></i></a>
@@ -74,18 +80,18 @@
                                         ?>
                                         <a class="btn btn-xs btn-info m-1" href="{{ route('admins/status/',$list->id) }}" title="Deactivate "><i data-feather="plus-circle"></i></a>
                                         <?php
-                                    }
+                                    } ?>
+                                    <a  class="btn btn-xs btn-danger m-1 cofirm-delete-button" href="#" link="{{ route('admins/delete/',$list->id) }}" title="Delete "><i data-feather="trash-2"></i></a>              
 
-                                    if ($list->admin == 0) {
-                                        ?>
+                                    <?php   }?>
+                                    
                                         <a class="btn btn-xs btn-info m-1" href="{{ route('admins/password/',$list->id) }}" title="Change Password"><i data-feather="lock"></i></a>
-                                        <a class="btn btn-xs btn-info m-1" href="{{ route('admins/permissions/',$list->id) }}" title="Update Permissions "><i data-feather="sliders"></i></a>
-                                    <?php } ?>
+<!--                                         <a class="btn btn-xs btn-info m-1" href="{{ route('admins/permissions/',$list->id) }}" title="Update Permissions "><i data-feather="sliders"></i></a>
+ -->                                
 
                                     <a class="btn btn-xs btn-info m-1" href="{{ route('admins/activity/',$list->id) }}" title="View All activities of {{ $list->fullname }}"><i data-feather="eye"></i></a>
 
 
-                                    <a  class="btn btn-xs btn-danger m-1 cofirm-delete-button" href="#" link="{{ route('admins/delete/',$list->id) }}" title="Delete "><i data-feather="trash-2"></i></a>              
 
                                 </td>
                             </tr>

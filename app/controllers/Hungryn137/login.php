@@ -47,7 +47,7 @@ class Login extends AdminController
         $username = Input::get('User');
         $password = Input::get('Password');
         $country_ID = Input::get('country_ID');
-        $user = Admin::where('user', '=', $username)->where('pass', '=', md5($password))->where('status', '=', 1)->where('country', '=', $country_ID)->first();
+        $user = Admin::where('user', '=', $username)->where('pass', '=', md5($password))->where('status', '=', 1)->first();
         if (!empty($user)) {
             if ($user->id != "" && $user->fullname != "") {
                 $settings = Config::get('settings.default');
@@ -56,13 +56,14 @@ class Login extends AdminController
                 Session::put('admincountryName', Str::slug($this->MGeneral->getAdminCountryName($user->country), '-', TRUE));
                 Session::put('adminid', $user->id);
                 Session::put('fullname', $user->fullname);
+                Session::put('username', $user->username);
                 Session::put('admin', $user->admin);
                 Session::put('permissions', $user->permissions);
                 Session::put('email', $user->email);
                 if (isset($_POST['remember_me']) && post('remember_me') == 'on') {
                     setcookie('remember_me_user_name', post('User'));
                     setcookie('remember_me_password', post('Password'));
-                    setcookie('remember_me_country_id', post('country_ID'));
+                    setcookie('remember_me_country_id', $user->country);
                     setcookie('remember_me', 'on');
                 } else {
                     setcookie('remember_me_user_name', null);
@@ -74,6 +75,9 @@ class Login extends AdminController
                     unset($_COOKIE['remember_me_country_id']);
                     unset($_COOKIE['remember_me']);
                 }
+                if($user->admin==1){
+                    return Redirect::route('ownerhome');
+                } 
                 return Redirect::route('adminhome');
             } else {
                 return Redirect::back()->with('message', "Some thing happen wrong, Please Try Again.")->withInput();

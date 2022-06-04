@@ -49,7 +49,7 @@
 
 
 <div class=" mb-2">
-  <span class="">You are in <span class="h4 text-start"><?= (MDashboard::getAdminCountry($country)) ? MDashboard::getAdminCountry($country)[0]->name : '' ;?> Dashboard</span></span>
+  <span class="">You are in <span class="h5 text-start"><?= (MDashboard::getAdminCountry($country)) ? MDashboard::getAdminCountry($country)[0]->name : '' ;?> Dashboard</span></span>
 </div>
 
 {{-- Start Section --}}
@@ -198,7 +198,7 @@
   </div>
   <div class="col-sm-6 col-lg-3">
     <a href="<?= URL::route('adminmembers'); ?>">
-      <div class="card o-hidden">
+      <div class="card o-hidden text-white">
         <div class="b-r-4 card-body" style="background-color: #f8d62b;">
           <div class="media static-top-widget">
             <div class="align-self-center text-center">
@@ -320,31 +320,31 @@
 
     <div class="card-body row py-4">
       <div class="col">
-        <a href="hungryn137/adminrestaurantsgroup">
+        <a class="text-dark" href="hungryn137/adminrestaurantsgroup">
           <h6><?= __('Group of Restaurants')?></h6>
           <h4 class="counter"><?= MDashboard::getTotalGroupofRestaurants($country); ?></h4>
         </a>
       </div>
       <div class="col">
-        <a href="hungryn137/adminrecipe">
+        <a class="text-dark" href="hungryn137/adminrecipe">
           <h6><?= __('Recipes')?></h6>
           <h4><span class="counter"><?= MDashboard::getTotalRecipes($country); ?></span></h4>
         </a>
       </div>
       <div class="col">
-        <a href="hungryn137/adminknownfor">
+        <a class="text-dark" href="hungryn137/adminknownfor">
           <h6><?= __('Known For')?></h6>
           <h4><span class="counter"><?= MDashboard::getTotalKnownFor($country); ?></span></h4>
         </a>
       </div>
       <div class="col">
-        <a href="hungryn137/adminsuggested">
+        <a class="text-dark" href="hungryn137/adminsuggested">
           <h6><?= __('Suggested')?></h6>
           <h4><span class="counter"><?= MDashboard::getTotalSuggested($country); ?></span></h4>
         </a>
       </div>
       <div class="col">
-        <a href="hungryn137/admingallery">
+        <a class="text-dark" href="hungryn137/admingallery">
           <h6><?= __('Photos Likes')?></h6>
           <h4><span class="counter"><?= MDashboard::getTotalPhotoLike($country); ?></span></h4>
         </a>

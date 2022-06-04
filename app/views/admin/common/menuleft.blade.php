@@ -18,7 +18,9 @@ if(!isset($side_menu)){
       <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
       <div id="sidebar-menu">
         <ul class="sidebar-links" id="simple-bar">
-            <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+            <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+         
+          </div>
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav <?=menu($side_menu,"home") ? "active":""?>" href="<?=url("hungryn137")?>"><i data-feather="home"></i><span><?=__('Dashboard')?></span></a></li>
           
@@ -54,9 +56,8 @@ if(!isset($side_menu)){
           
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Locations") ? "active":""?>" href="#"><i data-feather="map"></i> <span><?=__('Locations')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Locations") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Country List") ? "active":""?>" href="<?=url("hungryn137/admincountry")?>"><?=__('Country List')?></a></li>
-              <li><a class="<?=menu($side_menu,"City List") ? "active":""?>" href="<?=url("hungryn137/admincity")?>"><?=__('City List')?></a></li>
-              <li><a class="<?=menu($side_menu,"District List") ? "active":""?>" href="<?=url("hungryn137/admindistrict")?>"><?=__('District List')?></a></li>
+              <li><a class="<?=menu($side_menu,"City List") ? "active":""?>" href="<?=url("hungryn137/admincity")?>?country_id=<?=userCountry()?>"><?=__('City List')?></a></li>
+              <li><a class="<?=menu($side_menu,"District List") ? "active":""?>" href="<?=url("hungryn137/admindistrict")?>?country_id=<?=userCountry()?>"><?=__('District List')?></a></li>
               <li><a class="<?=menu($side_menu,"Locations List") ? "active":""?>" href="<?=url("hungryn137/adminlocations")?>"><?=__('Locations List')?></a></li>
             </ul>
           </li>
@@ -126,7 +127,6 @@ if(!isset($side_menu)){
 
           <li class="sidebar-list"><a class="sidebar-link sidebar-title <?=menu($side_menu,"Users") ? "active":""?>" href="#"><i data-feather="users"></i> <span><?=__('Users')?></span></a>
             <ul class="sidebar-submenu <?=menu($side_menu,"Users") ? "d-block":""?>">
-              <li><a class="<?=menu($side_menu,"Administrators") ? "active":""?>" href="<?= url('hungryn137/admins'); ?>"><?=__('Administrators')?></a></li>
               <li><a class="<?=menu($side_menu,"General Users") ? "active":""?>" href="<?= url('hungryn137/adminusers'); ?>"><?=__('General Users')?></a></li>
               {{-- <li><a class="<?=menu($side_menu,"Restaurant managers") ? "active":""?>" href="<?= url('hungryn137/adminrestmanagers'); ?>"><?=__('Restaurant managers')?></a></li> --}}
             </ul>

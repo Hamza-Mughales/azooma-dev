@@ -23,10 +23,8 @@ class Admin extends Eloquent
         if (isset($_POST['status'])) {
             $status = 1;
         }
-        $country = Session::get('admincountry');
-        if (empty($country)) {
-            $country = 1;
-        }
+        $country=post('admin')==1 ? 0 : post('country');
+   
         $data = array(
             'country' => $country,
             'fullname' => (Input::get('fullname')),
@@ -44,10 +42,8 @@ class Admin extends Eloquent
         if (isset($_POST['status'])) {
             $status = 1;
         }
-        $country = Session::get('admincountry');
-        if (empty($country)) {
-            $country = 1;
-        }
+        $country=post('admin')==1 ? 0 : post('country');
+   
 
         $data = array(
             'fullname' => (Input::get('fullname')),
