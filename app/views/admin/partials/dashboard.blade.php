@@ -636,7 +636,7 @@
         <?php if (isset($userLastActivity)) { 
           foreach($userLastActivity as $activity) { ?>
           <ul class="crm-activity">
-            <li class="media"><span class="me-3 font-primary"><?= substr($activity->activity, 0, 1) ?></span>
+            <li class="media"><span class="me-3 font-primary">.</span>
               <div class="align-self-center media-body">
                 <h6 class="mt-0  d-inline-block"><?= $activity->activity . ' ' . $activity->restName ?></h6> - 
                 <span class="h6 d-inline-block" style="font-size: 14px;font-weight:bold"><?= $activity->userName ?></span>

@@ -9,40 +9,49 @@ class MSphinx extends Eloquent{
     public static function getRestaurants($query="",$cityid=0,$ajax=false,$limit=15,$offset=0){
     	//SphinxSearch::resetSphinx();
     	$restaurants=$restaurantst=array();$total=0;
-    	$restaurantssp=SphinxSearch::search($query.'*', 'rest_db')->filter('city_ID', array($cityid))->limit($limit,$offset)->get();
-		if(!isset($restaurantssp['matches'])||(isset($restaurantssp['matches']))&&count($restaurantssp['matches'])<=0){
-			$restaurantssp=SphinxSearch::search($query, 'rest_db')->filter('city_ID', array($cityid))->limit($limit,$offset)->get();
-		}
-		if(isset($restaurantssp['matches'])&&count($restaurantssp['matches'])>0){
-			$total=$restaurantssp['total'];
-            foreach ($restaurantssp['matches'] as $match) {
-                $restaurantst[]=$match['attrs']['rest_id'];
-            }
-			$restaurantssp=join(',',$restaurantst);
-			if($ajax){
-				$restaurantq='SELECT rest_Name as name,rest_Name_ar as nameAr,CONCAT(seo_url,"#n") as url , rest_Logo FROM restaurant_info ri WHERE ri.rest_Status=1 AND ri.rest_ID IN ('.$restaurantssp.') ORDER BY FIELD(ri.rest_ID,'.$restaurantssp.') LIMIT 0,5';
-			}else{
-				$restaurantq= 'SELECT *, getCuisineName(t.id,"en") as cuisine, getCuisineName(t.id,"ar") as cuisineAr, getCoverPhoto(t.id) as thephoto, getRestaurantTel(t.id) as telephone,(SELECT name FROM rest_type WHERE rest_type.id=t.rest_type) as type, (SELECT nameAr FROM rest_type WHERE rest_type.id=t.rest_type) as typeAr, (SELECT COUNT(rest_ID) FROM menuall WHERE menuall.rest_ID=t.id ) as menu, (SELECT COUNT(br_id) FROM rest_branches WHERE rest_branches.rest_fk_id=t.id AND rest_branches.status=1 AND rest_branches.city_ID='.$cityid.') as branches, (SELECT COUNT(likee_info.id) FROM likee_info WHERE likee_info.rest_ID=t.id AND likee_info.status=1 AND comment_id IS NULL) as `like` FROM (SELECT rest_Name as name,rest_Name_ar as nameAr,seo_url as url,rest_ID as id,rest_Logo as logo,class_category,price_range,rest_type, sufrati_favourite FROM restaurant_info ri WHERE ri.rest_Status=1 AND ri.rest_ID IN ('.$restaurantssp.') ORDER BY FIELD(ri.rest_ID,'.$restaurantssp.') ) t';
-			}
-			$restaurants=DB::select($restaurantq);
-		}
+    	// $restaurantssp=SphinxSearch::search($query.'*', 'rest_db')->filter('city_ID', array($cityid))->limit($limit,$offset)->get();
+		// if(!isset($restaurantssp['matches'])||(isset($restaurantssp['matches']))&&count($restaurantssp['matches'])<=0){
+		// 	$restaurantssp=SphinxSearch::search($query, 'rest_db')->filter('city_ID', array($cityid))->limit($limit,$offset)->get();
+		// }
+		// if(isset($restaurantssp['matches'])&&count($restaurantssp['matches'])>0){
+		// 	$total=$restaurantssp['total'];
+        //     foreach ($restaurantssp['matches'] as $match) {
+        //         $restaurantst[]=$match['attrs']['rest_id'];
+        //     }
+		// 	$restaurantssp=join(',',$restaurantst);
+		// 	if($ajax){
+		// 		$restaurantq='SELECT rest_Name as name,rest_Name_ar as nameAr,CONCAT(seo_url,"#n") as url , rest_Logo FROM restaurant_info ri WHERE ri.rest_Status=1 AND ri.rest_ID IN ('.$restaurantssp.') ORDER BY FIELD(ri.rest_ID,'.$restaurantssp.') LIMIT 0,5';
+		// 	}else{
+		// 	}
+		// }
+		// dd($query);
+		$restaurantq= 
+		'SELECT *, getCuisineName(t.id,"en") as cuisine, getCuisineName(t.id,"ar") as cuisineAr, getCoverPhoto(t.id) as thephoto, getRestaurantTel(t.id) as telephone,
+		(SELECT name FROM rest_type WHERE rest_type.id=t.rest_type) as type, 
+		(SELECT nameAr FROM rest_type WHERE rest_type.id=t.rest_type) as typeAr, 
+		(SELECT COUNT(rest_ID) FROM menuall WHERE menuall.rest_ID=t.id ) as menu, 
+		(SELECT COUNT(br_id) FROM rest_branches WHERE rest_branches.rest_fk_id=t.id AND rest_branches.status=1 AND rest_branches.city_ID='.$cityid.') as branches, 
+		(SELECT COUNT(likee_info.id) FROM likee_info WHERE likee_info.rest_ID=t.id AND likee_info.status=1 AND comment_id IS NULL) as `like` FROM 
+		(SELECT rest_Name as name,rest_Name_ar as nameAr,seo_url as url,rest_ID as id,rest_Logo as logo,class_category,price_range,rest_type, sufrati_favourite 
+		FROM restaurant_info as ri WHERE ri.rest_Status=1 AND rest_Name LIKE "%'.$query.'%" OR rest_Name_ar LIKE "%'.$query.'%" LIMIT '.$limit.' OFFSET '.$offset.' ) as t';
+		$restaurants=DB::select($restaurantq);
 		$results=array('restaurants'=>$restaurants,'total'=>$total);
 		return $results;
     }
 
     public static function getSections($query="",$cityid=0,$ajax){
     	//SphinxSearch::resetSphinx();
-    	$sectionssp=SphinxSearch::search($query.'*', 'sections_db')->filter('city_ID', array($cityid))->get();
-		if(isset($sectionssp['matches'])&&count($sectionssp['matches'])>0){
-		}else{
-			$sectionssp=SphinxSearch::search($query, 'sections_db')->filter('city_ID', array($cityid))->get();
-		}
-		if(isset($sectionssp['matches'])&&count($sectionssp['matches'])>0){
-			$sectionssp=join(',',$sectionssp);
-			$sectionsq='SELECT name,nameAr,CONCAT(url,"#n") FROM sufrati_sections WHERE id IN ('.$sectionssp.') ORDER BY FIELD(id,'.$sectionssp.')';
+    	// $sectionssp=SphinxSearch::search($query.'*', 'sections_db')->filter('city_ID', array($cityid))->get();
+		// if(isset($sectionssp['matches'])&&count($sectionssp['matches'])>0){
+		// }else{
+		// 	$sectionssp=SphinxSearch::search($query, 'sections_db')->filter('city_ID', array($cityid))->get();
+		// }
+		// if(isset($sectionssp['matches'])&&count($sectionssp['matches'])>0){
+		// 	$sectionssp=join(',',$sectionssp);
+			$sectionsq='SELECT name,nameAr,CONCAT(url,"#n") FROM sufrati_sections WHERE name LIKE "%'.$query.'%" OR nameAr LIKE "%'.$query.'%" ';
 			$sections=DB::select($sectionsq);
 			return $sections;
-		}
+		// }
     }
 
 
