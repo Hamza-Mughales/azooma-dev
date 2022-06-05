@@ -29,6 +29,25 @@ class Dashboard extends AdminController
             $years_chart[] = $value->year;
         }
 
+        $restLastActivity = DB::table('rest_activity')
+        ->select(['rest_activity.*', 'restaurant_info.rest_Name as restName'])
+        ->join('restaurant_info', 'restaurant_info.rest_ID', '=', 'rest_activity.rest_ID')
+        ->where('rest_activity.country', adminCountry()[0])
+        ->orderBy('rest_activity.id', 'desc')
+        ->take(5)
+        ->get();
+        
+        $userLastActivity = DB::table('user_activity')
+        ->select('user_activity.*', 'restaurant_info.rest_Name as restName', 'user.user_FullName as userName')
+        ->join('restaurant_info', 'restaurant_info.rest_ID', '=', 'user_activity.rest_ID')
+        ->join('user', 'user.user_ID', '=', 'user_activity.user_ID')
+        ->where('user_activity.country', adminCountry()[0])
+        ->orderBy('user_activity.id', 'desc')
+        ->take(5)
+        ->get();
+        
+        // dd($userLastActivity);
+
         $data = array(
             'sitename' => $settings['name'],
             'pagetitle' => 'Dashboard',
@@ -37,6 +56,8 @@ class Dashboard extends AdminController
             'country' => $country,
             'settings' => $settings,
             'YearsChart' => $years_chart,
+            'restLastActivity' => $restLastActivity,
+            'userLastActivity' => $userLastActivity,
             'TotalVisits' => $this->visitors_chart()['TotalVisits'],
             'EnglishVisits' => $this->visitors_chart()['EnglishVisits'],
             'ArabicVisits' => $this->visitors_chart()['ArabicVisits'],

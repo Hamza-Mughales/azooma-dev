@@ -571,6 +571,90 @@
 </div>
 {{-- End Section --}}
 
+{{-- Start Activity Section --}}
+<div class="col-xl-6 col-lg-12 box-col-12">
+  <div>
+    <div class="card">
+
+      <div class="card-header">
+        <h5 class="text-uppercase">Recent Restaurant Activity</h5>
+        <div class="card-header-right">
+          <ul class="list-unstyled card-option">
+            <li><i class="fa fa-spin fa-cog"></i></li>
+            <li><i class="view-html fa fa-code"></i></li>
+            <li><i class="icofont icofont-maximize full-card"></i></li>
+            <li><i class="icofont icofont-minus minimize-card"></i></li>
+            <li><i class="icofont icofont-refresh reload-card"></i></li>
+            <li><i class="icofont icofont-error close-card"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <?php if (isset($restLastActivity)) { 
+          foreach($restLastActivity as $activity) { ?>
+          <ul class="crm-activity">
+            <li class="media"><span class="me-3 font-primary"><?= substr($activity->activity, 0, 1) ?></span>
+              <div class="align-self-center media-body">
+                <h6 class="mt-0 d-inline-block"><?= $activity->activity ?></h6> on 
+                <a href="<?php echo route("adminrestaurants/form/",$activity->rest_ID)?>">
+                  <span class="h6 d-inline-block" style="font-size: 18px"><?= $activity->restName ?></span>
+                </a>
+                <ul class="dates">
+                  <li><?= $activity->date_add ?></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+        <?php } } ?>      
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="col-xl-6 col-lg-12 box-col-12">
+  <div>
+    <div class="card">
+
+      <div class="card-header">
+        <h5 class="text-uppercase">Recent User Activity</h5>
+        <div class="card-header-right">
+          <ul class="list-unstyled card-option">
+            <li><i class="fa fa-spin fa-cog"></i></li>
+            <li><i class="view-html fa fa-code"></i></li>
+            <li><i class="icofont icofont-maximize full-card"></i></li>
+            <li><i class="icofont icofont-minus minimize-card"></i></li>
+            <li><i class="icofont icofont-refresh reload-card"></i></li>
+            <li><i class="icofont icofont-error close-card"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <?php if (isset($userLastActivity)) { 
+          foreach($userLastActivity as $activity) { ?>
+          <ul class="crm-activity">
+            <li class="media"><span class="me-3 font-primary"><?= substr($activity->activity, 0, 1) ?></span>
+              <div class="align-self-center media-body">
+                <h6 class="mt-0  d-inline-block"><?= $activity->activity . ' ' . $activity->restName ?></h6> - 
+                <span class="h6 d-inline-block" style="font-size: 14px;font-weight:bold"><?= $activity->userName ?></span>
+                <ul class="dates">
+                  <li><?= $activity->updated ?></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+        <?php } } ?>      
+      </div>
+
+    </div>
+  </div>
+</div>
+{{-- End Activity Section --}}
+
 {{-- Start Section --}}
   {{-- <div class="col-md-8">
     <div class="card">
