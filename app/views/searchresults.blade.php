@@ -133,7 +133,7 @@
                             <div class="spinner-grow spin-load mb-4" role="status" style="display: none;margin:0 auto; color:#EE5337">
                                 <span class="visually-hidden">Loading...</span>
                               </div>
-                            <button class="big-main-btn b-block load-more-rest mb-4" onclick="loadMoreRest()" style="width: 250px; margin:0 auto"><?php echo Lang::get('messages.load_more');?></button>
+                            <button class="big-main-btn b-block load-more-rest mb-4 d-none" onclick="loadMoreRest()" style="width: 250px; margin:0 auto"><?php echo Lang::get('messages.load_more');?></button>
                             
                 
                        
